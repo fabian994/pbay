@@ -1,0 +1,43 @@
+{% comment %} {% extends "layouts/menu.html"%} {% endcomment %}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Login</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    </head>
+    <body>
+        <form class="register-form" method="POST">
+            {% csrf_token %}
+            <div class="register-form__body">
+              <div class="register-form__column">
+                <div class="register-form__field">
+                  <label for="nombre"><p>Matricula:</p></label>
+                  {{ form.matricula }}
+                </div>
+                <div class="register-form__field">
+                  <label for="apellido_paterno"><p>nombre</p></label>
+                  {{ form.name }}
+                </div>
+                <div class="register-form__field">
+                  <label for="apellido_materno"><p>Edad</p></label>
+                  {{ form.age }}
+                </div>
+              </div>
+              
+            <button class="register-form__action" type="submit">Confirmar</button>
+          </form>
+
+      </body>
+    </html>
+{% endblock %}
+
+{% comment %} {{ form.matricula }}
+{{ form.name }}
+{{ form.age }} {% endcomment %}
