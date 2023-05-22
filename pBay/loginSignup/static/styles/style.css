@@ -13,6 +13,14 @@
 
 .Container{
     margin: 0 auto;
-    width: 50%;
+    width: 35%;
 
 }
+
+.ContainerImage{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

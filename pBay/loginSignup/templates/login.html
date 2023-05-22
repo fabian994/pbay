@@ -22,11 +22,20 @@
     </head>
     <body>
         <main >
+            <figure class ="ContainerImage">
+                <img 
+                src="{% static 'assets/pbay_bgblank.png' %}" 
+                alt="Logo"/>
+            </figure>
             <h1 class = "text-center Title">Inicio de sesion</h1>
-            <h2 class = "text-center Subtitle">Ingresa tu correo electronico y contraseña</h2> 
+            <h4 class = "text-center Subtitle">Ingresa tu correo electronico y contraseña</h4> 
             <div class ="Container">
-                <h3 class = "text-left Description">Correo</h3> 
-                <h3 class = "text-left Description">Contraseña</h3> 
+                <label for="campo1" class="form-label">Correo Electronico</label>
+                <input type="text" class="form-control" id="campo1">
+                <label for="campo2" class="form-label">Correo Electronico</label>
+                <input type="text" class="form-control" id="campo2">
+                <br>
+                <button class="btn btn-primary rounded w-100">Ingresar</button> 
             </div>
             
         </main>
