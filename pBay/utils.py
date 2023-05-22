@@ -5,16 +5,18 @@ import firebase_admin
 from firebase_admin import credentials
  
 # Importo el Servicio Firebase Realtime Database 
-from firebase_admin import db
+from firebase_admin import firestore
 
-def fb_connection(data):
+def firestore_connection(col):
     try:
         app = firebase_admin.get_app()
-        # Iniciamos los servicios de Firebase con las credenciales y el nombre de mi proyecto en Firebase 
+       
     except ValueError as e:
         cred = credentials.Certificate('./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
-        firebase_admin.initialize_app(cred, { 'databaseURL':'https://pbay-733d6-default-rtdb.firebaseio.com/'})
-		# Accedo a la base de datos, específicamente a la tabla 'postres' 
-    ref = db.reference(data) 
+        #firebase_admin.initialize_app(cred, { 'databaseURL':'https://pbay-733d6-default-rtdb.firebaseio.com/'})
+        firebase_admin.initialize_app(cred)
+        
+    db=firestore.client()
+    ref = db.collection(col) 
     return ref
 	#print(ref.get())

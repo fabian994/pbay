@@ -8,7 +8,7 @@ from django.views.generic import View
  
 # # Importo el Servicio Firebase Realtime Database 
 # from firebase_admin import db
-from utils import fb_connection
+from utils import firestore_connection
 def home(request):
     # try:
     #     app = firebase_admin.get_app()
@@ -19,12 +19,14 @@ def home(request):
 	# 	# Accedo a la base de datos, específicamente a la tabla 'postres' 
     # ref = db.reference('data') 
 	# #print(ref.get())
-    ref = fb_connection('data')
- 
-	# Llamo los datos que se encuentran en la tabla 'postres' 
-    datos = ref.get()
-	# day = database.child('Data').child('Day').get().val()
-	# id = database.child('Data').child('Id').get().val()
-	# projectname = database.child('Data').child('pname').get().val()
-    #print(datos)
+    ref = firestore_connection('sample')
+    docs = ref.get()
+    datos = {}
+    for doc in docs:
+        #doc.to_dict()
+        print(doc.to_dict())
+        print(doc.id)
+        datos[doc.id] = doc.to_dict()
+        print('dict\n',datos)
+    print(datos)
     return render(request, "Home.html",{'datos':datos})
