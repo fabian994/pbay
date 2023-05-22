@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sample Project</title>
+</head>
+<body>
+	<table class="table table-striped table-hover">
+		<thead>
+		   <tr>
+			  <th width="35%">day</th>
+			  <th>id</th>
+			  <th>pname</th>
+		   </tr>
+		</thead>
+		<tbody>
+		   {% for item in datos %}
+		   <tr>
+			  <td>{{ item.day }}</td>
+			  <td>{{ item.id }}</td>
+			  <td>{{ item.pname }}</td>
+		   </tr>
+		   {% endfor %}
+		</tbody>
+	 </table>
+	{{datos}}
+</body>
+</html>

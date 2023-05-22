@@ -1,1 +1,3 @@
-Django
+pip install Django
+pip install requests-toolbelt==0.10.1
+pip install firebase-admin
