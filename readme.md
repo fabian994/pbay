@@ -1,5 +1,5 @@
 Python 3.10.9
-instalar librerias ´pip3 install -r requierements.txt´
+instalar librerias ´pip3 install -r requirements.txt´
 
 Django                       4.1.7
 django-bootstrap-icons       0.8.3
