@@ -1,0 +1,103 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      body {
+        background-color: white;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 24px;
+        font-weight: 300;
+        margin-bottom: 20px;
+        margin-top: 40px;
+      }
+      .container {
+        margin: 0 auto;
+        width: fit-content;
+        text-align: left;
+      }
+      .container2 {
+          margin: 50px;
+          margin-left: 300px;
+          width: 300px;
+          text-align: left;
+      }
+      label {
+        display: block;
+        margin-top: 30px;
+      }
+      select, input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .input-container {
+        display: flex;
+        align-items: center;
+        min-width: 200px; /* Ajusta el ancho mínimo deseado */
+      }
+      .input-container label {
+        flex-basis: 180px;
+        white-space: nowrap;
+      }
+      .buttons {
+        display: flex;
+        gap: 200px;
+        justify-content: space-between;
+        margin-top: 50px;
+      }
+      .cancel-button, .continue-button {
+        flex-basis: 200px;
+        height: 40px;
+        padding: 0px 100px;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+      .cancel-button {
+        background-color: red;
+      }
+      .continue-button {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Subastas</h1>
+    <div class="container2">
+      <div class="input-container">
+        <label for="duration">Duración:</label>
+        <select id="duration">
+          <option value="5">5 días</option>
+          <option value="7">7 días</option>
+          <option value="10">10 días</option>
+        </select>
+      </div>
+      <div class="input-container">
+        <label for="initial-offer">Oferta inicial:</label>
+        <input type="number" id="initial-offer">
+      </div>
+      <div class="input-container">
+        <label for="min-offer">Oferta mínima:</label>
+        <input type="number" id="min-offer">
+      </div>
+    </div>
+    <div class="container">
+      <div class="buttons">
+          <button class="cancel-button">Cancelar</button>
+          <button class="continue-button">Continuar</button>
+      </div>
+    </div>
+  </body>
+  </html>
+{% endblock %}

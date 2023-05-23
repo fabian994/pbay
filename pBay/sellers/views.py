@@ -16,3 +16,7 @@ def detalles_producto(request):
 
 def historial_pagos(request):
     return render(request, "Payment_Details_Seller.html")
+
+def subastas(request):
+    return render(request, "subastas.html")
+
