@@ -13,7 +13,7 @@
 .my_container {
   width: 100%;
   max-width: 960px;
-  padding: 1rem;
+  margin: 1rem auto;
 }
 
 .square {
