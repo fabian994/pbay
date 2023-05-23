@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sample',
     'loginSignup',
     'buyers',
+    'sellers',
     'bootstrap5',
     'jquery',
     'crispy_forms',
