@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'jquery',
     'crispy_forms',
     'crispy_bootstrap5',
+    'pyrebase',
 ]
 
 MIDDLEWARE = [

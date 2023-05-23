@@ -5,11 +5,9 @@ from utils import LogIn_Firebase
 
 # Create your views here.
 def home(request):
-    print("Algo")
     form = MiFormulario()
     context = {"form": form, "title": "Login"}
     if request.method=='POST':
-        print("Hola2")
         form = MiFormulario(request.POST)
         context = {"form": form, "title": "Login"}
         if form.is_valid():
@@ -19,11 +17,17 @@ def home(request):
             Contra= data["campo2"]
             result =LogIn_Firebase(Correo, Contra)
             if result == False:
+                print("False")
                 return render(request, 'login.html', context)
             else:
-                print(result)
+                print("True")
+                context= {'usuario': result, 'id': result['localId']}
+                return render(request, "log.html", context)
     return render(request, "login.html", context)
-
+    
+def log(request):
+    return render(request, "log.html")
+    
 
 
 

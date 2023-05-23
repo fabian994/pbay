@@ -26,7 +26,8 @@ database=firebase.database()
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
-        return(user["localId"])
+        #return(user["localId"])
+        return(user)
     except:
         print("Error")
     return False
