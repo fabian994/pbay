@@ -1,0 +1,28 @@
+paddingizq{
+    padding-left: 35px;
+}
+
+.cointainerProduct {
+    margin: 30px;
+    padding: 10px;
+    border: 2px solid #e8e8e8;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.column1 {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column2 {
+    flex: 3;
+    padding: 10px;
+}
+
+.imgproduct{
+    max-width: 200px;
+}

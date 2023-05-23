@@ -1,0 +1,111 @@
+% include "layouts/header.html"%}
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Product Details - pbay </title>
+      <link rel="stylesheet" href="{% static 'styles/PDS.css' %}" />
+    </head>
+    <body>
+      <main >
+        <h1 class = "text-center Title">Product Details - pbay </h1>
+
+        <div class="paddingizq dropdown show" >
+          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filtrar por:
+          </h4>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Producto</a>
+            <a class="dropdown-item" href="#">Categoria</a>
+            <!--
+            <a class="dropdown-item" href="#">dir3</a>
+            -->
+        </div>
+        </div>
+
+        <!--
+        <div class= "paddingizq dropdown show" >
+
+          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filtrar :
+          </h4>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">dir1</a>
+            <a class="dropdown-item" href="#">dir2</a>
+            <a class="dropdown-item" href="#">dir3</a>
+          </div>
+        </div>
+        -->
+
+        <div class= "cointainerProduct">
+          <div class = "column1">
+            <figure class ="ContainerImage">
+              <img class = "imgproduct"
+              src="{% static 'assets/jefemaestro.jpg' %}" 
+              alt="Logo"/>
+          </figure>
+          </div>
+          <div class = "column2">
+            <h2> Producto </h2>
+            <h4> Categoria: </h4>
+            <h4> Detalles: </h4>
+            <br>
+            <h4> Costo: </h4>
+            <h4> Existencia: </h4>
+            
+
+          </div>
+        </div>
+
+        <div class= "cointainerProduct">
+          <div class = "column1">
+            <figure class ="ContainerImage">
+              <img class = "imgproduct"
+              src="{% static 'assets/jefemaestro.jpg' %}"  
+              alt="Logo"/>
+          </figure>
+          </div>
+          <div class = "column2">
+            <h2> Producto </h2>
+            <h4> Categoria: </h4>
+            <h4> Detalles: </h4>
+            <br>
+            <h4> Costo: </h4>
+            <h4> Existencia: </h4>
+
+          </div>
+        </div>
+
+        <div class= "cointainerProduct">
+          <div class = "column1">
+            <figure class ="ContainerImage">
+              <img class = "imgproduct"
+              src="{% static 'assets/jefemaestro.jpg' %}"  
+              alt="Logo"/>
+          </figure>
+          </div>
+          <div class = "column2">
+            <h2> Producto </h2>
+            <h4> Categoria: </h4>
+            <h4> Detalles: </h4>
+            <br>
+            <h4> Costo: </h4>
+            <h4> Existencia: </h4>
+          </div>
+        </div>
+
+
+
+
+      </main>
+
+      </body>
+    </html>
+{% endblock %}
