@@ -1,0 +1,107 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href = "{% static 'styles/menu.css' %}" rel = "stylesheet">
+    <link href = "{% static 'styles/icons/fonts.css' %}" rel = "stylesheet">
+
+    {% block jquery %}
+
+    <script src = "{% static 'scripts/jquery-latest.js' %}"></script>
+    <script src = "{% static 'scripts/encabezado.js' %}"></script>
+
+    {% endblock %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+</head>
+<body>
+
+    <header class = "menu">
+        
+        <nav class="navbar navbar-white bg-light pb-0 pt-1 flex-grow-1 justify-content-evenly">
+            <ul class="mx-10">
+                <li class="mx-5"><a href = "#" class='pb-0 pt-1'> <div> <img src = "{% static 'assets/pbay_bgblank_small.png' %}"> </div> </a></li>
+                <li class="mx-5"><form class="form-inline" id = 'searchBarForm'>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
+                      <div class="input-group-prepend">
+                        <a href = "{% url 'home' %} " class='py-0 pt-1'><span class = "icon-search"></span></a>
+                      </div>
+                    </div>
+                  </form>
+                </li>
+                <li class="mx-5"><a href = "{% url 'home' %}" class='pb-0 pt-1'><span class = "icon-bell-o"></span></a></li>
+                <li class="mx-5"><a href = "{% url 'home' %}" class='pb-0 pt-1'><span class = "icon-shopping-cart"></span></a></li>
+            </ul>
+        </nav>
+        <nav class="navbar navbar-white bg-light border-bottom border-dark py-0 flex-grow-1 justify-content-evenly">
+            <ul>
+                <li class="nav-item dropdown mx-5"> <!-- direcciones -->
+                    <div class="dropdown show">
+                        <a class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Enviar a:
+                        </a>
+                      
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="#">dir1</a>
+                          <a class="dropdown-item" href="#">dir2</a>
+                          <a class="dropdown-item" href="#">dir3</a>
+                        </div>
+                      </div>
+                </li>
+                <li class="nav-item dropdown mx-5"> <!-- Categorias -->
+                    <div class="dropdown show">
+                        <a class="nav-link dropdown-toggle text-secondary py-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categorias
+                        </a>
+                      
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="#">Cat1</a>
+                          <a class="dropdown-item" href="#">Cat2</a>
+                          <a class="dropdown-item" href="#">Cat3</a>
+                        </div>
+                      </div>
+                </li>
+                <li class="nav-item dropdown mx-5"> <!-- Lista de deseos -->
+                    <div class="dropdown show">
+                        <a class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Lista de deseos
+                        </a>
+                      
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="#">Crear Lista</a>
+                          <a class="dropdown-item" href="#">Lista 1</a>
+                          <a class="dropdown-item" href="#">Lista 2</a>
+                        </div>
+                      </div>
+                </li>
+                <li class="nav-item dropdown mx-5"> <!-- Mi Cuenta -->
+                    <div class="dropdown show">
+                        <a class="nav-link dropdown-toggle text-secondary py-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Mi Cuenta
+                        </a>
+                      
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="#">Mi Cuenta</a>
+                          <a class="dropdown-item" href="#">Mis Pedidos</a>
+                          <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                        </div>
+                      </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    {% block content %}
+    {% endblock %}
+
+
+</body>
+</html>

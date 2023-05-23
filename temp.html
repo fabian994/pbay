@@ -1,4 +1,4 @@
-{% comment %} {% extends "layouts/menu.html"%} {% endcomment %}
+{% include "layouts/header.html"%}
 
 {% block content %}
 
@@ -11,17 +11,10 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Login</title>
       <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
-      {% load bootstrap5 %}
-      {% bootstrap_css %}
-      {% bootstrap_javascript %}
     </head>
     <body>
         
 
-      </body>
+    </body>
     </html>
 {% endblock %}
-
-{% comment %} {{ form.matricula }}
-{{ form.name }}
-{{ form.age }} {% endcomment %}

@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a:hover {
+    color: #FFFFFF;
+}
+
+ul {
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.menu_bar{
+    display: none;
+}
+
+header #img_banner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+}
+
+
+header{
+    width: 100%;
+    background-color: #FFFFFF;
+    /* background-image: url("https://www.transparenttextures.com/patterns/maze-black.png"); */
+}
+
+header nav{
+    background-color: #FFFFFF;
+    /* background-image: url("https://www.transparenttextures.com/patterns/maze-black.png"); */
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li{
+    display: inline-flex;
+    font-size: 14pt;
+    border-radius: 14px;
+    transition: background .3s ease;
+}
+
+
+header nav ul li:hover{
+    outline: none !important;
+    box-shadow: none;
+    background: #c7c7c7;
+    border-radius: 14px;
+    transition: background .3s ease;
+    
+}
+
+header nav ul li a{
+    color: #000000;
+    display: block;
+    text-decoration: none;
+    padding: 20px;
+}
+
+
+header nav ul li a span{
+    margin-right: 10px;
+}
+
+header nav ul li:hover .children{
+    display: block;
+}
+
+header nav ul li .children{
+    display: none;
+    border-radius: 14px;
+    background: #000000;
+    position: absolute;
+    width: 150%;
+    z-index: 10000;
+}
+
+header nav ul li .children li{
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255 255 255 .5);
+}
+
+header nav ul li .children li:hover{
+    background: #130bfc;
+}
+
+header nav ul li .children li a{
+    display: block;
+    font-size: 12pt;
+}
+
+header nav ul li .children li a span{
+    float: right;
+    position: relative;
+    top: 3px;
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+header nav ul li .slide_icon{
+    position: relative;
+    top: 3px;
+    margin-left: 10px;
+    margin-right: 0px;
+}
