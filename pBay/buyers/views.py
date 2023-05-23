@@ -7,3 +7,6 @@ def pedidos(request):
 def details(request):
     return render(request, "Product_Details.html")
 
+def auction(request):
+    return render(request, "Auction_Details.html")
+
