@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .form import *
-from utils import LogIn_Firebase, signUp_Firebase, firestore_connection
-
+from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, firebaseStorage
+from datetime import datetime
 
 # Create your views here.
 def home(request):
@@ -42,7 +42,7 @@ def signUp(request):
     print(request)
     if request.method=='POST':
         print('enter req')
-        form = signUpForm(request.POST)
+        form = signUpForm(request.POST, request.FILES)
         context = {"form": form, "title": "signup"}
         print(form.is_valid())
         print(form.errors)
@@ -57,18 +57,24 @@ def signUp(request):
                 return render(request, 'signup.html', context)
             else:
                 print("True")
-                uid = result['localId']
-                idtoken = request.session['uid']
-                print(uid)
-                uData = {'name': data['name'], 'lastNames':data['lastNames'],  'birthDate': data['birthDate'],
-                         'curp': data['curp'], 'oficial_id': uid, 'directions': [data['direction1']],
-                         'country': data['country'], 'city': data['city'], 'state': data['state'],
-                         'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail']}
-                ref = firestore_connection('users')
-                ref.document(uid).set(uData)
+                try:
+                    uid = result['localId']
+                    #idtoken = request.session['uid']
+                    print(uid)
+                    date = data['birthDate']
+                    date_time = date.strftime("%m/%d/%Y")
+                    uData = {'name': data['name'], 'lastNames':data['lastNames'],  'birthDate': date_time,
+                            'curp': data['curp'], 'oficial_id': uid, 'directions': [data['direction1']],
+                            'country': data['country'], 'city': data['city'], 'state': data['state'],
+                            'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail']}
+                    ref = firestore_connection('users')
+                    ref.document(uid).set(uData)
 
-                context= {'usuario': result, 'id': result['localId']}
-                return render(request, "signup.html", context)
+                    #fileStorage = firebaseStorage(uid).put(request.FILES["official_id"])
+                    context= {'usuario': result, 'id': result['localId']}
+                    return render(request, "signup.html", context)
+                except:
+                    print('failed create')
         print('not valid')
     print('fail')
     return render(request, "signup.html", context)

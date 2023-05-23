@@ -22,7 +22,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 database=firebase.database()
-
+storage = firebase.storage()
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
@@ -54,3 +54,19 @@ def firestore_connection(col):
     ref = db.collection(col) 
     return ref
 	#print(ref.get())
+
+def firebaseStorage(c_bucket):
+    # try:
+    #     app = firebase_admin.get_app()
+       
+    # except ValueError as e:
+    #     cred = credentials.Certificate('./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
+    #     #firebase_admin.initialize_app(cred, { 'databaseURL':'https://pbay-733d6-default-rtdb.firebaseio.com/'})
+    #     #gs://pbay-733d6.appspot.com/
+    #     firebase_admin.initialize_app(cred, {
+    #         'storageBucket': 'gs://pbay-733d6.appspot.com'
+    #     })
+    bucket = storage.child(c_bucket).child('user_id')
+    return bucket
+
+
