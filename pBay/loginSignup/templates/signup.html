@@ -9,8 +9,8 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Login</title>
-      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      <title>signup</title>
+      <link rel="stylesheet" href="{% static 'styles/signup.css' %}" />
       
     </head>
     <body>
@@ -20,20 +20,62 @@
                 src="{% static 'assets/pbay_bgblank.png' %}" 
                 alt="Logo"/>
             </figure>
-            <h1 class = "text-center Title">Inicio de sesion</h1>
-            <br>
-            <h4 class = "text-center Subtitle">Ingresa tu correo electronico y contraseña</h4>
+            <h1 class = "text-center Title">Crea una cuenta</h1>
+            
             <br>
             <form class="register-form" method="POST"> 
                 {% csrf_token %}
                 <div class ="Container">
-                    <label for="campo1" class="form-label">Correo Electronico</label>
-                    {{ form.campo1 }}
+                    <label for="campo1" class="form-label">Nombre</label>
+                    {{ form.name }}
+                    <br>
+                    <label for="campo2" class="form-label">Apellido(s)</label>
+                    {{ form.lastNames }}
+                    <br>
+                    <label for="campo2" class="form-label">Fecha de Nacimiento</label>
+                    {{ form.birthDate }}
+                    <br>
+                    <label for="campo2" class="form-label">CURP (sólo residentes legales de México)</label>
+                    {{ form.curp }}
+                    <br>
+                    <label for="campo2" class="form-label">Direccion</label>
+                    {{ form.direction1 }}
+                    <br>
+                    <label for="campo2" class="form-label">País</label>
+                    {{ form.country }}
+                    <br>
+                    <label for="campo2" class="form-label">Ciudad</label>
+                    {{ form.city }}
+                    <br>
+                    <label for="campo2" class="form-label">Estado</label>
+                    {{ form.state }}
+                    <br>
+                    <label for="campo2" class="form-label">Codigo Postal</label>
+                    {{ form.postalCode }}
+                    <br>
+                    <label for="campo2" class="form-label">Número Telefónico</label>
+                    {{ form.phoneNumber }}
+                    <br>
+                    <label for="campo2" class="form-label">Correo Electronico</label>
+                    {{ form.mail }}
+                    <br>
+                    <label for="campo2" class="form-label">Confirmar Correo Electronico</label>
+                    {{ form.c_mail }}
                     <br>
                     <label for="campo2" class="form-label">Contraseña</label>
-                    {{ form.campo2 }}
+                    La contraseña debe cumplir con los siguientes parámetros:
+                    Mínimo 8 caracteres 
+                    Al menos una letra minúscula 
+                    Al menos una letra mayúscula 
+                    Al menos un número 
+                    Al menos un caracter no alfanúmerico
+                    {{ form.password }}
                     <br>
-                    <button class="btn-primary rounded w-100" type="submit">Ingresar</button>
+                    <label for="campo2" class="form-label">Confirmar Contraseña</label>
+                    {{ form.c_password }}
+                    <br>
+                    <p>Al crear una cuenta, aceptas nuestras Condiciones de Uso y admites haber leido nuestro el Aviso de Privacidad. </p>
+                    <button class="btn-primary rounded w-100" type="submit">Registrarse</button>
                 </div>
             </form>
         </main>

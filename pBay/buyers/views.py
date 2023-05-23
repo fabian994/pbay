@@ -4,3 +4,9 @@ from django.shortcuts import render
 def pedidos(request):
     return render(request, "pedidos.html")
 
+def details(request):
+    return render(request, "Product_Details.html")
+
+def auction(request):
+    return render(request, "Auction_Details.html")
+

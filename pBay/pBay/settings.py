@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'loginSignup',
     'buyers',
     'sellers',
+    'shopping_cart',
     'bootstrap5',
     'jquery',
     'crispy_forms',

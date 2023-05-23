@@ -1,0 +1,26 @@
+.Title{
+    font-weight: bold;
+}
+
+.Subtitle{
+    font-weight: lighter;
+}
+
+.Description{
+    font-weight: bold;
+    
+}
+
+.Container{
+    margin: 0 auto;
+    width: 35%;
+
+}
+
+.ContainerImage{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

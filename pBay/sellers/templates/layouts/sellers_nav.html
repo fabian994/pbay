@@ -1,0 +1,18 @@
+{% block content %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="{% static 'styles/sellers_nav.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="sellers_nav">
+      <p class="sellers_nav_item">Mis Ventas</p>
+      <p class="sellers_nav_item">Mis Productos</p>
+    </div>
+  </body>
+</html>
+{% endblock %}
