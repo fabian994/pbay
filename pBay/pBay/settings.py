@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sample',
     'loginSignup',
+    'buyers',
+    'sellers',
     'bootstrap5',
     'jquery',
     'crispy_forms',

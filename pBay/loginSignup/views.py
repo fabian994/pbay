@@ -27,6 +27,10 @@ def home(request):
     
 def log(request):
     return render(request, "log.html")
+
+def signUp(request):
+    print('2')
+    return render(request, "signup.html")
     
 
 

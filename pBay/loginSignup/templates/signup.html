@@ -1,0 +1,42 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Login</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      
+    </head>
+    <body>
+        <main >
+            <figure class ="ContainerImage">
+                <img 
+                src="{% static 'assets/pbay_bgblank.png' %}" 
+                alt="Logo"/>
+            </figure>
+            <h1 class = "text-center Title">Inicio de sesion</h1>
+            <br>
+            <h4 class = "text-center Subtitle">Ingresa tu correo electronico y contraseña</h4>
+            <br>
+            <form class="register-form" method="POST"> 
+                {% csrf_token %}
+                <div class ="Container">
+                    <label for="campo1" class="form-label">Correo Electronico</label>
+                    {{ form.campo1 }}
+                    <br>
+                    <label for="campo2" class="form-label">Contraseña</label>
+                    {{ form.campo2 }}
+                    <br>
+                    <button class="btn-primary rounded w-100" type="submit">Ingresar</button>
+                </div>
+            </form>
+        </main>
+      </body>
+    </html>
+{% endblock %}
