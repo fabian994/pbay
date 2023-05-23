@@ -30,7 +30,6 @@ def log(request):
     
 
 
-
 # def LogIn_Firebase(Email, Password):
 #     config = {
 #     "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",

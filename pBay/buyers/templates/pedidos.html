@@ -1,0 +1,50 @@
+{% include "layouts/header.html"%}
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Mis Productos</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    </head>
+    <body>
+      <main >
+        <h1 class = "text-center Title">Mis Productos</h1>
+
+        <div class="dropdown show" style= "padding-left: 25px;">
+          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ordenar por :
+          </h4>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">dir1</a>
+            <a class="dropdown-item" href="#">dir2</a>
+            <a class="dropdown-item" href="#">dir3</a>
+          </div>
+        </div>
+
+        <div class="dropdown show" style= "padding-left: 25px;">
+
+          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filtrar :
+          </h4>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">dir1</a>
+            <a class="dropdown-item" href="#">dir2</a>
+            <a class="dropdown-item" href="#">dir3</a>
+          </div>
+        </div>
+
+
+
+
+      </main>
+
+      </body>
+    </html>
+{% endblock %}
