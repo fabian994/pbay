@@ -9,3 +9,6 @@ def historial_ventas(request):
 
 def historial_pagos_detalle(request):
     return render(request, "historial_pagos_detalle.html")
+
+def subastas(request):
+    return render(request, "subastas.html")
