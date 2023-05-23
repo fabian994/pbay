@@ -58,7 +58,7 @@ def signUp(request):
             else:
                 print("True")
                 uid = result['localId']
-                idtoken = request.session['uid']
+                #idtoken = request.session['uid']
                 print(uid)
                 uData = {'name': data['name'], 'lastNames':data['lastNames'],  'birthDate': data['birthDate'],
                          'curp': data['curp'], 'oficial_id': uid, 'directions': [data['direction1']],
