@@ -1,0 +1,63 @@
+{% include "layouts/header.html"%}
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Detalles de la subasta</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+    </head>
+      <body>
+        <!-- Navigacion-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container px-4 px-lg-5"></div>
+        </nav>
+        <!-- Producto-->
+        <section class="py-5">
+          <div class="container px-4 px-lg-5 my-5">
+            <div class="d-flex flex-row-reverse">
+                <h3 style="color: red;"> Subasta </h3>
+            </div>
+        
+            <div class="float-end">
+              <br>
+              <button class="btn btn-primary flex-shrink-0"" type="button">
+                <i class="me-1"></i>
+                Nueva oferta
+              </button>
+            </div>
+            <div class="row gx-4 gx-lg-5 align-items-left">
+              <div class="col-md-4"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/400x500/dee2e6/6c757d.jpg" alt="..." /></div>
+                <div class="col-md-6">
+                  <h3 class="display-6 fw-bolder">Producto Ejemplo 2</h3>
+                  <p class="lead">Esta es la descripción del producto<br> Esta es la descripción del producto <br>Esta es la descripción del producto <br> </p>
+                  <div class="fs-4 mb-4">
+                    <span> Oferta: </span>
+                    <span class="lead" style="color: blue;""><strong>$1000.00</strong></span>
+                  </div>
+                  <div d-flex-row>
+                    <span class="lead"> Estado: </span>
+                    <span class="lead" ><strong>Nuevo</strong></span>
+                  </div>
+                  <div class="fs-5 mb-5">
+                    <span style="color: green;">Aun quedan</span>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </section>
+      
+        <!-- Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- JS-->
+        script src="js/scripts.js"></script>
+      </body>
+    </html>
+{% endblock %}

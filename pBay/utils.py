@@ -32,7 +32,14 @@ def LogIn_Firebase(Correo, Contra):
         print("Error")
     return False
 
-    
+def signUp_Firebase(Correo, Contra):
+    try:
+        user = auth.create_user_with_email_and_password(Correo, Contra)
+        #return(user["localId"])
+        return(user)
+    except:
+        print("Error")
+    return False
     
 def firestore_connection(col):
     try:

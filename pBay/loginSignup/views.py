@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .form import MiFormulario
-from utils import LogIn_Firebase
+from .form import *
+from utils import LogIn_Firebase, signUp_Firebase, firestore_connection
 
 
 # Create your views here.
@@ -18,19 +18,60 @@ def home(request):
             result =LogIn_Firebase(Correo, Contra)
             if result == False:
                 print("False")
+                div_content = 'Error en contraseña o correo'
+                context['div_content'] = div_content
                 return render(request, 'login.html', context)
             else:
                 print("True")
                 context= {'usuario': result, 'id': result['localId']}
                 return render(request, "log.html", context)
+        else:
+            div_content = 'Error forma invalida, verifica el correo'
+            context['div_content'] = div_content
+            return render(request, 'login.html', context)
+            
     return render(request, "login.html", context)
     
 def log(request):
     return render(request, "log.html")
 
 def signUp(request):
-    print('2')
-    return render(request, "signup.html")
+    print('enter signup')
+    form = signUpForm()
+    context = {"form": form, "title": "signup"}
+    print(request)
+    if request.method=='POST':
+        print('enter req')
+        form = signUpForm(request.POST)
+        context = {"form": form, "title": "signup"}
+        print(form.is_valid())
+        print(form.errors)
+        if form.is_valid():
+            print("Form valid")
+            data = form.cleaned_data
+            Correo= data["mail"]
+            Contra= data["password"]
+            result =signUp_Firebase(Correo, Contra)
+            if result == False:
+                print("False")
+                return render(request, 'signup.html', context)
+            else:
+                print("True")
+                uid = result['localId']
+                idtoken = request.session['uid']
+                print(uid)
+                uData = {'name': data['name'], 'lastNames':data['lastNames'],  'birthDate': data['birthDate'],
+                         'curp': data['curp'], 'oficial_id': uid, 'directions': [data['direction1']],
+                         'country': data['country'], 'city': data['city'], 'state': data['state'],
+                         'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail']}
+                ref = firestore_connection('users')
+                ref.document(uid).set(uData)
+
+                context= {'usuario': result, 'id': result['localId']}
+                return render(request, "signup.html", context)
+        print('not valid')
+    print('fail')
+    return render(request, "signup.html", context)
     
 
 

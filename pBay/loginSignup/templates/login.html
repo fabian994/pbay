@@ -34,8 +34,15 @@
                     {{ form.campo2 }}
                     <br>
                     <button class="btn-primary rounded w-100" type="submit">Ingresar</button>
+                    <br>
+                    <h6 class= 'text-center text-danger' style = "padding: 10px;">{{ div_content }}</h6>
                 </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="{% url 'signup' %}">No tienes cuenta</a>
+                </div>
+                
             </form>
+            
         </main>
       </body>
     </html>
