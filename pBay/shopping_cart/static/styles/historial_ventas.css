@@ -1,0 +1,47 @@
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.black {
+  background-color: black;
+}
+
+.my_container {
+  width: 100%;
+  max-width: 960px;
+  padding: 1rem;
+}
+
+.square {
+  align-self: center;
+  aspect-ratio: 1/1;
+  width: 7rem;
+}
+
+.venta_item {
+  margin: 2rem 0;
+  border: 2px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.button {
+  margin: 1rem 0;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.buttons {
+  align-self: center;
+}
