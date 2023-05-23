@@ -18,11 +18,18 @@ def home(request):
             result =LogIn_Firebase(Correo, Contra)
             if result == False:
                 print("False")
+                div_content = 'Error en contraseña o correo'
+                context['div_content'] = div_content
                 return render(request, 'login.html', context)
             else:
                 print("True")
                 context= {'usuario': result, 'id': result['localId']}
                 return render(request, "log.html", context)
+        else:
+            div_content = 'Error forma invalida, verifica el correo'
+            context['div_content'] = div_content
+            return render(request, 'login.html', context)
+            
     return render(request, "login.html", context)
     
 def log(request):
