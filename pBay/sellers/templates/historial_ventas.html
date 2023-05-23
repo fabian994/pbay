@@ -1,0 +1,73 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Login</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'styles/historial_ventas.css' %}" />
+    </head>
+    <body>
+        <main >
+              <section class="historial">
+                  <div class="my_container" > 
+                      <div class="venta_item">
+                          <div class="black square"></div>
+                          <div>
+                              <p>Producto</p>
+                              <p>Tipo: <span>Venta</span></p>
+                          </div>
+                          <div>
+                              <p>N. Orden <span>1234</span></p>
+                              <p>Costo $<span>11111</></p>
+                              <p>Estatus <span>Entregado</span></p>
+                          </div>
+                          <div class="buttons">
+                              <div class="button blue">Ver detalles</div>
+                              <div class="button red">Cancelar</div>
+                          </div>
+                      </div>
+                      <div class="venta_item">
+                          <div class="black square"></div>
+                          <div>
+                              <p>Producto</p>
+                              <p>Tipo: <span>Venta</span></p>
+                          </div>
+                          <div>
+                              <p>N. Orden <span>1234</span></p>
+                              <p>Costo $<span>11111</></p>
+                              <p>Estatus <span>Entregado</span></p>
+                          </div>
+                          <div class="buttons">
+                              <div class="button blue">Ver detalles</div>
+                              <div class="button red">Cancelar</div>
+                          </div>
+                      </div>
+                      <div class="venta_item">
+                          <div class="black square"></div>
+                          <div>
+                              <p>Producto</p>
+                              <p>Tipo: <span>Venta</span></p>
+                          </div>
+                          <div>
+                              <p>N. Orden <span>1234</span></p>
+                              <p>Costo $<span>11111</></p>
+                              <p>Estatus <span>Entregado</span></p>
+                          </div>
+                          <div class="buttons">
+                              <div class="button blue">Ver detalles</div>
+                              <div class="button red">Cancelar</div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+        </main>
+      </body>
+    </html>
+{% endblock %}
