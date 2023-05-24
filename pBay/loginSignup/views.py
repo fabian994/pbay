@@ -23,7 +23,11 @@ def home(request):
                 return render(request, 'login.html', context)
             else:
                 print("True")
-                context= {'usuario': result, 'id': result['localId']}
+                request.session['correo'] =  Correo
+                request.session['contra'] =  Contra
+                request.session['usuario'] =  result
+                userid = request.session['usuario']
+                context= {'usuario': result, 'id': userid['localId']}
                 return render(request, "log.html", context)
         else:
             div_content = 'Error forma invalida, verifica el correo'

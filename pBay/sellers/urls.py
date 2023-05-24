@@ -10,5 +10,7 @@ urlpatterns = [
     path('mis_ventas/historial_pagos',
          views.historial_pagos, name='historial_pagos'),
     path('mis_ventas/historial_pagos/detalle',
-         views.historial_pagos_detalle, name='historial_pagos')
+         views.historial_pagos_detalle, name='historial_pagos'),
+    path('mis_ventas/subastas',
+         views.subastas, name='subastas')
 ]

@@ -1,8 +1,14 @@
 from django.shortcuts import render
+from utils import infoProductoUser
 
 # Create your views here.
 def pedidos(request):
-    return render(request, "pedidos.html")
+    sesion = request.session['usuario']
+    correo = request.session['correo']
+    contra = request.session['contra']
+    response = infoProductoUser(correo,contra)
+    context ={"htmlinfo":  response}
+    return render(request, "pedidos.html",context)
 
 def productos(request):
     return render(request, "productos.html")

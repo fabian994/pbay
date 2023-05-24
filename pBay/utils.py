@@ -7,8 +7,9 @@ from firebase_admin import credentials
  
 # Importo el Servicio Firebase Realtime Database 
 from firebase_admin import firestore
-
+from firebase_admin import storage
 import pyrebase
+import datetime
 
 config = {
   "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
@@ -22,11 +23,17 @@ config = {
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 database=firebase.database()
-storage = firebase.storage()
+
+cred = credentials.Certificate('./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'pbay-733d6.appspot.com'
+})
+db = firestore.client()
+
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
-        #return(user["localId"])
+        
         return(user)
     except:
         print("Error")
@@ -40,7 +47,40 @@ def signUp_Firebase(Correo, Contra):
     except:
         print("Error")
     return False
-    
+
+def infoProductoUser(Correo, Contra):
+    user = auth.sign_in_with_email_and_password(Correo, Contra)
+    nombre_coleccion = "transactions"
+    coleccion_ref = db.collection(nombre_coleccion)
+    documentos = coleccion_ref.get()
+    # Itera sobre los documentos
+    response=[]
+    for documento in documentos:
+            # Accede a los datos de cada documento
+        datos = documento.to_dict()
+        
+        tipo = datos['saleType']
+        if bool(tipo):
+            tipo = "Subasta"
+        else:
+            tipo = "Venta Directa"
+        if datos['buyer_id'] == user["localId"]:
+            print(datos)
+            # Hacer algo con los datos
+            coleccion_ref = db.collection('products')
+            document_id = datos['id_prod']
+            documento = coleccion_ref.document(document_id).get()
+            datosimg = documento.to_dict()
+            print(datosimg)        
+            ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
+            print(ruta_imagen)
+            bucket = storage.bucket()
+            imagen_ref = bucket.blob(ruta_imagen)
+            expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+            url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+            response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],  datos['deliveryStatus'],  datos['shippingAddress'], url_imagen])
+    return response
+
 def firestore_connection(col):
     try:
         app = firebase_admin.get_app()

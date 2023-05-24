@@ -40,6 +40,46 @@
           </div>
         </div>
 
+        {% for item in htmlinfo %}
+        <div class= "cointainerProduct">
+          <div class = "column1">
+            <figure class ="ContainerImage">
+              <img class = "imgproduct"
+              src="{{item.6}}" 
+              alt="Logo"/>
+          </figure>
+          </div>
+          <div class = "column2">
+            <h2> Producto </h2>
+            <h4> N.Orden: {{item.0}}</h4>
+            <h4> Tipo: {{item.1}} </h4>
+            <h4> Costo: {{item.2}} </h4>
+            <h4> Costo Envio: {{item.3}} </h4>
+            <h4> Estatus: {{item.4}} </h4>
+            <h4> Dirección de Envio: {{item.5}} </h4>
+
+          </div>
+        </div>
+        {% endfor %}
+
+        {% comment %}  {% endcomment %}
+
+
+        {% comment %} <div class= "cointainerProduct">
+          <div class = "column1">
+            <figure class ="ContainerImage">
+              <img class = "imgproduct"
+              src="{% static 'assets/Coco.png' %}" 
+              alt="Logo"/>
+          </figure>
+          </div>
+          <div class = "column2">
+            
+
+          </div>
+        </div>
+
+
         <div class= "cointainerProduct">
           <div class = "column1">
             <figure class ="ContainerImage">
@@ -58,47 +98,7 @@
             <h4> Dirección de Envio: </h4>
 
           </div>
-        </div>
-
-        <div class= "cointainerProduct">
-          <div class = "column1">
-            <figure class ="ContainerImage">
-              <img class = "imgproduct"
-              src="{% static 'assets/Coco.png' %}" 
-              alt="Logo"/>
-          </figure>
-          </div>
-          <div class = "column2">
-            <h2> Producto </h2>
-            <h4> N.Orden: </h4>
-            <h4> Tipo: </h4>
-            <h4> Costo: </h4>
-            <h4> Costo Envio: </h4>
-            <h4> Estatus: </h4>
-            <h4> Dirección de Envio: </h4>
-
-          </div>
-        </div>
-
-        <div class= "cointainerProduct">
-          <div class = "column1">
-            <figure class ="ContainerImage">
-              <img class = "imgproduct"
-              src="{% static 'assets/Coco.png' %}" 
-              alt="Logo"/>
-          </figure>
-          </div>
-          <div class = "column2">
-            <h2> Producto </h2>
-            <h4> N.Orden: </h4>
-            <h4> Tipo: </h4>
-            <h4> Costo: </h4>
-            <h4> Costo Envio: </h4>
-            <h4> Estatus: </h4>
-            <h4> Dirección de Envio: </h4>
-
-          </div>
-        </div>
+        </div> {% endcomment %}
 
 
 
