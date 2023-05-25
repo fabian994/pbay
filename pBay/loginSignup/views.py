@@ -26,7 +26,7 @@ def home(request):
                 request.session['usuario'] =  result
                 userid = request.session['usuario']
                 context= {'usuario': result, 'id': userid['localId']}
-                return render(request, "log.html", context)
+                return render(request, "compras_Principal.html")
         else:
             div_content = 'Error forma invalida, verifica el correo'
             context['div_content'] = div_content
