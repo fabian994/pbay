@@ -48,4 +48,6 @@ def auction(request):
 
 def compras(request):
     return render(request, "compras_Principal.html")
-
+    
+def busqueda(request):
+    return render(request, "compras_Busqueda.html")
