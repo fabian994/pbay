@@ -16,10 +16,8 @@ def pedidos(request):
             if selected_option2 == 'nada':
                response = infoProductoUser(sesion, 0)
             elif selected_option2 == 'subasta':
-               print("Que onda subasta")
                response = infoProductoUser(sesion, 1) 
             else:
-                print("Que onda directa")
                 response = infoProductoUser(sesion, 2) 
         
         
@@ -31,7 +29,6 @@ def pedidos(request):
                 response =  response[::-1]
 
     else:
-        print("tas wey")
         response = infoProductoUser(sesion,0) 
         form = Orden()
         form2 = Filter()
