@@ -49,3 +49,6 @@ def details(request):
 def auction(request):
     return render(request, "Auction_Details.html")
 
+def compras(request):
+    return render(request, "compras_Principal.html")
+
