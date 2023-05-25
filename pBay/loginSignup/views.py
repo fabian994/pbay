@@ -23,8 +23,6 @@ def home(request):
                 return render(request, 'login.html', context)
             else:
                 print("True")
-                request.session['correo'] =  Correo
-                request.session['contra'] =  Contra
                 request.session['usuario'] =  result
                 userid = request.session['usuario']
                 context= {'usuario': result, 'id': userid['localId']}

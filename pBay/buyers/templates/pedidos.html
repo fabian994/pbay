@@ -14,31 +14,17 @@
     <body>
       <main >
         <h1 class = "text-center Title">Mis Productos</h1>
-
-        <div class="paddingizq dropdown show" >
-          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Ordenar por :
-          </h4>
-        
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">dir1</a>
-            <a class="dropdown-item" href="#">dir2</a>
-            <a class="dropdown-item" href="#">dir3</a>
+          <div class="paddingizq dropdown show" >
+            <form id="orden-form" method="POST">
+              {% csrf_token %}
+              {{ form1 }}
+              <br>
+              {{ form2 }}
+              {% comment %} {{ form2 }} {% endcomment %}
+              <input type="submit" value="Submit" style="display: none;">
+            </form>
+            
           </div>
-        </div>
-
-        <div class= "paddingizq dropdown show" >
-
-          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Filtrar :
-          </h4>
-        
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">dir1</a>
-            <a class="dropdown-item" href="#">dir2</a>
-            <a class="dropdown-item" href="#">dir3</a>
-          </div>
-        </div>
 
         {% for item in htmlinfo %}
         <div class= "cointainerProduct">
@@ -107,4 +93,17 @@
 
       </body>
     </html>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#orden-form');
+    
+        // Captura el evento de cambio en el formulario
+        form.addEventListener('change', function() {
+          // Envía el formulario automáticamente
+          form.submit();
+        });
+      });
+    </script>
+    
 {% endblock %}

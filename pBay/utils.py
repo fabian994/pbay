@@ -48,8 +48,7 @@ def signUp_Firebase(Correo, Contra):
         print("Error")
     return False
 
-def infoProductoUser(Correo, Contra):
-    user = auth.sign_in_with_email_and_password(Correo, Contra)
+def infoProductoUser(user, action):
     nombre_coleccion = "transactions"
     coleccion_ref = db.collection(nombre_coleccion)
     documentos = coleccion_ref.get()
@@ -65,20 +64,45 @@ def infoProductoUser(Correo, Contra):
         else:
             tipo = "Venta Directa"
         if datos['buyer_id'] == user["localId"]:
-            print(datos)
-            # Hacer algo con los datos
-            coleccion_ref = db.collection('products')
-            document_id = datos['id_prod']
-            documento = coleccion_ref.document(document_id).get()
-            datosimg = documento.to_dict()
-            print(datosimg)        
-            ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
-            print(ruta_imagen)
-            bucket = storage.bucket()
-            imagen_ref = bucket.blob(ruta_imagen)
-            expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-            url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-            response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],  datos['deliveryStatus'],  datos['shippingAddress'], url_imagen])
+            if action == 0:
+                # Hacer algo con los datos
+                coleccion_ref = db.collection('products')
+                document_id = datos['id_prod']
+                documento = coleccion_ref.document(document_id).get()
+                datosimg = documento.to_dict()       
+                ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
+                bucket = storage.bucket()
+                imagen_ref = bucket.blob(ruta_imagen)
+                expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],  datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
+            if action == 1:
+                if tipo == "Subasta":
+                    coleccion_ref = db.collection('products')
+                    document_id = datos['id_prod']
+                    documento = coleccion_ref.document(document_id).get()
+                    datosimg = documento.to_dict()       
+                    ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
+                    bucket = storage.bucket()
+                    imagen_ref = bucket.blob(ruta_imagen)
+                    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],  datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
+            if action == 2:
+                if tipo == "Venta Directa":
+                    coleccion_ref = db.collection('products')
+                    document_id = datos['id_prod']
+                    documento = coleccion_ref.document(document_id).get()
+                    datosimg = documento.to_dict()       
+                    ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
+                    bucket = storage.bucket()
+                    imagen_ref = bucket.blob(ruta_imagen)
+                    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],  datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
+                    
+                
+    response = sorted(response, key=lambda x: datetime.datetime.strptime(x[7], '%d/%m/%Y').date())
     return response
 
 def firestore_connection(col):
