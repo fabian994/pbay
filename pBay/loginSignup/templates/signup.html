@@ -23,7 +23,7 @@
             <h1 class = "text-center Title">Crea una cuenta</h1>
             
             <br>
-            <form class="register-form" method="POST"> 
+            <form class="register-form" method="POST" enctype="multipart/form-data"> 
                 {% csrf_token %}
                 <div class ="Container">
                     <label for="campo1" class="form-label">Nombre</label>
@@ -37,6 +37,9 @@
                     <br>
                     <label for="campo2" class="form-label">CURP (sólo residentes legales de México)</label>
                     {{ form.curp }}
+                    <br>
+                    <label for="campo2" class="form-label">Identificacion Oficial</label>
+                    {{ form.official_id }}
                     <br>
                     <label for="campo2" class="form-label">Direccion</label>
                     {{ form.direction1 }}

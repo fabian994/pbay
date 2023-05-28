@@ -1,7 +1,12 @@
+from django.shortcuts import render, redirect
 from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import default_storage
+from django.contrib import messages
 from .form import *
-from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, firebaseStorage
+from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID
 from datetime import datetime
+import os
 
 # Create your views here.
 def home(request):
@@ -51,9 +56,9 @@ def signUp(request):
         if form.is_valid():
             print("Form valid")
             data = form.cleaned_data
-            Correo= data["mail"]
-            Contra= data["password"]
-            result =signUp_Firebase(Correo, Contra)
+            mail= data["mail"]
+            passw= data["password"]
+            result =signUp_Firebase(mail, passw)
             if result == False:
                 print("False")
                 return render(request, 'signup.html', context)
@@ -71,10 +76,25 @@ def signUp(request):
                             'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail']}
                     ref = firestore_connection('users')
                     ref.document(uid).set(uData)
-                    #fileStorage = firebaseStorage(uid).put(request.FILES["official_id"])
+
+                    #Uploads file to fireabse
+                    #print('attemp to upload img')
+                    #print(request.FILES)
+                    officialID = request.FILES['official_id']#Gets specific file from reques.FILES
+                    #print('get id from request',officialID)
+                    file_save = default_storage.save(officialID.name, officialID)#Saves file to local storage with default_storage
+                    #print('saved img')
+                    #print(officialID.name)
+                    storeOfficialID(uid, officialID.name)#Calls function in utils.py
+                    #print('stored to firebase')
+                    default_storage.delete(officialID.name)#Deletes file from local storage
+                    
+
                     context= {'usuario': result, 'id': result['localId']}
-                    return render(request, "signup.html", context)
-                except:
+                    return render(request, "log.html", context)
+                    #return render(request, "signup.html", context) Qwerty*1234
+                except Exception as e:
+                    print('error: ',e)
                     print('failed create')
         print('not valid')
     print('fail')

@@ -9,7 +9,7 @@ Correo=RegexValidator(
 letras = RegexValidator(r'^[a-zA-Z " " éáíóúñÑÁÉÍÓÚ]*$', 'Solo se pueden ingresar letras ')
 numeros = RegexValidator(r'^[0-9]*$', 'Solo se pueden ingresar numeros')
 numerosYletras = RegexValidator(r'^[0-9a-zA-Z " "éáíóúñÑÁÉÍÓÚ]*$', 'Solo se pueden ingresar numeros y letras')
-contraVal = RegexValidator(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$', 'Debe de cumplir con los requisitos de contraseña')
+contraVal = RegexValidator(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,16}$', 'Debe de cumplir con los requisitos de contraseña')
 #"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
 
 
@@ -85,14 +85,14 @@ class signUpForm(forms.Form):
                                 }
                             ))
     
-    # official_id = forms.ImageField(label = "Identificación Oficial (INE, Pasaporte, etc )", 
-    #                                 error_messages={
-    #                                     "required": "No puede estar vacío",
-    #                                 },
-    #                                 widget=forms.FileInput(attrs={
-    #                                     "class" : "form-control",
-    #                                     "type": "file"
-    #                                 }))
+    official_id = forms.ImageField(label = "Identificación Oficial (INE, Pasaporte, etc )", 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
 
     direction1 = forms.CharField( max_length = 80, 
                                 required = True, 

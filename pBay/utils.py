@@ -7,7 +7,6 @@ from firebase_admin import credentials
  
 # Importo el Servicio Firebase Realtime Database 
 from firebase_admin import firestore
-from firebase_admin import storage
 import pyrebase
 import datetime
 
@@ -23,6 +22,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 database=firebase.database()
+storage = firebase.storage()
 
 cred = credentials.Certificate('./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
 firebase_admin.initialize_app(cred, {
@@ -119,18 +119,10 @@ def firestore_connection(col):
     return ref
 	#print(ref.get())
 
-def firebaseStorage(c_bucket):
-    # try:
-    #     app = firebase_admin.get_app()
-       
-    # except ValueError as e:
-    #     cred = credentials.Certificate('./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
-    #     #firebase_admin.initialize_app(cred, { 'databaseURL':'https://pbay-733d6-default-rtdb.firebaseio.com/'})
-    #     #gs://pbay-733d6.appspot.com/
-    #     firebase_admin.initialize_app(cred, {
-    #         'storageBucket': 'gs://pbay-733d6.appspot.com'
-    #     })
-    bucket = storage.child(c_bucket).child('user_id')
-    return bucket
+def storeOfficialID(uid,name):#Saves user official ID to firebase storage
+    # storage.child(path) sets the directory the file is going to be stored, must include filename with extension
+    # .put() grabs the local file stored in media and uploads it to firebase
+    storedID = storage.child('users/' + str(uid) + '/' + name).put("media/" + name)
+    return storedID
 
 

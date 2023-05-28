@@ -26,3 +26,8 @@ urlpatterns = [
     path('', include('sellers.urls')),
     path('', include('shopping_cart.urls'))
 ]
+
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
