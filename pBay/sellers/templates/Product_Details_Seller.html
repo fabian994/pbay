@@ -1,6 +1,6 @@
+
 {% include "layouts/header.html"%}
 {% block content %}
-
   {% load static %}
   <!DOCTYPE html>
   <html lang="en">
@@ -14,41 +14,38 @@
     <body>
       <main >
         <h1 class = "text-center Title">Product Details - pbay </h1>
-
-        <div class="paddingizq dropdown show" >
-          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Filtrar por:
-          </h4>
-        
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Producto</a>
-            <a class="dropdown-item" href="#">Categoria</a>
-        </div>
-        </div>
+          <div class="paddingizq dropdown show" >
+            <form id="orden-form" method="POST">
+              {% csrf_token %}
+              {{ form }}
+              {% comment %} {{ form2 }} {% endcomment %}
+              <input type="submit" value="Submit" style="display: none;">
+            </form>
+            
+          </div>
 
         {% for item in htmlinfo %}
         <div class= "cointainerProduct">
           <div class = "column1">
             <figure class ="ContainerImage">
               <img class = "imgproduct"
-              {% comment %} cambiar el direccionamiento de la imagen {% endcomment %}
-              {% comment %} src="{{item.6}}"  {% endcomment %}
-              src="{% static 'assets/jefemaestro.jpg' %}" 
+              src="{{item.10}}" 
               alt="Logo"/>
           </figure>
           </div>
           <div class = "column2">
-            <h2> Product:{{item.}} </h2>
-            <h3> Category:{{item.}} </h3>
-            <h5> Availability:{{item.}} </h5>
-            <h5> Description:{{item.}} </h5>
-            <h5> Brand:{{item.}} </h5>
-            <h5> Model:{{item.}} </h5>
-            <h5> Condition:{{item.}} </h5>
-            <h5> Type:{{item.}} </h5>
-            <h5> Price:{{item.}} </h5>
-            <h5> Stock:{{item.}} </h5>
-            <h5> Publication Date:{{item.}} </h5>
+            <h2> Product: {{item.0}} </h2>
+            <h3> Category: {{item.1}} </h3>
+            <h5> Description: {{item.2}} </h5>
+            <h5> Brand: {{item.3}} </h5>
+            <h5> Model: {{item.4}} </h5>
+            <h5> Condition: {{item.5}} </h5>
+            <h5> Type: {{item.6}} </h5>
+            <h5> Price: {{item.7}} </h5>
+            <h5> Stock: {{item.8}} </h5>
+            <h5> Publication Date: {{item.9}} </h5>
+
+
             <div class="buttons">
               <div class="button red"> Elimiar </div>
               <div class="button blue"> Modificar</div>
@@ -57,9 +54,26 @@
           </div>
         </div>
         {% endfor %}
-
       </main>
 
       </body>
     </html>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#orden-form');
+    
+        // Captura el evento de cambio en el formulario
+        form.addEventListener('change', function() {
+          // Envía el formulario automáticamente
+          form.submit();
+        });
+      });
+    </script>
+    
 {% endblock %}
+
+
+
+
+

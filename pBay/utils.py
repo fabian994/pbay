@@ -7,6 +7,7 @@ from firebase_admin import credentials
  
 # Importo el Servicio Firebase Realtime Database 
 from firebase_admin import firestore
+from firebase_admin import storage as st
 import pyrebase
 import datetime
 
@@ -71,7 +72,7 @@ def infoProductoUser(user, action):
                 documento = coleccion_ref.document(document_id).get()
                 datosimg = documento.to_dict()       
                 ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
-                bucket = storage.bucket()
+                bucket = st.bucket()
                 imagen_ref = bucket.blob(ruta_imagen)
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
@@ -83,7 +84,7 @@ def infoProductoUser(user, action):
                     documento = coleccion_ref.document(document_id).get()
                     datosimg = documento.to_dict()       
                     ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
-                    bucket = storage.bucket()
+                    bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
@@ -95,7 +96,7 @@ def infoProductoUser(user, action):
                     documento = coleccion_ref.document(document_id).get()
                     datosimg = documento.to_dict()       
                     ruta_imagen = "products/"+datos['id_prod']+"/"+datosimg['mainImg']
-                    bucket = storage.bucket()
+                    bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
@@ -103,6 +104,56 @@ def infoProductoUser(user, action):
                     
                 
     response = sorted(response, key=lambda x: datetime.datetime.strptime(x[7], '%d/%m/%Y').date())
+    return response
+
+
+def infoventas(user, action):
+    nombre_coleccion = "products"
+    coleccion_ref = db.collection(nombre_coleccion)
+    documentos = coleccion_ref.get()
+    # Itera sobre los documentos
+    response=[]
+    for documento in documentos:
+            # Accede a los datos de cada documento
+        datos = documento.to_dict()
+        
+        tipo = datos['saleType']
+        if bool(tipo):
+            tipo = "Subasta"
+        else:
+            tipo = "Venta Directa"
+            
+        condition = datos['Condition']
+        if bool(tipo):
+            condition = "Nuevo"
+        else:
+            condition = "Usado"
+                
+        if datos['seller_id'] == user["localId"]:
+            if action == 0:
+                ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+                bucket = st.bucket()
+                imagen_ref = bucket.blob(ruta_imagen)
+                expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['shippingFee'], datos['pubDate'], url_imagen])
+            if action == 1:
+                if tipo == "Subasta":
+                    ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+                    bucket = st.bucket()
+                    imagen_ref = bucket.blob(ruta_imagen)
+                    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['shippingFee'], datos['pubDate'], url_imagen])
+                    
+            if action == 2:
+                if tipo == "Venta Directa":
+                    ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+                    bucket = st.bucket()
+                    imagen_ref = bucket.blob(ruta_imagen)
+                    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['shippingFee'], datos['pubDate'], url_imagen])     
     return response
 
 def firestore_connection(col):
@@ -124,5 +175,3 @@ def storeOfficialID(uid,name):#Saves user official ID to firebase storage
     # .put() grabs the local file stored in media and uploads it to firebase
     storedID = storage.child('users/' + str(uid) + '/' + name).put("media/" + name)
     return storedID
-
-
