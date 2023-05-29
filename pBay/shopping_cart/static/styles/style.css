@@ -1,0 +1,56 @@
+.div1 {
+    position: fixed;
+    padding-left: 30px;
+    padding-top: 30px;
+  }
+
+.div2 {
+    position: fixed;
+    padding-left: 160px;
+    padding-top: 30px;
+    }
+
+.div3 {
+    padding-left: 160px;
+    padding-top: 30px;
+    padding-right: 20px;
+}
+
+.round_container {
+    border-radius: 25px;
+    border: 2px solid black;
+    padding-top: 10px;
+    padding-left: 30px;
+    width: 560px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+
+.square {
+    margin: 2rem 0;
+    border: 2px solid pink;
+    background-color: pink;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100px;
+    height: 100px;
+  }
+
+.title1 {
+    text-align: center;
+    font-size: 36px;
+}
+
+.venta_item {
+    margin: 2rem 0;
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem;
+  }

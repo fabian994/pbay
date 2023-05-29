@@ -28,8 +28,8 @@
 
 .square {
     margin: 2rem 0;
-    border: 2px solid gray;
-    background-color: gray;
+    border: 2px solid pink;
+    background-color: pink;
     display: flex;
     flex-wrap: wrap;
     align-items: start;
