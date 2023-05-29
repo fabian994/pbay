@@ -26,26 +26,29 @@
         </div>
         </div>
 
+        {% for item in htmlinfo %}
         <div class= "cointainerProduct">
           <div class = "column1">
             <figure class ="ContainerImage">
               <img class = "imgproduct"
+              {% comment %} cambiar el direccionamiento de la imagen {% endcomment %}
+              {% comment %} src="{{item.6}}"  {% endcomment %}
               src="{% static 'assets/jefemaestro.jpg' %}" 
               alt="Logo"/>
           </figure>
           </div>
           <div class = "column2">
-            <h2> Product: </h2>
-            <h3> Category: </h3>
-            <h5> Availability: </h5>
-            <h5> Description: </h5>
-            <h5> Brand: </h5>
-            <h5> Model: </h5>
-            <h5> Condition: </h5>
-            <h5> Type: </h5>
-            <h5> Price: </h5>
-            <h5> Stock: </h5>
-            <h5> Publication Date: </h5>
+            <h2> Product:{{item.}} </h2>
+            <h3> Category:{{item.}} </h3>
+            <h5> Availability:{{item.}} </h5>
+            <h5> Description:{{item.}} </h5>
+            <h5> Brand:{{item.}} </h5>
+            <h5> Model:{{item.}} </h5>
+            <h5> Condition:{{item.}} </h5>
+            <h5> Type:{{item.}} </h5>
+            <h5> Price:{{item.}} </h5>
+            <h5> Stock:{{item.}} </h5>
+            <h5> Publication Date:{{item.}} </h5>
             <div class="buttons">
               <div class="button red"> Elimiar </div>
               <div class="button blue"> Modificar</div>
@@ -53,6 +56,7 @@
 
           </div>
         </div>
+        {% endfor %}
 
       </main>
 
