@@ -13,8 +13,7 @@ def historial_pagos_detalle(request):
 
 def detalles_producto(request):
     sesion = request.session['usuario']
-    #viejos a nuevos
-    
+    #producto a categoria
     
     if request.method == 'POST':
         form = Orden(request.POST)
@@ -43,6 +42,7 @@ def detalles_producto(request):
     context ={"htmlinfo":  response}
     context['form1'] = form
     context['form2'] = form2
+    
     return render(request, "Product_Details_Seller.html")
 
 
