@@ -19,54 +19,35 @@
         <main >
               <section class="historial">
                   <div class="my_container" > 
+                    {% if sells|length == 0 %}
+                      <h3 class="message">No se ha realizado ninguna venta</h3>
+                    {% endif %}
+                    {% for sell in sells %}
                       <div class="venta_item">
-                          <div class="black square"></div>
-                          <div>
-                              <p>Producto</p>
-                              <p>Tipo: <span>Venta</span></p>
+                          <div class="square">
+                              <img class="venta_item__img" src="{{ sell.prod_img }}" alt="{{ sell.prod_name }}">
                           </div>
                           <div>
-                              <p>N. Orden <span>1234</span></p>
-                              <p>Costo $<span>11111</></p>
-                              <p>Estatus <span>Entregado</span></p>
+                              <p>{{sell.prod_name}}</p>
+                              <p>Tipo: 
+                                  {% if sell.sellType %}
+                                    Subasta
+                                  {% else %}
+                                    Venta
+                                  {% endif %}
+                              </p>
+                          </div>
+                          <div>
+                              <p>N. Orden: {{ sell.id }}</p>
+                              <p>Costo: ${{ sell.price }}</p>
+                              <p>Estatus: {{ sell.deliveryStatus }}</p>
                           </div>
                           <div class="buttons">
                               <div class="button blue">Ver detalles</div>
                               <div class="button red">Cancelar</div>
                           </div>
                       </div>
-                      <div class="venta_item">
-                          <div class="black square"></div>
-                          <div>
-                              <p>Producto</p>
-                              <p>Tipo: <span>Venta</span></p>
-                          </div>
-                          <div>
-                              <p>N. Orden <span>1234</span></p>
-                              <p>Costo $<span>11111<span/></p>
-                              <p>Estatus <span>Entregado</span></p>
-                          </div>
-                          <div class="buttons">
-                              <div class="button blue">Ver detalles</div>
-                              <div class="button red">Cancelar</div>
-                          </div>
-                      </div>
-                      <div class="venta_item">
-                          <div class="black square"></div>
-                          <div>
-                              <p>Producto</p>
-                              <p>Tipo: <span>Venta</span></p>
-                          </div>
-                          <div>
-                              <p>N. Orden <span>1234</span></p>
-                              <p>Costo $<span>11111</></p>
-                              <p>Estatus <span>Entregado</span></p>
-                          </div>
-                          <div class="buttons">
-                              <div class="button blue">Ver detalles</div>
-                              <div class="button red">Cancelar</div>
-                          </div>
-                      </div>
+                    {% endfor %}
                   </div>
               </section>
         </main>
