@@ -53,3 +53,6 @@ def historial_pagos(request):
 def subastas(request):
     return render(request, "subastas.html")
 
+def add_product(request):
+    return render(request, "add_product.html")
+
