@@ -136,7 +136,7 @@ def infoventas(user, action):
                 imagen_ref = bucket.blob(ruta_imagen)
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['shippingFee'], datos['pubDate'], url_imagen])
+                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
             if action == 1:
                 if tipo == "Subasta":
                     ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
@@ -144,7 +144,7 @@ def infoventas(user, action):
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['shippingFee'], datos['pubDate'], url_imagen])
+                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
                     
             if action == 2:
                 if tipo == "Venta Directa":
@@ -153,7 +153,7 @@ def infoventas(user, action):
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['shippingFee'], datos['pubDate'], url_imagen])     
+                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])     
     return response
 
 def firestore_connection(col):

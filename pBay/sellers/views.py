@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from utils import infoventas
 from .form import *
+from loginSignup.views import *
 # Create your views here.
 
 
@@ -12,19 +13,20 @@ def historial_pagos_detalle(request):
     return render(request, "historial_pagos_detalle.html")
 
 def detalles_producto(request):
-    response = []
-    
     sesion = request.session['usuario']
-    
+    if sesion == "NoExist":
+        return redirect('home')
+    response = []
+    sesion = request.session['usuario']
     if request.method == 'POST':
         response =[]
         form = Filter(request.POST)
         if form.is_valid():
             selected_option2 = form.cleaned_data['Filtering']
             if selected_option2 == 'nada':
-               response = infoventas(sesion, 0)
+                response = infoventas(sesion, 0)
             elif selected_option2 == 'subasta':
-               response = infoventas(sesion, 1) 
+                response = infoventas(sesion, 1) 
             else:
                 response = infoventas(sesion, 2)
     else:
@@ -34,6 +36,7 @@ def detalles_producto(request):
     context['form'] = form
     
     return render(request, "Product_Details_Seller.html", context)
+    
 
 
 

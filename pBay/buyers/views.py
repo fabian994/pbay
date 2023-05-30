@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from utils import infoProductoUser
 from .form import *
+from loginSignup.views import *
 
 # Create your views here.
 def pedidos(request):
     sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
     #viejos a nuevos
     
     
@@ -14,9 +17,9 @@ def pedidos(request):
         if form2.is_valid():
             selected_option2 = form2.cleaned_data['Filtering']
             if selected_option2 == 'nada':
-               response = infoProductoUser(sesion, 0)
+                response = infoProductoUser(sesion, 0)
             elif selected_option2 == 'subasta':
-               response = infoProductoUser(sesion, 1) 
+                response = infoProductoUser(sesion, 1) 
             else:
                 response = infoProductoUser(sesion, 2) 
         
@@ -36,7 +39,6 @@ def pedidos(request):
     context['form1'] = form
     context['form2'] = form2
     return render(request, "pedidos.html", context)
-        
 
 def productos(request):
     return render(request, "productos.html")

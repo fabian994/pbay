@@ -31,16 +31,16 @@ def home(request):
                 request.session['usuario'] =  result
                 userid = request.session['usuario']
                 context= {'usuario': result, 'id': userid['localId']}
-                return render(request, "compras_Principal.html")
+                return redirect('compras')
         else:
             div_content = 'Error forma invalida, verifica el correo'
             context['div_content'] = div_content
             return render(request, 'login.html', context)
-            
+    request.session['usuario'] =  "NoExist"
     return render(request, "login.html", context)
     
 def log(request):
-    return render(request, "log.html")
+    return redirect('home')
 
 def signUp(request):
     print('enter signup')
