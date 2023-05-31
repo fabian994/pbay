@@ -1,6 +1,6 @@
+
 {% include "layouts/header.html"%}
 {% block content %}
-
   {% load static %}
   <!DOCTYPE html>
   <html lang="en">
@@ -8,18 +8,16 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Mis Productos</title>
-      <link rel="stylesheet" href="{% static 'styles/styleb.css' %}" />
+      <title>Product Details - pbay </title>
+      <link rel="stylesheet" href="{% static 'styles/PDS.css' %}" />
     </head>
     <body>
       <main >
-        <h1 class = "text-center Title">Mis Productos</h1>
+        <h1 class = "text-center Title">Product Details - pbay </h1>
           <div class="paddingizq dropdown show" >
             <form id="orden-form" method="POST">
               {% csrf_token %}
-              {{ form1 }}
-              <br>
-              {{ form2 }}
+              {{ form }}
               {% comment %} {{ form2 }} {% endcomment %}
               <input type="submit" value="Submit" style="display: none;">
             </form>
@@ -31,18 +29,27 @@
           <div class = "column1">
             <figure class ="ContainerImage">
               <img class = "imgproduct"
-              src="{{item.6}}" 
+              src="{{item.10}}" 
               alt="Logo"/>
           </figure>
           </div>
           <div class = "column2">
-            <h2> Producto </h2>
-            <h4> N.Orden: {{item.0}}</h4>
-            <h4> Tipo: {{item.1}} </h4>
-            <h4> Costo: {{item.2}} </h4>
-            <h4> Costo Envio: {{item.3}} </h4>
-            <h4> Estatus: {{item.4}} </h4>
-            <h4> Dirección de Envio: {{item.5}} </h4>
+            <h2> Product: {{item.0}} </h2>
+            <h3> Category: {{item.1}} </h3>
+            <h5> Description: {{item.2}} </h5>
+            <h5> Brand: {{item.3}} </h5>
+            <h5> Model: {{item.4}} </h5>
+            <h5> Condition: {{item.5}} </h5>
+            <h5> Type: {{item.6}} </h5>
+            <h5> Price: {{item.7}} </h5>
+            <h5> Stock: {{item.8}} </h5>
+            <h5> Publication Date: {{item.9}} </h5>
+
+
+            <div class="buttons">
+              <div class="button red"> Elimiar </div>
+              <div class="button blue"> Modificar</div>
+            </div>            
 
           </div>
         </div>
@@ -65,3 +72,8 @@
     </script>
     
 {% endblock %}
+
+
+
+
+

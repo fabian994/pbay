@@ -1,0 +1,63 @@
+{% include "layouts/header.html"%}
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Paymentts Details - pbay </title>
+      <link rel="stylesheet" href="{% static 'styles/PaymentDS.css' %}" />
+    </head>
+    <body>
+      <main >
+        <h1 class = "text-center Title">Paymentts Details - pbay </h1>
+
+        <div class="paddingizq dropdown show" >
+          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filtrar por:
+          </h4>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Año </a>
+            <a class="dropdown-item" href="#">Mes </a>
+            <!--
+            <a class="dropdown-item" href="#">dir3</a>
+            -->
+        </div>
+        </div>
+
+        <!--
+        <div class= "paddingizq dropdown show" >
+
+          <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filtrar :
+          </h4>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">dir1</a>
+            <a class="dropdown-item" href="#">dir2</a>
+            <a class="dropdown-item" href="#">dir3</a>
+          </div>
+        </div>
+        -->
+        <h2 class= "paddingizq">  2023</h2>
+        <div class= " cointainerProduct">
+          <div class = "column2">
+            <h3> Mes:     </h3>
+            <h3> Total:   </h3>  
+            <h3> Estatus: </h3>
+            <div class="buttons">
+              <div class="button blue">Ver detalles </div>
+            </div> 
+          </div>
+        </div>
+
+
+      </main>
+
+      </body>
+    </html>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+    {% load static %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <title>Compras</title>
+      
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+        <link rel="stylesheet" href="\static\styles\compras.css">
+    </head>
+
+    <body>
+
+        <div class="contenedor">
+            <img src='\static\assets\compras.png' class="img-fluid Top" alt="...">
+        </div>
+        
+        <div class="productos">
+
+            <div class="banner">
+                <h3>Esto te puede interezar</h3>
+            </div>
+
+            <div class="img-container">
+                <ul class="header-productos">
+                    <li>    
+                        <a class="hipervinculos" href="#">
+                            <div class="recorte">
+                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                "Producto 1"
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>    
+                        <a class="hipervinculos" href="#">
+                            <div class="recorte">
+                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                "Producto 2"
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>    
+                        <a class="hipervinculos" href="#">
+                            <div class="recorte">
+                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                "Producto 3"
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>    
+                        <a class="hipervinculos" href="#">
+                            <div class="recorte">
+                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                "Producto 4"
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>    
+                        <a class="hipervinculos" href="#">
+                            <div class="recorte">
+                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                "Producto 5"
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>    
+                        <a class="hipervinculos" href="#">
+                            <div class="recorte">
+                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                "Producto 6"
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        
+    </body>
+
+    </html>
+
+{% endblock %}

@@ -1,0 +1,282 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Agregar producto</title>
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.container {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				width: 100%;
+			}
+
+			.container div {
+				width: 50%;
+			}
+
+			.tree-view ul ul {
+				display: none;
+			}
+
+			.tree-view ul li {
+				cursor: pointer;
+			}
+
+			.tree-view ul li.clicked ul {
+				display: block;
+			}
+
+			.text-input {
+				margin-bottom: 10px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 5px;
+			}
+
+			.description-input {
+				margin-bottom: 10px;
+				height: 100px;
+				width: 80%;
+				box-sizing: border-box;
+				padding: 5px;
+			}
+
+			.button {
+				margin-bottom: 10px;
+			}
+
+			.checkbox {
+				margin-bottom: 10px;
+			}
+
+			.calendar {
+				margin-bottom: 10px;
+			}
+
+			.label {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 10px;
+			}
+
+			.label-text {
+				flex-basis: 30%;
+				text-align: left;
+			}
+
+			.label-input {
+				flex-basis: 70%;
+				display: flex;
+				align-items: center;
+			}
+
+			.container2 {
+				margin: 0 auto;
+				width: fit-content;
+				text-align: left;
+			}
+
+			.buttons {
+				display: flex;
+				gap: 200px;
+				justify-content: space-between;
+				margin-top: 50px;
+			}
+			.cancel-button, .continue-button {
+				flex-basis: 200px;
+				height: 40px;
+				padding: 0px 100px;
+				font-size: 16px;
+				text-transform: uppercase;
+				font-weight: bold;
+				border: none;
+				color: white;
+				cursor: pointer;
+			}
+			.cancel-button {
+				background-color: red;
+			}
+			.continue-button {
+				background-color: blue;
+			}
+		</style>
+		<script>
+			window.addEventListener('DOMContentLoaded', () => {
+				const treeItems = document.querySelectorAll('.tree-view li');
+				treeItems.forEach(item => {
+					item.addEventListener('click', () => {
+						item.classList.toggle('clicked');
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
+		<div class="container">
+			<div>
+				<div class="tree-view">
+					<ul>
+						<li>Artículo
+							<ul>
+								<li>Servicio
+									<ul>
+										<li>Subitem 1</li>
+										<li>Subitem 2</li>
+										<li>Subitem 3</li>
+									</ul>
+								</li>
+								<li>Producto
+									<ul>
+										<li>Subitem 1</li>
+										<li>Subitem 2</li>
+										<li>Subitem 3</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="marca">Marca:</label>
+					</div>
+					<div class="label-input">
+						<input type="text" id="marca" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="modelo">Modelo (opcional):</label>
+					</div>
+					<div class="label-input">
+						<input type="text" id="modelo" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="condicion">Condición:</label>
+					</div>
+					<div class="label-input">
+						<select id="condicion">
+							<option>Nuevo</option>
+							<option>Usado</option>
+						</select>
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="titulo">Título:</label>
+					</div>
+					<div class="label-input">
+						<input type="text" id="titulo" class="text-input">
+					</div>
+				</div>
+				<p style="text-align: left;">Descripción:</p>
+				<textarea id="descripcion" class="description-input"></textarea>
+			</div>
+			<div>
+				<p style="text-align: left;">Imágenes</p>
+				<input type="button" class="button" value="Examinar">
+				<input type="checkbox" id="marcarPrincipal" class="checkbox" name="principal" value="principal">
+				<label for="marcarPrincipal">Marcar como principal</label>
+				<p><a href="#" class="button">Agregar otra imagen</a></p>
+				<div class="label">
+					<div class="label-text">
+						<label for="inventario">Inventario:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="inventario" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="costo">Costo:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="costo" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="costoEnvio">Costo de envío:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="costoEnvio" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="fechaPublicacion">Fecha de publicación:</label>
+					</div>
+					<div class="label-input">
+						<input type="date" id="fechaPublicacion" class="calendar">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="fechaRetiro">Fecha de retiro:</label>
+					</div>
+					<div class="label-input">
+						<input type="date" id="fechaRetiro" class="calendar">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<p>Destacar:</p>
+					</div>
+					<div class="label-input">
+						<input type="radio" id="destacarSi" name="destacar" value="si">
+						<label for="destacarSi">Si</label>
+						<input type="radio" id="destacarNo" name="destacar" value="no">
+						<label for="destacarNo">No</label>
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="dias">Días:</label>
+					</div>
+					<div class="label-input">
+						<select id="dias">
+							<option value="5">5</option>
+							<option value="7">7</option>
+							<option value="10">10</option>
+						</select>
+					</div>
+				</div>
+				<p style="text-align: left;">Costo: <span id="costoMostrado">100</span></p>
+				<div class="label">
+					<div class="label-text">
+						<label for="tipoVenta">Tipo de venta:</label>
+					</div>
+					<div class="label-input">
+						<select id="tipoVenta">
+							<option>Subasta</option>
+							<option>Venta inmediata</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container2">
+			<div class="buttons">
+				<button class="cancel-button">Cancelar</button>
+				<button class="continue-button">Continuar</button>
+			</div>
+		</div>
+	</body>
+	</html>
+{% endblock %}
