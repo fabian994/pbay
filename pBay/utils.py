@@ -52,6 +52,13 @@ def signUp_Firebase(Correo, Contra):
         print("Error")
     return False
 
+def infoUser(user):
+    docs = db.collection('users').where('oficial_id', '==', user).get()
+    response=""
+    for doc in docs:
+        data = doc.to_dict()
+        response = [data['name']+" "+data['lastNames'], data['mail'], data['phoneNumber'], data['birthDate']]
+    return(response)
 
 def infoProductoUser(user, action):
     nombre_coleccion = "transactions"

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.contrib import messages
 from .form import *
-from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID
+from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID, infoUser
 from datetime import datetime
 import os
 
@@ -41,6 +41,16 @@ def home(request):
     
 def log(request):
     return redirect('home')
+
+def miCuenta(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
+    user = request.session['usuario']
+    info = infoUser(user['localId'])
+    context = {}
+    context['info']=info
+    return render(request, "infoUser.html", context)
 
 def signUp(request):
     print('enter signup')

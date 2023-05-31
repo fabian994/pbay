@@ -32,10 +32,9 @@ class MiFormulario(forms.Form):
                             error_messages={
                                 "required": "No puede estar vacío",
                             },
-                            widget = forms.TextInput(attrs = {
-                                "class": "form-control"
-                                }
-                            ))
+                            widget=forms.PasswordInput(attrs = {
+                                            "class": "form-control"
+                                        }))
 
 class signUpForm(forms.Form):
     name = forms.CharField( max_length = 40, 

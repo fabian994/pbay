@@ -1,0 +1,55 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Mi cuenta</title>
+      <link rel="stylesheet" href="{% static 'styles/user.css' %}" />
+    </head>
+
+    <body>
+        <main >
+            <br>
+            <h1 class = "text-center Title">Bienvenido a:</h1>
+            <br>
+            <figure class ="ContainerImage">
+                <img 
+                src="{% static 'assets/pbay_bgblank.png' %}" 
+                alt="Logo"/>
+            </figure>
+            <br>
+            <div class = "Container">
+                <div class = "cointainerProduct paddingizq">
+                    <table class="table table-borderless">
+                        <tbody>
+                          <tr>
+                            <td class="col-4">Nombre:  </td>
+                            <td class="col-8">{{info.0}}</td>
+                          </tr>
+                          <tr>
+                            <td class="col-4">Correo:</td>
+                            <td class="col-8">{{info.1}}</td>
+                          </tr>
+                          <tr>
+                            <td class="col-4">Numero:  </td>
+                            <td class="col-8">{{info.2}}</td>
+                          </tr>
+                          <tr>
+                            <td class="col-4">Fecha de nacimiento:</td>
+                            <td class="col-8">{{info.3}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            <br>
+        </main>
+      </body>
+    </html>
+{% endblock %}
