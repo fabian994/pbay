@@ -49,7 +49,13 @@ def auction(request):
     return render(request, "Auction_Details.html")
 
 def compras(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
     return render(request, "compras_Principal.html")
     
 def busqueda(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
     return render(request, "compras_Busqueda.html")
