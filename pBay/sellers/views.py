@@ -1,20 +1,39 @@
-from utils import sellsHistory, PayDetails
+from utils import PayDetails
 from django.shortcuts import render
-from utils import infoventas
 from .form import *
+from utils import sells_history
+from utils import payment_detail_by_month
+from utils import infoventas
 from loginSignup.views import *
 
 # Create your views here.
 
 
 def historial_ventas(request):
+
     user = request.session.get("usuario")
-    context = {"sells": sellsHistory(user.get("localId"))}
+
+    if user == "NoExist" or user == None:
+        return redirect('home')
+
+    context = {"sells": sells_history(user.get("localId"))}
+
     return render(request, "historial_ventas.html", context)
 
 
-def historial_pagos_detalle(request):
-    return render(request, "historial_pagos_detalle.html")
+def historial_pagos_detalle(request, month, year):
+
+    user = request.session.get("usuario")
+
+    if user == "NoExist" or user == None:
+        return redirect('home')
+
+    payments = payment_detail_by_month(user.get("localId"), month, year)
+    total = sum([float(payment.get("price")) for payment in payments])
+
+    context = {"payments": payments, "total": total}
+
+    return render(request, "historial_pagos_detalle.html", context)
 
 
 def detalles_producto(request):
@@ -32,7 +51,7 @@ def detalles_producto(request):
             if selected_option2 == 'nada':
                 response = infoventas(sesion, 0)
             elif selected_option2 == 'subasta':
-                response = infoventas(sesion, 1) 
+                response = infoventas(sesion, 1)
             else:
                 response = infoventas(sesion, 2)
     else:
@@ -55,4 +74,3 @@ def subastas(request):
 
 def add_product(request):
     return render(request, "add_product.html")
-
