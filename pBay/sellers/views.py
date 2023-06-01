@@ -1,8 +1,9 @@
-from utils import sellsHistory
+from utils import sellsHistory, PayDetails
 from django.shortcuts import render
 from utils import infoventas
 from .form import *
 from loginSignup.views import *
+
 # Create your views here.
 
 
@@ -43,6 +44,8 @@ def detalles_producto(request):
 
 
 def historial_pagos(request):
+    user = request.session.get("usuario")
+    context = {"sells": PayDetails(user.get("localId"))}
     return render(request, "Payment_Details_Seller.html")
 
 

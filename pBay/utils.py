@@ -217,3 +217,35 @@ def sellsHistory(uid):
         sell['prod_img'] = refUrl
         sells.append(sell)
     return sells
+
+
+# Obtener datos desde Firebase
+def PayDetails(uid):
+    datos = {}
+    # Obtener todas las colecciones de la base de datos
+    colecciones =  db.collection('transactions').where('seller_id', '==', uid).get()
+    for coleccion in colecciones:
+        # Obtener el año de la colección
+        anio = coleccion.id
+        datos[anio] = {
+            'total_pagos': 0,
+            'estatus': {}
+        }
+
+        # Obtener documentos de la colección
+        documentos = coleccion.get()
+        for documento in documentos:
+            # Obtener el estado y el pago del documento
+            estado = documento.get('deliveryStatus')
+            pago = documento.get('price')
+
+            # Actualizar el estado y el total de pagos
+            if estado not in datos[anio]['estatus']:
+                datos[anio]['estatus'][estado] = 1
+            else:
+                datos[anio]['estatus'][estado] += 1
+
+            datos[anio]['total_pagos'] += pago
+
+    return datos
+
