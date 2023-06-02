@@ -1,0 +1,31 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Login</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      
+    </head>
+    <body>
+        <main >
+          <form class="register-form" method="POST"> 
+            {% csrf_token %}
+            <div class ="Container">
+                <br>
+                <label for="campo1" class="form-label">Agrega la direccion</label>
+                {{form.campo}}
+                <br>
+                <button class="btn-primary rounded w-100" type="submit">Registar</button>
+            </div>
+        </form>
+        </main>
+      </body>
+    </html>
+{% endblock %}

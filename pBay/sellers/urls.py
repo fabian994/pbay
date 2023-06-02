@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 urlpatterns = [
     path('mis_ventas/historial_ventas',
          views.historial_ventas, name='historial_ventas'),
@@ -14,5 +15,5 @@ urlpatterns = [
     path('mis_ventas/anadir_producto',
          views.add_product, name='add_product'),
     path('mis_ventas/subastas',
-         views.subastas, name='subastas')
+         views.subastas, name='subastas'),
 ]

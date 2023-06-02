@@ -4,14 +4,16 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.contrib import messages
 from .form import *
-from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID, infoUser
+from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID, infoUser, addDirect
 from datetime import datetime
+from django.http import JsonResponse
 import os
 
 # Create your views here.
 def home(request):
     form = MiFormulario()
     context = {"form": form, "title": "Login"}
+    request.session['usuario'] =  "NoExist"
     if request.method=='POST':
         form = MiFormulario(request.POST)
         context = {"form": form, "title": "Login"}
@@ -22,8 +24,11 @@ def home(request):
             Contra= data["campo2"]
             result =LogIn_Firebase(Correo, Contra)
             if result == False:
-                print("False")
                 div_content = 'Error en contraseña o correo'
+                context['div_content'] = div_content
+                return render(request, 'login.html', context)
+            elif result=='NoAuthorized':
+                div_content = 'Cuenta no autorizada aun, intentelo mas tarde'
                 context['div_content'] = div_content
                 return render(request, 'login.html', context)
             else:
@@ -36,16 +41,14 @@ def home(request):
             div_content = 'Error forma invalida, verifica el correo'
             context['div_content'] = div_content
             return render(request, 'login.html', context)
-    request.session['usuario'] =  "NoExist"
     return render(request, "login.html", context)
     
-def log(request):
-    return redirect('home')
 
 def miCuenta(request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
         return redirect('home')
+    
     user = request.session['usuario']
     info = infoUser(user['localId'])
     context = {}
@@ -61,8 +64,6 @@ def signUp(request):
         print('enter req')
         form = signUpForm(request.POST, request.FILES)
         context = {"form": form, "title": "signup"}
-        print(form.is_valid())
-        print(form.errors)
         if form.is_valid():
             print("Form valid")
             data = form.cleaned_data
@@ -83,7 +84,7 @@ def signUp(request):
                     uData = {'name': data['name'], 'lastNames':data['lastNames'],  'birthDate': date_time,
                             'curp': data['curp'], 'oficial_id': uid, 'directions': [data['direction1']],
                             'country': data['country'], 'city': data['city'], 'state': data['state'],
-                            'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail']}
+                            'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail'], 'status': False, 'maindirection': data['direction1']}
                     ref = firestore_connection('users')
                     ref.document(uid).set(uData)
 
@@ -101,7 +102,7 @@ def signUp(request):
                     
 
                     context= {'usuario': result, 'id': result['localId']}
-                    return render(request, "log.html", context)
+                    return redirect('compras')
                     #return render(request, "signup.html", context) Qwerty*1234
                 except Exception as e:
                     print('error: ',e)
@@ -110,6 +111,25 @@ def signUp(request):
     print('fail')
     return render(request, "signup.html", context)
     
+def addDirection(request):
+    form = directionForm()
+    context = {"form": form, "title": "AddDirection"}
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
+    if request.method == 'POST':
+        form = directionForm(request.POST)
+        context = {"form": form, "title": "AddDirection"}
+        if form.is_valid():
+            data = form.cleaned_data
+            direction = data['campo']
+            addDirect(sesion, direction)
+            return redirect('compras')
+        
+    else:    
+        
+        
+        return render(request, "addDirection.html", context)
 
 
 # def LogIn_Firebase(Email, Password):
