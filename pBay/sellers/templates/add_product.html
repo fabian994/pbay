@@ -7,6 +7,7 @@
 	<html>
 	<head>
 		<title>Agregar producto</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<style>
 			body {
 				display: flex;
@@ -54,6 +55,7 @@
 			}
 
 			.button {
+				display: block;
 				margin-bottom: 10px;
 			}
 
@@ -94,6 +96,7 @@
 				gap: 200px;
 				justify-content: space-between;
 				margin-top: 50px;
+				margin-bottom: 50px;
 			}
 			.cancel-button, .continue-button {
 				flex-basis: 200px;
@@ -190,10 +193,13 @@
 			</div>
 			<div>
 				<p style="text-align: left;">Imágenes</p>
-				<input type="button" class="button" value="Examinar">
-				<input type="checkbox" id="marcarPrincipal" class="checkbox" name="principal" value="principal">
-				<label for="marcarPrincipal">Marcar como principal</label>
-				<p><a href="#" class="button">Agregar otra imagen</a></p>
+				<div id="imagesContainer">
+					<input type="file" name="imagen[]" accept="image/*">
+					<label>Marcar como principal</label>
+					<input type="checkbox" id="marcarPrincipal" class="checkbox" name="principal[]" value="principal">
+    				
+				</div>
+				<p><a href="#" class="button" onclick="agregarImagen()">Agregar otra imagen</a></p>
 				<div class="label">
 					<div class="label-text">
 						<label for="inventario">Inventario:</label>
@@ -239,13 +245,13 @@
 						<p>Destacar:</p>
 					</div>
 					<div class="label-input">
-						<input type="radio" id="destacarSi" name="destacar" value="si">
+						<input type="radio" id="destacarSi" name="destacar" value="si" onclick="mostrarCampos()">
 						<label for="destacarSi">Si</label>
-						<input type="radio" id="destacarNo" name="destacar" value="no">
+						<input type="radio" id="destacarNo" name="destacar" value="no" onclick="mostrarCampos()">
 						<label for="destacarNo">No</label>
 					</div>
 				</div>
-				<div class="label">
+				<div class="label" id="costDaysFields" style="display: none;">
 					<div class="label-text">
 						<label for="dias">Días:</label>
 					</div>
@@ -256,8 +262,8 @@
 							<option value="10">10</option>
 						</select>
 					</div>
+					<p style="text-align: left;">Costo: <span id="costoMostrado">100</span></p>
 				</div>
-				<p style="text-align: left;">Costo: <span id="costoMostrado">100</span></p>
 				<div class="label">
 					<div class="label-text">
 						<label for="tipoVenta">Tipo de venta:</label>
@@ -277,6 +283,64 @@
 				<button class="continue-button">Continuar</button>
 			</div>
 		</div>
+		<script>
+			function agregarImagen() {
+			  var container = document.getElementById("imagesContainer");
+		
+			  // Crear los elementos necesarios
+			  var fileInput = document.createElement("input");
+			  fileInput.type = "file";
+			  fileInput.name = "imagen[]";
+			  fileInput.accept = "image/*";
+
+			  var label = document.createElement("label");
+			  label.innerText = "Marcar como principal";
+		
+			  var checkbox = document.createElement("input");
+			  checkbox.type = "checkbox";
+			  checkbox.className = "checkbox";
+			  checkbox.name = "principal[]";
+			  checkbox.value = "principal";
+		
+			  // Crear un salto de línea
+			  var lineBreak = document.createElement("br");
+		
+			  // Agregar los elementos al contenedor
+			  container.appendChild(fileInput);
+			  container.appendChild(label);
+			  container.appendChild(checkbox);
+			  container.appendChild(lineBreak);
+			}
+		
+			// Asegurar que solo se pueda seleccionar un checkbox a la vez
+			$(document).on("change", ".checkbox", function() {
+			  $(".checkbox").not(this).prop("checked", false);
+			});
+
+			function mostrarCampos() {
+				var destacarSi = document.getElementById("destacarSi");
+				var camposDiasCosto = document.getElementById("costDaysFields");
+			  
+				if (destacarSi.checked) {
+				  camposDiasCosto.style.display = "block";
+				} else {
+				  camposDiasCosto.style.display = "none";
+				}
+			}
+			  
+			function actualizarCosto() {
+				var dias = document.getElementById("dias").value;
+				var costoMostrado = document.getElementById("costoMostrado");
+			  
+				if (dias === "5") {
+				  costoMostrado.textContent = "100";
+				} else if (dias === "7") {
+				  costoMostrado.textContent = "120";
+				} else if (dias === "10") {
+				  costoMostrado.textContent = "150";
+				}
+			}
+		</script>
 	</body>
 	</html>
 {% endblock %}
