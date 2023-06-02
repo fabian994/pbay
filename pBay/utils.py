@@ -36,8 +36,15 @@ db = firestore.client()
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
-
-        return (user)
+        docs = db.collection('users').where('oficial_id', '==', user['localId']).get()
+        response=""
+        for doc in docs:
+            data = doc.to_dict()
+            if data['status']:
+                return (user)
+        else:
+            print("Status falso")
+            return 'NoAuthorized'
     except:
         print("Error")
     return False
@@ -217,3 +224,32 @@ def sellsHistory(uid):
         sell['prod_img'] = refUrl
         sells.append(sell)
     return sells
+
+def getdirection(user):
+    docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
+    for doc in docs:
+        data = doc.to_dict()
+        array = [data['maindirection']]
+        for i in data['directions']:
+            if i != data['maindirection']:
+                array.append(i)
+    return array
+
+def switchMainDirection(direction, user):
+    docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
+    for doc in docs:
+        id = doc.id
+    documento_ref = db.collection('users').document(id)
+    cambio = {'maindirection': direction}
+    documento_ref.update(cambio)
+    
+def addDirect(user, direction):
+    docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
+    for doc in docs:
+        id = doc.id
+        data = doc.to_dict()
+    documento_ref = db.collection('users').document(id)
+    result = data['directions']
+    result.append(direction)
+    cambio = {'directions': result}
+    documento_ref.update(cambio)  

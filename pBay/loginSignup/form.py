@@ -36,6 +36,20 @@ class MiFormulario(forms.Form):
                                             "class": "form-control"
                                         }))
 
+class directionForm(forms.Form):
+     campo = forms.CharField( max_length = 20, 
+                            required = True, 
+                            label = "Direccion",
+                            error_messages={
+                                "required": "No puede estar vacío",
+                            },
+                            widget = forms.TextInput(attrs = {
+                                "class": "form-control"
+                                }
+                            ))
+
+
+
 class signUpForm(forms.Form):
     name = forms.CharField( max_length = 40, 
                             required = True, 
@@ -215,6 +229,7 @@ class signUpForm(forms.Form):
                                 widget=forms.PasswordInput(attrs = {
                                             "class": "form-control"
                                         }))
+
 
     
 

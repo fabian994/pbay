@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from utils import infoProductoUser
+from utils import infoProductoUser, getdirection, switchMainDirection
 from .form import *
 from loginSignup.views import *
+from django.http import JsonResponse
 
 # Create your views here.
 def pedidos(request):
@@ -59,3 +60,23 @@ def busqueda(request):
     if sesion == "NoExist":
         return redirect('home')
     return render(request, "compras_Busqueda.html")
+
+def obtener_elementos(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        elementos = []  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
+        return JsonResponse(elementos, safe=False)
+    else:
+        elementos = getdirection(sesion)  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
+        elementos.append("Añadir")
+        return JsonResponse(elementos, safe=False)
+
+def selctdirection(request):
+    if request.method == 'POST':
+        selected_option = request.POST.get('selectedOption')
+        if (selected_option == "Añadir"):
+            return JsonResponse({"response" :True})
+        else:
+            sesion = request.session['usuario']
+            switchMainDirection(selected_option, sesion)
+            return JsonResponse({"response" :False})
