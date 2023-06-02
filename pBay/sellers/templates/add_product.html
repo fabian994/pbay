@@ -202,18 +202,33 @@
 				<p><a href="#" class="button" onclick="agregarImagen()">Agregar otra imagen</a></p>
 				<div class="label">
 					<div class="label-text">
-						<label for="inventario">Inventario:</label>
+						<label for="tipoVenta">Tipo de venta:</label>
 					</div>
 					<div class="label-input">
-						<input type="number" id="inventario" class="text-input">
+						<select id="tipoVenta" onchange="mostrarCampoCosto()">
+							<option>Subasta</option>
+							<option>Venta inmediata</option>
+						</select>
 					</div>
 				</div>
-				<div class="label">
+				
+				<div class="label" id="campoCosto" style="display: none;">
 					<div class="label-text">
 						<label for="costo">Costo:</label>
 					</div>
 					<div class="label-input">
 						<input type="number" id="costo" class="text-input">
+					</div>
+				</div>
+				<div class="label" id="subastaText" style="display: flex;">
+					<p style="text-align: left;">*La configuración de costo para subasta se hará en una ventana siguiente*</p>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="inventario">Inventario:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="inventario" class="text-input">
 					</div>
 				</div>
 				<div class="label">
@@ -263,17 +278,6 @@
 						</select>
 					</div>
 					<p style="text-align: left;">Costo: <span id="costoMostrado">100</span></p>
-				</div>
-				<div class="label">
-					<div class="label-text">
-						<label for="tipoVenta">Tipo de venta:</label>
-					</div>
-					<div class="label-input">
-						<select id="tipoVenta">
-							<option>Subasta</option>
-							<option>Venta inmediata</option>
-						</select>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -325,6 +329,23 @@
 				  camposDiasCosto.style.display = "block";
 				} else {
 				  camposDiasCosto.style.display = "none";
+				}
+			}
+
+			function mostrarCampoCosto() {
+				var tipoVenta = document.getElementById("tipoVenta");
+				var campoCosto = document.getElementById("campoCosto");
+				var subastaText = document.getElementById("subastaText");
+		
+				if (tipoVenta.value === "Venta inmediata") {
+					campoCosto.style.display = "flex";
+				} else {
+					campoCosto.style.display = "none";
+				}
+				if (tipoVenta.value === "Subasta") {
+					subastaText.style.display = "flex";
+				} else {
+					subastaText.style.display = "none";
 				}
 			}
 			  
