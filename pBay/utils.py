@@ -240,7 +240,6 @@ def searchCat(search):
             response.append([data['prodName'], "Subasta", url_imagen, doc.id])
         else:
             response.append([data['prodName'], '$' + str(data['Price']), url_imagen, doc.id])
-    print(response)
     return(response)
             
         
@@ -303,3 +302,31 @@ def PayDetails(uid):
             datos[anio]['total_pagos'] += pago
 
     return datos
+
+def addCart(product, user):   
+    documento_ref = db.collection('cart').document(user["localId"]).get()
+    data = documento_ref.to_dict()
+    newData = data['items']
+    occurrences = {}
+    for item in newData:
+        if item in occurrences:
+            occurrences[item] += 1
+        else:
+            occurrences[item] = 1
+    if occurrences.get(product)==None:
+        quantity = 0
+    else:
+        quantity = occurrences[product]
+        
+    document2 = db.collection('products').document(product).get()
+    dataproduct = document2.to_dict()
+    stock = dataproduct['Stock']
+    print(stock)
+    print(quantity)
+    if int(quantity) < int(stock):
+        newData.append(product)
+        cambio = {'items': newData}
+        documento_ref = db.collection('cart').document(user["localId"])
+        documento_ref.update(cambio)
+        return True
+    return False
