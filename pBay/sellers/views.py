@@ -28,10 +28,36 @@ def historial_pagos_detalle(request, month, year):
     if user == "NoExist" or user == None:
         return redirect('home')
 
+    months = {
+        '01': 'Enero',
+        '02': 'Febrero',
+        '03': 'Marzo',
+        '04': 'Abril',
+        '05': 'Mayo',
+        '06': 'Junio',
+        '07': 'Julio',
+        '08': 'Agosto',
+        '09': 'Septiembre',
+        '10': 'Octubre',
+        '11': 'Noviembre',
+        '12': 'Diciembre'
+    }
+
+    if months.get(month) == None or not year.isdigit():
+        return redirect('historial_pagos')
+
     payments = payment_detail_by_month(user.get("localId"), month, year)
     total = sum([float(payment.get("price")) for payment in payments])
+    status = "Entregado"
 
-    context = {"payments": payments, "total": total}
+    for payment in payments:
+        if payment.get("status") == "Pendiente":
+            status = "Pendiente"
+            break
+
+    context = {"payments": payments, "total": total,
+               "date": f"{months.get(month)} {year}",
+               "status": status}
 
     return render(request, "historial_pagos_detalle.html", context)
 

@@ -224,7 +224,6 @@ def payment_detail_by_month(uid, month, year):
     def filter_by_month(doc):
         doc = doc.to_dict()
         _, mm, yy = doc['tran_date'].split('/')
-        print(mm, '==', month, '|', yy, '==', year)
         return mm == month and yy == year
 
     payments = filter(filter_by_month, docs)

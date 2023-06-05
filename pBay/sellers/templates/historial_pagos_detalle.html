@@ -16,10 +16,12 @@
       href="{% static 'styles/historial_pagos_detalle.css' %}"
     />
   </head>
-  <div class="container_div">
+  <div class="container_div my_border">
     <div class="details__status">
-      <p><span>Enero 2023</span></p>
-      <p>Estado: <span>No entregado</span></p>
+      <p>{{ date }}</p>
+        {% if payments|length > 0 %}
+            <p>Estado: {{status}}</p>
+        {% endif %}
     </div>
         {% if payments|length > 0 %}
             <div>
@@ -42,6 +44,13 @@
         {% else %}
             <p>No se han realizado pagos durante este mes</p>
         {% endif %}
+  </div>
+  <div class="container_div">
+    <a class="link" href={% url 'historial_pagos' %}>
+      <div class="button red">
+        Regresar
+      </div>
+    </a>
   </div>
 </html>
 {% endblock %}
