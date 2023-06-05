@@ -59,13 +59,16 @@ def signUp_Firebase(Correo, Contra):
         print("Error")
     return False
 
+
 def infoUser(user):
     docs = db.collection('users').where('oficial_id', '==', user).get()
-    response=""
+    response = ""
     for doc in docs:
         data = doc.to_dict()
-        response = [data['name']+" "+data['lastNames'], data['mail'], data['phoneNumber'], data['birthDate']]
-    return(response)
+        response = [data['name']+" "+data['lastNames'],
+                    data['mail'], data['phoneNumber'], data['birthDate']]
+    return (response)
+
 
 def infoProductoUser(user, action):
     nombre_coleccion = "transactions"
@@ -162,25 +165,31 @@ def infoventas(user, action):
                 bucket = st.bucket()
                 imagen_ref = bucket.blob(ruta_imagen)
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-                url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
+                url_imagen = imagen_ref.generate_signed_url(expiration=int(
+                    expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                                datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
             if action == 1:
                 if tipo == "Subasta":
                     ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
                     bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-                    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
-                    
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(
+                        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
+
             if action == 2:
                 if tipo == "Venta Directa":
                     ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
                     bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-                    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],datos['Model'], condition , tipo , datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])     
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(
+                        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
     return response
 
 
@@ -208,8 +217,36 @@ def storeOfficialID(uid, name):  # Saves user official ID to firebase storage
     return storedID
 
 
+def payment_detail_by_month(uid, month, year):
+
+    docs = db.collection('transactions').where('seller_id', '==', uid).get()
+
+    def filter_by_month(doc):
+        doc = doc.to_dict()
+        _, mm, yy = doc['tran_date'].split('/')
+        return mm == month and yy == year
+
+    payments = filter(filter_by_month, docs)
+
+    result = []
+
+    for doc in payments:
+        payment = doc.to_dict()
+        prod_doc = db.collection('products').document(payment['id_prod']).get()
+        prod = prod_doc.to_dict()
+
+        payment['id'] = doc.id
+        payment['product'] = prod['prodName']
+        payment['comission'] = payment['shippingFee']
+
+        result.append(payment)
+
+    return result
+
 # Returns a list of all the sells made by the user
-def sellsHistory(uid):
+
+
+def sells_history(uid):
     docs = db.collection('transactions').where('seller_id', '==', uid).get()
     sells = []
     for doc in docs:
