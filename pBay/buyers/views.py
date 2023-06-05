@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
@@ -80,3 +80,13 @@ def selctdirection(request):
             sesion = request.session['usuario']
             switchMainDirection(selected_option, sesion)
             return JsonResponse({"response" :False})
+        
+def searchByCategory (request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
+    category = request.GET.get('categoria')
+    
+    products = searchCat(category)
+    
+    return render(request, 'searchByCategory.html', {'products': products})

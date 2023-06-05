@@ -11,4 +11,5 @@ urlpatterns = [
     path("busqueda/", views.busqueda, name="busqueda"),
     path('backend/', views.obtener_elementos, name='backend'),
     path('selctdirection/', views.selctdirection, name='selctdirection'),
+    path('searchByCategory', views.searchByCategory, name='searchByCategory'),
 ]

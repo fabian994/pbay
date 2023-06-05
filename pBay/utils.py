@@ -225,6 +225,25 @@ def sellsHistory(uid):
         sells.append(sell)
     return sells
 
+def searchCat(search):
+    print(search)
+    docs = db.collection('products').where('categories', '==', search).get()
+    response = []
+    for doc in docs:
+        data = doc.to_dict()
+        ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
+        bucket = st.bucket()
+        imagen_ref = bucket.blob(ruta_imagen)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        if data['saleType']:
+            response.append([data['prodName'], "Subasta", url_imagen, doc.id])
+        else:
+            response.append([data['prodName'], '$' + str(data['Price']), url_imagen, doc.id])
+    print(response)
+    return(response)
+            
+        
 
 def getdirection(user):
     docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
