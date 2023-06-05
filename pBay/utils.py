@@ -341,29 +341,41 @@ def PayDetails(uid):
     return datos
 
 def addCart(product, user):   
-    documento_ref = db.collection('cart').document(user["localId"]).get()
-    data = documento_ref.to_dict()
-    newData = data['items']
-    occurrences = {}
-    for item in newData:
-        if item in occurrences:
-            occurrences[item] += 1
+    try:
+        documento_ref = db.collection('cart').document(user["localId"]).get()
+        data = documento_ref.to_dict()
+        newData = data['items']
+        occurrences = {}
+        for item in newData:
+            if item in occurrences:
+                occurrences[item] += 1
+            else:
+                occurrences[item] = 1
+        if occurrences.get(product)==None:
+            quantity = 0
         else:
-            occurrences[item] = 1
-    if occurrences.get(product)==None:
-        quantity = 0
-    else:
-        quantity = occurrences[product]
-        
-    document2 = db.collection('products').document(product).get()
-    dataproduct = document2.to_dict()
-    stock = dataproduct['Stock']
-    print(stock)
-    print(quantity)
-    if int(quantity) < int(stock):
-        newData.append(product)
-        cambio = {'items': newData}
-        documento_ref = db.collection('cart').document(user["localId"])
-        documento_ref.update(cambio)
-        return True
-    return False
+            quantity = occurrences[product]
+            
+        document2 = db.collection('products').document(product).get()
+        dataproduct = document2.to_dict()
+        stock = dataproduct['Stock']
+        print(stock)
+        print(quantity)
+        if int(quantity) < int(stock):
+            newData.append(product)
+            cambio = {'items': newData}
+            documento_ref = db.collection('cart').document(user["localId"])
+            documento_ref.update(cambio)
+            return True
+        return False    
+    except:
+        document2 = db.collection('products').document(product).get()
+        dataproduct = document2.to_dict()
+        stock = dataproduct['Stock']
+        quantity = 1
+        print(stock)
+        print(quantity)
+        if int(quantity) < int(stock):
+            ref = firestore_connection('cart')
+            uData = {'items' : [product]}
+            ref.document(user["localId"]).set(uData)
