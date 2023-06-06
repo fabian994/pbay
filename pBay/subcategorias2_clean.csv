@@ -1,0 +1,2214 @@
+ID,SubCat1_ID,Subcatagoria2
+1,1,Aceites
+2,1,Aderezos
+3,1,Crema para Ensalada
+4,1,Ingredientes Adicionales para Ensaladas
+5,1,Sprays de Cocina
+6,1,Vinagres
+7,1,Otros
+8,2,Arroces
+9,2,Integrales
+10,2,Frijoles Secos
+11,2,Pastas y Fideos
+12,2,Sagos
+13,2,Cuscus
+14,2,Mochi
+15,2,Otros
+16,3,Chocolates
+17,3,Dulces y Chicles
+18,3,Frutas Secas y Vegetales Deshidratados
+19,3,Mezcla para Fiestas
+20,3,Nueces y Semillas
+21,3,Palomitas
+22,3,Papas Fritas
+23,3,Snacks
+24,3,Surtidos de Frutos Secos
+25,3,Otros
+26,4,Aguas
+27,4,Bebidas con Sabor a Fruta
+28,4,Bebidas Energeticas
+29,4,Bebidas para Deportistas
+30,4,Cafe
+31,4,Cafe Frio y Te Frio
+32,4,Chocolate Caliente y Malteadas
+33,4,Crema
+34,4,Gaseosa de Jengibre y Cerveza
+35,4,Jarabes y Concentrados para Bebidas
+36,4,Jugos
+37,4,Mezclas para Cocktail
+38,4,Mezclas y Saborizantes de Bebidas
+39,4,Refrescos con Gas
+40,4,Sustitutos de Cafe
+41,4,Te
+42,4,Otros
+43,5,Avenas y Gachas
+44,5,Barritas
+45,5,Barritas y Granola
+46,5,Cereales de Alta Fibra
+47,5,Cereales de Arroz
+48,5,Cereales de Trigo
+49,5,Cereales para Ninhos
+50,5,Cereales para Tomar en Frio
+51,5,Gachas de Maiz
+52,5,Muesli y Cereales Granola
+53,5,Otros
+54,6,Bebidas y Cocteles Premezclados
+55,6,Cervezas
+56,6,Bebidas Espiritosas
+57,6,Sakes y Licores de Arroz
+58,6,Sidras
+59,6,Vinos
+60,6,Vinos Espumosos y Champanes
+61,6,Vinos Fortificados y de Postre
+62,6,Otros
+63,7,Caldos
+64,7,"Carnes, Pescados y Mariscos"
+65,7,Comida Encurtida
+66,7,Comidas y Guarniciones Preparadas
+67,7,Condimentos Encurtidos
+68,7,Fruta
+69,7,Legumbres
+70,7,Pasta Enlatada
+71,7,Sopas
+72,7,Sustitutos de Carne
+73,7,Verduras
+74,7,Otros
+75,8,Bebidas y Batidos
+76,8,Cereales y Gachas de Avena
+77,8,Comidas Preparadas y Acompanhamientos
+78,8,Formula
+79,8,"Snacks, Refrigerios y Galletas"
+80,8,Otros
+81,9,Especias y Condimentos en Polvo
+82,9,Especias y Hierbas Sin Moler
+83,9,Pimientas
+84,9,Sal y Sustitutos
+85,9,Sasonadores
+86,9,Otros
+87,10,Destilacion de Vino
+88,10,Fabricacion de Cerveza
+89,10,Otros
+90,11,"Aceites, Vinagres y Aerosoles de Cocina"
+91,11,Algas Secas y Noris
+92,11,Espesantes
+93,11,Frutas Secas y Vegetales Deshidratados
+94,11,Ingredientes para Reposteria
+95,11,Leche y Crema de Coco
+96,11,Levadura Nutritiva
+97,11,Manteca y Grasa Alimentaria
+98,11,Pan Molido
+99,11,Pescados y Mariscos Secos
+100,11,Sustitutos del Huevo
+101,11,Vinos para Cocinar
+102,11,Otros
+103,12,Chocolate y Avellanas Cubiertas
+104,12,Chocolates para Untar
+105,12,Cubierta de Extracto de Levadura
+106,12,Cubierta de Malvavisco
+107,12,Fruta para Untar
+108,12,Mantequilla de Maple
+109,12,Mantequillas a Base de Frutos Secos
+110,12,Requeson
+111,12,Salsas para Untar
+112,12,Otros
+113,13,Pan Crujiente
+114,13,Tortillas
+115,13,Otros
+116,14,Crema
+117,14,Cremas de Cafe a base de Plantas
+118,14,Leche
+119,14,Leche a base de Plantas
+120,14,Leche Saborizada
+121,14,Otros
+122,15,Condimentos
+123,15,Glaces y Demi-Glaces
+124,15,Glaseados
+125,15,Salsas Gravy
+126,15,Salsas para Cocinar
+127,15,Salsas Picantes
+128,15,Wasabi
+129,15,Otros
+130,16,Otros
+131,17,Accesorios Exteriores
+132,17,Accesorios para Caja de Pick Up
+133,17,Adaptadores de entrada
+134,17,Almacenamiento y Organizacion
+135,17,Aromatizantes
+136,17,Asistencia en el Camino
+137,17,Calcomanias y Emblemas
+138,17,Carcasas para Llaves
+139,17,Difusor de Aroma
+140,17,Estribos y Escalones
+141,17,Inversores de Corriente
+142,17,Juegos de Interiores
+143,17,Productos de Invierno
+144,17,Productos de Traccion y Winches
+145,17,Proteccion Antirrobo
+146,17,Recipientes para Gasolina
+147,17,Rejillas y Protectores para Rejillas
+148,17,Repelentes Automotrices de Plagas
+149,17,Sistemas y Accesorios de Carga
+150,17,"Soportes, Cubreasientos y Fundas"
+151,17,Tapetes y Alfombras
+152,17,Termometros
+153,17,Otros
+154,18,Aceites
+155,18,Aditivos
+156,18,Anticongelantes para Frenos
+157,18,Anticongelantes para Radiador
+158,18,Liquidos para Diraccion Asistida
+159,18,Liquidos de Servicio
+160,18,Lubricantes
+161,18,Otros
+162,19,Adhesivos y Selladores
+163,19,Cuidado del Motor
+164,19,Kits de Limpieza
+165,19,Limpieza de Ventanillas
+166,19,Productos de Cuidado Exterior
+167,19,Productos de Cuidado Interior
+168,19,Otros
+169,20,Compresores de Muelles
+170,20,Equipo y Herramientas de Garaje
+171,20,Equipo y Herramientas para Sistemas de Aceite
+172,20,Extractores y Separadores
+173,20,"Herramientas de Diagnostico, Escaneo y Especialidad"
+174,20,Herramientas de Direccion y Suspension
+175,20,Herramientas de Frenos
+176,20,Herramientas de Llantas y Rines
+177,20,Herramientas de Mano
+178,20,Herramientas de Reparacion del Parachoques y Carroceria
+179,20,Herramientas del Embrague
+180,20,Herramientas del Limpiaparabrisas
+181,20,Herramientas del Parabrisas
+182,20,Herramientas del Sistema de Combustible
+183,20,Herramientas para Baterias
+184,20,Herramientas y Equipos de Aire Acondicionado
+185,20,Herramientas y Equipos de Motor
+186,20,Juegos de Herramientas
+187,20,Kits de Reparacion de Roscas
+188,20,Llaves de Impacto
+189,20,Remachadoras
+190,20,Otros
+191,21,Accesorios
+192,21,Herramientas de Neumaticos y Ruedas
+193,21,Llantas
+194,21,Rines
+195,21,Ruedas
+196,21,Otros
+197,22,Accesorios y Piezas
+198,22,Partes y Refacciones
+199,22,Seguridad
+200,22,Illuminacion
+201,22,LLantas
+202,22,Otros
+203,23,Acondicionamiento Interior
+204,23,Alternadores y Generadores
+205,23,Arranque y Piezas del Motor
+206,23,Cables
+207,23,Correas y Tensores
+208,23,Direccion y Suspension
+209,23,Embellecedores y Accesorios para Carroceria
+210,23,Encendido y Accesorios
+211,23,Filtros
+212,23,Frenos
+213,23,Limpiaparabrisas y Partes
+214,23,"Luces, Bombillas e Indicadores"
+215,23,Motores
+216,23,Motores y Piezas del Motor
+217,23,Sensores
+218,23,Sistemas de Escape Cat-Back
+219,23,Tapas y Tapones
+220,23,Traccion y Transmision
+221,23,Otros
+222,24,Pinturas en Spray
+223,24,Pinturas en Acabado
+224,24,Pistolas y Accesorios de Pintura
+225,24,Aditivos
+226,24,Cintas Adhesivas
+227,24,Herramientas de Pintura
+228,24,Lacas para Pinzas de Frenos
+229,24,Materiales de Esmerilado
+230,24,Materiales de Revestimiento
+231,24,Materiales para Tareas de Pintura
+232,24,Pinturas para Retoques
+233,24,Primers
+234,24,Productos de Limpieza
+235,24,Proteccion para Tareas de Pintura
+236,24,Rotuladores
+237,24,Otros
+238,25,Accesorios
+239,25,Sillas de Coche
+240,25,Otros
+241,26,Canastillas y Portaequipajes
+242,26,Bandas de Tension
+243,26,Banderines de Seguridad
+244,26,Cables y Adaptadores
+245,26,Enganches de Remolque y Accesorios
+246,26,Escaleras para Camioneta
+247,26,Escaleras para Compuerta Trasera
+248,26,Rampas de Carga
+249,26,Remolques
+250,26,Otros
+251,27,Otros
+252,28,Alfombras de Juego y Gimnasios
+253,28,Andaderas
+254,28,Centros de Actividades
+255,28,Columpios Interiores
+256,28,Libros Blandos
+257,28,Moviles
+258,28,Sillas Mecedoras
+259,28,Otros
+260,29,Accesorios de Ayuda para Aprender a ir al Banho
+261,29,Asientos Reductores de WC
+262,29,Bacinicas
+263,29,Panhales Desechables Entrenadores
+264,29,Toallitas Humedas
+265,29,Toallitas Secas
+266,29,Otros
+267,30,Cambiadores de Panhales
+268,30,Cambiadores de Panhales Termicos
+269,30,Colchones y Cobijas para Cambiar Panhales
+270,30,Contenedores y Repuestos de Panhales
+271,30,Cremas para Rozaduras
+272,30,Organizadores y Guardapanhales
+273,30,Panhaleras
+274,30,Panhales
+275,30,Toallitas y Accesorios
+276,30,Otros
+277,31,Canastas para Bebes
+278,31,Carriolas Deportivas
+279,31,Coches de paseo
+280,31,Conjunto de silla de coche y carrito
+281,31,Piezas y Accesorios
+282,31,Sillas de paseo
+283,31,Otros
+284,32,Accesorios para Chupones
+285,32,Chupones
+286,32,Mordederas
+287,32,Otros
+288,33,Banho
+289,33,Basculas
+290,33,Cuidado de la Piel
+291,33,Cuidado para el Cabello
+292,33,Higiene
+293,33,Termometros
+294,33,Toallitas y Accesorios
+295,33,Tratamientos de Frio y Calor
+296,33,Otros
+297,34,Accesorios para la Lactancia
+298,34,Alimentos para Bebes
+299,34,Baberos y Panhos
+300,34,Basculas de Cocina para Bebe
+301,34,Biberones y Accesorios
+302,34,Calentadores de Comida
+303,34,Delantales para Ninhos
+304,34,"Licuadoras, Procesadores de Alimentos y Prensas de Cocina"
+305,34,Panhos de Muselina
+306,34,Recipientes de Comida
+307,34,"Sillas de Bebe, Asientos y Accesorios"
+308,34,Vajilla y Cubiertos
+309,34,Vasos Entrenadores
+310,34,Otros
+311,35,Accesorios de Portabebes
+312,35,Cabestrillos Portabebes
+313,35,Mochilas de Senderismo
+314,35,Portabebes para Bebes y Ninhos pequenhos
+315,35,Otros
+316,36,Decoracion
+317,36,Muebles
+318,36,Ropa de Cama
+319,36,Otros
+320,37,Albumes de Fotos
+321,37,Albumes de Recuerdos
+322,37,Bebes Ninha
+323,37,Bebes Ninho
+324,37,Cajas de Recuerdos para Recien Nacidos
+325,37,Calcomanias de Bebe a Bordo para el Coche
+326,37,Joyeria
+327,37,Juegos de Regalos para Recien Nacidos
+328,37,Kits de Modelado e Impresion
+329,37,Marcos de Fotos
+330,37,Moviles
+331,37,Recuerdos para Bautizos
+332,37,Sobres para Tarjetas de Maternidad
+333,37,Velas para Bautizos
+334,37,Otros
+335,38,Faldas
+336,38,Lactancia
+337,38,Leggings
+338,38,Lenceria y Ropa Interior
+339,38,Pantalones
+340,38,Pantalones de Mezclilla
+341,38,Playeras y Tops
+342,38,Ropa Deportiva
+343,38,Sueteres y Tejidos
+344,38,Trajes de Banho
+345,38,Vestidos
+346,38,Otros
+347,39,Arneses de Seguridad
+348,39,Barandillas para Camas
+349,39,Barreras de Puerta y Extensiones
+350,39,Humidificadores
+351,39,Monitor para Bebes
+352,39,Monitores Fetales
+353,39,Orejeras de Proteccion Auditiva
+354,39,Pilas para Monitor para Bebes
+355,39,Protecciones y Cerraduras
+356,39,Seguridad y Protecciones para Cuartos de Banho
+357,39,Otros
+358,40,Accesorios
+359,40,Sillas de Coche
+360,40,Otros
+361,41,Otros
+362,42,Accesorios Banho y Cuerpo
+363,42,Aditivos para el Banho
+364,42,Desodorantes y Antitranspirantes
+365,42,Exfoliantes y Tratamientos Corporales
+366,42,Limpieza Personal
+367,42,Sets
+368,42,otros
+369,43,Accesorios y Utensilios para Maquillaje
+370,43,Cara
+371,43,Cuerpo
+372,43,Juegos de Maquillaje
+373,43,Labios
+374,43,Ojos
+375,43,Paletas de Maquillaje
+376,43,otros
+377,44,Cara
+378,44,Cuello y Escote
+379,44,Cuerpo
+380,44,Desmaquillantes
+381,44,Exfoliantes y Tratamientos Corporales
+382,44,Juegos y Kits
+383,44,Labios
+384,44,Manos y Pies
+385,44,Maternidad
+386,44,Ojos
+387,44,Sol
+388,44,otros
+389,45,Accesorios para Peinarse
+390,45,Aceites para el Cabello
+391,45,Champu y Acondicionador
+392,45,"Extensiones de Cabello, Pelucas y Accesorios"
+393,45,Herramientas de Peinado
+394,45,Instrumentos para Corte de Pelo
+395,45,Mascarillas para el Cabello
+396,45,Permanentes y Texturizantes para el Cabello
+397,45,Productos para la Caida del Cabello
+398,45,Productos para Peinar
+399,45,Set de Viaje
+400,45,Sets y Kits
+401,45,Tintes para el Cabello
+402,45,Tratamientos de Cuero Cabelludo
+403,45,Otros
+404,46,Bolsas y Cajas de Herramientas
+405,46,Calentadores de Toallas para Spa
+406,46,Capas
+407,46,Carritos de Mantenimiento
+408,46,Casco Secador
+409,46,Cepillos de Cuello
+410,46,Escobas y Cepillos
+411,46,Espejos de Mano
+412,46,Frascos Atomizadores
+413,46,Lavabos de Peluqueria
+414,46,Maniquies de Aprendizaje
+415,46,Maquinas Galvanicas
+416,46,Maquinas de Alta Frecuencia
+417,46,Mesas de Spa
+418,46,Sillas de Barbero
+419,46,Sistemas de Almacenamiento para Spa
+420,46,Taburetes de Salon y Spa
+421,46,Otros
+422,47,Cuidado de las Manos y los Pies
+423,47,Disenhos para Unhas
+424,47,Quitaesmalte
+425,47,Tratamientos para Unhas
+426,47,Utensilios y Accesorios
+427,47,Otros
+428,48,Aceite Esencial de Rosa
+429,48,Atomizadores
+430,48,Hombres
+431,48,Infantiles
+432,48,Mujeres
+433,48,Perfumes Solidos
+434,48,Polvos con Fragancia
+435,48,Sets
+436,48,Velas y Esencias para el Hogar
+437,48,Otros
+438,49,Accesorios
+439,49,Antes de Rasurarse y Depilarse
+440,49,Depilacion
+441,49,Despues de Rasurarse y Depilarse
+442,49,Rasurado Manual
+443,49,Rasuradoras Electricas
+444,49,Recortadoras y Rasuradoras Corporales
+445,49,Tijeras
+446,49,Otros
+447,50,Atomizadores
+448,50,Bolitas y Almohadillas de Algodon
+449,50,Bolsas y Estuches
+450,50,Contenedores Rellenables
+451,50,Herramientas para el Cuidado de la Piel
+452,50,Kits de Belleza
+453,50,Suministros para Piercings y Tatuajes
+454,50,Utensilios y Accesorios para Maquillaje
+455,50,Otros
+456,51,Otros
+457,52,Artes marciales mixtas
+458,52,Bolsas para Equipo
+459,52,Chandales
+460,52,Equipo de Entrenamiento
+461,52,Exhibidores para Cinturones
+462,52,Jiu-jitsu
+463,52,Judo
+464,52,Karate
+465,52,Kendo
+466,52,Kickboxing
+467,52,Kung Fu
+468,52,Ninjutsu
+469,52,Protecciones
+470,52,Taekwondo
+471,52,Otros
+472,53,Accesorios para celulares
+473,53,Basquetbol
+474,53,Beisbol
+475,53,Bocinas de aire para estadio
+476,53,Electronica
+477,53,Equipo para deporte
+478,53,Futbol
+479,53,Futbol Americano
+480,53,Herramientas y mejoras del hogar
+481,53,Hockey sobre Hielo
+482,53,Joyeria y Relojes
+483,53,Juguetes y Productos de Sala de Juegos
+484,53,Memorabilia
+485,53,"Patio, cesped y jardin"
+486,53,Productos de oficina
+487,53,Productos para el Hogar
+488,53,Otros
+489,54,Equipo para Competencias
+490,54,Equipo para Lanzamientos
+491,54,Equipo para Saltos
+492,54,Equipo para la Pista
+493,54,Tenis
+494,54,Carritos para Equipos
+495,54,Otros
+496,55,Bolsas para Equipo
+497,55,Gallitos
+498,55,Juegos Completos
+499,55,Raquetas
+500,55,Redes
+501,55,Otros
+502,56,Accesorios de Cancha
+503,56,Accesorios para Tablero
+504,56,Balones
+505,56,Bolsas para Equipo
+506,56,Equipo de Entrenamiento
+507,56,Equipo Protector
+508,56,Mangas para tirador
+509,56,Tableros
+510,56,Tenis
+511,56,Otros
+512,57,Accesorios
+513,57,Accesorios para Bates
+514,57,Accesorios para Manoplas
+515,57,Bates
+516,57,Bolsas para Equipo
+517,57,Equipo de Arbitros
+518,57,Equipo de Entrenamiento
+519,57,Equipo para el Campo
+520,57,Equipo para Principiantes
+521,57,Guantes de Bateo
+522,57,Manoplas y Manoplas
+523,57,Pelotas
+524,57,Protecciones
+525,57,Zapatos
+526,57,Otros
+527,58,Accesorios
+528,58,Bolas de Billar
+529,58,Estuches para Tacos
+530,58,Fundas para Mesas de Billar
+531,58,Tacos
+532,58,Taqueras
+533,58,Triangulos y Estantes para Bolas
+534,58,Otros
+535,59,Bolas
+536,59,Bolsas
+537,59,Guantes
+538,59,Juegos de Boliche
+539,59,Pinos
+540,59,Protecciones
+541,59,Pulidores para Bolas
+542,59,Zapatos
+543,59,Otros
+544,60,Accesorios para Costales
+545,60,Costales
+546,60,Equipo de Gimnasio
+547,60,Guantes
+548,60,Juegos de Box
+549,60,Paos de boxeo
+550,60,Patas de oso
+551,60,Protecciones
+552,60,Otros
+553,61,Accesorios para Mochilas
+554,61,Accesorios para Tiendas de Campanha
+555,61,Arrancadores de fuego
+556,61,Bastones de Senderismo
+557,61,Bolsas de Acampar
+558,61,"Bolsas, paquetes y accesorios"
+559,61,Calentadores de Pies y Manos
+560,61,Cocina
+561,61,Cuidado Personal
+562,61,Equipo para Dormir de Campismo
+563,61,GPS y Navegacion
+564,61,Hidratacion
+565,61,Luces y Lamparas
+566,61,Mobiliario de Campismo
+567,61,Mochilas y Bolsas
+568,61,"Navajas, Cuchillos y Herramientas"
+569,61,Seguridad y Supervivencia
+570,61,Tiendas de Campanha
+571,61,Tiendas Refugio
+572,61,Otros
+573,62,Accesorios
+574,62,Bicicletas
+575,62,Bicicletas Infantiles y Accesorios
+576,62,Calzado
+577,62,Cascos y Accesorios
+578,62,Componentes y Refacciones
+579,62,Herramientas y Equipo para Bicicleta
+580,62,Lentes
+581,62,Luces y Reflectores
+582,62,Protecciones
+583,62,Ropa
+584,62,Otros
+585,63,Canhas
+586,63,Dardos
+587,63,Dardos de Acero
+588,63,Dardos de Plastico
+589,63,Dianas
+590,63,Gabinetes
+591,63,Plumas
+592,63,Puntas
+593,63,Tableros
+594,63,Otros
+595,64,Buceo y Esnorquel
+596,64,Canotaje
+597,64,Esqui Acuatico y Deportes de Arrastre
+598,64,Kayak
+599,64,Kitesurf
+600,64,Natacion
+601,64,Nautica
+602,64,Remo
+603,64,Ropa
+604,64,Surf
+605,64,Surf a Vela
+606,64,Surf de Remo
+607,64,Vela
+608,64,Wakeboard
+609,64,Otros
+610,65,Esqui
+611,65,Hockey sobre Hielo
+612,65,Motos de Nieve
+613,65,Patinaje sobre Hielo
+614,65,Patinetas para nieve
+615,65,Snowboard
+616,65,Snowboarding
+617,65,Otros
+618,66,Accesorios para el Caballo
+619,66,Arreos
+620,66,Cascos
+621,66,Equipo para Dirigir al Caballo
+622,66,Fuetes y Cuartas
+623,66,Guantes de Equitacion
+624,66,Protecciones
+625,66,Otros
+626,67,Accesorios
+627,67,Accesorios para Maquinas de Acondicionamiento Fisico
+628,67,Electronica
+629,67,Entrenadores de Equilibrio
+630,67,Entrenamiento de velocidad y agilidad
+631,67,Equipo de Acondicionamiento Fisico Acuatico
+632,67,Equipo de Desarrollo de Fuerza
+633,67,Maquinas de Cardio
+634,67,Pilates
+635,67,Ropa
+636,67,Yoga
+637,67,Otros
+638,68,Accesorios para Dispositivos
+639,68,Altimetros
+640,68,Brujulas
+641,68,Camaras de Accion y Accesorios
+642,68,Ciclocomputadoras
+643,68,Cronometros
+644,68,Dispositivos GPS
+645,68,Estaciones Meteorologicas Portatiles
+646,68,Monitores de Actividad
+647,68,Podometros
+648,68,Pulsometros
+649,68,Telemetros de Golf
+650,68,Velocimetros
+651,68,Otros
+652,69,Arneses
+653,69,Bolsas de Magnesio
+654,69,Cascos
+655,69,Cuerdas y Correas
+656,69,Guantes de Escalada
+657,69,Herrajes para Escalada
+658,69,Magnesio
+659,69,Mosquetones
+660,69,Pies de Gato
+661,69,Presas de Escalada
+662,69,Slacklines
+663,69,Otros
+664,70,Albumes de Tarjetas
+665,70,Cajas para Tarjetas
+666,70,Fundas para Tarjetas
+667,70,Tornillos de Ajuste de Tarjetas
+668,70,Vitrinas de objetos de recuerdo deportivos
+669,70,Otros
+670,71,Balones
+671,71,Bolsas para Equipo
+672,71,Bolsos y redes para pelotas
+673,71,Equipo para Entrenar y Jugar
+674,71,Espinilleras
+675,71,Guantes de Portero
+676,71,Porterias
+677,71,Redes
+678,71,otros
+679,72,Balones
+680,72,Bolsas para Equipo
+681,72,Cascos
+682,72,Cinturones de Banderines de Futbol
+683,72,Equipo de Entrenamiento
+684,72,Equipo de Proteccion
+685,72,Guantes
+686,72,Guantes de Receptor
+687,72,Haches
+688,72,Marcadores de Yardas
+689,72,Ropa
+690,72,Soportes y Tes para Patada
+691,72,Uniformes
+692,72,Zapatos
+693,72,otros
+694,73,Agarres de Mano
+695,73,Bolsas para Equipo
+696,73,Equipo de Competencia
+697,73,Equipo de Entrenamiento
+698,73,Magnesio
+699,73,Ropa
+700,73,Tapetes y Colchonetas
+701,73,otros
+702,74,Accesorios
+703,74,Accesorios para Bolsas de Palos
+704,74,Accesorios para Carritos de Golf
+705,74,Accesorios para el Campo
+706,74,Bolas
+707,74,Bolsas de Palos
+708,74,Calzado
+709,74,Equipo de Entrenamiento
+710,74,Guantes
+711,74,Palos
+712,74,Piezas para Palos
+713,74,otros
+714,75,Cilindros de Hule Espuma
+715,75,Paramedico y Medicina Deportiva
+716,75,Protectores Bucales
+717,75,Suplementos para Deportistas
+718,75,"Tirantes, Ferulas y Soportes"
+719,75,Tratamientos de Frio y Calor
+720,75,otros
+721,76,Accesorios
+722,76,Bolsas para Equipo
+723,76,Cascos
+724,76,Cera
+725,76,Herramientas
+726,76,Patinetas y Patinetas Giratorias
+727,76,Piezas de Patinetas
+728,76,Protecciones
+729,76,Rampas y Rieles
+730,76,otros
+731,77,Cascos
+732,77,Partes para Patines en Linea
+733,77,Patines en Linea
+734,77,Patines en Paralelo
+735,77,Piezas para Patines en Paralelo
+736,77,Protecciones
+737,77,otros
+738,78,Accesorios
+739,78,Monopatines autoequilibrantes
+740,78,Patines del Diablo
+741,78,Piezas de Patines del Diablo
+742,78,otros
+743,79,Aparejos del Lider
+744,79,Combos de Canha y Carrete
+745,79,Patos
+746,79,Pesca con Mosca
+747,79,Pesca en Hielo
+748,79,Sedales
+749,79,Senhuelos y Moscas
+750,79,Accesorios
+751,79,Anzuelos y Accesorios
+752,79,Aparejo y Accesorios de Terminal
+753,79,Calzado
+754,79,Carretes y accesorios
+755,79,Herramientas
+756,79,Varillas y accesorios
+757,79,otros
+758,80,Accesorios
+759,80,Bolsas para Equipo
+760,80,Gomas
+761,80,Juegos de Ping Pong
+762,80,Mesas
+763,80,Pelotas
+764,80,Raquetas
+765,80,otros
+766,81,Accesorios
+767,81,Antivibradores
+768,81,Bolsas para Equipo
+769,81,Cordajes
+770,81,Equipo de Entrenamiento
+771,81,Mangos de Raquetas
+772,81,Maquinas de Pelotas
+773,81,Maquinas y Herramientas de Encordado
+774,81,Pelotas
+775,81,Raquetas
+776,81,Recogepelotas
+777,81,Redes
+778,81,otros
+779,82,Arcos
+780,82,Botones de Boca
+781,82,Carcajes
+782,82,Cuerdas de Arco
+783,82,Dactileras
+784,82,Dianas
+785,82,Disparadores
+786,82,Dragoneras
+787,82,Estabilizadores
+788,82,Estuches de Arco
+789,82,Flechas y Saetas
+790,82,Mantenimiento del Arco
+791,82,Miras
+792,82,Montadores
+793,82,Nocks
+794,82,Plumas para Flechas
+795,82,Protecciones
+796,82,Reposaflechas
+797,82,otros
+798,83,Balones
+799,83,Bolsas para Equipo
+800,83,Juegos de Postes
+801,83,Redes
+802,83,otros
+803,84,Accesorios
+804,84,Radio Casetes
+805,84,Radios y DAB
+806,84,Receptores de Onda Corta
+807,84,Reproductores de MP3 y Medios Digitales
+808,84,Reproductores Personales de Casete
+809,84,Reproductores Personales de CD
+810,84,Reproductores Portatiles de DVD y Blu-ray
+811,84,otros
+812,85,Accesorios
+813,85,"Binoculares, Telescopios y Optica"
+814,85,Camaras Analogicas
+815,85,Camaras de Accion
+816,85,Camaras de Vigilancia
+817,85,Camaras Digitales
+818,85,Camaras Montadas en el Cuerpo
+819,85,Camaras Simuladas
+820,85,Drones y Accesorios
+821,85,Escaneres de Peliculas y Diapositivas
+822,85,Flashes
+823,85,Fotografia y Video Subacuatico
+824,85,Impresoras de Fotos
+825,85,Lentes
+826,85,Marcos Digitales
+827,85,Proyectores de Diapositivas
+828,85,Proyectores de Video
+829,85,Tripodes y Monopies
+830,85,Videocamaras
+831,85,Videocamaras Profesionales
+832,85,otros
+833,86,Accesorios
+834,86,Banda Ancha Movil
+835,86,Celulares y Smartphones de Prepago
+836,86,Celulares y Smartphones Desbloqueados
+837,86,Relojes inteligentes
+838,86,otros
+839,87,Accesorios
+840,87,Almacenamiento de Datos
+841,87,Bocinas de Computadora
+842,87,Bolsas Mensajeras y al Hombro para Tablet
+843,87,Bolsas Mensajeras y Bolsas al Hombro para Laptop
+844,87,Componentes
+845,87,Componentes de Laptop
+846,87,Componentes Externos
+847,87,Computadoras de Escritorio
+848,87,Dispositivos para Redes
+849,87,Equipo para Camara y VoIP
+850,87,Escaneres
+851,87,Impresoras
+852,87,Laptops
+853,87,Mochilas para Laptop
+854,87,Monitores
+855,87,PC Semiensamblada
+856,87,Portafolios para Laptop
+857,87,Servidores
+858,87,Tablets
+859,87,otros
+860,88,Accesorios
+861,88,Electronica de Autos
+862,88,Electronica de Motocicletas
+863,88,Electronica Marina
+864,88,GPS
+865,88,otros
+866,89,Accesorios
+867,89,Apuntadores
+868,89,Basculas para Correo
+869,89,Cartuchos de Tinta de Inyeccion
+870,89,Cartuchos de Tinta de Sublimacion
+871,89,Cartuchos de Toner
+872,89,"Diccionarios Electronicos, Tesauros y Traductores"
+873,89,Enmicadoras
+874,89,Escaneres de Codigos de Barras
+875,89,Escaners
+876,89,Faxes
+877,89,Fotocopiadoras
+878,89,Grabadoras de Voz y Accesorios
+879,89,Impresoras
+880,89,Kits y Recargas de Tinta para Inyeccion de Tinta
+881,89,Proyectores
+882,89,Recargas y Kits de Tinta de Sublimacion
+883,89,Rotuladoras
+884,89,Trituradoras de Papel y Documentos
+885,89,otros
+886,90,Accesorios
+887,90,Bocinas
+888,90,Dispositivos para Video En Tiempo Real
+889,90,Minicomponentes
+890,90,Radios y Grabadoras
+891,90,Receptores y Componentes
+892,90,otros
+893,91,Adaptadores de Corriente
+894,91,Calcomanias Decorativas
+895,91,Cubiertas
+896,91,Fundas Blandas
+897,91,Lectores de Libros Electronicos
+898,91,Lotes
+899,91,Protectores de Pantalla
+900,91,Soportes
+901,91,otros
+902,92,Dispositivos GPS deportivos
+903,92,GPS Marinos
+904,92,GPS RV
+905,92,Localizadores GPS
+906,92,Sistemas de Navegacion para Camion
+907,92,Sistemas de Navegacion para Coche
+908,92,Sistemas de Navegacion para Motocicleta
+909,92,otros
+910,93,Accesorios
+911,93,Equipos Transmisores-receptores
+912,93,Escaneres de Radio
+913,93,Radios Marinos
+914,93,otros
+915,94,Accesorios
+916,94,Bocinas
+917,94,Combos TV-DVD
+918,94,Decodificadores
+919,94,Dispositivos para Streaming
+920,94,Equipos de Home Theater
+921,94,Equipos de TV Por Satelite
+922,94,Equipos satelitales
+923,94,Lentes de Video Virtual
+924,94,Parabolicas
+925,94,Proyectores
+926,94,Receptores AV y Amplificadores
+927,94,Reproductores y Grabadoras de Blu-ray
+928,94,Reproductores y Grabadoras de DVD
+929,94,Televisiones
+930,94,otros
+931,95,Accesorios
+932,95,Contestadoras
+933,95,Telefonos Analogicos y DECT
+934,95,Telefonos Compatibles Con VoIP y Skype
+935,95,otros
+936,96,Adaptadores de CA
+937,96,Adaptadores Internacionales
+938,96,Cables de Extension
+939,96,Protectores de Sobretension
+940,96,Transformadores
+941,96,otros
+942,97,Adaptadores
+943,97,Almohadillas
+944,97,Amplificadores
+945,97,Audifonos
+946,97,Estuches
+947,97,Extensiones
+948,97,Ganchos de Almacenamiento
+949,97,Soportes
+950,97,otros
+951,98,Adaptadores de Pilas
+952,98,Cargadores de Pilas
+953,98,Paquetes de Pilas y Cargadores
+954,98,Pilas Desechables
+955,98,Pilas Recargables
+956,98,Portapilas
+957,98,otros
+958,99,Tablets
+959,99,otros
+960,100.0,otros
+961,101,Almacenamiento de Garaje
+962,101,Almacenamiento para Exteriores
+963,101,Armarios de Almacenamiento
+964,101,Estantes Multiusos
+965,101,Organizadores de Herramientas
+966,101,otros
+967,102,Chimeneas
+968,102,Estufas
+969,102,otros
+970,103,Accesorios para Conductos
+971,103,Adaptadores Internacionales
+972,103,Automatizacion del Hogar
+973,103,Bridas
+974,103,Cableado de Superficie
+975,103,Cables electricos
+976,103,Capacitadores
+977,103,Cojines Termicos Relajantes
+978,103,Comparadores
+979,103,Cristales
+980,103,Diodos
+981,103,Disyuntores
+982,103,Enchufes y accesorios
+983,103,Extensiones
+984,103,Fusibles
+985,103,Herramientas y Comprobadores
+986,103,Interruptores y Reguladores de Luz
+987,103,LED
+988,103,Monitores
+989,103,Monitores de Alimentacion Electrica
+990,103,Montajes Empotrados
+991,103,Optoacopladores
+992,103,Osciladores
+993,103,Paneles Disyuntores
+994,103,Placa Adaptadora SMD
+995,103,Placas de Pared
+996,103,Radiotransmisores de Pared
+997,103,Regletas Electricas
+998,103,Resistores
+999,103,Resonadores
+1000,103,Temporizadores
+1001,103,Terminales y Kits
+1002,103,Timbres y Campanas para Puerta
+1003,103,Transformadores
+1004,103,Transistores
+1005,103,otros
+1006,104,Equipamiento de Banhos
+1007,104,Equipamiento de Lavaderos y Servicios
+1008,104,Equipamiento para Cocina
+1009,104,Filtros y Descalcificadores
+1010,104,Saunas
+1011,104,otros
+1012,105,Adhesivos y Selladores
+1013,105,Articulos para Banho
+1014,105,Buzones
+1015,105,Candados y Aldabas para Candados
+1016,105,"Clavos, Tornillos y Sujetadores"
+1017,105,Ferreteria para Armarios
+1018,105,Ferreteria para Muebles
+1019,105,Ferreteria para Puertas de Garaje
+1020,105,Ferreteria para Rejas
+1021,105,Ferreteria para Ventanas
+1022,105,Ferreteria y Cerraduras para Puertas
+1023,105,Ganchos
+1024,105,Linternas
+1025,105,Lonas y Amarres
+1026,105,"Numeros de Casa, Placas y Senhalamientos"
+1027,105,Soportes para Estantes
+1028,105,otros
+1029,106,Accesorios para Herramientas Electricas
+1030,106,Aspiradoras en Seco y Humedo
+1031,106,Herramientas Electricas
+1032,106,Herramientas Manuales
+1033,106,Herramientas de Limpieza
+1034,106,Herramientas para Medicion y Disenho
+1035,106,Organizadores de Herramientas
+1036,106,otros
+1037,107,Focos
+1038,107,Iluminacion de Exterior
+1039,107,Iluminacion de Interior
+1040,107,otros
+1041,108,Alarmas y Detectores para el Hogar
+1042,108,Cajas Fuertes y Accesorios
+1043,108,Candados y Aldabas para Candados
+1044,108,Kits de Primeros Auxilios
+1045,108,Linternas
+1046,108,Material y Accesorios de Seguridad Laboral
+1047,108,Proteccion Contra Incendios
+1048,108,Sirenas
+1049,108,Sistemas de Seguridad para el Hogar
+1050,108,Timbres de Alarmas
+1051,108,otros
+1052,109,Adhesivos de Papel Tapiz
+1053,109,Adhesivos y Murales
+1054,109,Botes para Prueba de Color
+1055,109,Cenefas
+1056,109,Espatulas para Yeso
+1057,109,Herramientas
+1058,109,Materiales de Preparacion
+1059,109,Paneles de Color
+1060,109,Papel Tapiz
+1061,109,"Pinturas, Tintes y Disolventes"
+1062,109,otros
+1063,110,Andamios
+1064,110,Climatizacion
+1065,110,Escaleras de Mano
+1066,110,Iluminacion de Areas de Trabajo
+1067,110,Manipulacion de Materiales
+1068,110,Material de Construccion
+1069,110,otros
+1070,111,Bombas de Agua y Accesorios
+1071,111,Calentadores de Agua y Piezas
+1072,111,Herramientas para Cambiar Grifos
+1073,111,Herramientas para Limpieza de Desagües
+1074,111,Piezas de Grifos
+1075,111,Piezas del Inodoro
+1076,111,Trituradores de Comida y Piezas
+1077,111,"Tuberias, Equipo y Accesorios"
+1078,111,Valvulas
+1079,111,otros
+1080,112,otros
+1081,113,Arquitectura
+1082,113,Artes Escenicas
+1083,113,Danza
+1084,113,Disenho Grafico
+1085,113,Fotografia
+1086,113,Musica
+1087,113,Teatro
+1088,113,Arte
+1089,113,Otros
+1090,114,Antigüedades
+1091,114,Bodas
+1092,114,Cuidado de Animales y Mascotas
+1093,114,Disenho de Interiores
+1094,114,Jardineria
+1095,114,Manualidades
+1096,114,Otros
+1097,115,Autoestima
+1098,115,Creatividad
+1099,115,Espiritual
+1100,115,Felicidad
+1101,115,Motivacion
+1102,115,Manejo del Estres
+1103,115,Ninho Interior
+1104,115,Transformacion Personal
+1105,115,Otros
+1106,116,Ciencia Ficcion
+1107,116,Fantasia
+1108,116,Otros
+1109,117,Astronomia
+1110,117,Ciencias Agricolas
+1111,117,Biologia
+1112,117,Fisica
+1113,117,Genetica
+1114,117,Matematicas
+1115,117,Ecologia
+1116,117,Quimica
+1117,117,Otros
+1118,118,Createspace
+1119,118,Dark Horse COmics
+1120,118,DC
+1121,118,Marvel Books
+1122,118,Seven Seas
+1123,118,Otros
+1124,119,Analisis y Disenho de Sistemas
+1125,119,Bases de Datos
+1126,119,Disenho de Sitios Web
+1127,119,Hardware
+1128,119,Programacion
+1129,119,Redes Informaticas
+1130,119,Sistemas Operativos
+1131,119,Otros
+1132,120,Baloncesto
+1133,120,Beisbol
+1134,120,Deportes Acuaticos
+1135,120,Deportes de Invierno
+1136,120,Deportes Extremos
+1137,120,Futbol
+1138,120,Futbol Americano
+1139,120,Golf
+1140,120,Hockey
+1141,120,Juegos Olimpicos
+1142,120,Softbol
+1143,120,Otros
+1144,121,Almanaques y Anuarios
+1145,121,Atlas y Mapas
+1146,121,Diccionarios
+1147,121,Enciclopedias
+1148,121,Otros
+1149,122,Africa
+1150,122,Asia
+1151,122,Australia y Oceania
+1152,122,Militar
+1153,122,Europa
+1154,122,Las Americas
+1155,122,Mundial
+1156,122,Medio Oriente
+1157,122,Rusia
+1158,122,Otros
+1159,123,Cine
+1160,123,Cultura Pop
+1161,123,Humor
+1162,123,Juegos
+1163,123,Television
+1164,123,Otros
+1165,124,Alimentos Naturales
+1166,124,Artes Culinarias
+1167,124,Dietas Especiales
+1168,124,Gastronomia
+1169,124,Refrescos y Bebidas
+1170,124,Regional e Internacional 
+1171,124,Vegetariana
+1172,124,Otros
+1173,125,Misterio
+1174,125,Thrillers
+1175,125,Policiaco
+1176,125,Otros
+1177,126,Desarrollo Empresiarial 
+1178,126,Economia
+1179,126,Finanzas
+1180,126,Gestion
+1181,126,Gobierno
+1182,126,Inversion
+1183,126,Otros
+1184,127,Ciencias Sociales
+1185,127,Crimen
+1186,127,Filosofia
+1187,127,Politica
+1188,127,Otros
+1189,128,Suspenso
+1190,128,Contemporaneo 
+1191,128,Paranormal
+1192,128,Historico
+1193,128,Otros
+1194,129,Medicina Alternativa
+1195,129,Relaciones
+1196,129,Salud Mental
+1197,129,Salud Personal
+1198,129,Otros
+1199,130,Accion y Aventura
+1200,130,"Arte, Cine y Fotografia"
+1201,130,Autoayuda
+1202,130,Ciencia y Tecnologia
+1203,130,Suspenso y Misterio
+1204,130,Deportes
+1205,130,Derecho
+1206,130,Fantasia
+1207,130,Historia
+1208,130,Turismo
+1209,130,Otros
+1210,131,Otros
+1211,132,Adornos
+1212,132,Regalos
+1213,132,Oficina
+1214,132,Ropa
+1215,132,Basura
+1216,132,Cestos
+1217,132,Ganchos
+1218,132,Otros
+1219,133,Carritos de Limpieza
+1220,133,Guantes
+1221,133,Otros
+1222,134,Accesorios
+1223,134,Tapetes
+1224,134,Otros
+1225,135,Accesorios para Cama
+1226,135,Blancos de Cocina
+1227,135,Cojines
+1228,135,Otros
+1229,136,Deshumidificadores
+1230,136,Purificadores de Aire
+1231,136,Ventiladores
+1232,136,Otros
+1233,137,Almacenamiento de Despensa
+1234,137,Cafe y Te
+1235,137,Vajilla
+1236,137,Electrodomesticos
+1237,137,Reposteria
+1238,137,Utensilios
+1239,137,Otros
+1240,138,Cortinas y persianas
+1241,138,Espejos
+1242,138,Fundas
+1243,138,Jarrones
+1244,138,Marcos
+1245,138,Imanes
+1246,138,Otros
+1247,139,Exterior
+1248,139,Interior
+1249,139,Navidad
+1250,139,Otros
+1251,140,Comedor
+1252,140,Recamara
+1253,140,Oficina
+1254,140,Infantil
+1255,140,Otros
+1256,141,Otros
+1257,142,Afinadores
+1258,142,Aprendizaje Musical
+1259,142,Atriles
+1260,142,Atriles de Lira
+1261,142,Batutas de Director
+1262,142,Cables y Conectores
+1263,142,Cuadernos de Papel para Personal
+1264,142,Lamparas para Atril
+1265,142,Metronomos
+1266,142,Papel Pautado
+1267,142,Regalos de Musica
+1268,142,Tableros de Anuncios
+1269,142,Otros
+1270,143,Amplificadores
+1271,143,Bajos Electricos
+1272,143,Bajos y Accesorios
+1273,143,Efectos
+1274,143,Piezas y Repuestos
+1275,143,Otros
+1276,144,Accesorios
+1277,144,"Baterias, Roto Toms y Sets de Tambores"
+1278,144,Gongs
+1279,144,Herrajes
+1280,144,Pads de Practica
+1281,144,Percusion de Mano
+1282,144,Percusion Melodica y de Orquesta
+1283,144,Platillos
+1284,144,Tambores de Mano
+1285,144,Tambores Electronicos
+1286,144,Otros
+1287,145,Accesorios
+1288,145,Auriculares para DJ
+1289,145,Controladores para DJ
+1290,145,Iluminacion y Accesorios
+1291,145,Mesas Mezcladoras
+1292,145,Microfonos
+1293,145,Reproductores de CD
+1294,145,Sets para DJ
+1295,145,Tornamesas
+1296,145,Otros
+1297,146,Sistemas
+1298,146,Otros
+1299,147,Accesorios de Estudio
+1300,147,Auriculares y Monitores Internos
+1301,147,Cables y Conectores
+1302,147,Controladores MIDI
+1303,147,Controladores para Estaciones de Trabajo de Audio Digital
+1304,147,Convertidores Digitales
+1305,147,Grabadores Multipista
+1306,147,Interfaces de Audio
+1307,147,Interfaces MIDI
+1308,147,Mesas Mezcladoras
+1309,147,Microfonos
+1310,147,Monitores de Estudio
+1311,147,Preamplificadores
+1312,147,Procesadores de Senhales y de Efectos
+1313,147,Software de Grabacion y Reproduccion de Audio
+1314,147,Software de Notacion Musical
+1315,147,Tratamientos para Salas Acusticas
+1316,147,Otros
+1317,148,Accesorios
+1318,148,Amplificadores para Guitarras
+1319,148,Efectos
+1320,148,Guitarras Acusticas de Cuerdas Metalicas
+1321,148,Guitarras Clasicas
+1322,148,Guitarras Electroacusticas
+1323,148,Guitarras Electricas
+1324,148,Kits de Guitarras Electricas
+1325,148,Piezas y Repuestos para Guitarras Acusticas y Clasicas
+1326,148,Piezas y Repuestos para Guitarras Electricas
+1327,148,Otros
+1328,149,Accesorios
+1329,149,Piezas y Repuestos
+1330,149,Violas
+1331,149,Violines
+1332,149,Guitarras Clasicas
+1333,149,Otros
+1334,150,Accesorios
+1335,150,Armonicas
+1336,150,Arpas de Boca
+1337,150,Didgeridoos
+1338,150,Instrumentos de Viento Madera
+1339,150,Melodicas
+1340,150,Neys
+1341,150,Otros
+1342,151,Accesorios
+1343,151,Condensadores
+1344,151,Dinamicos
+1345,151,Otros
+1346,152,Accesorios
+1347,152,Folclore y Acordeones
+1348,152,Pianos
+1349,152,Sintetizadores
+1350,152,Teclados Electronicos
+1351,152,Otros
+1352,153,Accesorios
+1353,153,Sampleadores
+1354,153,Sintetizadores
+1355,153,Teclados Electronicos
+1356,153,Otros
+1357,154,Altavoces
+1358,154,Amplificadores
+1359,154,Cables y Conectores
+1360,154,Cajas DI
+1361,154,"Fundas, Estuches y Soportes"
+1362,154,Iluminacion
+1363,154,Microfonos
+1364,154,Monitores Intra-aurales
+1365,154,Maquinas de Efectos
+1366,154,Procesadores de Senhales y de Efectos
+1367,154,Sistemas de Megafonia y Anuncio
+1368,154,Otros
+1369,155,Otros
+1370,156,Bancas de Almacenamiento
+1371,156,Cajas para Deck
+1372,156,Casas de Verano
+1373,156,Cobertizos de Almacenamiento
+1374,156,Cobertizos de Almacenamiento de Basura
+1375,156,Contenedores de Almacenamiento
+1376,156,Garajes
+1377,156,Kits de Casas Miniatura
+1378,156,Saunas
+1379,156,Otros
+1380,157,Accesorios para Asadores y Ahumadores
+1381,157,Asadores y Hornos para Ahumar Carne
+1382,157,Cocinas al Aire Libre
+1383,157,Piezas de repuesto
+1384,157,Utensilios de Cocina para Asador
+1385,157,Utensilios para Asador
+1386,157,Vajilla y Utensilios para Picnic
+1387,157,Otros
+1388,158,Accesorios para Chimeneas al Aire Libre
+1389,158,"Calentadores para Exterior, Piezas y Accesorios"
+1390,158,Fogatas y Chimeneas al Aire Libre
+1391,158,Piezas y Accesorios para Nebulizadores
+1392,158,Sistemas de Nebulizacion
+1393,158,Ventiladores con nebulizacion
+1394,158,Otros
+1395,159,Detectores de Metal y Accesorios
+1396,159,Fresadoras
+1397,159,Generadores y Energia Portatil
+1398,159,Hachas para Hierba
+1399,159,Herramientas Electricas de Exterior
+1400,159,Herramientas y Accesorios de Mantenimiento para Arboles
+1401,159,Lavadoras a Presion y Accesorios
+1402,159,Piezas y Accesorios para Podadoras
+1403,159,Podadoras y Accesorios
+1404,159,Repuestos para Herramientas Electricas de Exterior
+1405,159,"Sopladores de Hojas, Aspiradoras y Accesorios"
+1406,159,"Tijeras de Podar, Piezas y Accesorios"
+1407,159,Otros
+1408,160,Control de Insectos y Plagas
+1409,160,"Control de Malezas, Musgos y Hongos"
+1410,160,Fertilizantes y Alimentos para Plantas
+1411,160,Monitorizacion de plantas y suelos
+1412,160,"Tierras, Abonos y Medios de Plantacion"
+1413,160,Otros
+1414,161,Accesorios para Fuentes
+1415,161,Alfombras de Exteriores
+1416,161,Banderas
+1417,161,Cadenas de Lluvia
+1418,161,Campanas
+1419,161,Cercas Decorativas
+1420,161,Conos de Viento
+1421,161,Cortinas para Exteriores
+1422,161,Decoraciones de Festividades para Exterior
+1423,161,Esculturas y Estatuas de Jardin
+1424,161,Estacas Decorativas Para Jardin
+1425,161,Estacas Decorativas para Jardin
+1426,161,Fuentes
+1427,161,Ganchos de Pastor para Exteriores
+1428,161,Herraje para Mastil
+1429,161,Letreros de Direccion
+1430,161,Materiales para su Jardin y Patio
+1431,161,Pasto Artificial
+1432,161,Relojes de Sol
+1433,161,Relojes para Exteriores
+1434,161,Senhalamientos para Patio
+1435,161,Soportes para Colgar de Exteriores
+1436,161,Veletas
+1437,161,Otros
+1438,162,Bombas
+1439,162,Boquillas de Bomba
+1440,162,Fuentes para Estanques
+1441,162,Luces para Estanques
+1442,162,Tubos
+1443,162,Otros
+1444,163,Acuaponia
+1445,163,Canteros Elevados y Estructuras de Apoyo
+1446,163,Cenadores
+1447,163,Hidroponia
+1448,163,Invernaderos y Equipo de Germinacion
+1449,163,"Toldos, Gazebos y Pergolas"
+1450,163,Otros
+1451,164,Accesorios de Jardineria y Ropa de Proteccion
+1452,164,Carros y Vagones
+1453,164,Composta y Residuos de Patio
+1454,164,Contenedores para Plantas y Accesorios
+1455,164,Equipo de Riego
+1456,164,Esparcidores
+1457,164,Herramientas Manuales
+1458,164,Pulverizadores y Accesorios
+1459,164,Otros
+1460,165,Accesorios de Iluminacion
+1461,165,Apliques de Exterior
+1462,165,Farolas
+1463,165,Focos de Exterior
+1464,165,Guirnaldas Luminosas de Exterior
+1465,165,Iluminacion de Caminos
+1466,165,Iluminacion de Estanques y Albercas
+1467,165,Iluminacion de Patio y Terraza
+1468,165,Iluminacion de Seguridad
+1469,165,Lamparas de Piso para Exteriores
+1470,165,Linternas de Exterior
+1471,165,Luces para Sombrillas
+1472,165,Mangueras LED de Exterior
+1473,165,Postes de Luz
+1474,165,Proyectores de Iluminacion Decorativa
+1475,165,Otros
+1476,166,Almohadas Decorativas
+1477,166,Asientos para Patio
+1478,166,Bancas con Cajones
+1479,166,Bolsas de Almacenamiento de Cojin
+1480,166,Cajas para Deck
+1481,166,Carros
+1482,166,Cojines
+1483,166,Contenedores de Almacenamiento
+1484,166,Fundas
+1485,166,Fundas de Cojin
+1486,166,"Hamacas, Columpios y Accesorios"
+1487,166,Juegos de Muebles
+1488,166,Manteles
+1489,166,Mesas
+1490,166,Sombrillas y Sombras
+1491,166,"Toldos, Gazebos y Pergolas"
+1492,166,Otros
+1493,167,Ardillas
+1494,167,Aves
+1495,167,Hoteles de Insectos
+1496,167,Mariposas
+1497,167,Murcielagos
+1498,167,Otros
+1499,168,Calentadores y Accesorios
+1500,168,Duchas para Exteriores
+1501,168,"Filtros, Bombas y Accesorios"
+1502,168,Fundas y Accesorios
+1503,168,Herramientas de Limpieza y Accesorios
+1504,168,Jacuzzis
+1505,168,Pintura y Sellado
+1506,168,Piscinas
+1507,168,Productos de Iluminacion
+1508,168,Pruebas de Quimicos y Agua
+1509,168,Revestimientos
+1510,168,Saunas al Aire Libre y Piezas
+1511,168,Seguridad
+1512,168,Termometros
+1513,168,"Toboganes, Escaleras y Trampolines"
+1514,168,Otros
+1515,169,Anemometros
+1516,169,Barometros
+1517,169,Estaciones Meteorologicas
+1518,169,Higrometros
+1519,169,Medidores de Lluvia
+1520,169,Termometros
+1521,169,Otros
+1522,170,Barandales y Postes
+1523,170,Ferreteria
+1524,170,Materiales
+1525,170,Otros
+1526,171,Otros
+1527,172,Albercas de Bolas y Accesorios
+1528,172,Albercas de Jardin y Juegos Acuaticos
+1529,172,Armas y Proyectiles de Juguete
+1530,172,Bastones y Pelotas para Saltar
+1531,172,"Bicicletas, Triciclos y Carritos"
+1532,172,Bolsas de Dormir
+1533,172,Bumeran
+1534,172,Cajones de Arena y Accesorios
+1535,172,Casas de Juguete
+1536,172,Dardos y Dianas
+1537,172,Gimnasios y Columpios
+1538,172,Habilidad y Gimnasia
+1539,172,Herramientas de Jardin para Ninhos
+1540,172,Juguetes Deportivos
+1541,172,Papalotes y Juguetes de Vuelo
+1542,172,Rehiletes de Jardin
+1543,172,Tiendas de Campanha para Ninhos
+1544,172,Burbujas
+1545,172,Equipo para parque infantil y juegos
+1546,172,Otros
+1547,173,Albumes y Calcomanias
+1548,173,Arcilla y Plastilina
+1549,173,Construccion de Maquetas y Pasatiempos
+1550,173,Cuentas para Planchar
+1551,173,Delantales y Batas
+1552,173,Grabados y Sellos
+1553,173,Juegos de Manualidades
+1554,173,Libros para Colorear
+1555,173,Material de Escritura y Dibujo
+1556,173,Mosaicos
+1557,173,Pizarrones
+1558,173,Pizarrones Magicos
+1559,173,Otros
+1560,174,Cubiertos y platos para fiestas
+1561,174,Decoraciones
+1562,174,Invitaciones
+1563,174,Manteles y Accesorios para Mesas
+1564,174,Espantasuegras
+1565,174,Pinhatas
+1566,174,Recordatorios para cumpleanhos
+1567,174,"Gorros, Gafas y Accesorios para Fiestas"
+1568,174,Juegos de Lanzamiento
+1569,174,Juegos de Pin
+1570,174,Otros
+1571,175,Accesorios
+1572,175,Baterias y Percusiones
+1573,175,Guitarras y Cuerdas
+1574,175,Pianos y Teclados
+1575,175,Viento y Metal
+1576,175,Otros
+1577,176,Almacenamiento y Accesorios
+1578,176,Construccion Magnetica
+1579,176,Figuras
+1580,176,Juegos de Construccion
+1581,176,Juegos de Engranes
+1582,176,Otros
+1583,177,Accesorios
+1584,177,Bolsas de Juguete
+1585,177,Dinero y banca
+1586,177,Disfraces
+1587,177,Equipo de Espionaje para Ninhos
+1588,177,Herramientas de Juguete
+1589,177,Juegos de Medicos
+1590,177,Juguetes de Cocina
+1591,177,Juguetes del Hogar
+1592,177,Otros
+1593,178,Ajedrez
+1594,178,Arcade y Juegos de Mesa
+1595,178,Bingo
+1596,178,Canicas
+1597,178,Equipo de Casino
+1598,178,Juegos Electronicos Portatiles
+1599,178,Juegos de Apilar
+1600,178,Juegos de Cartas
+1601,178,Juegos de Mesa
+1602,178,Juegos de Piso
+1603,178,Juegos de Tablero y Miniatura
+1604,178,Juegos de Viaje y de Bolsillo
+1605,178,Juegos para DVD
+1606,178,Trompos de Batalla
+1607,178,Accesorios para Juegos
+1608,178,Juegos de mesa
+1609,178,Otros
+1610,179,Almacenamiento de Coleccionables
+1611,179,"Cromos, Cartas Coleccionables y Accesorios"
+1612,179,Estatuas y Bustos
+1613,179,Monedas Coleccionables y Papel Moneda
+1614,179,Sellos Postales Coleccionables
+1615,179,Otros
+1616,180,Ciencias
+1617,180,Electronica
+1618,180,Energia Solar
+1619,180,Habitats
+1620,180,Imanes y Juegos Magneticos
+1621,180,Juguetes de Desarrollo Temprano y de Actividad
+1622,180,Juguetes para Necesidades Especiales
+1623,180,Lectura y Escritura
+1624,180,Optica
+1625,180,Pistas para Canicas
+1626,180,Tarjetas Didacticas
+1627,180,Visores
+1628,180,Otros
+1629,181,Boomboxes y Reproductores de MP3
+1630,181,Camaras Digitales
+1631,181,Juguetes de Cuentacuentos
+1632,181,Mascotas Electronicas
+1633,181,Tabletas y Accesorios
+1634,181,Videojuegos
+1635,181,Walkie Talkies
+1636,181,Otros
+1637,182,Articulos de Broma
+1638,182,Juguetes antiestres
+1639,182,Juguetes de adivinacion
+1640,182,Juguetes de Broma de Chorro de Agua
+1641,182,Juguetes de Cuerda
+1642,182,Kits de Magia y Accesorios
+1643,182,Masas Viscosas para Jugar
+1644,182,Miniaturas
+1645,182,Monedas Novedosas y Papel Moneda
+1646,182,Munhecas Matrioska
+1647,182,Prismas
+1648,182,Trompos de juguete
+1649,182,Yoyos
+1650,182,Otros
+1651,183,Caballos y Animales Mecedores
+1652,183,Centros de Actividades
+1653,183,Estructuras de Juego para Interiores
+1654,183,Juegos de Bloques
+1655,183,Juguetes con Sonido
+1656,183,Juguetes de Banho
+1657,183,Juguetes de Habilidades Motoras
+1658,183,Juguetes para Bebes
+1659,183,Trompos
+1660,183,Otros
+1661,184,Accesorios de Casa de Munhecas
+1662,184,Accesorios para Munhecas
+1663,184,Casas de Munhecas
+1664,184,Munhecas
+1665,184,Munhecas Recortables y Magneticas
+1666,184,Sets de Juego
+1667,184,Otros
+1668,185,Edificios y Paisajes
+1669,185,Figuras de Accion
+1670,185,Juegos
+1671,185,Munhecos y Figuras Articulados
+1672,185,Otros
+1673,186,Animales y Figuras
+1674,186,Cojines de Peluche
+1675,186,Conjuntos de Juguetes y Mazadas de Felpa
+1676,186,Figuras de Juguete Interactivo de Felpa
+1677,186,Munhecas de Trapo
+1678,186,Ropa y Accesorios de Animales de Peluche
+1679,186,Titeres de Peluche
+1680,186,Otros
+1681,187,Drones
+1682,187,Piezas y Accesorios
+1683,187,Robots
+1684,187,Vehiculos controlados por aplicacion y control remoto
+1685,187,Otros
+1686,188,Accesorios para Rompecabezas
+1687,188,Juegos de Preguntas Capciosas
+1688,188,Rompecabezas 3-D
+1689,188,Rompecabezas Tipicos
+1690,188,Rompecabezas con Mango
+1691,188,Rompecabezas de Madera
+1692,188,Rompecabezas de Suelo
+1693,188,Sudokus
+1694,188,Tapetes para Rompecabezas
+1695,188,Otros
+1696,189,Marionetas de Ventrilocuo
+1697,189,Titeres de Dedos
+1698,189,Titeres de Mano
+1699,189,Titeres de Peluche
+1700,189,Otros
+1701,190,Aerodeslizadores
+1702,190,Ambulancias
+1703,190,Autobuses
+1704,190,Autos y autos de carreras
+1705,190,Aviones
+1706,190,Camiones
+1707,190,"Coches Slot, Pistas y Accesorios"
+1708,190,Cohetes
+1709,190,Cohetes y Naves Espaciales
+1710,190,Embarcaciones
+1711,190,Helicopteros
+1712,190,Juguetes de Dedo
+1713,190,Motocicletas
+1714,190,Naves Espaciales
+1715,190,Rastreadores
+1716,190,Scooters
+1717,190,Sets de Juego para Vehiculos de Juguete
+1718,190,Tractores
+1719,190,Trenes y Tranvias
+1720,190,Vehiculos Blindados de Combate
+1721,190,Vehiculos de Construccion
+1722,190,Vehiculos todo terreno
+1723,190,Otros
+1724,191,Otros
+1725,192,Basculas
+1726,192,Calibracion
+1727,192,Calidad del Agua e Instrumentacion
+1728,192,Flujo y Calidad del Aire
+1729,192,Medicion Dimensional
+1730,192,"Movimiento, Velocidad y Fuerza"
+1731,192,Pruebas Electricas
+1732,192,Registradores y Adquisicion de Datos
+1733,192,Inclinometros
+1734,192,Medicion del sonido
+1735,192,Probadores de redes y cables
+1736,192,Sensores
+1737,192,Otros
+1738,193,Avisos y Senhalizacion de Seguridad
+1739,193,Capacitacion en Seguridad
+1740,193,Equipos de Respuesta a Emergencias
+1741,193,Manipulacion de Materiales Peligrosos
+1742,193,Material y Accesorios de Seguridad Laboral
+1743,193,Productos de Bloqueo y Etiquetado
+1744,193,Productos de Seguridad para Instalaciones
+1745,193,Otros
+1746,194,Accesorios de Banho
+1747,194,Herramientas de Limpieza
+1748,194,Productos de Cuidado Personal
+1749,194,Productos de Mantenimiento de Pisos
+1750,194,Productos de Papel
+1751,194,Recipientes y Bolsas para Desecho
+1752,194,Otros
+1753,195,Otros
+1754,196,Articulos de Salud
+1755,196,Ruedas de Ejercicio
+1756,196,Casas y Habitats
+1757,196,"Collares, Arneses y Correas"
+1758,196,Comida
+1759,196,Eliminadores de Olores y Manchas
+1760,196,Transportadoras
+1761,196,Juguetes
+1762,196,Otros
+1763,197,Accesorios para Jaula Protectora
+1764,197,Transportadoras
+1765,197,Comida
+1766,197,Jaulas y Accesorios
+1767,197,Juguetes
+1768,197,Otros
+1769,198,Articulos de Salud
+1770,198,Articulos para Comida y Agua
+1771,198,Cobijas y Sabanas
+1772,198,Herraduras y Zapatos
+1773,198,Premios
+1774,198,Otros
+1775,199,Arena y Adiestramiento para Evacuar
+1776,199,Camas y Muebles
+1777,199,"Collares, Arneses y Correas"
+1778,199,Comida
+1779,199,"Control de Pulgas, Piojos y Garrapatas"
+1780,199,Criptas y Funerales
+1781,199,"Gateras, Escalones, Redes y Corrales"
+1782,199,Higiene
+1783,199,Juguetes
+1784,199,Repelentes Educativos
+1785,199,Ropas
+1786,199,Transportadoras y Carriolas
+1787,199,Otros
+1788,200,Accesorios para Terrarios
+1789,200,Articulos de Salud
+1790,200,Comida
+1791,200,Otros
+1792,201,Accesorios y Ropa
+1793,201,"Amarres, Estacas y Cercas Inalambricas"
+1794,201,Arena y Adiestramiento para Evacuar
+1795,201,Camas y Muebles
+1796,201,"Casas, Perreras y Corrales"
+1797,201,"Collares, Arneses y Correas"
+1798,201,Comida
+1799,201,"Control de Pulgas, Piojos y Garrapatas"
+1800,201,Criptas y Funerales
+1801,201,Higiene
+1802,201,Juguetes
+1803,201,"Puertas, Rejas y Rampas"
+1804,201,Transportadoras y Productos para Viajar
+1805,201,Otros
+1806,202,"Camas, Arena Y Sustrato para Terrarios"
+1807,202,Comida
+1808,202,Cubiertas para Terrarios
+1809,202,Decoracion para Habitats
+1810,202,Termometros
+1811,202,Terrarios
+1812,202,Transportadoras
+1813,202,Otros
+1814,203,Otros
+1815,204,Clasica
+1816,204,Otros
+1817,205,Bluegrass
+1818,205,Country Alternativo y Estadounidense
+1819,205,Country Contemporaneo
+1820,205,Honky-Tonk
+1821,205,Swing Western
+1822,205,Otros
+1823,206,Ambient
+1824,206,Dance Mundial
+1825,206,Electronica
+1826,206,House
+1827,206,Tecno
+1828,206,Otros
+1829,207,Folk Contemporanea
+1830,207,Folk Tradicional
+1831,207,Otros
+1832,208,Death Metal
+1833,208,Hard Rock
+1834,208,Metal Alternativo
+1835,208,Otros
+1836,209,Cantautores
+1837,209,Hardcore y Punk
+1838,209,Indie y Lo-Fi
+1839,209,Otros
+1840,210,Acid Jazz
+1841,210,Bebop
+1842,210,Jazz Swing
+1843,210,Jazz Tradicional
+1844,210,Posbebop Moderno
+1845,210,Otros
+1846,211,Cantautores
+1847,211,Disco
+1848,211,Pop Dance
+1849,211,Rock Pop
+1850,211,Otros
+1851,212,Otros
+1852,213,"Estuches, Almacenaje y Transporte"
+1853,213,Herramientas de Corte
+1854,213,Muebles y Accesorios
+1855,213,Otros
+1856,214,Agendas
+1857,214,Calendarios de Escritorio y Suministros
+1858,214,Repuestos de Agendas
+1859,214,Otros
+1860,215,Acesorios
+1861,215,Cartuchos de Tinta
+1862,215,Enmicadoras
+1863,215,Impresoras
+1864,215,Proyectores
+1865,215,Rotuladores
+1866,215,Trituradores
+1867,215,Otros
+1868,216,Cuadernos de Asistencia y de Clases
+1869,216,Decoracion para las Aulas
+1870,216,Juegos de Geometria
+1871,216,Material de Educacion Infantil
+1872,216,Material Educativo
+1873,216,Tijeras
+1874,216,Otros
+1875,217,Crayones
+1876,217,Gises
+1877,217,Gomas y Articulos para Corregir
+1878,217,Lapices
+1879,217,Marcadores y Resaltadores
+1880,217,Plumas y Repuestos
+1881,217,Sacapuntas
+1882,217,Otros
+1883,218,"Cuadernos, Blocs de Notas y Diarios"
+1884,218,Papel
+1885,218,Tarjetas y Cartulinas
+1886,218,Otros
+1887,219,Otros
+1888,220,Peliculas
+1889,220,Otros
+1890,221,TV
+1891,221,Otros
+1892,222,Otros
+1893,223,Casual
+1894,223,Ceremonia y Eventos
+1895,223,Coctel
+1896,223,Fiesta
+1897,223,Oficina
+1898,223,Otros
+1899,224,Pantalones
+1900,224,Otros
+1901,225,Alpargatas para Mujer
+1902,225,Botas para Mujer
+1903,225,"Calzado de Uniformes, Tecnico y de Seguridad de Mujer"
+1904,225,Casuales para Mujer
+1905,225,Calzado Deportivo para Mujer
+1906,225,Flats para Mujer
+1907,225,Formales para Mujer
+1908,225,Mocasines para Mujer
+1909,225,Nauticos para Mujer
+1910,225,Pantuflas para Mujer
+1911,225,Sandalias de Piso para Mujer
+1912,225,Sandalias de Tacon para Mujer
+1913,225,Zapatillas para Mujer
+1914,225,Zuecos para Mujer
+1915,225,Otros
+1916,226,Blusas y Camisas
+1917,226,Henleys
+1918,226,Otros
+1919,227,Chamarras
+1920,227,Otros
+1921,228,Correas de Reloj
+1922,228,Relojes de Bolsillo
+1923,228,Relojes de Pulsera
+1924,228,Otros
+1925,229,Bolsas de Tela y de Playa
+1926,229,Bolsas Cross-Body
+1927,229,Bolsas de Asas
+1928,229,Bolsas de Mano
+1929,229,Bolsas Hobos y al Hombro
+1930,229,Mochilas
+1931,229,Otros
+1932,230,Anillos
+1933,230,Aretes
+1934,230,Collares
+1935,230,Pulseras
+1936,230,Tobilleras
+1937,230,Otros
+1938,231,Otros
+1939,232,Chamarras
+1940,232,Otros
+1941,233,Pantalones
+1942,233,Otros
+1943,234,Camisas Casuales
+1944,234,Camisas de Vestir
+1945,234,Camisas Formales
+1946,234,Playeras de Manga Corta
+1947,234,Playeras de Manga Larga
+1948,234,Playeras sin Mangas
+1949,234,Polos
+1950,234,Otros
+1951,235,Bandas Deportivas para la Cabeza
+1952,235,Bufandas
+1953,235,Carteras y Estuches
+1954,235,Cinturones
+1955,235,Corbatas y Monhos
+1956,235,Gafas y Accesorios
+1957,235,Guantes
+1958,235,Llaveros
+1959,235,Panhuelos
+1960,235,Sombreros y Gorras
+1961,235,Tirantes
+1962,235,Otros
+1963,236,Sudaderas con Capucha
+1964,236,Sudaderas sin Capucha
+1965,236,Otros
+1966,237,Alpargatas para Hombre
+1967,237,Botas para Hombre
+1968,237,"Calzado de Uniformes, Tecnico y de Seguridad de Hombre"
+1969,237,Casuales para Hombre
+1970,237,Calzado Deportivo para Hombre
+1971,237,Formales para Hombre
+1972,237,Mocasines para Hombre
+1973,237,Nauticos para Hombre
+1974,237,Pantuflas para Hombre
+1975,237,Sandalias Formales para Hombre
+1976,237,Sandalias de Playa para Hombre
+1977,237,Zuecos para Hombre
+1978,237,Otros
+1979,238,Camisas Casuales
+1980,238,Otros
+1981,239,Correas de Reloj
+1982,239,Relojes de Bolsillo
+1983,239,Relojes de Pulsera
+1984,239,Otros
+1985,240,Otros
+1986,241,Accesorios
+1987,241,Relojes
+1988,241,Ropa
+1989,241,Zapatos
+1990,241,Otros
+1991,242,Accesorios
+1992,242,Bolsas de Mano y al Hombro
+1993,242,Joyeria
+1994,242,Relojes
+1995,242,Ropa
+1996,242,Zapatos
+1997,242,Otros
+1998,243,Accesorios
+1999,243,Ropa
+2000,243,"Zapatos para Bebes (Ninha, Ninho)"
+2001,243,Otros
+2002,244,Otros
+2003,245,Ayudas para la vida diaria
+2004,245,Otros
+2005,246,Accesorios Banho y Cuerpo
+2006,246,Aditivos para el Banho
+2007,246,Desodorantes y Antitranspirantes
+2008,246,Exfoliantes y Tratamientos Corporales
+2009,246,Limpieza Personal
+2010,246,Sets
+2011,246,Otros
+2012,247,Masaje y Relajacion
+2013,247,Metodos Alternativos
+2014,247,Monedas y Fichas de Sobriedad
+2015,247,Otros
+2016,248,Alivio de la Resequedad Bucal
+2017,248,Blanqueadores Dentales
+2018,248,Cepillos de Dientes y Accesorios
+2019,248,Cuidado Dental para Bebes y Ninhos
+2020,248,Enjuagues Bucales
+2021,248,Kits de Cuidado Bucal
+2022,248,Limpiadores de Lengua
+2023,248,Limpieza Interdental
+2024,248,Pastas de Dientes
+2025,248,Refrescantes de Aliento
+2026,248,Suministros de Ortodoncia
+2027,248,Otros
+2028,249,Anteojos de Bloqueo de Luz Azul
+2029,249,Cuidado para Lentes y Anteojos
+2030,249,Lentes de Lectura y Anteojos
+2031,249,Marcos para Lentes y Anteojos
+2032,249,Otros
+2033,250,Baterias
+2034,250,Cuidado de Zapatos
+2035,250,Encendedores y Cerillos
+2036,250,Insecticidas y Pesticidas
+2037,250,Lavanderia
+2038,250,Lavatrastes y Lavavajillas
+2039,250,"Papeles, Envolturas y Bolsas"
+2040,250,Productos y Utensilios de Limpieza
+2041,250,Otros
+2042,251,Copas Menstruales
+2043,251,Cuidado Intimo
+2044,251,Protectores Diarios
+2045,251,Toallas Sanitarias
+2046,251,Otros
+2047,252,Banho
+2048,252,Basculas
+2049,252,Cambio de Panhales
+2050,252,Cuidado de la Piel
+2051,252,Cuidado Dental
+2052,252,Higiene
+2053,252,Lactancia y Alimentacion
+2054,252,Termometros
+2055,252,Toallitas y Accesorios
+2056,252,Tratamientos de Frio y Calor
+2057,252,Otros
+2058,253,Accesorios de Ayuda para la Movilidad y Vida Diaria
+2059,253,Cloth Face Masks & Accessories
+2060,253,Mascaras Desechables para Rostro
+2061,253,Mascaras Faciales Medicas y Protecciones
+2062,253,Monitores de Salud y Diagnosticos
+2063,253,Prendas de compresion medica
+2064,253,Productos Post Mastectomia
+2065,253,"Tirantes, Ferulas y Soportes"
+2066,253,Utensilios de Ayuda para Terapia Ocupacional y Fisica
+2067,253,Otros
+2068,254,Cuidado del Oido
+2069,254,Cuidado de los Ojos
+2070,254,Cuidado de Pies
+2071,254,Incontinencia
+2072,254,"Inhaladores de Vapor, Nebulizadores y Accesorios"
+2073,254,Metodos Alternativos
+2074,254,Primeros Auxilios
+2075,254,Salud de la Mujer
+2076,254,Suenho y Ronquidos
+2077,254,Medicamento de Venta Libre
+2078,254,Tratamientos para Piojos
+2079,254,Terapias de Frio y Calor
+2080,254,Utensilios para Guardar Medicamentos
+2081,254,Repelentes de Insectos y Plagas
+2082,254,Otros
+2083,255,Barras Nutritivas
+2084,255,Botanas & Bebidas Saludables
+2085,255,Productos de Control Nutricional
+2086,255,Suplementos para Deportistas
+2087,255,"Vitaminas, Minerales y Suplementos"
+2088,255,Otros
+2089,256,Otros
+2090,257,Artes y Artesanias
+2091,257,Disenho de Casa y Jardin
+2092,257,Edicion en Casa
+2093,257,Familia y Genealogia
+2094,257,Otros
+2095,258,Contabilidad de Negocios
+2096,258,Declaracion de Impuestos
+2097,258,Finanzas Personales
+2098,258,Impresion de Cheques
+2099,258,Nomina
+2100,258,Otros
+2101,259,Declaracion de Impuestos
+2102,259,Otros
+2103,260,Educacion y Consulta
+2104,260,Otros
+2105,261,Capacitacion y Tutoriales
+2106,261,Fotografia
+2107,261,Ilustracion
+2108,261,Suites de Disenho Grafico
+2109,261,Otros
+2110,262,Idiomas y Viajes
+2111,262,Otros
+2112,263,Complementos de Audio
+2113,263,Edicion y Efectos de MP3
+2114,263,Ensenhanza de Instrumentos
+2115,263,Instrumentos Virtuales
+2116,263,Notacion Musical
+2117,263,Quemado y Etiquetado
+2118,263,Software de Produccion Musical
+2119,263,Otros
+2120,264,Administracion de Documentos
+2121,264,Hojas de Calculo
+2122,264,Reconocimiento de Voz
+2123,264,Suites para Oficina
+2124,264,Visualizacion y Presentacion
+2125,264,Otros
+2126,265,Programacion y Desarrollo Web
+2127,265,Otros
+2128,266,Administracion de Redes
+2129,266,Firewalls
+2130,266,Licencias de Acceso de Clientes
+2131,266,Otros
+2132,267,Otros
+2133,268,Arte y Creatividad
+2134,268,Ciencias y Naturaleza
+2135,268,Juegos
+2136,268,Lectura e Idioma
+2137,268,Matematicas
+2138,268,Razonamiento y Solucion de Problemas
+2139,268,Otros
+2140,269,Controladores y Recuperacion de Controladores
+2141,269,Protectores de Pantalla
+2142,269,Utilidades de Internet
+2143,269,Otros
+2144,270,Animacion y Anime
+2145,270,Edicion de Video
+2146,270,Quemado y Etiquetado
+2147,270,Otros
+2148,271,Otros
+2149,272,Juegos Linux
+2150,272,Otros
+2151,273,Accesorios
+2152,273,Contenido Descargable
+2153,273,Juegos
+2154,273,Otros
+2155,274,Nintendo eShop
+2156,274,PlayStation Network
+2157,274,Xbox Live
+2158,274,Otros
+2159,275,Accesorios
+2160,275,Consolas
+2161,275,Figuras Interactivas
+2162,275,Juegos
+2163,275,Nintendo eShop
+2164,275,Otros
+2165,276,Accesorios
+2166,276,Contenido Descargable
+2167,276,Hardware de Realidad Virtual
+2168,276,Juegos
+2169,276,Otros
+2170,277,Accesorios
+2171,277,Consolas
+2172,277,Contenido Descargable
+2173,277,Figuras de Juegos Interactivos
+2174,277,Hardware de PlayStation VR
+2175,277,Juegos
+2176,277,Paquetes
+2177,277,PlayStation Network
+2178,277,Otros
+2179,278,Accesorios
+2180,278,Consolas
+2181,278,Contenido Descargable
+2182,278,Hardware de PlayStation VR2
+2183,278,Juegos
+2184,278,PlayStation Network
+2185,278,Otros
+2186,279,Hardware Autonomo
+2187,279,Hardware de PlayStation VR
+2188,279,Hardware de PlayStation VR2
+2189,279,Hardware para PC
+2190,279,Otros
+2191,280,ColecoVision
+2192,280,Sistemas Atari
+2193,280,Sistemas de Juego de Mano
+2194,280,Sistemas Nintendo
+2195,280,Sistemas PlayStation
+2196,280,Sistemas Sega
+2197,280,Sistemas Xbox
+2198,280,Otros
+2199,281,Accesorios
+2200,281,Consolas
+2201,281,Contenido Descargable
+2202,281,Figuras de Juegos Interactivos
+2203,281,Juegos
+2204,281,Paquetes
+2205,281,Xbox Live
+2206,281,Otros
+2207,282,Accesorios
+2208,282,Consolas
+2209,282,Contenido Descargable
+2210,282,Juegos
+2211,282,Xbox Live
+2212,282,Otros
+2213,283,Otros

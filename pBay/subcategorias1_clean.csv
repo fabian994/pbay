@@ -1,0 +1,285 @@
+ID,Cat_ID,Subcategoria1
+1,1,"Aceites, Vinagres y Aderezos"
+2,1,"Arroz, Frijoles y Pasta"
+3,1,Botanas y Dulces
+4,1,"Cafe, Te y Bebidas"
+5,1,Cereales y Muesli
+6,1,"Cervezas, Vinos y Licores"
+7,1,"Comida Enlatada, Envasada o Empaquetada"
+8,1,Comida para Bebe
+9,1,"Hierbas, Especias y Condimentos"
+10,1,Ingredientes para Cerveza y Vino Caseros
+11,1,Ingredientes para Cocina y Reposteria
+12,1,"Mermeladas, Miel y Untables"
+13,1,Panaderia
+14,1,"Productos Lacteos, Huevos y Alternativas a base de Plantas"
+15,1,Salsas
+16,1,Otros
+17,2,Accesorios para Coche
+18,2,Aceites y Otros Fluidos
+19,2,Cuidado de Coche y Moto
+20,2,Herramientas para Coche
+21,2,Llantas y Rines para Coche
+22,2,"Motos, Accesorios y Piezas"
+23,2,Partes y Refacciones
+24,2,Pinturas y Accesorios de Pintura
+25,2,Sillas de Bebe y Accesorios
+26,2,Transporte y Almacenamiento
+27,2,Otros
+28,3,Actividad y Entretenimiento
+29,3,Bacinicas y Taburetes
+30,3,Cambio de Panhales
+31,3,Carriolas y Cochecitos
+32,3,Chupones y Mordederas
+33,3,Higiene y Cuidado
+34,3,Lactancia y Alimentacion
+35,3,Portabebes y Accesorios
+36,3,Recamara del Bebe
+37,3,Regalos para Recien Nacidos
+38,3,Ropa de Maternidad
+39,3,Seguridad
+40,3,Sillas de Coche y Accesorios
+41,3,Otros
+42,4,Banho y Cuerpo
+43,4,Cosmeticos
+44,4,Cuidado de la Piel
+45,4,Cuidado del Cabello
+46,4,Equipamiento de Salon y Spa
+47,4,Manicure y Pedicure
+48,4,Perfumes y Fragancias
+49,4,Rasurado y Depilacion
+50,4,Utensilios de Belleza
+51,4,Otros
+52,5,Artes Marciales
+53,5,Articulos para Fans
+54,5,Atletismo
+55,5,Badminton
+56,5,Basquetbol
+57,5,Beisbol
+58,5,Billar
+59,5,Boliche
+60,5,Box
+61,5,Campismo y Senderismo
+62,5,Ciclismo
+63,5,Dardos y Dianas
+64,5,Deportes Acuaticos
+65,5,Deportes de Invierno
+66,5,Deportes Ecuestres
+67,5,Ejercicio y Acondicionamiento Fisico
+68,5,Electronica y Dispositivos
+69,5,Escalada
+70,5,Exhibicion y almacenaje de objetos de recuerdo
+71,5,Futbol
+72,5,Futbol Americano
+73,5,Gimnasia
+74,5,Golf
+75,5,Medicina Deportiva
+76,5,Patinaje en Tabla
+77,5,Patinaje sobre Ruedas
+78,5,Patines del Diablo y Equipo
+79,5,Pesca
+80,5,Ping Pong
+81,5,Tenis
+82,5,Tiro con Arco
+83,5,Voleibol
+84,5,Otros
+85,6,Audio y Video Portatil
+86,6,Camaras y Fotografia
+87,6,Celulares y Accesorios
+88,6,"Computadoras, Componentes y Accesorios"
+89,6,Electronica para Autos
+90,6,Electronicos de Oficina
+91,6,Equipos de Audio y Hi-Fi
+92,6,Lectores de Libros Electronicos y Accesorios
+93,6,"Navegacion Satelital, GPS y Accesorios"
+94,6,Radiocomunicacion
+95,6,Television y Video
+96,6,"Telefonos, VoIP y Accesorios"
+97,6,Accesorios de Alimentacion
+98,6,"Audifonos, auriculares y accesorios"
+99,6,Pilas y Cargadores
+100,6,Tabletas
+101,6,Otros
+102,7,Almacenamiento y Organizacion del Hogar
+103,7,Chimeneas
+104,7,Electricidad
+105,7,Equipamiento de Banhos y Cocinas
+106,7,Ferreteria
+107,7,Herramientas Manuales y Electricas
+108,7,Iluminacion
+109,7,Proteccion y Seguridad
+110,7,"Pinturas, Herramientas y Tratamiento de Paredes"
+111,7,Suministros de Construccion
+112,7,Tuberias
+113,7,otros
+114,8,Arte y Fotografia
+115,8,Hobbies y Hogar
+116,8,Autoayuda
+117,8,Ciencia Ficcion y Fantasia
+118,8,Ciencia y Matematicas
+119,8,Comics y Novelas Graficas
+120,8,Computadoras y Tecnologias
+121,8,Deportes y Tiempo Libre
+122,8,Educacion y Referencia 
+123,8,Historia
+124,8,Humor y Entretenimiento 
+125,8,"Libros de Recetas,Comida y Vino"
+126,8,Misterio
+127,8,Negocios
+128,8,Politica y Ciencias Sociales
+129,8,Romance
+130,8,Salud
+131,8,Libros en Idiomas Extranjeros
+132,8,Otros
+133,9,Almacenamiento
+134,9,Herramientas de Limpieza
+135,9,Banho
+136,9,Blancos
+137,9,Calefaccion
+138,9,Cocina
+139,9,Decoracion
+140,9,Iluminacion
+141,9,Muebles
+142,9,Otros
+143,10,Accesorios para Produccion Musical
+144,10,Bajos y Accesorios
+145,10,Baterias y Percusion
+146,10,Equipos de DJ y VJ
+147,10,Equipos de Karaoke
+148,10,Grabacion y Computadoras
+149,10,Guitarras y Accesorios
+150,10,Instrumentos de Cuerda
+151,10,Instrumentos de Viento
+152,10,Microfonos
+153,10,Pianos y Teclados
+154,10,"Sintetizadores, Sampleadores y Mas"
+155,10,Sistemas de Escenario y Megafonia
+156,10,Otros
+157,11,Almacenamiento y Cubiertas para Exterior
+158,11,Asadores y Comedor en Exteriores
+159,11,Calefaccion y Refrigeracion para Exterior
+160,11,Cortadoras y Herramientas Electricas
+161,11,Cuidado de Cesped y Plantas
+162,11,Decoracion para Exteriores
+163,11,Estanques y Jardines Acuaticos
+164,11,Estructuras y Equipo de Germinacion
+165,11,Herramientas de Jardin y Equipo de Riego
+166,11,Iluminacion de Exterior
+167,11,Muebles de Patio y Accesorios
+168,11,Observacion de Aves y Fauna de Patio
+169,11,"Piscinas, Jacuzzis y Suministros"
+170,11,Termometros e Instrumentos Meteorologicos
+171,11,Terrazas de Madera y Cercas
+172,11,Otros
+173,12,Aire Libre y Deportes
+174,12,Artes y Manualidades
+175,12,Articulos para Fiesta
+176,12,Instrumentos Musicales de Juguete
+177,12,Juegos de Construccion
+178,12,Juegos de Imitacion
+179,12,Juegos y Accesorios para Juegos
+180,12,Juguetes Coleccionables
+181,12,Juguetes Educativos
+182,12,Juguetes Electronicos
+183,12,Juguetes Novedosos y de Broma
+184,12,Juguetes para Bebes y Ninhos Pequenhos
+185,12,Munhecas y Accesorios
+186,12,"Munhecos, Figuras y Sets de Juego"
+187,12,Peluches
+188,12,Radiocontrol
+189,12,Rompecabezas
+190,12,Titeres y Escenarios para Titeres
+191,12,Vehiculos de Juguete
+192,12,Otros
+193,13,Medicion e Inspeccion
+194,13,Seguridad
+195,13,Limpieza y Saneamiento
+196,13,Otros
+197,14,Animales Pequenhos
+198,14,Aves Domesticas
+199,14,Caballos
+200,14,Gatos
+201,14,Insectos
+202,14,Perros
+203,14,Reptiles y Anfibios
+204,14,Otros
+205,15,Clasica
+206,15,Country
+207,15,Dance y Electronica
+208,15,Folk
+209,15,Hard Rock y Metal
+210,15,Indie y Alternativo
+211,15,Jazz
+212,15,Pop
+213,15,Otros
+214,16,Arte y Manualidades
+215,16,"Calendarios, Agendas y Organizadores Personales"
+216,16,Electronicos de Oficina
+217,16,Material Escolar y Educativo
+218,16,"Plumas, Lapices y Útiles de Escritura"
+219,16,Productos de Papel para Oficina
+220,16,Otros
+221,17,Peliculas
+222,17,TV
+223,17,Otros
+224,18,Vestidos
+225,18,Pantalones
+226,18,Tenis
+227,18,Tops
+228,18,Chamarras
+229,18,Relojes
+230,18,Bolsas
+231,18,Joyeria
+232,18,Otros
+233,19,Chamarras
+234,19,Pantalones
+235,19,Playeras
+236,19,Accesorios
+237,19,Sudaderas
+238,19,Zapatos
+239,19,Camisas
+240,19,Relojes
+241,19,Otros
+242,20,Ninhos
+243,20,Ninhas
+244,20,"Bebes (Ninha, Ninho)"
+245,20,Otros
+246,21,"Ayuda para la Vida Diaria, el Cuidado en Casa y la Movilidad"
+247,21,Banho y Cuerpo
+248,21,Bienestar y Relajacion
+249,21,Cuidado de Boca
+250,21,Cuidado de Ojos
+251,21,Cuidado del Hogar y Limpieza
+252,21,Cuidado Intimo e Higiene
+253,21,Cuidado para Bebes y Ninhos
+254,21,Equipo y Suministros Medicos
+255,21,Salud y Tratamientos
+256,21,Vitaminas y Suplementos
+257,21,Otros
+258,22,Casa y Pasatiempos
+259,22,Contabilidad y Finanzas
+260,22,Declaracion de Impuestos
+261,22,Educacion y Consulta
+262,22,Fotografia y Disenho Grafico
+263,22,Idiomas y Viajes
+264,22,Musica
+265,22,Negocios y Oficina
+266,22,Programacion y Desarrollo Web
+267,22,Redes y Servidores
+268,22,Sistemas Operativos
+269,22,Software para Ninhos
+270,22,Utilidades de Sistemas
+271,22,Video
+272,22,Otros
+273,23,Juegos Linux
+274,23,Mac
+275,23,Membresias y Tarjetas Prepago
+276,23,Nintendo Switch
+277,23,PC
+278,23,PlayStation 4
+279,23,PlayStation 5
+280,23,Realidad Virtual
+281,23,Sistemas Heredados
+282,23,Xbox One
+283,23,Xbox Series X & S
+284,23,Otros

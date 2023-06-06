@@ -1,0 +1,483 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Agregar producto</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.container {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				width: 100%;
+			}
+
+			.container div {
+				width: 50%;
+			}
+
+			.tree-view ul ul {
+				display: none;
+			}
+
+			.tree-view ul li {
+				cursor: pointer;
+			}
+
+			.tree-view ul li.clicked ul {
+				display: block;
+			}
+
+			.text-input {
+				margin-bottom: 10px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 5px;
+			}
+
+			.description-input {
+				margin-bottom: 10px;
+				height: 100px;
+				width: 80%;
+				box-sizing: border-box;
+				padding: 5px;
+			}
+
+			.button {
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.checkbox {
+				margin-bottom: 10px;
+			}
+
+			.calendar {
+				margin-bottom: 10px;
+			}
+
+			.label {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 10px;
+			}
+
+			.label-text {
+				flex-basis: 30%;
+				text-align: left;
+			}
+
+			.label-input {
+				flex-basis: 70%;
+				display: flex;
+				align-items: center;
+			}
+
+			.container2 {
+				margin: 0 auto;
+				width: fit-content;
+				text-align: left;
+			}
+
+			.buttons {
+				display: flex;
+				gap: 200px;
+				justify-content: space-between;
+				margin-top: 50px;
+				margin-bottom: 50px;
+			}
+			.cancel-button, .continue-button {
+				flex-basis: 200px;
+				height: 40px;
+				padding: 0px 100px;
+				font-size: 16px;
+				text-transform: uppercase;
+				font-weight: bold;
+				border: none;
+				color: white;
+				cursor: pointer;
+			}
+			.cancel-button {
+				background-color: red;
+			}
+			.continue-button {
+				background-color: blue;
+			}
+		</style>
+		<script>
+			window.addEventListener('DOMContentLoaded', () => {
+				const treeItems = document.querySelectorAll('.tree-view li');
+				treeItems.forEach(item => {
+					item.addEventListener('click', () => {
+						item.classList.toggle('clicked');
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
+		<div class="container">
+			<div>
+				
+				<div class="label">
+					<div class="label-text">
+						<label for="categoria-selector">Categoría:</label>
+					</div>
+					<div class="label-input">
+						<select id="categoria-selector">
+							<option value="">Seleccione una categoría</option>
+						</select>
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="subcategoria1-selector">Subategoría:</label>
+					</div>
+					<div class="label-input">
+						<select id="subcategoria1-selector">
+							<option value="">Seleccione una subcategoría</option>
+						</select>
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="subcategoria2-selector">Subcategoría 2:</label>
+					</div>
+					<div class="label-input">
+						<select id="subcategoria2-selector">
+							<option value="">Seleccione una subcategoría</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="label">
+					<div class="label-text">
+						<label for="marca">Marca:</label>
+					</div>
+					<div class="label-input">
+						<input type="text" id="marca" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="modelo">Modelo (opcional):</label>
+					</div>
+					<div class="label-input">
+						<input type="text" id="modelo" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="condicion">Condición:</label>
+					</div>
+					<div class="label-input">
+						<select id="condicion">
+							<option>Nuevo</option>
+							<option>Usado</option>
+						</select>
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="titulo">Título:</label>
+					</div>
+					<div class="label-input">
+						<input type="text" id="titulo" class="text-input">
+					</div>
+				</div>
+				<p style="text-align: left;">Descripción:</p>
+				<textarea id="descripcion" class="description-input"></textarea>
+			</div>
+			<div>
+				<p style="text-align: left;">Imágenes</p>
+				<div id="imagesContainer">
+					<input type="file" name="imagen[]" accept="image/*">
+					<label>Marcar como principal</label>
+					<input type="checkbox" id="marcarPrincipal" class="checkbox" name="principal[]" value="principal">
+    				
+				</div>
+				<p><a href="#" class="button" onclick="agregarImagen()">Agregar otra imagen</a></p>
+				<div class="label">
+					<div class="label-text">
+						<label for="tipoVenta">Tipo de venta:</label>
+					</div>
+					<div class="label-input">
+						<select id="tipoVenta" onchange="mostrarCampoCosto()">
+							<option>Subasta</option>
+							<option>Venta inmediata</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="label" id="campoCosto" style="display: none;">
+					<div class="label-text">
+						<label for="costo">Costo:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="costo" class="text-input">
+					</div>
+				</div>
+				<div class="label" id="subastaText" style="display: flex;">
+					<p style="text-align: left;">*La configuración de costo para subasta se hará en una ventana siguiente*</p>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="inventario">Inventario:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="inventario" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="costoEnvio">Costo de envío:</label>
+					</div>
+					<div class="label-input">
+						<input type="number" id="costoEnvio" class="text-input">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="fechaPublicacion">Fecha de publicación:</label>
+					</div>
+					<div class="label-input">
+						<input type="date" id="fechaPublicacion" class="calendar">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="fechaRetiro">Fecha de retiro:</label>
+					</div>
+					<div class="label-input">
+						<input type="date" id="fechaRetiro" class="calendar">
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<p>Destacar:</p>
+					</div>
+					<div class="label-input">
+						<input type="radio" id="destacarSi" name="destacar" value="si" onclick="mostrarCampos()">
+						<label for="destacarSi">Si</label>
+						<input type="radio" id="destacarNo" name="destacar" value="no" onclick="mostrarCampos()">
+						<label for="destacarNo">No</label>
+					</div>
+				</div>
+				<div class="label" id="costDaysFields" style="display: none;">
+					<div class="label-text">
+						<label for="dias">Días:</label>
+					</div>
+					<div class="label-input">
+						<select id="dias">
+							<option value="5">5</option>
+							<option value="7">7</option>
+							<option value="10">10</option>
+						</select>
+					</div>
+					<p style="text-align: left;">Costo: <span id="costoMostrado">100</span></p>
+				</div>
+			</div>
+		</div>
+		<div class="container2">
+			<div class="buttons">
+				<button class="cancel-button">Cancelar</button>
+				<button class="continue-button">Continuar</button>
+			</div>
+		</div>
+		<script>
+			function agregarImagen() {
+			  var container = document.getElementById("imagesContainer");
+		
+			  // Crear los elementos necesarios
+			  var fileInput = document.createElement("input");
+			  fileInput.type = "file";
+			  fileInput.name = "imagen[]";
+			  fileInput.accept = "image/*";
+
+			  var label = document.createElement("label");
+			  label.innerText = "Marcar como principal";
+		
+			  var checkbox = document.createElement("input");
+			  checkbox.type = "checkbox";
+			  checkbox.className = "checkbox";
+			  checkbox.name = "principal[]";
+			  checkbox.value = "principal";
+		
+			  // Crear un salto de línea
+			  var lineBreak = document.createElement("br");
+		
+			  // Agregar los elementos al contenedor
+			  container.appendChild(fileInput);
+			  container.appendChild(label);
+			  container.appendChild(checkbox);
+			  container.appendChild(lineBreak);
+			}
+		
+			// Asegurar que solo se pueda seleccionar un checkbox a la vez
+			$(document).on("change", ".checkbox", function() {
+			  $(".checkbox").not(this).prop("checked", false);
+			});
+
+			function mostrarCampos() {
+				var destacarSi = document.getElementById("destacarSi");
+				var camposDiasCosto = document.getElementById("costDaysFields");
+			  
+				if (destacarSi.checked) {
+				  camposDiasCosto.style.display = "block";
+				} else {
+				  camposDiasCosto.style.display = "none";
+				}
+			}
+
+			function mostrarCampoCosto() {
+				var tipoVenta = document.getElementById("tipoVenta");
+				var campoCosto = document.getElementById("campoCosto");
+				var subastaText = document.getElementById("subastaText");
+		
+				if (tipoVenta.value === "Venta inmediata") {
+					campoCosto.style.display = "flex";
+				} else {
+					campoCosto.style.display = "none";
+				}
+				if (tipoVenta.value === "Subasta") {
+					subastaText.style.display = "flex";
+				} else {
+					subastaText.style.display = "none";
+				}
+			}
+			  
+			function actualizarCosto() {
+				var dias = document.getElementById("dias").value;
+				var costoMostrado = document.getElementById("costoMostrado");
+			  
+				if (dias === "5") {
+				  costoMostrado.textContent = "100";
+				} else if (dias === "7") {
+				  costoMostrado.textContent = "120";
+				} else if (dias === "10") {
+				  costoMostrado.textContent = "150";
+				}
+			}
+
+			// Función para cargar las categorías desde el archivo JSON
+			function cargarCategorias() {
+			fetch('/static/categorias.json')
+				.then(response => response.json())
+				.then(data => {
+				const categoriaSelector = document.getElementById('categoria-selector');
+			
+				// Agregar las opciones al selector de categoría
+				data.forEach(categoria => {
+					const option = document.createElement('option');
+					option.value = categoria.categoria;
+					option.textContent = categoria.categoria;
+					categoriaSelector.appendChild(option);
+				});
+			
+				// Habilitar el selector de categoría
+				categoriaSelector.disabled = false;
+				})
+				.catch(error => {
+				console.error('Error al cargar las categorías:', error);
+				});
+			}
+			
+			// Función para cargar las subcategorías 1 relacionadas a la categoría seleccionada
+			function cargarSubcategorias1() {
+				const categoriaSeleccionada = document.getElementById('categoria-selector').value;
+				const subcategoria1Selector = document.getElementById('subcategoria1-selector');
+				
+				// Limpiar las opciones anteriores
+				subcategoria1Selector.innerHTML = '<option value="">Selecciona una subcategoría</option>';
+				
+				if (categoriaSeleccionada) {
+					fetch('/static/categorias.json')
+					.then(response => response.json())
+					.then(data => {
+						const categoria = data.find(categoria => categoria.categoria === categoriaSeleccionada);
+				
+						if (categoria && categoria.subcategorias) {
+						categoria.subcategorias.forEach(subcategoria1 => {
+							const option = document.createElement('option');
+							option.value = subcategoria1.categoria;
+							option.textContent = subcategoria1.categoria;
+							subcategoria1Selector.appendChild(option);
+						});
+						}
+				
+						// Habilitar el selector de subcategoría 1
+						subcategoria1Selector.disabled = false;
+					})
+					.catch(error => {
+						console.error('Error al cargar las subcategorías 1:', error);
+					});
+				} else {
+					// Deshabilitar el selector de subcategoría 1 si no se seleccionó una categoría
+					subcategoria1Selector.disabled = true;
+				}
+			}
+			  
+			// Función para cargar las subcategorías 2 relacionadas a la categoría y subcategoría 1 seleccionadas
+			function cargarSubcategorias2() {
+				const categoriaSeleccionada = document.getElementById('categoria-selector').value;
+				const subcategoria1Seleccionada = document.getElementById('subcategoria1-selector').value;
+				const subcategoria2Selector = document.getElementById('subcategoria2-selector');
+				
+				// Limpiar las opciones anteriores
+				subcategoria2Selector.innerHTML = '<option value="">Selecciona una subcategoría</option>';
+				
+				if (categoriaSeleccionada && subcategoria1Seleccionada) {
+					fetch('/static/categorias.json')
+					.then(response => response.json())
+					.then(data => {
+						const categoria = data.find(categoria => categoria.categoria === categoriaSeleccionada);
+						const subcategoria1 = categoria.subcategorias.find(subcategoria1 => subcategoria1.categoria === subcategoria1Seleccionada);
+				
+						if (subcategoria1 && subcategoria1.subcategorias) {
+						subcategoria1.subcategorias.forEach(subcategoria2 => {
+							const option = document.createElement('option');
+							option.value = subcategoria2.categoria;
+							option.textContent = subcategoria2.categoria;
+							subcategoria2Selector.appendChild(option);
+						});
+						}
+				
+						// Habilitar el selector de subcategoría 2
+						subcategoria2Selector.disabled = false;
+					})
+					.catch(error => {
+						console.error('Error al cargar las subcategorías 2:', error);
+					});
+				} else {
+					// Deshabilitar el selector de subcategoría 2 si no se seleccionó una categoría o subcategoría 1
+					subcategoria2Selector.disabled = true;
+				}
+			}
+			
+			// Cargar las categorías al cargar la página
+			//cargarCategorias();
+			window.addEventListener('DOMContentLoaded', cargarCategorias);
+			
+			// Actualizar las subcategorías 1 cuando se selecciona una categoría
+			document.getElementById('categoria-selector').addEventListener('change', cargarSubcategorias1);
+			
+			// Actualizar las subcategorías 2 cuando se selecciona una subcategoría 1
+			document.getElementById('subcategoria1-selector').addEventListener('change', cargarSubcategorias2);
+
+		</script>
+	</body>
+	</html>
+{% endblock %}

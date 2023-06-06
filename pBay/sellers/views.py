@@ -1,6 +1,7 @@
 from utils import PayDetails
 from django.shortcuts import render
 from .form import *
+from .models import *
 from utils import sells_history
 from utils import payment_detail_by_month
 from utils import infoventas
@@ -99,4 +100,26 @@ def subastas(request):
 
 
 def add_product(request):
-    return render(request, "add_product.html")
+    if request.method == "POST":
+        reg_form = categoriesForm(request.POST)
+        context = {
+            "title": "Registro producto",
+            "form": reg_form
+        }
+        
+        print(request.POST)
+        return render(request, "add_product.html", context)
+    else:
+        reg_form = categoriesForm()
+        context = {
+            "title": "Registro producto",
+            "form": reg_form
+        }
+
+        return render(request, "add_product.html", context)
+
+def load_subcategories1(request):
+    Cat_id = request.GET.get('cat')
+    print(Cat_id)
+    SubCategories = SubCategory1.objects.filter(Cat_id = Cat_id).order_by('Subcategoria1')
+    return render(request, "SubCategory1_dropdown.html", {'SubCategories': SubCategories})
