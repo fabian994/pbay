@@ -379,3 +379,4 @@ def addCart(product, user):
             ref = firestore_connection('cart')
             uData = {'items' : [product]}
             ref.document(user["localId"]).set(uData)
+
