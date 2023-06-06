@@ -1,5 +1,10 @@
 from django import forms
 from .models import *
+from django.core.validators import RegexValidator
+
+letras = RegexValidator(r'^[a-zA-Z " " éáíóúñÑÁÉÍÓÚ]*$', 'Solo se pueden ingresar letras ')
+numeros = RegexValidator(r'^[0-9]*$', 'Solo se pueden ingresar numeros')
+numerosYletras = RegexValidator(r'^[0-9a-zA-Z " "éáíóúñÑÁÉÍÓÚ]*$', 'Solo se pueden ingresar numeros y letras')
 
 class Filter(forms.Form):
     Filtering = forms.ChoiceField(
