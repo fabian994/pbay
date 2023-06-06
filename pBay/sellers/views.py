@@ -123,3 +123,9 @@ def load_subcategories1(request):
     print(Cat_id)
     SubCategories = SubCategory1.objects.filter(Cat_id = Cat_id).order_by('Subcategoria1')
     return render(request, "SubCategory1_dropdown.html", {'SubCategories': SubCategories})
+
+def load_subcategories2(request):
+    SubCat_id = request.GET.get('subcat')
+    print(SubCat_id)
+    SubCategories2 = SubCategory2.objects.filter(SubCat1_id = SubCat_id).order_by('Subcategoria2')
+    return render(request, "SubCategory2_dropdown.html", {'SubCategories2': SubCategories2})

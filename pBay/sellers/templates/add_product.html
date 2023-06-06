@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
-		<form method="post" id="reg_form" data-subcategories-url="{% url 'ajax_load_Subcategories1' %}" enctype="multipart/form-data">
+		<form method="post" id="reg_form" data-subcategories1-url="{% url 'ajax_load_Subcategories1' %}" data-subcategories2-url="{% url 'ajax_load_Subcategories2' %}" enctype="multipart/form-data">
 			{% csrf_token %}
 			<table>
 			  {{ form }}
@@ -20,7 +20,7 @@
 			
 			<script>
 				$("#id_category").change(function () {
-				var url = $("#reg_form").attr("data-subcategories-url");  // get the url of the `load_cities` view
+				var url = $("#reg_form").attr("data-subcategories1-url");  // get the url of the `load_cities` view
 				var idCat = $(this).val();  // get the selected country ID from the HTML input
 				console.log(url)
 				$.ajax({                       // initialize an AJAX request
@@ -30,6 +30,24 @@
 					},
 					success: function (data) {   // `data` is the return of the `load_cities` view function
 						$("#id_subCategory1").html(data);  // replace the contents of the city input with the data that came from the server
+					}
+				});
+
+				});
+			</script>
+
+			<script>
+				$("#id_subCategory1").change(function () {
+				var url = $("#reg_form").attr("data-subcategories2-url");  // get the url of the `load_cities` view
+				var idsubCat = $(this).val();  // get the selected country ID from the HTML input
+				console.log(url)
+				$.ajax({                       // initialize an AJAX request
+					url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+					data: {
+						'subcat': idsubCat       // add the country id to the GET parameters
+					},
+					success: function (data) {   // `data` is the return of the `load_cities` view function
+						$("#id_subCategory2").html(data);  // replace the contents of the city input with the data that came from the server
 					}
 				});
 

@@ -18,4 +18,5 @@ urlpatterns = [
          views.subastas, name='subastas'),
 
      path('ajax/load-Subcategory1/', views.load_subcategories1, name='ajax_load_Subcategories1'), # AJAX
+     path('ajax/load-Subcategory2/', views.load_subcategories2, name='ajax_load_Subcategories2'), # AJAX
 ]

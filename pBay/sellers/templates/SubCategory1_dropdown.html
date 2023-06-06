@@ -1,6 +1,6 @@
 <div id="form-item">
     <option name = "SubCategoriy1" id = "id_subCategory1" class = "form-control" value="">---------</option>
-    {% for SubCategorie in SubCategories %}
-        <option name = "SubCategoriy1" id = "id_subCategory1" class = "form-control" value="{{ SubCategorie.pk }}">{{ SubCategorie.Subcategoria1 }}</option>
+    {% for SubCategory1 in SubCategories %}
+        <option name = "SubCategoriy1" id = "id_subCategory1" class = "form-control" value="{{ SubCategory1.pk }}">{{ SubCategory1.Subcategoria1 }}</option>
     {% endfor %}
 </div>

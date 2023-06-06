@@ -46,27 +46,38 @@ class categoriesForm(forms.Form):
                                     }
                                 ))
     
-    # subCategory2 = forms.ModelChoiceField(   required = True, 
-    #                             label = "Municipio de Residencia",
-    #                             queryset = SubCategory2.objects.filter().order_by('subCategory2'),
-    #                             error_messages={
-    #                                 "required": "No puede estar vacío",
-    #                             },
-    #                             widget = forms.Select(attrs = {
-    #                                 "class": "form-control",
-    #                                 }
-    #                             ))
+    subCategory2 = forms.ModelChoiceField(   required = True, 
+                                label = "Subcategoria 2",
+                                queryset = SubCategory2.objects.filter().order_by('Subcategoria2'),
+                                error_messages={
+                                    "required": "No puede estar vacío",
+                                },
+                                widget = forms.Select(attrs = {
+                                    "class": "form-control",
+                                    }
+                                ))
     
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["subCategory1"].queryset = SubCategory1.objects.all()
+        self.fields["subCategory1"].queryset = SubCategory1.objects.none()
+        self.fields["subCategory2"].queryset = SubCategory2.objects.none()
 
         if "category" in self.data:
             try:
                 categories = int(self.data.get("category"))
                 
-                self.fields["subCategory1"].queryset =  SubCategory1.objects.filter(Cat_id = categories)
+                self.fields["subCategory1"].queryset = SubCategory1.objects.filter(Cat_id = categories)
+                
+
+                if "subCategory1" in self.data:
+                    try:
+                        subCategory1 = int(self.data.get("subCategory1"))
+                        
+                        self.fields["subCategory2"].queryset =  SubCategory2.objects.filter(SubCat1_id = subCategory1)
+                    
+                    except (ValueError, TypeError):
+                        pass
             
             except (ValueError, TypeError):
                 pass
