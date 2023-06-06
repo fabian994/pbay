@@ -106,9 +106,13 @@ def searchByCategory (request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
         return redirect('home')
-    category = request.GET.get('categoria')
     
-    products = searchCat(category)
+    category = request.GET.get('categoria')
+    subcategory1 = request.GET.get('subcategoria')
+    subcategory2 = request.GET.get('subcategoria2')
+    
+    
+    products = searchCat(category, subcategory1, subcategory2)
     print(request)
     return render(request, 'searchByCategory.html', {'products': products})
 
