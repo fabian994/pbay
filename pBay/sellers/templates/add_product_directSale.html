@@ -1,0 +1,58 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Agregar producto</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
+		<form method="POST" id="reg_form">
+			{% csrf_token %}
+			<div class="container">
+				<div>
+					<div class="label">
+						<div class="label-text">
+							<label for="marca">Inventario:</label>
+						</div>
+						<div class="label-input">
+							{{ form.inventory }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Costo:</label>
+						</div>
+						<div class="label-input">
+							{{ form.cost }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Costo de Envio:</label>
+						</div>
+						<div class="label-input">
+							{{ form.shippingFee }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Fecha de Retiro:</label>
+						</div>
+						<div class="label-input">
+							{{ form.retireDate }}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<button type="submit">Save</button>
+			<a href="{% url 'add_product' %}">Nevermind</a>
+		</form>
+	</body>
+	</html>
+{% endblock %}

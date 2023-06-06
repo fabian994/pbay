@@ -138,7 +138,7 @@ def add_product(request):
             
             
             ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
-
+            prod_id = str(ref[1].id)
             
             print('img: ',prodImgs)
             for img in prodImgs:
@@ -151,7 +151,8 @@ def add_product(request):
                 #print('stored to firebase')
                 default_storage.delete(prodImgs[img].name)#Deletes file from local storage
             
-            return render(request, "add_product.html", context)
+            #return render(request, "add_product.html", context)
+            return redirect('add_direct_sale_prod', prod_id = prod_id)
     else:
         reg_form = productCreate()
         context = {
@@ -160,6 +161,34 @@ def add_product(request):
         }
 
         return render(request, "add_product.html", context)
+
+def add_productDirSale(request, prod_id):
+    print(request.method)
+    if request.method == "POST":
+        print('enter post')
+        dir_saleForm = productDirectSale(request.POST)
+        context = {
+            "title": "Registro producto",
+            "form": dir_saleForm,
+            "prod_id": prod_id
+        }
+        print(dir_saleForm.is_valid())
+        print(dir_saleForm.errors)
+        #data = reg_form.cleaned_data
+        if dir_saleForm.is_valid():
+            data = dir_saleForm.cleaned_data
+            print(data)
+            return redirect("subastas")
+        else:
+            print(dir_saleForm.errors.as_data())
+    
+    dir_saleForm = productDirectSale()
+    context = {
+        "title": "Registro producto",
+        "form": dir_saleForm,
+        "prod_id": prod_id
+    }
+    return render(request, "add_product_directSale.html", context)
 
 def load_subcategories1(request):
     Cat_id = request.GET.get('cat')

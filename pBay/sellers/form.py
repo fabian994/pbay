@@ -25,7 +25,7 @@ class productCreate(forms.Form):
                                 "required": "No puede estar vacío",
                             },
                             widget = forms.TextInput(attrs = {
-                                "class": "form-control"
+                                "class": "text-input"
                                 }
                             ))
     
@@ -48,7 +48,7 @@ class productCreate(forms.Form):
                                         "required": "No puede estar vacío",
                                     },
                                     widget = forms.Select(attrs = {
-                                        "class": "form-control"
+                                        "class": "form-control text-primary"
                                         }
                                     ))
 
@@ -189,3 +189,116 @@ class productCreate(forms.Form):
             
             except (ValueError, TypeError):
                 pass
+
+class productDirectSale(forms.Form):
+    inventory = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Inventario",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+
+    cost = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Costo",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+    
+    shippingFee = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Costo de Envio",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+    
+    retireDate = forms.DateField(   
+                                required = True,
+                                label = "Fecha de Retiro",
+                                widget=forms.DateInput(attrs={
+                                    "class" : "form-control",
+                                    "type": "date"
+                                })
+                                )
+    
+    # promote = forms.ChoiceField( required = True,
+    #                             label = "Promocionar: ",
+    #                             choices=(("","---"),("YES", "Si"), ("NO", "No")),
+    #                             error_messages={
+    #                                 "required": "No puede estar vacío",
+    #                             },
+                                
+    #                             widget = forms.Select(attrs = {
+    #                                 "class": "form-control"
+    #                                 }
+    #                             ))
+    
+class productAuction(forms.Form):
+    duration = forms.ChoiceField(required = True, 
+                                        choices = (("", "---"),
+                                                   ("3", "3 Dias"), 
+                                                   ("5", "5 Dias"),
+                                                   ("10", "10 Dias"),), 
+                                        label = "Duracion de Subasta",
+                                        widget = forms.Select(attrs = {
+                                                    "class": "form-control",
+                                                },
+                                        ))
+    
+    initialOffer = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Oferta Inicial",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+
+    minimumOffer = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Oferta Minima",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+    
+    shippingFee = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Costo de Envio",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+
+class productPromote(forms.Form):
+    PromoDuration = forms.ChoiceField(required = True, 
+                                        choices = (("", "---"),
+                                                   ("5", "5 Días, Costo: $100"),
+                                                   ("10", "10 Días, Costo: $150"),
+                                                   ("15", "15 Días, Costo: $200"),
+                                        ), 
+                                        label = "Duracion de Subasta",
+                                        widget = forms.Select(attrs = {
+                                                    "class": "form-control",
+                                                },
+                                        ))

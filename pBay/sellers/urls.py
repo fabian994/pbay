@@ -14,6 +14,8 @@ urlpatterns = [
          views.historial_pagos_detalle, name='historial_pagos_detalle'),
     path('mis_ventas/anadir_producto',
          views.add_product, name='add_product'),
+     path("mis_ventas/anadir_producto/venta_directa/<str:prod_id>", 
+          views.add_productDirSale, name = "add_direct_sale_prod"),
     path('mis_ventas/subastas',
          views.subastas, name='subastas'),
 
