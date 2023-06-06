@@ -13,44 +13,39 @@
       <link rel="stylesheet" href="{% static 'styles/busqueda.css' %}" />
     </head>
     <body>
-        <main >
+        <main>
+            <div class="paddingizq dropdown show" >
+            <form id="orden-form" method="POST">
+              {{ form1 }}
+              <br>
+              {{ form2 }}
+              {% comment %} {{ form2 }} {% endcomment %}
+              <input type="submit" value="Submit" style="display: none;">
+            </form>
+          </div>
+
             <section class="historial">
+                {% for prod in infoprod %}
                 <div class="my_container" > 
                 
-                    <div class="venta_item">
-                        <div class="black square"></div>
+                    <div class="venta_item" alig="center">
+                        <figure class ="ContainerImage">
+                            <img class = "imgproduct"
+                            src="{{prod.11}}" 
+                            alt="ImgProd" height="100"/>
+                        </figure>
                         <div>
-                            <h3>Poducto Ejemplo 1</h3>
-                            <p>Precio $$$</p>
+                            <h3> {{ prod.0 }}</h3>
+                            <p>Precio: ${{ prod.7 }} + ${{ prod.10 }} </p>
+                            <p>{{ prod.6 }}</p>
                         </div>
                         <div class="buttons">
                             <div class="button blue">Ver detalles</div>
                         </div>
-                    </div>
-
-                    <div class="venta_item">
-                        <div class="black square"></div>
-                        <div>
-                            <h3>Poducto Ejemplo 2</h3>
-                            <p>Subasta</p>
-                        </div>
-                        <div class="buttons">
-                            <div class="button blue">Ver detalles</div>
-                        </div>
-                    </div>
-
-                    <div class="venta_item">
-                        <div class="black square"></div>
-                        <div>
-                            <h3>Poducto Ejemplo 3</h3>
-                            <p>Precio $$$</p>
-                        </div>
-                        <div class="buttons">
-                            <div class="button blue">Ver detalles</div>
-                        </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
+                {% endfor %}
+
             </section>
         </main>
     </body>

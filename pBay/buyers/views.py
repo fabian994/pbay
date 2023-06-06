@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart
+from utils import infoProductos
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
@@ -43,6 +44,7 @@ def pedidos(request):
 
 def productos(request):
     return render(request, "productos.html")
+
 def details(request):
     return render(request, "Product_Details.html")
 
@@ -54,12 +56,31 @@ def compras(request):
     if sesion == "NoExist":
         return redirect('home')
     return render(request, "compras_Principal.html")
-    
+
 def busqueda(request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
         return redirect('home')
-    return render(request, "compras_Busqueda.html")
+    response = []
+    sesion = request.session['usuario']
+
+    if request.method == 'POST':
+        response = []
+        form = Filter(request.POST)
+        if form.is_valid():
+            selected_option2 = form.cleaned_data['Filtering']
+            if selected_option2 == 'nada':
+                response = infoProductos(0)
+            elif selected_option2 == 'subasta':
+                response = infoProductos(1)
+            else:
+                response = infoProductos(2)
+    else:
+        response = infoProductos(0)
+        form = Filter()
+    context = {"infoprod":  response}
+    context['form'] = form
+    return render(request, "compras_Busqueda.html", context)
 
 def obtener_elementos(request):
     sesion = request.session['usuario']
