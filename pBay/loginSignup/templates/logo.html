@@ -33,7 +33,7 @@
                       {% if subcategoria1.subcategorias %}
                         <ul class="dropdown-menu dropend" aria-labelledby="subcategoria1{{ loop.parent.index }}-{{ loop.index }}" data-bs-popper="none">
                           {% for subcategoria2 in subcategoria1.subcategorias %}
-                            <li><a class="dropdown-item" href="/searchByCategory?categoria={{ subcategoria2.categoria }}">{{ subcategoria2.categoria }}</a></li>
+                            <li><a class="dropdown-item" href="/searchByCategory?categoria={{ categoria.categoria }}&subcategoria={{ subcategoria1.categoria }}&subcategoria2={{ subcategoria2.categoria }}">{{ subcategoria2.categoria }}</a></li>
                           {% endfor %}
                         </ul>
                       {% endif %}

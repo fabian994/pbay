@@ -167,7 +167,7 @@ def infoventas(user, action):
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
                                 datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
             if action == 1:
                 if tipo == "Subasta":
@@ -177,7 +177,7 @@ def infoventas(user, action):
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                    response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
                                     datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
 
             if action == 2:
@@ -188,7 +188,7 @@ def infoventas(user, action):
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                    response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
                                     datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
     return response
 
@@ -221,7 +221,7 @@ def infoProductos(action):
             expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
             url_imagen = imagen_ref.generate_signed_url(expiration=int(
                 expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-            response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+            response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
                             datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], datos['shippingFee'], url_imagen])
         if action == 1:
             if tipo == "Subasta":
@@ -231,7 +231,7 @@ def infoProductos(action):
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
                                 datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], datos['shippingFee'], url_imagen])
 
         if action == 2:
@@ -242,7 +242,7 @@ def infoProductos(action):
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                response.append([datos['prodName'], datos['categories'], datos['prodDesc'], datos['Brand'],
+                response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
                                 datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], datos['shippingFee'], url_imagen])
     return response
 
@@ -322,9 +322,8 @@ def sells_history(uid):
         sells.append(sell)
     return sells
 
-def searchCat(search):
-    print(search)
-    docs = db.collection('products').where('categories', '==', search).get()
+def searchCat(category,subcategory,subcategory2):
+    docs = db.collection('products').where('category', '==', category).where('subCategory1', '==', subcategory).where('SubCategory2', '==', subcategory2).get()
     response = []
     for doc in docs:
         data = doc.to_dict()
