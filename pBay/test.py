@@ -19,7 +19,9 @@ with open('subcategorias1_clean.csv','r') as fin2:
 with open('subcategorias2_clean.csv','r') as fin3: 
     dr = csv.DictReader(fin3) 
     to_db3 = [(i['ID'], i['SubCat1_ID'], i['Subcatagoria2']) for i in dr]
-
+# cur.execute("DELETE FROM sellers_categories;" )
+# cur.execute("DELETE FROM sellers_subcategory1;" )
+# cur.execute("DELETE FROM sellers_subcategory2;" )
 cur.executemany("INSERT INTO sellers_categories (ID, Categoria) VALUES (?, ?);", to_db)
 cur.executemany("INSERT INTO sellers_subcategory1 (ID,Cat_id,Subcategoria1) VALUES (?, ?, ?);", to_db2)
 cur.executemany("INSERT INTO sellers_subcategory2 (ID,SubCat1_id,Subcategoria2) VALUES (?, ?, ?);", to_db3)
