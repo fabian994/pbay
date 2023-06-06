@@ -11,7 +11,7 @@ class Filter(forms.Form):
         ]
     )
 
-class categoriesForm(forms.Form):
+class productCreate(forms.Form):
     name = forms.CharField( max_length = 40, 
                             required = True, 
                             label = "Nombre(s)",
@@ -57,7 +57,98 @@ class categoriesForm(forms.Form):
                                     }
                                 ))
     
+    mainImage = forms.ImageField(label = "Imagen principal", 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
 
+    image2 = forms.ImageField(label = "Imagen 2",
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+
+    image3 = forms.ImageField(label = "Imagen 3", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image4 = forms.ImageField(label = "Imagen 4", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image5 = forms.ImageField(label = "Imagen 5", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image6 = forms.ImageField(label = "Imagen 6", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image7 = forms.ImageField(label = "Imagen 7", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image8 = forms.ImageField(label = "Imagen 8", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image9 = forms.ImageField(label = "Imagen 9", 
+                              required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    image10 = forms.ImageField(label = "Imagen 10", 
+                               required = False, 
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                    },
+                                    widget=forms.FileInput(attrs={
+                                        "class" : "form-control",
+                                        "type": "file"
+                                    }))
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["subCategory1"].queryset = SubCategory1.objects.none()

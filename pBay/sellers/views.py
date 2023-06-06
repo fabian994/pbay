@@ -5,7 +5,9 @@ from .models import *
 from utils import sells_history
 from utils import payment_detail_by_month
 from utils import infoventas
+from utils import firestore_connection, storeProductImages
 from loginSignup.views import *
+from django.core.files.storage import default_storage
 
 # Create your views here.
 
@@ -101,16 +103,57 @@ def subastas(request):
 
 def add_product(request):
     if request.method == "POST":
-        reg_form = categoriesForm(request.POST)
+        reg_form = productCreate(request.POST, request.FILES)
         context = {
             "title": "Registro producto",
             "form": reg_form
         }
-        
-        print(request.POST)
-        return render(request, "add_product.html", context)
+        #data = reg_form.cleaned_data
+        if reg_form.is_valid():
+            print(request.POST)
+            data = reg_form.cleaned_data
+
+            cat = str(data['category'])
+            subcat1 = str(data['subCategory1'])
+            subcat2 = str(data['subCategory2'])
+            print('data: ', data)
+            # print('main img: ', type(mig))
+            # print('cat: ', cat)
+            # print('subcat1: ', type(subcat1))
+            # print('subcat2: ', subcat2)
+            prodImgs = request.FILES
+            #Product Data Dictionary
+            #print('dic images : ', prodImgs)
+            #print('main image name : ', prodImgs['mainImage'].name)
+            imgList = []
+            for img in prodImgs:
+                if img == prodImgs['mainImage']:
+                    pass
+                imgList.append(prodImgs[img].name)
+
+            #print(imgList)
+            
+            prodData = {'name': data['name'], 'category':cat, 'subCategory1':subcat1, 
+                        'SubCategory2':subcat2, 'mainImage': prodImgs['mainImage'].name, 'images':imgList}
+            
+            
+            ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
+
+            
+            print('img: ',prodImgs)
+            for img in prodImgs:
+                print('img: ',prodImgs[img])
+                print('name img: ',prodImgs[img].name)
+                file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
+                #print('saved img')
+                #print(officialID.name)
+                storeProductImages(ref[1].id, prodImgs[img].name)#Calls function in utils.py
+                #print('stored to firebase')
+                default_storage.delete(prodImgs[img].name)#Deletes file from local storage
+            
+            return render(request, "add_product.html", context)
     else:
-        reg_form = categoriesForm()
+        reg_form = productCreate()
         context = {
             "title": "Registro producto",
             "form": reg_form

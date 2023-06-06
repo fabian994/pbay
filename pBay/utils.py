@@ -269,6 +269,13 @@ def storeOfficialID(uid, name):  # Saves user official ID to firebase storage
                              '/' + name).put("media/" + name)
     return storedID
 
+def storeProductImages(uid, name):  # Saves user official ID to firebase storage
+    # storage.child(path) sets the directory the file is going to be stored, must include filename with extension
+    # .put() grabs the local file stored in media and uploads it to firebase
+    storedID = storage.child('products/' + str(uid) +
+                             '/' + name).put("media/" + name)
+    return storedID
+
 
 def payment_detail_by_month(uid, month, year):
 
