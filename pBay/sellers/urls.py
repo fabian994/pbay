@@ -18,7 +18,8 @@ urlpatterns = [
           views.add_productDirSale, name = "add_direct_sale_prod"),
     path('mis_ventas/subastas',
          views.subastas, name='subastas'),
-
-     path('ajax/load-Subcategory1/', views.load_subcategories1, name='ajax_load_Subcategories1'), # AJAX
-     path('ajax/load-Subcategory2/', views.load_subcategories2, name='ajax_load_Subcategories2'), # AJAX
+    path('ajax/load-Subcategory1/', views.load_subcategories1, name='ajax_load_Subcategories1'), # AJAX
+    path('ajax/load-Subcategory2/', views.load_subcategories2, name='ajax_load_Subcategories2'), # AJAX
+    path('mis_ventas/delete_producto',
+             views.delete_producto, name='delete_producto'),
 ]

@@ -136,6 +136,8 @@ def infoProductoUser(user, action):
         x[7], '%d/%m/%Y').date())
     return response
 
+def deleteVenta(idDoc):
+    db.collection('products').document(idDoc).delete()
 
 def infoventas(user, action):
     nombre_coleccion = "products"
@@ -162,34 +164,37 @@ def infoventas(user, action):
         if datos['seller_id'] == user["localId"]:
             if action == 0:
                 ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+                docId = documento.id
                 bucket = st.bucket()
                 imagen_ref = bucket.blob(ruta_imagen)
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                                datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
+                                datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
             if action == 1:
                 if tipo == "Subasta":
                     ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+                    docId = documento.id
                     bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
+                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
 
             if action == 2:
                 if tipo == "Venta Directa":
                     ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+                    docId = documento.id
                     bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen])
+                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
     return response
 
 def infoProductos(action):
