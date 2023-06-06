@@ -131,28 +131,38 @@
 		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
 		<div class="container">
 			<div>
-				<div class="tree-view">
-					<ul>
-						<li>Artículo
-							<ul>
-								<li>Servicio
-									<ul>
-										<li>Subitem 1</li>
-										<li>Subitem 2</li>
-										<li>Subitem 3</li>
-									</ul>
-								</li>
-								<li>Producto
-									<ul>
-										<li>Subitem 1</li>
-										<li>Subitem 2</li>
-										<li>Subitem 3</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
+				
+				<div class="label">
+					<div class="label-text">
+						<label for="categoria-selector">Categoría:</label>
+					</div>
+					<div class="label-input">
+						<select id="categoria-selector">
+							<option value="">Seleccione una categoría</option>
+						</select>
+					</div>
 				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="subcategoria1-selector">Subategoría:</label>
+					</div>
+					<div class="label-input">
+						<select id="subcategoria1-selector">
+							<option value="">Seleccione una subcategoría</option>
+						</select>
+					</div>
+				</div>
+				<div class="label">
+					<div class="label-text">
+						<label for="subcategoria2-selector">Subcategoría 2:</label>
+					</div>
+					<div class="label-input">
+						<select id="subcategoria2-selector">
+							<option value="">Seleccione una subcategoría</option>
+						</select>
+					</div>
+				</div>
+
 				<div class="label">
 					<div class="label-text">
 						<label for="marca">Marca:</label>
@@ -361,6 +371,112 @@
 				  costoMostrado.textContent = "150";
 				}
 			}
+
+			// Función para cargar las categorías desde el archivo JSON
+			function cargarCategorias() {
+			fetch('/static/categorias.json')
+				.then(response => response.json())
+				.then(data => {
+				const categoriaSelector = document.getElementById('categoria-selector');
+			
+				// Agregar las opciones al selector de categoría
+				data.forEach(categoria => {
+					const option = document.createElement('option');
+					option.value = categoria.categoria;
+					option.textContent = categoria.categoria;
+					categoriaSelector.appendChild(option);
+				});
+			
+				// Habilitar el selector de categoría
+				categoriaSelector.disabled = false;
+				})
+				.catch(error => {
+				console.error('Error al cargar las categorías:', error);
+				});
+			}
+			
+			// Función para cargar las subcategorías 1 relacionadas a la categoría seleccionada
+			function cargarSubcategorias1() {
+				const categoriaSeleccionada = document.getElementById('categoria-selector').value;
+				const subcategoria1Selector = document.getElementById('subcategoria1-selector');
+				
+				// Limpiar las opciones anteriores
+				subcategoria1Selector.innerHTML = '<option value="">Selecciona una subcategoría</option>';
+				
+				if (categoriaSeleccionada) {
+					fetch('/static/categorias.json')
+					.then(response => response.json())
+					.then(data => {
+						const categoria = data.find(categoria => categoria.categoria === categoriaSeleccionada);
+				
+						if (categoria && categoria.subcategorias) {
+						categoria.subcategorias.forEach(subcategoria1 => {
+							const option = document.createElement('option');
+							option.value = subcategoria1.categoria;
+							option.textContent = subcategoria1.categoria;
+							subcategoria1Selector.appendChild(option);
+						});
+						}
+				
+						// Habilitar el selector de subcategoría 1
+						subcategoria1Selector.disabled = false;
+					})
+					.catch(error => {
+						console.error('Error al cargar las subcategorías 1:', error);
+					});
+				} else {
+					// Deshabilitar el selector de subcategoría 1 si no se seleccionó una categoría
+					subcategoria1Selector.disabled = true;
+				}
+			}
+			  
+			// Función para cargar las subcategorías 2 relacionadas a la categoría y subcategoría 1 seleccionadas
+			function cargarSubcategorias2() {
+				const categoriaSeleccionada = document.getElementById('categoria-selector').value;
+				const subcategoria1Seleccionada = document.getElementById('subcategoria1-selector').value;
+				const subcategoria2Selector = document.getElementById('subcategoria2-selector');
+				
+				// Limpiar las opciones anteriores
+				subcategoria2Selector.innerHTML = '<option value="">Selecciona una subcategoría</option>';
+				
+				if (categoriaSeleccionada && subcategoria1Seleccionada) {
+					fetch('/static/categorias.json')
+					.then(response => response.json())
+					.then(data => {
+						const categoria = data.find(categoria => categoria.categoria === categoriaSeleccionada);
+						const subcategoria1 = categoria.subcategorias.find(subcategoria1 => subcategoria1.categoria === subcategoria1Seleccionada);
+				
+						if (subcategoria1 && subcategoria1.subcategorias) {
+						subcategoria1.subcategorias.forEach(subcategoria2 => {
+							const option = document.createElement('option');
+							option.value = subcategoria2.categoria;
+							option.textContent = subcategoria2.categoria;
+							subcategoria2Selector.appendChild(option);
+						});
+						}
+				
+						// Habilitar el selector de subcategoría 2
+						subcategoria2Selector.disabled = false;
+					})
+					.catch(error => {
+						console.error('Error al cargar las subcategorías 2:', error);
+					});
+				} else {
+					// Deshabilitar el selector de subcategoría 2 si no se seleccionó una categoría o subcategoría 1
+					subcategoria2Selector.disabled = true;
+				}
+			}
+			
+			// Cargar las categorías al cargar la página
+			//cargarCategorias();
+			window.addEventListener('DOMContentLoaded', cargarCategorias);
+			
+			// Actualizar las subcategorías 1 cuando se selecciona una categoría
+			document.getElementById('categoria-selector').addEventListener('change', cargarSubcategorias1);
+			
+			// Actualizar las subcategorías 2 cuando se selecciona una subcategoría 1
+			document.getElementById('subcategoria1-selector').addEventListener('change', cargarSubcategorias2);
+
 		</script>
 	</body>
 	</html>
