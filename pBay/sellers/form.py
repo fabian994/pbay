@@ -29,6 +29,18 @@ class productCreate(forms.Form):
                                 }
                             ))
     
+    marca = forms.CharField( max_length = 40,
+                             required = True,
+                             label = "Marca",
+                             
+                             error_messages={
+                                 "required": "No puede estar vacío",
+                             },
+                             widget = forms.TextInput(attrs= {
+                                 "class": "form-control"
+                             })
+                             )
+    
     category = forms.ModelChoiceField( required = True, 
                                     label = "Categoria",
                                     queryset = categories.objects.all(),
