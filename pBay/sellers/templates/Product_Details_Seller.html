@@ -47,8 +47,12 @@
 
 
             <div class="buttons">
-              <div class="button red"> Elimiar </div>
-              <div class="button blue"> Modificar</div>
+                <form method="POST" action="delete_producto">
+                    {% csrf_token %}
+                    <input id="idDoc" name="idDoc" type="text" value="{{item.11}}" style="display: none"/>
+                    <input class="button red" type="submit" value="Elimiar"/>
+                </form>
+                <div class="button blue"> Modificar</div>
             </div>            
 
           </div>
@@ -69,6 +73,11 @@
           form.submit();
         });
       });
+
+      const deleteProduct = (id) => {
+
+          console.log("Entra: " + id);
+      }
     </script>
     
 {% endblock %}

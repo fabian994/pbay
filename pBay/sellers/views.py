@@ -6,6 +6,7 @@ from utils import sells_history
 from utils import payment_detail_by_month
 from utils import infoventas
 from utils import firestore_connection, storeProductImages
+from utils import deleteVenta
 from loginSignup.views import *
 from django.core.files.storage import default_storage
 
@@ -86,10 +87,24 @@ def detalles_producto(request):
     else:
         response = infoventas(sesion, 0)
         form = Filter()
+    #deleteFunction = Delete(request.POST)
+    #idToDelete = deleteFunction.cleaned_data['idDoc']
+    #responseDelete = deleteFunction.cleaned_data['idDoc']
+    #context['delete'] = deleteFunction
+    print("Metodo ",request)
     context = {"htmlinfo":  response}
     context['form'] = form
     return render(request, "Product_Details_Seller.html", context)
 
+def delete_producto(request):
+    if request.method == 'POST':
+        response = []
+        print("Entra v2")
+        idDoc = request.POST['idDoc']
+        print("IdDoc: ", idDoc)
+        deleteVenta(idDoc)
+        request.method = 'GET'
+        return detalles_producto(request)
 
 def historial_pagos(request):
     user = request.session.get("usuario")
