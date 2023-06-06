@@ -75,12 +75,12 @@
 			}
 
 			.label-text {
-				flex-basis: 30%;
+				flex-basis: 70px;
 				text-align: left;
 			}
 
 			.label-input {
-				flex-basis: 70%;
+				flex-basis: 150px;
 				display: flex;
 				align-items: center;
 			}
@@ -154,7 +154,7 @@
 							<label for="marca">Marca:</label>
 						</div>
 						<div class="label-input">
-							<input type="text" id="marca" class="text-input">
+							{{ form.brand }}
 						</div>
 					</div>
 					<div class="label">
@@ -162,18 +162,15 @@
 							<label for="modelo">Modelo (opcional):</label>
 						</div>
 						<div class="label-input">
-							<input type="text" id="modelo" class="text-input">
+							{{ form.model }}
 						</div>
 					</div>
 					<div class="label">
 						<div class="label-text">
 							<label for="condicion">Condición:</label>
 						</div>
-						<div class="label-input">
-							<select id="condicion">
-								<option>Nuevo</option>
-								<option>Usado</option>
-							</select>
+						<div class="label">
+							{{ form.condition }}
 						</div>
 					</div>
 					<div class="label">
@@ -181,85 +178,58 @@
 							<label for="titulo">Título:</label>
 						</div>
 						<div class="label-input">
-							<input type="text" id="titulo" class="text-input">
+							{{ form.title }}
 						</div>
 					</div>
 					<p style="text-align: left;">Descripción:</p>
-					<textarea id="descripcion" class="description-input"></textarea>
+					<div class="decription-input">
+						{{ form.about }}
+					</div>
 				</div>
 				<div>
-					<p style="text-align: left;">Imágenes</p>
+					<p style="text-align: left;">Imágen principal</p>
+					{{ form.mainImage }}
+					<!--
 					<div id="imagesContainer">
 						<input type="file" name="imagen[]" accept="image/*">
 						<label>Marcar como principal</label>
 						<input type="checkbox" id="marcarPrincipal" class="checkbox" name="principal[]" value="principal">
-						
 					</div>
-					<p><a href="#" class="button" onclick="agregarImagen()">Agregar otra imagen</a></p>
+					-->
+					<p style="text-align: left;">Imágenes adicionales (opcional)</p>
+					{{ form.image2 }}
+					{{ form.image3 }}
+					{{ form.image4 }}
+					{{ form.image5 }}
+					{{ form.image6 }}
+					{{ form.image7 }}
+					{{ form.image8 }}
+					{{ form.image9 }}
+					{{ form.image10 }}
 					<div class="label">
 						<div class="label-text">
 							<label for="tipoVenta">Tipo de venta:</label>
 						</div>
 						<div class="label-input">
-							<select id="tipoVenta" onchange="mostrarCampoCosto()">
-								<option>Subasta</option>
-								<option>Venta inmediata</option>
-							</select>
+							{{ form.vendType }}
 						</div>
 					</div>
 					
-					<div class="label" id="campoCosto" style="display: none;">
-						<div class="label-text">
-							<label for="costo">Costo:</label>
-						</div>
-						<div class="label-input">
-							<input type="number" id="costo" class="text-input">
-						</div>
-					</div>
-					<div class="label" id="subastaText" style="display: flex;">
-						<p style="text-align: left;">*La configuración de costo para subasta se hará en una ventana siguiente*</p>
-					</div>
-					<div class="label">
-						<div class="label-text">
-							<label for="inventario">Inventario:</label>
-						</div>
-						<div class="label-input">
-							<input type="number" id="inventario" class="text-input">
-						</div>
-					</div>
-					<div class="label">
-						<div class="label-text">
-							<label for="costoEnvio">Costo de envío:</label>
-						</div>
-						<div class="label-input">
-							<input type="number" id="costoEnvio" class="text-input">
-						</div>
-					</div>
 					<div class="label">
 						<div class="label-text">
 							<label for="fechaPublicacion">Fecha de publicación:</label>
 						</div>
 						<div class="label-input">
-							<input type="date" id="fechaPublicacion" class="calendar">
+							{{ form.publishDate }}
 						</div>
 					</div>
-					<div class="label">
-						<div class="label-text">
-							<label for="fechaRetiro">Fecha de retiro:</label>
-						</div>
-						<div class="label-input">
-							<input type="date" id="fechaRetiro" class="calendar">
-						</div>
-					</div>
+
 					<div class="label">
 						<div class="label-text">
 							<p>Destacar:</p>
 						</div>
 						<div class="label-input">
-							<input type="radio" id="destacarSi" name="destacar" value="si" onclick="mostrarCampos()">
-							<label for="destacarSi">Si</label>
-							<input type="radio" id="destacarNo" name="destacar" value="no" onclick="mostrarCampos()">
-							<label for="destacarNo">No</label>
+							{{ form.promote }}
 						</div>
 					</div>
 					<div class="label" id="costDaysFields" style="display: none;">
@@ -320,7 +290,7 @@
 			-->
 			<div class="container2">
 				<div class="buttons">
-					<button class="cancel-button" href="{% url 'add_product' %}">Cancelar</button>
+					<a class="btn cancel-button" href="{% url 'home' %}" role="button">Cancelar</a>
 					<button class="continue-button" type="submit">Continuar</button>
 				</div>
 			</div>

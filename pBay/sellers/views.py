@@ -102,6 +102,10 @@ def subastas(request):
 
 
 def add_product(request):
+   # user = request.session.get("usuario")
+
+    #if user == "NoExist" or user == None:
+    #    return redirect('home')
     if request.method == "POST":
         reg_form = productCreate(request.POST, request.FILES)
         context = {
@@ -133,7 +137,7 @@ def add_product(request):
 
             #print(imgList)
             
-            prodData = {'name': data['name'], 'category':cat, 'subCategory1':subcat1, 
+            prodData = {'name': data['name'], 'category':cat, 'subCategory1':subcat1, #'seller_id': user, 
                         'SubCategory2':subcat2, 'mainImage': prodImgs['mainImage'].name, 'images':imgList}
             
             
