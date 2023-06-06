@@ -16,51 +16,41 @@
       href="{% static 'styles/historial_pagos_detalle.css' %}"
     />
   </head>
-  <div class="container_div">
+  <div class="container_div my_border">
     <div class="details__status">
-      <p><span>Enero 2023</span></p>
-      <p>Estado: <span>No entregado</span></p>
+      <p>{{ date }}</p>
+        {% if payments|length > 0 %}
+            <p>Estado: {{status}}</p>
+        {% endif %}
     </div>
-    <div>
-      <table class="details__table">
-        <tr>
-          <th>Producto</th>
-          <th>Precio</th>
-          <th>Comision</th>
-        </tr>
-        <tr>
-          <td>Prod1</td>
-          <td>$10</td>
-          <td>$2</td>
-        </tr>
-        <tr>
-          <td>Prod1</td>
-          <td>$10</td>
-          <td>$2</td>
-        </tr>
-        <tr>
-          <td>Prod1</td>
-          <td>$10</td>
-          <td>$2</td>
-        </tr>
-        <tr>
-          <td>Prod1</td>
-          <td>$10</td>
-          <td>$2</td>
-        </tr>
-        <tr>
-          <td>Prod1</td>
-          <td>$10</td>
-          <td>$2</td>
-        </tr>
-        <tr>
-          <td>Prod1</td>
-          <td>$10</td>
-          <td>$2</td>
-        </tr>
-      </table>
-    </div>
-    <p class="details__total">Total $<span>46</span></p>
+        {% if payments|length > 0 %}
+            <div>
+                <table class="details__table">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Comision</th>
+                    </tr>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.product }}</td>
+                        <td>{{ payment.price }}</td>
+                        <td>{{ payment.comission }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <p class="details__total">Total ${{ total }}</p>
+        {% else %}
+            <p>No se han realizado pagos durante este mes</p>
+        {% endif %}
+  </div>
+  <div class="container_div">
+    <a class="link" href={% url 'historial_pagos' %}>
+      <div class="button red">
+        Regresar
+      </div>
+    </a>
   </div>
 </html>
 {% endblock %}

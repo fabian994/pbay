@@ -12,4 +12,5 @@ urlpatterns = [
     path('backend/', views.obtener_elementos, name='backend'),
     path('selctdirection/', views.selctdirection, name='selctdirection'),
     path('searchByCategory', views.searchByCategory, name='searchByCategory'),
+    path('addCarrito/', views.addCarrito, name='addCarrito'),
 ]

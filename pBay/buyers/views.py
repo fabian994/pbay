@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
@@ -88,5 +88,17 @@ def searchByCategory (request):
     category = request.GET.get('categoria')
     
     products = searchCat(category)
-    
+    print(request)
     return render(request, 'searchByCategory.html', {'products': products})
+
+def addCarrito(request):
+    sesion = request.session['usuario']
+    if request.method == 'POST':
+        selected_option = request.POST.get('item')
+        print(selected_option)
+        if(addCart(selected_option, sesion)):
+            # return JsonResponse({"response" :True})
+       
+            return JsonResponse({"response" :True})
+        else:
+            return JsonResponse({"response" :False})

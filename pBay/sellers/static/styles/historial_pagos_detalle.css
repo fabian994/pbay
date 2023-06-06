@@ -2,8 +2,15 @@
   max-width: 960px;
   width: 100%;
   margin: 2rem auto;
-  border: 2px solid black;
   padding: 1rem 2rem;
+}
+
+.red {
+  background-color: red;
+}
+
+.my_border {
+  border: 2px solid black;
 }
 
 .details__status {
@@ -19,4 +26,17 @@
 .details__total {
   margin-top: 1.5rem;
   text-align: right;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.button {
+  display: inline-block;
+  color: white;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
 }
