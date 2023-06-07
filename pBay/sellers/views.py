@@ -132,8 +132,11 @@ def add_product(request):
             "form": reg_form
         }
         #data = reg_form.cleaned_data
+        print('enter post')
+        print(reg_form.is_valid())
+        print(reg_form.errors)
         if reg_form.is_valid():
-            print(request.POST)
+            print('form is valid')
             data = reg_form.cleaned_data
 
             cat = str(data['category'])
@@ -179,15 +182,17 @@ def add_product(request):
                 default_storage.delete(prodImgs[img].name)#Deletes file from local storage
             
             #return render(request, "add_product.html", context)
+            print('to redirect')
             return redirect('add_direct_sale_prod', prod_id = prod_id)
-    else:
-        reg_form = productCreate()
-        context = {
-            "title": "Registro producto",
-            "form": reg_form
-        }
+    
+    print('mo post')
+    reg_form = productCreate()
+    context = {
+        "title": "Registro producto",
+        "form": reg_form
+    }
 
-        return render(request, "add_product.html", context)
+    return render(request, "add_product.html", context)
 
 def add_productDirSale(request, prod_id):
     print(prod_id)

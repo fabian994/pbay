@@ -123,7 +123,7 @@
 	</head>
 	<body>
 		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
-		<form method="post" id="reg_form" data-subcategories1-url="{% url 'ajax_load_Subcategories1' %}" data-subcategories2-url="{% url 'ajax_load_Subcategories2' %}" enctype="multipart/form-data">
+		<form method="POST" id="reg_form" data-subcategories1-url="{% url 'ajax_load_Subcategories1' %}" data-subcategories2-url="{% url 'ajax_load_Subcategories2' %}" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="container">
 				<div>
