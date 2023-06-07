@@ -37,15 +37,15 @@ class productCreate(forms.Form):
                                  "required": "No puede estar vacío",
                              },
                              widget = forms.TextInput(attrs= {
-                                 "class": "form-control"
+                                 "class": "input-field"
                              })
                              )
     
     model = forms.CharField( max_length = 40,
                              required = False,
-                             label = "Marca (opcional)",
+                             label = "Modelo (opcional)",
                              widget = forms.TextInput(attrs= {
-                                 "class": "form-control"
+                                 "class": "input-field"
                              })
                              )
     
@@ -58,18 +58,18 @@ class productCreate(forms.Form):
                                  "required": "No puede estar vacío",
                              },
                              widget = forms.TextInput(attrs= {
-                                 "class": "form-control"
+                                 "class": "input-field"
                              })
                              )
     
     condition = forms.ChoiceField( required = True,
                                   label = "Condición",
-                                  choices=(("","---"),("new","Nuevo"),("old","Usado")),
+                                  choices=(("","---"),("true","Nuevo"),("false","Usado")),
                                   error_messages={
                                       "required": "No puede estar vacío"
                                   },
                                   widget= forms.Select(attrs={
-                                      "class": "form-control"
+                                      "class": "input-field"
                                   }))
     
     about = forms.CharField ( required = True,
@@ -85,31 +85,31 @@ class productCreate(forms.Form):
     
     vendType = forms.ChoiceField( required = True,
                                   label = "Tipo de venta ",
-                                  choices=(("","---"),("subasta","Subasta"),("venta","Venta Inmediata")),
+                                  choices=(("","---"),("true","Subasta"),("false","Venta Inmediata")),
                                   error_messages={
                                       "required": "No puede estar vacío"
                                   },
                                   widget= forms.Select(attrs={
-                                      "class": "form-control"
+                                      "class": "input-field"
                                   }))
     
     publishDate = forms.DateField(   
                                 required = True,
                                 label = "Fecha de Publicación",
                                 widget=forms.DateInput(attrs={
-                                    "class" : "form-control",
+                                    "class" : "input-field",
                                     "type": "date"
                                 })
                                 )
     
     promote = forms.ChoiceField( required = True,
                                   label = "Destacar",
-                                  choices=(("","---"),("si","Si"),("no","No")),
+                                  choices=(("","---"),("true","Si"),("false","No")),
                                   error_messages={
                                       "required": "No puede estar vacío"
                                   },
                                   widget= forms.Select(attrs={
-                                      "class": "form-control"
+                                      "class": "input-field"
                                   }))
     
     category = forms.ModelChoiceField( required = True, 
@@ -119,7 +119,7 @@ class productCreate(forms.Form):
                                         "required": "No puede estar vacío",
                                     },
                                     widget = forms.Select(attrs = {
-                                        "class": "form-control text-primary"
+                                        "class": "input-field"
                                         }
                                     ))
 
@@ -130,7 +130,7 @@ class productCreate(forms.Form):
                                     "required": "No puede estar vacío",
                                 },
                                 widget = forms.Select(attrs = {
-                                    "class": "form-control",
+                                    "class": "input-field",
                                     }
                                 ))
     
@@ -141,7 +141,7 @@ class productCreate(forms.Form):
                                     "required": "No puede estar vacío",
                                 },
                                 widget = forms.Select(attrs = {
-                                    "class": "form-control",
+                                    "class": "input-field",
                                     }
                                 ))
     
