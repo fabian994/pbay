@@ -327,6 +327,29 @@ def sells_history(uid):
         sells.append(sell)
     return sells
 
+# gets the products of a specific vendor
+# and returns an array filled with all of the products 
+
+def my_products(uid):
+    docs = db.collection('products').where('seller_id', '==', uid).get()
+    products = []
+    for doc in docs:
+        prod = doc.to_dict()
+        prod_doc = db.collection('products').document(prod['id_prod']).get()
+        prod = prod_doc.to_dict()
+
+        refUrl = storage.child(
+            f"products/{prod['id_prod']}/{prod['mainImg']}").get_url(None)
+        prod['prod_name'] = prod['prodName']
+        prod ['categoria'] = prod ['category']
+        prod ['disponibilidad'] = prod ['RemovalDate']
+        prod['prod_img'] = refUrl
+        prod ['inventario'] = prod['Stock']
+        prod.append(products)
+    return products
+
+
+
 def searchCat(category,subcategory,subcategory2):
     docs = db.collection('products').where('category', '==', category).where('subCategory1', '==', subcategory).where('SubCategory2', '==', subcategory2).get()
     response = []

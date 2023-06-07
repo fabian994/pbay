@@ -2,7 +2,6 @@
 {% include "layouts/sellers_nav.html"%}
 {% include "layouts/ventas_nav.html"%}
 
-
 {% block content %}
 
   {% load static %}
@@ -18,17 +17,20 @@
     </head>
     <body>
         <main >
-            {% if sell.id == variable %} 
               <section class="historial">
                   <div class="my_container" > 
+                    {% if products|length == 0 %}
+                      <h3 class="message">No tienes ningun producto</h3>
+                    {% endif %}
+                    {% for product in productos %}
                       <div class="venta_item">
                           <div class="square">
                               <img class="venta_item__img" src="{{ sell.prod_img }}" alt="{{ sell.prod_name }}">
                           </div>
                           <div>
-                              <p>{{sell.prod_name}}</p>
+                              <p>{{prod.prod_name}}</p>
                               <p>Tipo: 
-                                  {% if sell.sellType %}
+                                  {% if prod.sellType %}
                                     Subasta
                                   {% else %}
                                     Venta
@@ -36,20 +38,18 @@
                               </p>
                           </div>
                           <div>
-                              <p>N. Orden: {{ sell.id }}</p>
-                              <p>Costo: ${{ sell.price }}</p>
-                              <p>Estatus: {{ sell.deliveryStatus }}</p>
+                              <p>Disponibilidad : {{ prod.disponibilidad }}</p>
+                              <p>Categoria: ${{ prod.categoria }}</p>
+                              <p>Inventario: {{ prod.inventario }}</p>
                           </div>
                           <div class="buttons">
-                              <div class="button red"> Regresar </div>
+                              <div class="button red"> Eliminar </div>
                           </div>
                       </div>
+                    {% endfor %}
                   </div>
               </section>
         </main>
-        {% endif %}
       </body>
     </html>
 {% endblock %}
-
-
