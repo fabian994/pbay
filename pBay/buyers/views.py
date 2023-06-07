@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
+
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 # Create your views here.
 def pedidos(request):
@@ -46,7 +50,9 @@ def productos(request):
     return render(request, "productos.html")
 
 def details(request):
-    return render(request, "Product_Details.html")
+    response = infoProductos(0)
+    context = {"infoDet":response}
+    return render(request, "Product_Details.html", context)
 
 def auction(request):
     return render(request, "Auction_Details.html")
@@ -102,6 +108,25 @@ def selctdirection(request):
             switchMainDirection(selected_option, sesion)
             return JsonResponse({"response" :False})
         
+def selectlist(request):
+    if request.method == 'POST':
+        selected_option = request.POST.get('selectedOption')
+        if (selected_option == "Añadir"):
+            return JsonResponse({"response" :True})
+        else:
+            return JsonResponse({"response" :False})
+
+def getWishList(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        elementos = []  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
+        return JsonResponse(elementos, safe=False)
+    else:
+        elementos = getWish(sesion)  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
+        elementos.append("Añadir")
+        print(elementos)
+        return JsonResponse(elementos, safe=False)
+        
 def searchByCategory (request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
@@ -127,3 +152,22 @@ def addCarrito(request):
             return JsonResponse({"response" :True})
         else:
             return JsonResponse({"response" :False})
+
+db = firestore.client()
+
+def search_products(request, user_id):
+    search_name = request.GET.get('q')  
+    platform_products = db.collection("products").where("title", "==", search_name).stream()
+    products = [{product.id : product.to_dict()} for product in platform_products]
+
+    platform_products = db.collection("products").stream()
+    
+    
+
+    context = {
+        "user": user_id,
+        "products": products,
+        "search_name": search_name,
+    }
+
+    return render(request, "compras_Busqueda.html", context)

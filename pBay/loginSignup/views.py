@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.contrib import messages
 from .form import *
-from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID, infoUser, addDirect
+from utils import LogIn_Firebase, signUp_Firebase, firestore_connection, storeOfficialID, infoUser, addDirect, addLista, searchList
 from datetime import datetime
 from django.http import JsonResponse
 import json
@@ -127,10 +127,49 @@ def addDirection(request):
             addDirect(sesion, direction)
             return redirect('compras')
         
-    else:    
-        
-        
+    else:      
         return render(request, "addDirection.html", context)
+      
+def addList (request):
+    form = ListForm()
+    context = {"form": form, "title": "AddList"}
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
+    if request.method == 'POST':
+        form =  ListForm(request.POST)
+        context = {"form": form, "title": "AddList"}
+        if form.is_valid():
+            data = form.cleaned_data
+            lista = data['campo']
+            addLista(sesion, lista)
+            return redirect('compras')
+        
+    else:      
+        return render(request, "addList.html", context)
+
+def MiLista(request):
+  sesion = request.session['usuario']
+  if sesion == "NoExist":
+    return redirect('home')
+    
+  lista = request.GET.get('lista')
+  products = searchList(lista, sesion)
+  if products == []:
+    context = {
+      'products': products,
+      'title' : lista,
+      "alert" : "No hay Productos en la lista"
+    }
+  else:
+    context = {
+      'products': products,
+      'title' : lista,
+      "alert" : ""
+    }
+  return render(request, "miLista.html", context)
+
+
 def logo (request):
   json_data ='''[
   {

@@ -17,17 +17,6 @@ class Filter(forms.Form):
     )
 
 class productCreate(forms.Form):
-    name = forms.CharField( max_length = 40, 
-                            required = True, 
-                            label = "Nombre(s)",
-                            
-                            error_messages={
-                                "required": "No puede estar vacío",
-                            },
-                            widget = forms.TextInput(attrs = {
-                                "class": "text-input"
-                                }
-                            ))
     
     brand = forms.CharField( max_length = 40,
                              required = True,

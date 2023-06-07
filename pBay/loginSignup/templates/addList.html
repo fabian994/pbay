@@ -1,0 +1,61 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Login</title>
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      
+    </head>
+    <body>
+        <main >
+          <form class="register-form" method="POST"> 
+            {% csrf_token %}
+            <div class="Container">
+              <br>
+              <label for="campo1" class="form-label">Agrega el nombre de una lista</label>
+              <input type="text" name="campo" pattern="[a-zA-ZéáíóúñÑÁÉÍÓÚ]+" title="Ingresa solo una palabra sin espacios" required>
+              <br>
+              <button class="btn-primary rounded w-100" type="submit">Registrar</button>
+            </div>
+          </form>
+          
+          
+        </main>
+      </body>
+    </html>
+{% endblock %}
+
+<style>
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1200px; /* Ajusta el ancho según tus necesidades */
+    margin: 0 auto; /* Centra horizontalmente */
+  }
+  
+  .form-label {
+    text-align: center;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+</style>
