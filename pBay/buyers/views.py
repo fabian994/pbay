@@ -50,7 +50,8 @@ def productos(request):
     return render(request, "productos.html")
 
 def details(request):
-    response = infoProductos(0)
+    id = request.GET.get('id')
+    response = infoProductos(id)
     context = {"infoDet":response}
     return render(request, "Product_Details.html", context)
 
@@ -71,22 +72,8 @@ def busqueda(request):
     response = []
     sesion = request.session['usuario']
 
-    if request.method == 'POST':
-        response = []
-        form = Filter(request.POST)
-        if form.is_valid():
-            selected_option2 = form.cleaned_data['Filtering']
-            if selected_option2 == 'nada':
-                response = infoProductos(0)
-            elif selected_option2 == 'subasta':
-                response = infoProductos(1)
-            else:
-                response = infoProductos(2)
-    else:
-        response = infoProductos(0)
-        form = Filter()
+    response = infoProductos(0)
     context = {"infoprod":  response}
-    context['form'] = form
     return render(request, "compras_Busqueda.html", context)
 
 def obtener_elementos(request):
