@@ -26,72 +26,21 @@
             </div>
 
             <div class="img-container">
+
+                
                 <ul class="header-productos">
+                    {% for item in products %}
                     <li>    
-                        <a class="hipervinculos" href="#">
+                        <a class="hipervinculos" href="{{item.2}}">
                             <div class="recorte">
-                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
+                                <img src={{item.1}} class="rounded mx-auto d-block" alt="...">
                             </div>
                             <div class="txt">
-                                "Producto 1"
+                                {{item.0}}
                             </div>
                         </a>
                     </li>
-
-                    <li>    
-                        <a class="hipervinculos" href="#">
-                            <div class="recorte">
-                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
-                            </div>
-                            <div class="txt">
-                                "Producto 2"
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>    
-                        <a class="hipervinculos" href="#">
-                            <div class="recorte">
-                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
-                            </div>
-                            <div class="txt">
-                                "Producto 3"
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>    
-                        <a class="hipervinculos" href="#">
-                            <div class="recorte">
-                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
-                            </div>
-                            <div class="txt">
-                                "Producto 4"
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>    
-                        <a class="hipervinculos" href="#">
-                            <div class="recorte">
-                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
-                            </div>
-                            <div class="txt">
-                                "Producto 5"
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>    
-                        <a class="hipervinculos" href="#">
-                            <div class="recorte">
-                                <img src="https://dummyimage.com/400x400/003df2/ffffff.png" class="rounded mx-auto d-block" alt="...">
-                            </div>
-                            <div class="txt">
-                                "Producto 6"
-                            </div>
-                        </a>
-                    </li>
+                    {% endfor %}  
 
                 </ul>
             </div>

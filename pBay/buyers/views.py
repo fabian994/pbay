@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
@@ -61,7 +61,8 @@ def compras(request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
         return redirect('home')
-    return render(request, "compras_Principal.html")
+    context = {'products': getRecomendations()}
+    return render(request, "compras_Principal.html", context)
 
 def busqueda(request):
     sesion = request.session['usuario']
@@ -124,7 +125,6 @@ def getWishList(request):
     else:
         elementos = getWish(sesion)  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
         elementos.append("Añadir")
-        print(elementos)
         return JsonResponse(elementos, safe=False)
         
 def searchByCategory (request):
@@ -138,7 +138,6 @@ def searchByCategory (request):
     
     
     products = searchCat(category, subcategory1, subcategory2)
-    print(request)
     return render(request, 'searchByCategory.html', {'products': products})
 
 def addCarrito(request):

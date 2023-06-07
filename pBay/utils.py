@@ -10,6 +10,7 @@ from firebase_admin import firestore
 from firebase_admin import storage as st
 import pyrebase
 import datetime
+import random
 
 config = {
     "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
@@ -542,3 +543,20 @@ def addCart(product, user):
             ref = firestore_connection('cart')
             uData = {'items': [product]}
             ref.document(user["localId"]).set(uData)
+            
+def getRecomendations():
+    docs = db.collection('products').where('PromoStatus', '==', "true").get()
+    docs = docs + db.collection('products').where('PromoStatus', '==', True).get()
+    doc_list = [doc for doc in docs]
+    random_docs = random.sample(doc_list, 7)
+    response =[]
+    for doc in random_docs:
+        data = doc.to_dict()
+        ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
+        bucket = st.bucket()
+        imagen_ref = bucket.blob(ruta_imagen)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(
+            expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        response.append([data['prodName'], url_imagen, doc.id])
+    return(response)
