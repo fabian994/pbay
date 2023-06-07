@@ -624,3 +624,40 @@ def getRecomendations():
             expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         response.append([data['prodName'], url_imagen, doc.id])
     return(response)
+
+def getCart(user):
+    documentopadre = db.collection('cart').document(user["localId"])
+    subcoleccion = documentopadre.collection('cartProducts').get()
+    documentos = subcoleccion
+    print(documentos)
+    response = []
+    for doc in documentos:
+        print('ENTRA')
+        datos = doc.to_dict()
+        print(datos)
+        print('meow')
+
+    # tipo = datos['saleType']
+        #if bool(tipo):
+        #   tipo = "Subasta"
+        #else:
+        #   tipo = "Venta Directa"
+
+        #condition = datos['Condition']
+        #if bool(tipo):
+        #   condition = "Nuevo"
+        #else:
+        #   condition = "Usado"
+
+        
+        ruta_imagen = "products/"+doc.id+"/"+datos['mainImg']
+        docId = doc.id
+        bucket = st.bucket()
+        imagen_ref = bucket.blob(ruta_imagen)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(
+        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        # Enviar prodDesc
+        response.append([datos['prodName'], datos['Price'], datos['prodAmount'], url_imagen, docId])
+        print(response)
+    return response

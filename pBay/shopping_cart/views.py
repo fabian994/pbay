@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import firestore_connection, storeProductImages
+from utils import firestore_connection, storeProductImages, getCart
 from loginSignup.views import *
 from django.core.files.storage import default_storage
 
@@ -10,5 +10,9 @@ def carrito(request):
 
     if user == "NoExist" or user == None:
         return redirect('home')
+    
+    response = getCart(user)
+    context = {"htmlinfo":  response}
 
-    return render(request, "carrito.html")
+
+    return render(request, "carrito.html", context)
