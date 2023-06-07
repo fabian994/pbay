@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
@@ -101,6 +101,25 @@ def selctdirection(request):
             sesion = request.session['usuario']
             switchMainDirection(selected_option, sesion)
             return JsonResponse({"response" :False})
+        
+def selectlist(request):
+    if request.method == 'POST':
+        selected_option = request.POST.get('selectedOption')
+        if (selected_option == "Añadir"):
+            return JsonResponse({"response" :True})
+        else:
+            return JsonResponse({"response" :False})
+
+def getWishList(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        elementos = []  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
+        return JsonResponse(elementos, safe=False)
+    else:
+        elementos = getWish(sesion)  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
+        elementos.append("Añadir")
+        print(elementos)
+        return JsonResponse(elementos, safe=False)
         
 def searchByCategory (request):
     sesion = request.session['usuario']

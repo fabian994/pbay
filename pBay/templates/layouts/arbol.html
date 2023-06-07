@@ -7798,3 +7798,12 @@
     </li>
   </ul>
 </nav>
+
+
+<script>
+
+  // Evitar el cierre del menú al hacer clic en elementos del tercer nivel
+  $('.dropdown-menu').on('click', function (e) {
+  e.stopPropagation();
+  });
+</script>

@@ -47,6 +47,18 @@ class directionForm(forms.Form):
                                 "class": "form-control"
                                 }
                             ))
+     
+class ListForm(forms.Form):
+     campo = forms.CharField( max_length = 20, 
+                            required = True, 
+                            label = "Direccion",
+                            error_messages={
+                                "required": "No puede estar vacío",
+                            },
+                            widget = forms.TextInput(attrs = {
+                                "class": "form-control"
+                                }
+                            ))
 
 
 

@@ -343,8 +343,28 @@ def searchCat(category,subcategory,subcategory2):
             response.append([data['prodName'], '$' + str(data['Price']), url_imagen, doc.id])
     return(response)
             
+def searchList(document, user):
+    doc = db.collection('wishList').document(user["localId"]).get()       
+    data = doc.to_dict()
+    array=[]
+    for i in data[document]:
+        array.append(i)
+    response = []
+    for i in array:
+        docitem = db.collection('products').document(i).get()
+        dataitem = docitem.to_dict()
+        ruta_imagen = "products/"+docitem.id+"/"+dataitem['mainImg']
+        bucket = st.bucket()
+        imagen_ref = bucket.blob(ruta_imagen)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        if dataitem['saleType']:
+            response.append([dataitem['prodName'], "Subasta", url_imagen, docitem.id])
+        else:
+            response.append([dataitem['prodName'], '$' + str(dataitem['Price']), url_imagen, docitem.id])
+    return (response)
         
-
+    
 def getdirection(user):
     docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
     for doc in docs:
@@ -353,6 +373,14 @@ def getdirection(user):
         for i in data['directions']:
             if i != data['maindirection']:
                 array.append(i)
+    return array
+
+def getWish(user):
+    doc = db.collection('wishList').document(user["localId"]).get() 
+    data = doc.to_dict()
+    array =[]
+    for i in data.keys():
+        array.append(i)
     return array
 
 def switchMainDirection(direction, user):
@@ -372,7 +400,13 @@ def addDirect(user, direction):
     result = data['directions']
     result.append(direction)
     cambio = {'directions': result}
-    documento_ref.update(cambio)  
+    documento_ref.update(cambio)
+      
+def addLista( user, direction):
+    documento_ref = db.collection('wishList').document(user["localId"])
+    documento_ref.update({
+        direction: []
+    })
 
 # Obtener datos desde Firebase
 def PayDetails(uid):

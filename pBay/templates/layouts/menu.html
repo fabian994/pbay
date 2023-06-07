@@ -58,19 +58,18 @@
                 <li class="nav-item dropdown mx-5"> <!-- Categorias -->
                   {% include "layouts/arbol.html"%}
                 </li>
-                <li class="nav-item dropdown mx-5"> <!-- Lista de deseos -->
-                    <div class="dropdown show">
-                        <a class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Lista de deseos
-                        </a>
-                      
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Crear Lista</a>
-                          <a class="dropdown-item" href="#">Lista 1</a>
-                          <a class="dropdown-item" href="#">Lista 2</a>
+                <li class="nav-item dropdown mx-5"> <!-- direcciones -->
+                  <div class="dropdown show">
+                      <a class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Listas de deseos:
+                      </a>
+                      <form id="myForm">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"  id = "lista">
+                          {% csrf_token %}
                         </div>
-                      </div>
-                </li>
+                      </form>
+                    </div>
+              </li>
                 <li class="nav-item dropdown mx-5"> <!-- Mi Cuenta -->
                     <div class="dropdown show">
                         <a class="nav-link dropdown-toggle text-secondary py-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,7 +115,7 @@
   $(document).ready(function() {
     // Hacer la solicitud AJAX al backend de Django
     $.ajax({
-      url: '/backend/',  // Reemplaza '/ruta/al/backend/' por la URL correcta de tu vista de Django
+      url: '/obtener_elementos/',  // Reemplaza '/ruta/al/backend/' por la URL correcta de tu vista de Django
       type: 'GET',
       dataType: 'json',
       success: function(data) {
@@ -137,6 +136,30 @@
       }
     });
   });
+
+  $(document).ready(function() {
+    // Hacer la solicitud AJAX al backend de Django
+    $.ajax({
+      url: '/getWishList/',  // Reemplaza '/ruta/al/backend/' por la URL correcta de tu vista de Django
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        // 'data' contiene la respuesta del backend de Django
+        // Puedes iterar sobre los elementos recibidos y crear los enlaces del menú desplegable dinámicamente
+        var dropdownMenu = $('#lista');  // Selecciona el menú desplegable
+        // Itera sobre los elementos recibidos y crea los enlaces del menú desplegable
+        for (var i = 0; i < data.length; i++) {
+          var item = $('<a>').addClass('dropdown-item').text(data[i]);
+          dropdownMenu.append(item);
+        }
+      },
+      error: function(xhr, status, error) {
+        // Maneja el error de la solicitud AJAX, si es necesario
+        console.error(error);
+      }
+    });
+  });
+
 
 
   $(document).ready(function() {
@@ -178,4 +201,44 @@
       });
     });
   });
+
+  $(document).ready(function() {
+    // ...
+    var dropdownMenu = $('#lista');
+    // Evento que se dispara al seleccionar un elemento del menú desplegable
+    dropdownMenu.on('click', '.dropdown-item', function(event) {
+      console.log("Entro al click")
+      event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+  
+      var selectedItem = $(this).text(); // Obtiene el texto del elemento seleccionado
+  
+      // Objeto con los datos a enviar al backend
+      var postData = {
+        selectedOption: selectedItem
+      };
+      var csrfToken = getCookie('csrftoken');
+  
+      // Hacer la solicitud AJAX al backend de Django con el método POST
+      $.ajax({
+        url: '/selctdirection/',
+        type: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken // Agregar el token CSRF en la cabecera de la solicitud
+        },
+        dataType: 'json',
+        data: postData, // Datos a enviar en el cuerpo de la solicitud
+        success: function(response) {
+          if (response.response){
+            window.location.href = '/addList/';
+          }else{
+            window.location.href = '/miLista?lista='+ selectedItem;
+          }
+        },
+        error: function(xhr, status, error) {
+          // Maneja el error de la solicitud AJAX, si es necesario
+          console.error(error);
+        }
+      });
+    });
+  })
 </script>

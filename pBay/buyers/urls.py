@@ -9,8 +9,10 @@ urlpatterns = [
     path("auction/", views.auction, name="auction"),
     path("compras/", views.compras, name="compras"),
     path("busqueda/", views.busqueda, name="busqueda"),
-    path('backend/', views.obtener_elementos, name='backend'),
+    path('obtener_elementos/', views.obtener_elementos, name='obtener_elementos'),
+    path('getWishList/', views.getWishList, name='getWishList'),
     path('selctdirection/', views.selctdirection, name='selctdirection'),
     path('searchByCategory', views.searchByCategory, name='searchByCategory'),
     path('addCarrito/', views.addCarrito, name='addCarrito'),
+    path('selectlist/', views.addCarrito, name='selectlist'),
 ]
