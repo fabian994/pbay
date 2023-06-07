@@ -23,16 +23,17 @@
 </head>
 <body>
 
-    <header class = "menu">
+    <header class = "menu"> 
         
         <nav class="navbar navbar-white bg-light pb-0 pt-1 flex-grow-1 justify-content-evenly">
             <ul class="mx-10">
                 <li class="mx-5"><a href = "{% url 'compras' %}" class='pb-0 pt-1'> <div> <img src = "{% static 'assets/pbay_bgblank_small.png' %}"> </div> </a></li>
-                <li class="mx-5"><form class="form-inline" id = 'searchBarForm'>
+                <li class="mx-5">
+                  <form class="form-inline" id = 'searchBarForm' action="{% url 'search_products' user_id=user %}" method="GET">
                     <div class="input-group">
                       <input type="text" class="form-control" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
                       <div class="input-group-prepend">
-                        <a href = "{% url 'home' %} " class='py-0 pt-1'><span class = "icon-search"></span></a>
+                        <a href = "{% url 'home' %}" class='py-0 pt-1'><span class = "icon-search"></span></a>
                       </div>
                     </div>
                   </form>

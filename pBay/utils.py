@@ -33,6 +33,25 @@ firebase_admin.initialize_app(cred, {
 db = firestore.client()
 
 
+def search_products(request, user_id):
+    search_name = request.GET.get('q')  
+    platform_products = db.collection("products").where("title", "==", search_name).stream()
+    products = [{product.id : product.to_dict()} for product in platform_products]
+
+    platform_products = db.collection("products").stream()
+    
+    
+
+    context = {
+        "user": user_id,
+        "products": products,
+        "search_name": search_name,
+    }
+
+    return render(request, "search_results.html", context)
+
+
+
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
