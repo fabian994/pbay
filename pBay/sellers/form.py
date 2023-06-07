@@ -295,7 +295,7 @@ class productDirectSale(forms.Form):
                                             }
                                         ))
     
-    retireDate = forms.DateField(   
+    RemovalDate = forms.DateField(   
                                 required = True,
                                 label = "Fecha de Retiro",
                                 widget=forms.DateInput(attrs={

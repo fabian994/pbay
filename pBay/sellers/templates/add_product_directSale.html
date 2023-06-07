@@ -20,7 +20,7 @@
 							<label for="marca">Inventario:</label>
 						</div>
 						<div class="label-input">
-							{{ form.inventory }}
+							{{ form_sale.inventory }}
 						</div>
 					</div>
                     <div class="label">
@@ -28,7 +28,7 @@
 							<label for="marca">Costo:</label>
 						</div>
 						<div class="label-input">
-							{{ form.cost }}
+							{{ form_sale.cost }}
 						</div>
 					</div>
                     <div class="label">
@@ -36,7 +36,7 @@
 							<label for="marca">Costo de Envio:</label>
 						</div>
 						<div class="label-input">
-							{{ form.shippingFee }}
+							{{ form_sale.shippingFee }}
 						</div>
 					</div>
                     <div class="label">
@@ -44,9 +44,20 @@
 							<label for="marca">Fecha de Retiro:</label>
 						</div>
 						<div class="label-input">
-							{{ form.retireDate }}
+							{{ form_sale.RemovalDate }}
 						</div>
 					</div>
+
+					{% if prod.PromoStatus == 'true' %}
+						<div class="form-elements">
+							<div class="label-text">
+								<label for="marca">Duracion de Destacar</label>
+							</div>
+							<div id="form-item">
+								{{ form_promo.PromoDuration }}
+							</div>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 

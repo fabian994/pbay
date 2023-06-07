@@ -7,8 +7,11 @@ from utils import payment_detail_by_month
 from utils import infoventas
 from utils import firestore_connection, storeProductImages
 from utils import deleteVenta
+from datetime import date
+from datetime import datetime, timedelta
 from loginSignup.views import *
 from django.core.files.storage import default_storage
+import pytz
 
 # Create your views here.
 
@@ -121,6 +124,7 @@ def add_product(request):
 
     #if user == "NoExist" or user == None:
     #    return redirect('home')
+    
     if request.method == "POST":
         reg_form = productCreate(request.POST, request.FILES)
         context = {
@@ -158,11 +162,11 @@ def add_product(request):
             
             ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
             prod_id = str(ref[1].id)
-            
-            print('img: ',prodImgs)
+            print('obj id: ',prod_id)
+            #print('img: ',prodImgs)
             for img in prodImgs:
-                print('img: ',prodImgs[img])
-                print('name img: ',prodImgs[img].name)
+                #print('img: ',prodImgs[img])
+                #print('name img: ',prodImgs[img].name)
                 file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
                 #print('saved img')
                 #print(officialID.name)
@@ -182,30 +186,95 @@ def add_product(request):
         return render(request, "add_product.html", context)
 
 def add_productDirSale(request, prod_id):
-    print(request.method)
+    print(prod_id)
+    print('out post')
     if request.method == "POST":
+        prod = firestore_connection("products").document(prod_id).get()
+        product = prod.to_dict()
         print('enter post')
         dir_saleForm = productDirectSale(request.POST)
+        promo_form = productPromote(request.POST)
         context = {
             "title": "Registro producto",
-            "form": dir_saleForm,
+            "form_sale": dir_saleForm,
+            "form_promo": promo_form,
             "prod_id": prod_id
         }
         print(dir_saleForm.is_valid())
         print(dir_saleForm.errors)
         #data = reg_form.cleaned_data
-        if dir_saleForm.is_valid():
+        if dir_saleForm.is_valid() and promo_form.is_valid():
+            data = dir_saleForm.cleaned_data
+            promo_dur = promo_form.cleaned_data
+            print('dir sale data:',data)
+            print('duration :',promo_dur['PromoDuration'])
+            print(product['pubDate'])
+            promoEnd = product['pubDate'] + timedelta(days=int(promo_dur['PromoDuration']))
+            data['RemovalDate'] = datetime.combine(data['RemovalDate'], datetime.min.time())
+            data['RemovalDate'] = data['RemovalDate'].replace(tzinfo=pytz.UTC)
+            print(data['RemovalDate'])
+            print(promoEnd)
+
+
+            if promoEnd < data['RemovalDate']:
+                if product['pubDate'] < data['RemovalDate']:
+                
+                    prod_data = {
+                        'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'], 
+                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd
+                                }
+                    ref = firestore_connection("products").document(prod_id)
+                    ref.update(prod_data)
+                    return redirect("subastas")
+            else:
+                dir_saleForm = productDirectSale()
+                promo_form = productPromote()
+                context = {
+                    "title": "Registro producto",
+                    "form_sale": dir_saleForm,
+                    "form_promo": promo_form,
+                    "prod": product,
+                }
+                return render(request, "add_product_directSale.html", context)
+        elif dir_saleForm.is_valid():
             data = dir_saleForm.cleaned_data
             print(data)
-            return redirect("subastas")
-        else:
-            print(dir_saleForm.errors.as_data())
-    
+            print('dir sale data:',data)
+            print(product['pubDate'])
+            data['RemovalDate'] = datetime.combine(data['RemovalDate'], datetime.min.time())
+            data['RemovalDate'] = data['RemovalDate'].replace(tzinfo=pytz.UTC)
+            print(data['RemovalDate'])
+
+            if product['pubDate'] < data['RemovalDate']:
+                
+                prod_data = {
+                    'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'], 
+                    'retireDate': data['RemovalDate'],
+                            }
+                ref = firestore_connection("products").document(prod_id)
+                ref.update(prod_data)
+                return redirect("subastas")
+            else:
+                dir_saleForm = productDirectSale()
+                promo_form = productPromote()
+                context = {
+                    "title": "Registro producto",
+                    "form_sale": dir_saleForm,
+                    "form_promo": promo_form,
+                    "prod": product,
+                }
+                return render(request, "add_product_directSale.html", context)
+
+    prod = firestore_connection("products").document(prod_id).get()
+    product = prod.to_dict()
+    print(product)
     dir_saleForm = productDirectSale()
+    promo_form = productPromote()
     context = {
         "title": "Registro producto",
-        "form": dir_saleForm,
-        "prod_id": prod_id
+        "form_sale": dir_saleForm,
+        "form_promo": promo_form,
+        "prod": product,
     }
     return render(request, "add_product_directSale.html", context)
 
