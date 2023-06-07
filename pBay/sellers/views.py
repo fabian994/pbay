@@ -301,6 +301,10 @@ def add_productDirSale(request, prod_id):
                     "prod": product,
                 }
                 return render(request, "add_product_directSale.html", context)
+            
+        else:
+            return render(request, "add_product_directSale.html", context)
+
 
     prod = firestore_connection("products").document(prod_id).get()
     product = prod.to_dict()
@@ -381,6 +385,8 @@ def add_product_Auction(request, prod_id):
             ref = firestore_connection("products").document(prod_id)
             ref.update(prod_data)
             return redirect("compras")
+        else:
+            return render(request, "add_product_Auction.html", context)
 
     auctionForm = productAuction()
     promo_form = productPromote()

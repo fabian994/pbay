@@ -54,6 +54,12 @@
 							{{ form_auction.duration }}
 						</div>
 					</div>
+					{% if form_auction.errors.duration %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_auction.errors.duration }}
+						</div>
+					{% endif %}
+
                     <div class="label">
 						<div class="label-text">
 							<label for="marca">Oferta Inicial:</label>
@@ -62,6 +68,12 @@
 							{{ form_auction.initialOffer }}
 						</div>
 					</div>
+					{% if form_auction.errors.initialOffer %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_auction.errors.initialOffer }}
+						</div>
+					{% endif %}
+
                     <div class="label">
 						<div class="label-text">
 							<label for="marca">Oferta Minima:</label>
@@ -70,6 +82,12 @@
 							{{ form_auction.minimumOffer }}
 						</div>
 					</div>
+					{% if form_auction.errors.minimumOffer %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_auction.errors.minimumOffer }}
+						</div>
+					{% endif %}
+
                     <div class="label">
 						<div class="label-text">
 							<label for="marca">Costo de Envio:</label>
@@ -78,6 +96,11 @@
 							{{ form_auction.shippingFee }}
 						</div>
 					</div>
+					{% if form_auction.errors.shippingFee %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_auction.errors.shippingFee }}
+						</div>
+					{% endif %}
 
 					{% if prod.PromoStatus == 'true' %}
 						<div class="form-elements">
@@ -87,6 +110,11 @@
 							<div id="form-item">
 								{{ form_promo.PromoDuration }}
 							</div>
+							{% if form_promo.errors.PromoDuration %}
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									{{ form_promo.errors.PromoDuration }}
+								</div>
+							{% endif %}
 						</div>
 					{% endif %}
 				</div>

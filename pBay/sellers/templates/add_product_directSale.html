@@ -54,6 +54,13 @@
 							{{ form_sale.inventory }}
 						</div>
 					</div>
+					{% if form_sale.errors.inventory %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_sale.errors.inventory }}
+						</div>
+					{% endif %}
+
+
                     <div class="label">
 						<div class="label-text">
 							<label for="marca">Costo:</label>
@@ -62,6 +69,12 @@
 							{{ form_sale.cost }}
 						</div>
 					</div>
+					{% if form_sale.errors.cost %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_sale.errors.cost }}
+						</div>
+					{% endif %}
+
                     <div class="label">
 						<div class="label-text">
 							<label for="marca">Costo de Envio:</label>
@@ -70,6 +83,13 @@
 							{{ form_sale.shippingFee }}
 						</div>
 					</div>
+					{% if form_sale.errors.shippingFee %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_sale.errors.shippingFee }}
+						</div>
+					{% endif %}
+
+
                     <div class="label">
 						<div class="label-text">
 							<label for="marca">Fecha de Retiro:</label>
@@ -78,6 +98,12 @@
 							{{ form_sale.RemovalDate }}
 						</div>
 					</div>
+					{% if form_sale.errors.RemovalDate %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_sale.errors.RemovalDate }}
+						</div>
+					{% endif %}
+
 
 					{% if prod.PromoStatus == 'true' %}
 						<div class="form-elements">
@@ -88,6 +114,11 @@
 								{{ form_promo.PromoDuration }}
 							</div>
 						</div>
+						{% if form_promo.errors.PromoDuration %}
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								{{ form_promo.errors.PromoDuration }}
+							</div>
+						{% endif %}
 					{% endif %}
 				</div>
 			</div>
