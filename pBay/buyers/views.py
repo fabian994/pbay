@@ -168,4 +168,4 @@ def search_products(request, user_id):
         "search_name": search_name,
     }
 
-    return render(request, "search_results.html", context)
+    return render(request, "compras_Busqueda.html", context)
