@@ -50,7 +50,9 @@ def productos(request):
     return render(request, "productos.html")
 
 def details(request):
-    return render(request, "Product_Details.html")
+    response = infoProductos(0)
+    context = {"infoDet":response}
+    return render(request, "Product_Details.html", context)
 
 def auction(request):
     return render(request, "Auction_Details.html")
