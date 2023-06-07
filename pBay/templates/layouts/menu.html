@@ -29,14 +29,12 @@
             <ul class="mx-10">
                 <li class="mx-5"><a href = "{% url 'compras' %}" class='pb-0 pt-1'> <div> <img src = "{% static 'assets/pbay_bgblank_small.png' %}"> </div> </a></li>
                 <li class="mx-5">
-                  <form class="form-inline" id = 'searchBarForm' action="{% url 'search_products' user_id=user %}" method="GET">
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
-                      <div class="input-group-prepend">
-                        <a href = "{% url 'home' %}" class='py-0 pt-1'><span class = "icon-search"></span></a>
-                      </div>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                      <a id="searchLink" href="#" class='py-0 pt-1'><span class="icon-search"></span></a>
                     </div>
-                  </form>
+                  </div>
                 </li>
                 <li class="mx-5"><a href = "{% url 'home' %}" class='pb-0 pt-1'><span class = "icon-bell-o"></span></a></li>
                 <li class="mx-5"><a href = "{% url 'carrito' %}" class='pb-0 pt-1'><span class = "icon-shopping-cart"></span></a></li>
@@ -97,6 +95,13 @@
 </html>
 
 <script>
+  document.getElementById('searchLink').addEventListener('click', function() {
+    var searchValue = document.getElementById('searchInput').value;
+    var url = "{% url 'search_products' %}?search=" + encodeURIComponent(searchValue);
+    window.location.href = url;
+  });
+
+
   function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

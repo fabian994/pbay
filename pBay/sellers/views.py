@@ -179,7 +179,7 @@ def add_product(request):
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category': cat, 'subCategory1': subcat1,  # 'seller_id': user,
-                        'SubCategory2': subcat2, 'mainImage': prodImgs['mainImage'].name, 'images': imgList}
+                        'SubCategory2': subcat2, 'mainImage': prodImgs['mainImg'].name, 'images': imgList}
 
             # Add product data to product collection, creates autoid
             ref = firestore_connection('products').add(prodData)

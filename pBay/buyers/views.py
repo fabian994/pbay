@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
@@ -153,19 +153,12 @@ def addCarrito(request):
 
 db = firestore.client()
 
-def search_products(request, user_id):
-    search_name = request.GET.get('q')  
-    platform_products = db.collection("products").where("title", "==", search_name).stream()
-    products = [{product.id : product.to_dict()} for product in platform_products]
-
-    platform_products = db.collection("products").stream()
+def search_products(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
     
-    
-
-    context = {
-        "user": user_id,
-        "products": products,
-        "search_name": search_name,
-    }
+    search_name = request.GET.get('search')
+    context = {'products': search(search_name)}
 
     return render(request, "compras_Busqueda.html", context)

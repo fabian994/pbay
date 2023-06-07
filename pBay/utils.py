@@ -33,25 +33,6 @@ firebase_admin.initialize_app(cred, {
 db = firestore.client()
 
 
-def search_products(request, user_id):
-    search_name = request.GET.get('q')  
-    platform_products = db.collection("products").where("title", "==", search_name).stream()
-    products = [{product.id : product.to_dict()} for product in platform_products]
-
-    platform_products = db.collection("products").stream()
-    
-    
-
-    context = {
-        "user": user_id,
-        "products": products,
-        "search_name": search_name,
-    }
-
-    return render(request, "search_results.html", context)
-
-
-
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
@@ -369,6 +350,7 @@ def searchCat(category, subcategory, subcategory2):
     response = []
     for doc in docs:
         data = doc.to_dict()
+        print(data)
         ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
@@ -376,11 +358,12 @@ def searchCat(category, subcategory, subcategory2):
         url_imagen = imagen_ref.generate_signed_url(expiration=int(
             expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         if data['saleType']:
-            response.append([data['prodName'], "Subasta", url_imagen, doc.id])
+            response.append([data['prodName'], "Subasta", url_imagen, doc.id, data['PromoStatus']])
         else:
             response.append(
-                [data['prodName'], '$' + str(data['Price']), url_imagen, doc.id])
-    return (response)
+                [data['prodName'], '$' + str(data['Price']), url_imagen, doc.id, data['PromoStatus']])
+    sorted_data = sorted(response, key=lambda x: x[4] is True, reverse=True)
+    return (sorted_data)
 
 
 def searchList(document, user):
@@ -407,6 +390,34 @@ def searchList(document, user):
                             str(dataitem['Price']), url_imagen, docitem.id])
     return (response)
 
+
+def search(keyword):
+    collection_ref = firestore.client().collection('products')
+    #query = collection_ref.where('prodName', '>=', keyword).where('prodName', '<', keyword + u'\uf8ff')
+    #docs = query.stream()
+    docs = db.collection('products').get()
+    array=[]
+    for doc in docs:
+        data = doc.to_dict()
+        if keyword.upper() in data['prodName'].upper():
+            array.append(doc.id)
+    response = []
+    for i in array:
+        doc = db.collection('products').document(i).get()
+        data = doc.to_dict()
+        ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
+        bucket = st.bucket()
+        imagen_ref = bucket.blob(ruta_imagen)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(
+            expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        if bool(data['saleType']):
+            response.append([data['prodName'], "Subasta", url_imagen, doc.id, data['PromoStatus']])
+        else:
+            response.append(
+                [data['prodName'], '$' + str(data['Price']), url_imagen, doc.id, data['PromoStatus']])
+    sorted_data = sorted(response, key=lambda x: x[4] is True, reverse=True)
+    return (sorted_data)
 
 def getdirection(user):
     docs = db.collection('users').where(

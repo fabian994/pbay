@@ -15,5 +15,5 @@ urlpatterns = [
     path('searchByCategory', views.searchByCategory, name='searchByCategory'),
     path('addCarrito/', views.addCarrito, name='addCarrito'),
     path('selectlist/', views.addCarrito, name='selectlist'),
-    path('search/<str:user_id>', views.search_products, name='search_products'),
+    path('search', views.search_products, name='search_products'),
 ]
