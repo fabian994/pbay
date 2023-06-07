@@ -19,12 +19,13 @@
 			.container {
 				display: flex;
 				flex-direction: row;
-				justify-content: center;
-				width: 100%;
+				justify-content: space-between;
+				align-items: center;
+				gap: 50px;
 			}
 
 			.container div {
-				width: 50%;
+				width: 100%;
 			}
 
 			.tree-view ul ul {
@@ -115,6 +116,9 @@
 			.continue-button {
 				background-color: blue;
 			}
+			.input-field{
+				width: 250px;
+			}
 		</style>
 	</head>
 	<body>
@@ -128,7 +132,7 @@
 						<div class="label-text">
 							<label for="categoria-selector">Categoría:</label>
 						</div>
-						<div class="label">
+						<div class="label-input">
 							{{ form.category }}
 						</div>
 					</div>
@@ -136,7 +140,7 @@
 						<div class="label-text">
 							<label for="subcategoria1-selector">Subategoría:</label>
 						</div>
-						<div class="label">
+						<div class="label-input">
 							{{ form.subCategory1 }}
 						</div>
 					</div>
@@ -144,7 +148,7 @@
 						<div class="label-text">
 							<label for="subcategoria2-selector">Subcategoría 2:</label>
 						</div>
-						<div class="label">
+						<div class="label-input">
 							{{ form.subCategory2 }}
 						</div>
 					</div>
@@ -169,7 +173,7 @@
 						<div class="label-text">
 							<label for="condicion">Condición:</label>
 						</div>
-						<div class="label">
+						<div class="label-input">
 							{{ form.condition }}
 						</div>
 					</div>

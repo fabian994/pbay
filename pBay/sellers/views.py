@@ -152,7 +152,11 @@ def add_product(request):
 
             #print(imgList)
             
-            prodData = {'name': data['name'], 'category':cat, 'subCategory1':subcat1, #'seller_id': user, 
+            data['publishDate'] = datetime.combine(data['publishDate'],datetime.min.time())
+            
+            prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
+                        'category':cat, 'subCategory1':subcat1, #'seller_id': user, 
                         'SubCategory2':subcat2, 'mainImage': prodImgs['mainImage'].name, 'images':imgList}
             
             
