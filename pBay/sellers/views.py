@@ -174,33 +174,41 @@ def add_product(request):
 
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
-
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
-                        'SubCategory2':subcat2, 'mainImage': prodImgs['mainImg'].name, 'images':imgList}
+                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
             saleType = data['vendType']
             
-            ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
+            try:
+                ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
 
-            prod_id = str(ref[1].id)
-            print('obj id: ', prod_id)
-            # print('img: ',prodImgs)
-            for img in prodImgs:
-                #print('img: ',prodImgs[img])
-                #print('name img: ',prodImgs[img].name)
-                file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
-                #print('saved img')
-                #print(officialID.name)
-                storeProductImages(ref[1].id, prodImgs[img].name)#Calls function in utils.py
-                #print('stored to firebase')
-                default_storage.delete(prodImgs[img].name)#Deletes file from local storage
-            
-            #return render(request, "add_product.html", context)
-            if saleType == 'false':
-                print('to redirect')
-                return redirect('add_direct_sale_prod', prod_id = prod_id)
-            elif saleType == 'true':
-                print('to redirect')
-                return redirect('add_prod_auctions', prod_id = prod_id)
+                prod_id = str(ref[1].id)
+                print('obj id: ', prod_id)
+                # print('img: ',prodImgs)
+                for img in prodImgs:
+                    #print('img: ',prodImgs[img])
+                    #print('name img: ',prodImgs[img].name)
+                    file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
+                    #print('saved img')
+                    #print(officialID.name)
+                    storeProductImages(ref[1].id, prodImgs[img].name)#Calls function in utils.py
+                    #print('stored to firebase')
+                    default_storage.delete(prodImgs[img].name)#Deletes file from local storage
+                
+                #return render(request, "add_product.html", context)
+                print("Product added to the DataBase")
+                messages.success(request, "Producto añadido correctamente")
+                if saleType == 'false':
+                    print('to redirect')
+                    return redirect('add_direct_sale_prod', prod_id = prod_id)
+                elif saleType == 'true':
+                    print('to redirect')
+                    return redirect('add_prod_auctions', prod_id = prod_id)
+            except Exception as e:
+                    print(e)
+                    messages.error(request, "Error al añadir producto")
+        else:
+            print(reg_form.errors)
+            return render(request, "add_product.html", context)
     
     print('mo post')
     reg_form = productCreate()
