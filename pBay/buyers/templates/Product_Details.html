@@ -9,73 +9,118 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Detalles del producto</title>
-      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+
+      <link rel="stylesheet" href="{% static 'styles/styleb.css' %}" />
+
       {% load bootstrap5 %}
       {% bootstrap_css %}
       {% bootstrap_javascript %}
     </head>
       <body>
-        <!-- Navigacion-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container px-4 px-lg-5"></div>
-        </nav>
-        <!-- Producto-->
-        <section class="py-5">
-          <div class="container px-4 px-lg-5 my-5">
-            <!--Botones-->
-            <div class="d-flex flex-row-reverse">
-              <button type="button" class="btn  btn-primary " data-toggle="modal" data-target="#myModal">Marcar como favorito</button>
-              <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="alert alert-success alert-dismissible">
-                        <strong>Este producto se ha agregado a favoritos</strong> 
-                      </div>
-                </div>
-              </div>
-            </div>
-
-            <br>
+                <!-- Navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <div class="container px-4 px-lg-5"></div>
+              </nav>
+              <!-- Product section-->
             
-            <div class="d-flex flex-row-reverse">
-              <button type="button" class="btn  btn-primary flex-shrink-0" data-toggle="modal" data-target="#myModal2">
-                <i class="bi-cart-fill me-1"></i>
-                    Agregar al carrito
-                </button>
-              </button>
-              <div class="modal fade" id="myModal2" role="dialog">
-                <div class="modal-dialog">
-                    <div class="alert alert-success alert-dismissible">
-                        <strong>Este producto se ha agregado al carrito</strong> 
-                      </div>
-                </div>
-              </div>
-            </div>
+            {% for item in infoDet %}
+            <div style="width:97%; margin-left: 5%">
+
+             <div class="containerIm" style="width:35% ;padding:2%">
+                <div class="column" style="width:20%; margin-top:3%;">
+                  <div class="row">
+                    <img src= {{ item.11 }}  style="margin-bottom:5%;height:80px" onclick="myFunction(this); "">
+                  </div>
+                          
+                  <div class="row">
+                    <img src={{ item.11 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
+                  </div>
+
+                  <div class="row">
+                    <img src={{ item.11 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
+                  </div>
+
+                  <div class="row">
+                    <img src={{ item.11 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
+                  </div>
+
+                </div>    
+                  <div class="column" style="width:80%" >
+                    <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                    <img id="expandedImg" src={{ item.11 }} style="width:100%;height:400px">
+                  </div>
+
+              </div> 
               
-            <!--Especificaciones del producto-->
-            <div class="row gx-4 gx-lg-5 align-items-left">
-              <div class="col-md-4"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/400x500/dee2e6/6c757d.jpg" alt="..." /></div>
-                <div class="col-md-6">
-                  <h3 class="display-6 fw-bolder">{{ data.day }}</h3>
-                  <p class="lead">Esta es la descripción del producto<br> Esta es la descripción del producto <br>Esta es la descripción del producto <br> </p>
+              <div class="containerIm" style="width:40%;margin-left:2%; float:left">
+                <div class="column">
+                  <h3 class="display-6 fw-bolder" id="prodName">{{ item.0 }} </h3>
+                  <p class="lead">{{ item.2 }} <br> Marca: {{ item.3 }}  <br> Modelo: {{ item.4 }}  <br> </p>
                   <div class="fs-4 mb-4">
-                    <span> Precio: $40.00 + $60 de envío</span>
+                    <span> Precio: ${{ item.7 }}  + ${{ item.10 }}  de envío</span>
                   </div>
                   <div d-flex-row>
-                    <span class="lead"> Estado: </span>
-                    <span class="lead"><strong>Nuevo</strong></span>
+                    <span class="lead"> Estado:  </span>
+                    <span class="lead"><strong>{{ item.5 }}</strong></span>
                   </div>
-                  <p class="lead">Venta Inmediata</p>
+                  <p class="lead">{{ item.6 }}</p>
                   <div class="fs-5 mb-5">
-                    <span style="color: green;">Disponible</span>
+                    <span style="color:green">En stock: {{ item.8 }}</span>
                   </div>
                 </div>
+              </div>
+            
+
+              <div class="containerIm" style="width:15%; float:left">
+                <div class="row"> 
+                    <button type="button" class="btn  btn-primary " data-toggle="modal" data-target="#myModal">Marcar como favorito</button>
+                    <div class="modal fade" id="myModal" role="dialog">
+                      <div class="modal-dialog">
+                          <div class="alert alert-success alert-dismissible">
+                            <strong>Este producto se ha agregado a favoritos</strong> 
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <button type="button" class="btn  btn-primary flex-shrink-0" data-toggle="modal" data-target="#myModal2">
+                    <i class="bi-cart-fill me-1"></i>
+                        Agregar al carrito
+                    </button>
+                  </button>
+                  <div class="modal fade" id="myModal2" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="alert alert-success alert-dismissible">
+                            <strong>Este producto se ha agregado al carrito</strong> 
+                          </div>
+                    </div>
+                  </div>
+                </div>      
+              </div>
+
             </div>
-          </div>
-        </section>
+            {% endfor %}
+  
       
-        <!-- Bootstrap-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- JS-->
+              <!-- Bootstrap core JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+              <!-- Core theme JS-->
+            <script src="js/scripts.js"></script>
       </body>
     </html>
 {% endblock %}
+
+
+<script>
+  function myFunction(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    var imgText = document.getElementById("imgtext");
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+  }
+  </script>
+
+  </script>

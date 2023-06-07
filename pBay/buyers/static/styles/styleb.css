@@ -24,7 +24,47 @@
 }
 
 .imgproduct{
-    max-width: 400px;
-    max-height: 300px;
+    max-width: 30%;
 }
 
+
+
+.column {
+    float: left;
+    padding: 10px;
+
+  }
+
+ 
+  /* Style the images inside the grid */
+  .column img {
+    opacity: 0.8; 
+    cursor: pointer; 
+    flex-flow: row;
+  }
+  
+  .column img:hover {
+    opacity: 1;
+  }
+  
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    
+    
+
+  }
+  
+
+  /* Closable button inside the expanded image */
+  .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+  }

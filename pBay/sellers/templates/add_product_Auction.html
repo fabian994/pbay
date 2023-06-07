@@ -41,25 +41,33 @@
 		}
 	</style>
 	<body>
-		<h1 style="font-family: Arial; text-align: center;">Venta Directa - Detalles</h1>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
 		<form method="POST" id="reg_form">
 			{% csrf_token %}
 			<div class="container">
 				<div>
 					<div class="label">
 						<div class="label-text">
-							<label for="marca">Inventario:</label>
+							<label for="marca">Duracion:</label>
 						</div>
 						<div class="label-input">
-							{{ form_sale.inventory }}
+							{{ form_auction.duration }}
 						</div>
 					</div>
                     <div class="label">
 						<div class="label-text">
-							<label for="marca">Costo:</label>
+							<label for="marca">Oferta Inicial:</label>
 						</div>
 						<div class="label-input">
-							{{ form_sale.cost }}
+							{{ form_auction.initialOffer }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Oferta Minima:</label>
+						</div>
+						<div class="label-input">
+							{{ form_auction.minimumOffer }}
 						</div>
 					</div>
                     <div class="label">
@@ -67,15 +75,7 @@
 							<label for="marca">Costo de Envio:</label>
 						</div>
 						<div class="label-input">
-							{{ form_sale.shippingFee }}
-						</div>
-					</div>
-                    <div class="label">
-						<div class="label-text">
-							<label for="marca">Fecha de Retiro:</label>
-						</div>
-						<div class="label-input">
-							{{ form_sale.RemovalDate }}
+							{{ form_auction.shippingFee }}
 						</div>
 					</div>
 
@@ -91,10 +91,7 @@
 					{% endif %}
 				</div>
 			</div>
-			<!--
-			<button type="submit">Save</button>
-			<a href="{% url 'add_product' %}">Nevermind</a>
-			-->
+
 			<div class="container2">
 				<div class="buttons">
 					<a class="btn cancel-button" href="{% url 'add_product' %}" role="button">Cancelar</a>

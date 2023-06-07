@@ -8,6 +8,7 @@ from utils import payment_detail_by_month
 from utils import infoventas
 from utils import firestore_connection, storeProductImages
 from utils import deleteVenta
+from datetime import date
 from datetime import datetime, timedelta
 from loginSignup.views import *
 from django.core.files.storage import default_storage
@@ -129,15 +130,10 @@ def historial_pagos(request):
     return render(request, "Payment_Details_Seller.html")
 
 
-def subastas(request):
-    return render(request, "subastas.html")
-
-
 def add_product(request):
-   # user = request.session.get("usuario")
-
-    # if user == "NoExist" or user == None:
-    #    return redirect('home')
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
 
     if request.method == "POST":
         reg_form = productCreate(request.POST, request.FILES)
@@ -178,32 +174,34 @@ def add_product(request):
 
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
-                        'category': cat, 'subCategory1': subcat1,  # 'seller_id': user,
-                        'SubCategory2': subcat2, 'mainImage': prodImgs['mainImg'].name, 'images': imgList}
 
-            # Add product data to product collection, creates autoid
-            ref = firestore_connection('products').add(prodData)
+                        'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
+                        'SubCategory2':subcat2, 'mainImage': prodImgs['mainImg'].name, 'images':imgList}
+            saleType = data['vendType']
+            
+            ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
+
             prod_id = str(ref[1].id)
             print('obj id: ', prod_id)
             # print('img: ',prodImgs)
             for img in prodImgs:
-                # print('img: ',prodImgs[img])
-                # print('name img: ',prodImgs[img].name)
-                # Saves file to local storage with default_storage
-                file_save = default_storage.save(
-                    prodImgs[img].name, prodImgs[img])
-                # print('saved img')
-                # print(officialID.name)
-                # Calls function in utils.py
-                storeProductImages(ref[1].id, prodImgs[img].name)
-                # print('stored to firebase')
-                # Deletes file from local storage
-                default_storage.delete(prodImgs[img].name)
-
-            # return render(request, "add_product.html", context)
-            print('to redirect')
-            return redirect('add_direct_sale_prod', prod_id=prod_id)
-
+                #print('img: ',prodImgs[img])
+                #print('name img: ',prodImgs[img].name)
+                file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
+                #print('saved img')
+                #print(officialID.name)
+                storeProductImages(ref[1].id, prodImgs[img].name)#Calls function in utils.py
+                #print('stored to firebase')
+                default_storage.delete(prodImgs[img].name)#Deletes file from local storage
+            
+            #return render(request, "add_product.html", context)
+            if saleType == 'false':
+                print('to redirect')
+                return redirect('add_direct_sale_prod', prod_id = prod_id)
+            elif saleType == 'true':
+                print('to redirect')
+                return redirect('add_prod_auctions', prod_id = prod_id)
+    
     print('mo post')
     reg_form = productCreate()
     context = {
@@ -255,7 +253,7 @@ def add_productDirSale(request, prod_id):
                     }
                     ref = firestore_connection("products").document(prod_id)
                     ref.update(prod_data)
-                    return redirect("subastas")
+                    return redirect("compras")
             else:
                 dir_saleForm = productDirectSale()
                 promo_form = productPromote()
@@ -284,7 +282,7 @@ def add_productDirSale(request, prod_id):
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
-                return redirect("subastas")
+                return redirect("compras")
             else:
                 dir_saleForm = productDirectSale()
                 promo_form = productPromote()
@@ -309,6 +307,82 @@ def add_productDirSale(request, prod_id):
     }
     return render(request, "add_product_directSale.html", context)
 
+def add_product_Auction(request, prod_id):
+    prod = firestore_connection("products").document(prod_id).get()
+    product = prod.to_dict()
+    print(product)
+
+    if request.method == "POST":
+        print('enter post')
+        auctionForm = productAuction(request.POST)
+        promo_form = productPromote(request.POST)
+        context = {
+            "title": "Registro producto",
+            "form_auction": auctionForm,
+            "form_promo": promo_form,
+            "prod_id": prod_id
+        }
+        print(auctionForm.is_valid())
+        print(auctionForm.errors)
+        #data = reg_form.cleaned_data
+        if auctionForm.is_valid() and promo_form.is_valid():
+            data = auctionForm.cleaned_data
+            promo_dur = promo_form.cleaned_data
+            print('dir sale data:',data)
+            print('duration :',promo_dur['PromoDuration'])
+            print(product['pubDate'])
+            promoEnd = product['pubDate'] + timedelta(days=int(promo_dur['PromoDuration']))
+            data['duration'] = product['pubDate'] + timedelta(days=int(data['duration']))
+            # data['duration'] = data['duration'].replace(tzinfo=pytz.UTC)
+            print(data['duration'])
+            print(promoEnd)
+
+
+            if promoEnd > data['duration']:
+                
+                prod_data = {
+                    'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
+                    'shippingFee': data['shippingFee'], 
+                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                }
+                ref = firestore_connection("products").document(prod_id)
+                ref.update(prod_data)
+                return redirect("compras")
+            else:
+                auctionForm = productAuction()
+                promo_form = productPromote()
+                context = {
+                    "title": "Registro producto",
+                    "form_auction": auctionForm,
+                    "form_promo": promo_form,
+                    "prod": product,
+                }
+                return render(request, "add_product_Auction.html", context)
+        elif auctionForm.is_valid():
+            data = auctionForm.cleaned_data
+            print('dir sale data:',data)
+            print(product['pubDate'])
+            data['duration'] = product['pubDate'] + timedelta(days=int(data['duration']))
+            # data['duration'] = data['duration'].replace(tzinfo=pytz.UTC)
+            print(data['duration'])
+            prod_data = {
+                'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
+                'shippingFee': data['shippingFee'], 
+                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+            }
+            ref = firestore_connection("products").document(prod_id)
+            ref.update(prod_data)
+            return redirect("compras")
+
+    auctionForm = productAuction()
+    promo_form = productPromote()
+    context = {
+        "title": "Registro producto",
+        "form_auction": auctionForm,
+        "form_promo": promo_form,
+        "prod": product,
+    }
+    return render(request, "add_product_Auction.html", context)
 
 def load_subcategories1(request):
     Cat_id = request.GET.get('cat')
