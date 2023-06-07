@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
@@ -50,7 +50,8 @@ def productos(request):
     return render(request, "productos.html")
 
 def details(request):
-    response = infoProductos(0)
+    id = request.GET.get('id')
+    response = infoProductos(id)
     context = {"infoDet":response}
     return render(request, "Product_Details.html", context)
 
@@ -61,7 +62,8 @@ def compras(request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
         return redirect('home')
-    return render(request, "compras_Principal.html")
+    context = {'products': getRecomendations()}
+    return render(request, "compras_Principal.html", context)
 
 def busqueda(request):
     sesion = request.session['usuario']
@@ -70,22 +72,8 @@ def busqueda(request):
     response = []
     sesion = request.session['usuario']
 
-    if request.method == 'POST':
-        response = []
-        form = Filter(request.POST)
-        if form.is_valid():
-            selected_option2 = form.cleaned_data['Filtering']
-            if selected_option2 == 'nada':
-                response = infoProductos(0)
-            elif selected_option2 == 'subasta':
-                response = infoProductos(1)
-            else:
-                response = infoProductos(2)
-    else:
-        response = infoProductos(0)
-        form = Filter()
+    response = infoProductos(0)
     context = {"infoprod":  response}
-    context['form'] = form
     return render(request, "compras_Busqueda.html", context)
 
 def obtener_elementos(request):
@@ -124,7 +112,6 @@ def getWishList(request):
     else:
         elementos = getWish(sesion)  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
         elementos.append("Añadir")
-        print(elementos)
         return JsonResponse(elementos, safe=False)
         
 def searchByCategory (request):
@@ -138,7 +125,6 @@ def searchByCategory (request):
     
     
     products = searchCat(category, subcategory1, subcategory2)
-    print(request)
     return render(request, 'searchByCategory.html', {'products': products})
 
 def addCarrito(request):

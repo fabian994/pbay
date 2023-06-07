@@ -126,7 +126,7 @@
       dataType: 'json',
       success: function(data) {
         // 'data' contiene la respuesta del backend de Django
-        // Puedes iterar sobre los elementos recibidos y crear los enlaces del menú desplegable dinámicamente
+        // Puedes iterar sobre los e lementos recibidos y crear los enlaces del menú desplegable dinámicamente
         var dropdownMenu = $('#direcciones');  // Selecciona el menú desplegable
         var item = $('<a>').addClass('dropdown-item text-danger').text(data[0]);
         dropdownMenu.append(item);
