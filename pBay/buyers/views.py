@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations, productFiltering
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
@@ -47,7 +47,39 @@ def pedidos(request):
     return render(request, "pedidos.html", context)
 
 def productos(request):
-    return render(request, "productos.html")
+    session = request.session['usuario']
+    if session == "NoExist":
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            form = Orden(request.POST)
+            form2 = Filter(request.POST)
+            if form2.is_valid():
+                selected_option2 = form2.cleaned_data['Filtering']
+                if selected_option2 == 'nada':
+                    response = productFiltering(session, 0)
+                elif selected_option2 == 'subasta':
+                    response = productFiltering(session, 1) 
+                else:
+                    response = productFiltering(session, 2) 
+            if form.is_valid():
+                # Acceder al valor seleccionado del campo de selección
+                selected_option = form.cleaned_data['Sorting']
+                # Nuevos a viejos
+                if selected_option=='descendente':
+                    response =  response[::-1]
+        else:
+            response = productFiltering(session,0) 
+            form = Orden()
+            form2 = Filter()
+        
+        user_id = session['localId']
+        #response = productList(user_id)
+        context = {"htmlinfo":  response}
+        context['form1'] = form
+        context['form2'] = form2
+        print(context)
+        return render(request, "productos.html", context)
 
 def details(request):
     id = request.GET.get('id')

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,73 +10,9 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Login</title>
-      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
-      <style>
-        .toggle-view-bar {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .view-bar{
-            text-align: center;
-            width: 50%;
-            border-style: solid;
-            border-width: 2px;
-            padding: 5px;
-        }
-        .product-image{
-            /*background-color: red;*/
-            width: 150px;
-            height: 100%;
-        }
-        .container{
-            /*background-color: yellow;*/
-            margin-top: 25px;
-            display: grid;
-            justify-items: center;
-        }
-        .mosaic-parent{
-            /*background-color: bisque;*/
-            display: flex;
-            flex-direction: column;
-            align-items: end;
-            width: 80%;
-            padding: 10px;
-            margin: 10px;
-            border-style: solid;
-            border-width: 2px;
-        }
-        .mosaic-child{
-            display: flex;
-            flex-direction: row;
-            height: 150px;
-            width: 100%;
-        }
-        .info{
-            /*background-color: blueviolet;*/
-            width: 50%;
-            margin: 5px;
-        }
-        .details{
-            /*background-color: chartreuse;*/
-            width: 30%;
-            margin: 5px;
-        }
-        .button-section{
-            /*background-color: coral;*/
-            width: 50%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .product-button{
-            width: 100px;
-            padding: 5px;
-        }
-      </style>
+      <link rel="stylesheet" href="{% static 'styles/products.css' %}" />
     </head>
     <body>
-
        <div class="toggle-view-bar">
             <div onclick="" class="view-bar">
                 <h2>Mis Productos</h2>
@@ -85,88 +21,55 @@
                 <h2>Mis Ventas</h2>
             </div>
        </div>
-       
-       <div class="dropdown show" style= "padding-left: 25px;">
-            <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Ordenar por :
-            </h4>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">dir1</a>
-                <a class="dropdown-item" href="#">dir2</a>
-                <a class="dropdown-item" href="#">dir3</a>
-            </div>
-        </div>
-        <div class="dropdown show" style= "padding-left: 25px;">
-            <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filtrar :
-            </h4>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">dir1</a>
-              <a class="dropdown-item" href="#">dir2</a>
-              <a class="dropdown-item" href="#">dir3</a>
-            </div>
-        </div>
-
         <div class="container">
+            <div class="filter-bar">
+                <form id="orden-form" method="POST">
+                    {% csrf_token %}
+                    {{ form1 }}
+                    <br>
+                    {{ form2 }}
+                    <input type="submit" value="Submit" style="display: none;">
+                </form>
+                <a href="{% url 'add_product' %}"><button type="button" style="padding:5px;" > Agregar un producto</button></a>
+            </div>
+            {% for item in htmlinfo %}
             <div class="mosaic-parent">
                 <div class="mosaic-child">
-                    <img class="product-image" src="" >
+                    <img class="product-image" src="{{item.5}}" >
                     <section class="info">
-                        <h4>Producto</h4>
-                        <h5>Categoria:</h5>
-                        <h6>Disponibilidad: 01/05/2023 - 01/06/2023</h6>
+                        <h4>Producto: {{item.2}}</h4>
+                        <h5>Categoria: {{item.3}}</h5>
+                        <h6>Disponibilidad: {{item.4}} - {{item.6}} </h6>
                     </section>
                     <section class="details">
-                        <h5>Tipo:</h5>
-                        <h5>Precio:</h5>
-                        <h5>Inventario:</h5>
+                        {% if item.9 %}
+                        <h5>Tipo: Subasta</h5>
+                        {% else %}
+                        <h5>Tipo: Venta</h5>
+                        {% endif %}
+                        <h5>Precio: {{item.7}}</h5>
+                        <h5>Inventario: {{item.8}}</h5>
                     </section>
                 </div>
                 <section class="button-section">
-                    <button class="product-button" type="button"> Eliminar</button>
-                    <button class="product-button" type="button"> Ver detalles</button>
+                    <button class="product-button delete" type="button"> Eliminar</button>
+                    <a href="{% url 'details' %}"><button class="product-button" type="button"> Ver detalles</button></a>
                 </section>
             </div>
-            <div class="mosaic-parent">
-                <div class="mosaic-child">
-                    <img class="product-image" src="" >
-                    <section class="info">
-                        <h4>Producto</h4>
-                        <h5>Categoria:</h5>
-                        <h6>Disponibilidad: 01/05/2023 - 01/06/2023</h6>
-                    </section>
-                    <section class="details">
-                        <h5>Tipo:</h5>
-                        <h5>Precio:</h5>
-                        <h5>Inventario:</h5>
-                    </section>
-                </div>
-                <section class="button-section">
-                    <button class="product-button" type="button"> Eliminar</button>
-                    <button class="product-button" type="button"> Ver detalles</button>
-                </section>
-            </div>
-            <div class="mosaic-parent">
-                <div class="mosaic-child">
-                    <img class="product-image" src="" >
-                    <section class="info">
-                        <h4>Producto</h4>
-                        <h5>Categoria:</h5>
-                        <h6>Disponibilidad: 01/05/2023 - 01/06/2023</h6>
-                    </section>
-                    <section class="details">
-                        <h5>Tipo:</h5>
-                        <h5>Precio:</h5>
-                        <h5>Inventario:</h5>
-                    </section>
-                </div>
-                <section class="button-section">
-                    <button class="product-button" type="button"> Eliminar</button>
-                    <button class="product-button" type="button"> Ver detalles</button>
-                </section>
-            </div>
+            {% endfor %}
        </div>
 
     </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('#orden-form');
+  
+      // Captura el evento de cambio en el formulario
+      form.addEventListener('change', function() {
+        // Envía el formulario automáticamente
+        form.submit();
+      });
+    });
+</script>
 {% endblock %}
