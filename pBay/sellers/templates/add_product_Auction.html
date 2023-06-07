@@ -1,0 +1,69 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Agregar producto</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
+		<form method="POST" id="reg_form">
+			{% csrf_token %}
+			<div class="container">
+				<div>
+					<div class="label">
+						<div class="label-text">
+							<label for="marca">Duracion:</label>
+						</div>
+						<div class="label-input">
+							{{ form_auction.duration }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Oferta Inicial:</label>
+						</div>
+						<div class="label-input">
+							{{ form_auction.initialOffer }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Oferta Minima:</label>
+						</div>
+						<div class="label-input">
+							{{ form_auction.minimumOffer }}
+						</div>
+					</div>
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Costo de Envio:</label>
+						</div>
+						<div class="label-input">
+							{{ form_auction.shippingFee }}
+						</div>
+					</div>
+
+					{% if prod.PromoStatus == 'true' %}
+						<div class="form-elements">
+							<div class="label-text">
+								<label for="marca">Duracion de Destacar</label>
+							</div>
+							<div id="form-item">
+								{{ form_promo.PromoDuration }}
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+
+			<button type="submit">Save</button>
+			<a href="{% url 'add_product' %}">Nevermind</a>
+		</form>
+	</body>
+	</html>
+{% endblock %}
