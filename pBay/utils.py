@@ -55,8 +55,9 @@ def search_products(request, user_id):
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
-        docs = db.collection('users').where('oficial_id', '==', user['localId']).get()
-        response=""
+        docs = db.collection('users').where(
+            'oficial_id', '==', user['localId']).get()
+        response = ""
         for doc in docs:
             data = doc.to_dict()
             if data['status']:
@@ -155,8 +156,10 @@ def infoProductoUser(user, action):
         x[7], '%d/%m/%Y').date())
     return response
 
+
 def deleteVenta(idDoc):
     db.collection('products').document(idDoc).delete()
+
 
 def infoventas(user, action):
     nombre_coleccion = "products"
@@ -216,6 +219,7 @@ def infoventas(user, action):
                                     datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
     return response
 
+
 def infoProductos(action):
     nombre_coleccion = "products"
     coleccion_ref = db.collection(nombre_coleccion)
@@ -270,6 +274,7 @@ def infoProductos(action):
                                 datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], datos['shippingFee'], url_imagen])
     return response
 
+
 def firestore_connection(col):
     try:
         app = firebase_admin.get_app()
@@ -292,6 +297,7 @@ def storeOfficialID(uid, name):  # Saves user official ID to firebase storage
     storedID = storage.child('users/' + str(uid) +
                              '/' + name).put("media/" + name)
     return storedID
+
 
 def storeProductImages(uid, name):  # Saves user official ID to firebase storage
     # storage.child(path) sets the directory the file is going to be stored, must include filename with extension
@@ -343,11 +349,23 @@ def sells_history(uid):
         sell['id'] = doc.id
         sell['prod_name'] = prod['prodName']
         sell['prod_img'] = refUrl
+        sell['tipo'] = prod['saleType']
+        sell['cancelled'] = prod['AuctionCancelled']
         sells.append(sell)
     return sells
 
-def searchCat(category,subcategory,subcategory2):
-    docs = db.collection('products').where('category', '==', category).where('subCategory1', '==', subcategory).where('SubCategory2', '==', subcategory2).get()
+
+def cancel_auction(id_prod):
+    reslut = db.collection('products').document(id_prod).update({
+        'AuctionCancelled': True
+    })
+
+    print('Thiiiiiiiiiiiiiiis happened', reslut)
+
+
+def searchCat(category, subcategory, subcategory2):
+    docs = db.collection('products').where('category', '==', category).where(
+        'subCategory1', '==', subcategory).where('SubCategory2', '==', subcategory2).get()
     response = []
     for doc in docs:
         data = doc.to_dict()
@@ -355,17 +373,20 @@ def searchCat(category,subcategory,subcategory2):
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
         expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-        url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(
+            expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         if data['saleType']:
             response.append([data['prodName'], "Subasta", url_imagen, doc.id])
         else:
-            response.append([data['prodName'], '$' + str(data['Price']), url_imagen, doc.id])
-    return(response)
-            
+            response.append(
+                [data['prodName'], '$' + str(data['Price']), url_imagen, doc.id])
+    return (response)
+
+
 def searchList(document, user):
-    doc = db.collection('wishList').document(user["localId"]).get()       
+    doc = db.collection('wishList').document(user["localId"]).get()
     data = doc.to_dict()
-    array=[]
+    array = []
     for i in data[document]:
         array.append(i)
     response = []
@@ -376,16 +397,20 @@ def searchList(document, user):
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
         expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-        url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+        url_imagen = imagen_ref.generate_signed_url(expiration=int(
+            expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         if dataitem['saleType']:
-            response.append([dataitem['prodName'], "Subasta", url_imagen, docitem.id])
+            response.append(
+                [dataitem['prodName'], "Subasta", url_imagen, docitem.id])
         else:
-            response.append([dataitem['prodName'], '$' + str(dataitem['Price']), url_imagen, docitem.id])
+            response.append([dataitem['prodName'], '$' +
+                            str(dataitem['Price']), url_imagen, docitem.id])
     return (response)
-        
-    
+
+
 def getdirection(user):
-    docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
+    docs = db.collection('users').where(
+        'oficial_id', '==', user["localId"]).get()
     for doc in docs:
         data = doc.to_dict()
         array = [data['maindirection']]
@@ -394,24 +419,29 @@ def getdirection(user):
                 array.append(i)
     return array
 
+
 def getWish(user):
-    doc = db.collection('wishList').document(user["localId"]).get() 
+    doc = db.collection('wishList').document(user["localId"]).get()
     data = doc.to_dict()
-    array =[]
+    array = []
     for i in data.keys():
         array.append(i)
     return array
 
+
 def switchMainDirection(direction, user):
-    docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
+    docs = db.collection('users').where(
+        'oficial_id', '==', user["localId"]).get()
     for doc in docs:
         id = doc.id
     documento_ref = db.collection('users').document(id)
     cambio = {'maindirection': direction}
     documento_ref.update(cambio)
-    
+
+
 def addDirect(user, direction):
-    docs = db.collection('users').where('oficial_id', '==', user["localId"]).get()
+    docs = db.collection('users').where(
+        'oficial_id', '==', user["localId"]).get()
     for doc in docs:
         id = doc.id
         data = doc.to_dict()
@@ -420,18 +450,22 @@ def addDirect(user, direction):
     result.append(direction)
     cambio = {'directions': result}
     documento_ref.update(cambio)
-      
-def addLista( user, direction):
+
+
+def addLista(user, direction):
     documento_ref = db.collection('wishList').document(user["localId"])
     documento_ref.update({
         direction: []
     })
 
 # Obtener datos desde Firebase
+
+
 def PayDetails(uid):
     datos = {}
     # Obtener todas las colecciones de la base de datos
-    colecciones =  db.collection('transactions').where('seller_id', '==', uid).get()
+    colecciones = db.collection('transactions').where(
+        'seller_id', '==', uid).get()
     for coleccion in colecciones:
         # Obtener el año de la colección
         anio = coleccion.id
@@ -457,7 +491,8 @@ def PayDetails(uid):
 
     return datos
 
-def addCart(product, user):   
+
+def addCart(product, user):
     try:
         documento_ref = db.collection('cart').document(user["localId"]).get()
         data = documento_ref.to_dict()
@@ -468,11 +503,11 @@ def addCart(product, user):
                 occurrences[item] += 1
             else:
                 occurrences[item] = 1
-        if occurrences.get(product)==None:
+        if occurrences.get(product) == None:
             quantity = 0
         else:
             quantity = occurrences[product]
-            
+
         document2 = db.collection('products').document(product).get()
         dataproduct = document2.to_dict()
         stock = dataproduct['Stock']
@@ -484,7 +519,7 @@ def addCart(product, user):
             documento_ref = db.collection('cart').document(user["localId"])
             documento_ref.update(cambio)
             return True
-        return False    
+        return False
     except:
         document2 = db.collection('products').document(product).get()
         dataproduct = document2.to_dict()
@@ -494,6 +529,5 @@ def addCart(product, user):
         print(quantity)
         if int(quantity) < int(stock):
             ref = firestore_connection('cart')
-            uData = {'items' : [product]}
+            uData = {'items': [product]}
             ref.document(user["localId"]).set(uData)
-
