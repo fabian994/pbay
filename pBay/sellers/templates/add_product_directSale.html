@@ -9,8 +9,39 @@
 		<title>Agregar producto</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
+	<style>
+		.container2 {
+			margin: 0 auto;
+			width: fit-content;
+			text-align: left;
+		}
+		.buttons {
+			display: flex;
+			gap: 200px;
+			justify-content: space-between;
+			margin-top: 50px;
+			margin-bottom: 50px;
+		}
+		.cancel-button, .continue-button {
+			flex-basis: 200px;
+			height: 40px;
+			padding: 0px 100px;
+			font-size: 16px;
+			text-transform: uppercase;
+			font-weight: bold;
+			border: none;
+			color: white;
+			cursor: pointer;
+		}
+		.cancel-button {
+			background-color: red;
+		}
+		.continue-button {
+			background-color: blue;
+		}
+	</style>
 	<body>
-		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
+		<h1 style="font-family: Arial; text-align: center;">Venta Directa - Detalles</h1>
 		<form method="POST" id="reg_form">
 			{% csrf_token %}
 			<div class="container">
@@ -60,9 +91,16 @@
 					{% endif %}
 				</div>
 			</div>
-
+			<!--
 			<button type="submit">Save</button>
 			<a href="{% url 'add_product' %}">Nevermind</a>
+			-->
+			<div class="container2">
+				<div class="buttons">
+					<a class="btn cancel-button" href="{% url 'add_product' %}" role="button">Cancelar</a>
+					<button class="continue-button" type="submit">Save</button>
+				</div>
+			</div>
 		</form>
 	</body>
 	</html>
