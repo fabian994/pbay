@@ -29,7 +29,7 @@ class productCreate(forms.Form):
                                 }
                             ))
     
-    marca = forms.CharField( max_length = 40,
+    brand = forms.CharField( max_length = 40,
                              required = True,
                              label = "Marca",
                              
@@ -40,6 +40,77 @@ class productCreate(forms.Form):
                                  "class": "form-control"
                              })
                              )
+    
+    model = forms.CharField( max_length = 40,
+                             required = False,
+                             label = "Marca (opcional)",
+                             widget = forms.TextInput(attrs= {
+                                 "class": "form-control"
+                             })
+                             )
+    
+    title = forms.CharField( max_length = 40,
+                            validators=[numerosYletras],
+                             required = True,
+                             label = "Título",
+                             
+                             error_messages={
+                                 "required": "No puede estar vacío",
+                             },
+                             widget = forms.TextInput(attrs= {
+                                 "class": "form-control"
+                             })
+                             )
+    
+    condition = forms.ChoiceField( required = True,
+                                  label = "Condición",
+                                  choices=(("","---"),("new","Nuevo"),("old","Usado")),
+                                  error_messages={
+                                      "required": "No puede estar vacío"
+                                  },
+                                  widget= forms.Select(attrs={
+                                      "class": "form-control"
+                                  }))
+    
+    about = forms.CharField ( required = True,
+                             label = "Descripción",
+                             error_messages={
+                                 "requirer": "No puede estar vacío",
+                             },
+                             widget= forms.Textarea(attrs={
+                                 "class": "form-control",
+                                 "rows": 4,
+                                 "cols": 40,
+                             }))
+    
+    vendType = forms.ChoiceField( required = True,
+                                  label = "Tipo de venta ",
+                                  choices=(("","---"),("subasta","Subasta"),("venta","Venta Inmediata")),
+                                  error_messages={
+                                      "required": "No puede estar vacío"
+                                  },
+                                  widget= forms.Select(attrs={
+                                      "class": "form-control"
+                                  }))
+    
+    publishDate = forms.DateField(   
+                                required = True,
+                                label = "Fecha de Publicación",
+                                widget=forms.DateInput(attrs={
+                                    "class" : "form-control",
+                                    "type": "date"
+                                })
+                                )
+    
+    promote = forms.ChoiceField( required = True,
+                                  label = "Destacar",
+                                  choices=(("","---"),("si","Si"),("no","No")),
+                                  error_messages={
+                                      "required": "No puede estar vacío"
+                                  },
+                                  widget= forms.Select(attrs={
+                                      "class": "form-control"
+                                  }))
     
     category = forms.ModelChoiceField( required = True, 
                                     label = "Categoria",
@@ -224,7 +295,7 @@ class productDirectSale(forms.Form):
                                             }
                                         ))
     
-    retireDate = forms.DateField(   
+    RemovalDate = forms.DateField(   
                                 required = True,
                                 label = "Fecha de Retiro",
                                 widget=forms.DateInput(attrs={
