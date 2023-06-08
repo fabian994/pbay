@@ -8,7 +8,7 @@ from firebase_admin import credentials
 # Importo el Servicio Firebase Realtime Database
 from firebase_admin import firestore
 from firebase_admin import storage as st
-import pyrebase
+import firebase
 import datetime
 import random
 import datetime
@@ -25,10 +25,10 @@ config = {
     "messagingSenderId": "336573451844",
 }
 
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
-database = firebase.database()
-storage = firebase.storage()
+app  = firebase.initialize_app(config)
+auth = app.auth()
+database = app.database()
+storage = app.storage()
 
 cred = credentials.Certificate(
     './pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
@@ -41,6 +41,13 @@ db = firestore.client()
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
+        userData = auth.get_account_info(user['idToken'])
+        
+        if userData['users'][0]['emailVerified'] == False:
+            print('should send email')
+            auth.send_email_verification(user['idToken'])
+            print('email not verified',userData['users'][0]['emailVerified'])
+        print('email verified',userData['users'][0]['emailVerified'])
         docs = db.collection('users').where(
             'oficial_id', '==', user['localId']).get()
         response = ""
@@ -411,18 +418,32 @@ def sells_history(uid):
         sells.append(sell)
     return sells
 
+# gets the products of a specific vendor
+# and returns an array filled with all 
+# of the products present in the database.
 
-def cancel_auction(id_prod):
-    reslut = db.collection('products').document(id_prod).update({
-        'AuctionCancelled': True
-    })
+def my_products(uid):
+    docs = db.collection('products').where('seller_id', '==', uid).get()
+    products = []
+    for doc in docs:
+        prod = doc.to_dict()
+        prod_doc = db.collection('products').document(prod['id_prod']).get()
+        prod = prod_doc.to_dict()
 
-    print('Thiiiiiiiiiiiiiiis happened', reslut)
+        refUrl = storage.child(
+            f"products/{prod['id_prod']}/{prod['mainImg']}").get_url(None)
+        prod['prod_name'] = prod['prodName']
+        prod ['categoria'] = prod ['category']
+        prod ['disponibilidad'] = prod ['RemovalDate']
+        prod['prod_img'] = refUrl
+        prod ['inventario'] = prod['Stock']
+        prod.append(products)
+    return products
 
 
-def searchCat(category, subcategory, subcategory2):
-    docs = db.collection('products').where('category', '==', category).where(
-        'subCategory1', '==', subcategory).where('SubCategory2', '==', subcategory2).get()
+
+def searchCat(category,subcategory,subcategory2):
+    docs = db.collection('products').where('category', '==', category).where('subCategory1', '==', subcategory).where('SubCategory2', '==', subcategory2).get()
     response = []
     for doc in docs:
         data = doc.to_dict()
