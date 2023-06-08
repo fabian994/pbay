@@ -24,6 +24,8 @@ urlpatterns = [
          views.add_product_Auction, name='add_prod_auctions'),
      path('mis_ventas/delete_producto',
           views.delete_producto, name='delete_producto'),
+     path('mis_ventas/modificar_producto/<str:prod_id>',
+          views.modify_product, name="modify_product"),
     path('ajax/load-Subcategory1/', views.load_subcategories1, name='ajax_load_Subcategories1'), # AJAX
     path('ajax/load-Subcategory2/', views.load_subcategories2, name='ajax_load_Subcategories2'), # AJAX
 
