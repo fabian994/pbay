@@ -13,6 +13,8 @@ import datetime
 import random
 import datetime
 from django.http import HttpResponse
+from google.api_core.datetime_helpers import DatetimeWithNanoseconds 
+from google.api_core.datetime_helpers import to_rfc3339
 
 config = {
     "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
@@ -151,8 +153,6 @@ def productFiltering(user, action):
     for documento in documentos:
         # Accede a los datos de cada documento
         datos = documento.to_dict()
-        
-
         tipo = datos['saleType']
         if bool(tipo):
             tipo = "Subasta"
@@ -204,8 +204,7 @@ def productFiltering(user, action):
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     response.append([documento.id, tipo, datos['prodName'],
                                 datos['category'],  datos['pubDate'], url_imagen, datos['retireDate'], datos['Price'], datos['Stock'], datos['saleType']])
-    print(datos['tran_date'])
-    response = sorted(response, key=lambda x: x[4].to_datetime().strftime('%d/%m/%Y'))
+    response = sorted(response, key=lambda x: DatetimeWithNanoseconds.rfc3339(x[4]))
 
     return response
 

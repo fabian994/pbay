@@ -17,6 +17,15 @@ class Filter(forms.Form):
         ]
     )
 
+class Orden(forms.Form):
+    Sorting = forms.ChoiceField(
+        label='Ordenar por   ',
+        choices=[
+            ('ascendente', 'Ascendente'),
+            ('descendente', 'Descendente'),
+        ]
+    )
+
 class productCreate(forms.Form):
     
     brand = forms.CharField( max_length = 40,
