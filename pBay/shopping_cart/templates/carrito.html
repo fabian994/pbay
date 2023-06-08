@@ -21,24 +21,32 @@
             <div class="title"> Mi Carrito</div>
             <div class="container1">
               <div class="products_container">
-                <div class="card" style="padding-left: 20px; padding-top: 20px;">
+                {% for item in htmlinfo %}
+                <div class="card" style="padding-left: 20px; padding-top: 20px;"> <!-- card beginning -->
                   <div class="item_left" style="padding: 30px;">
-                    <img src="{% static 'assets/hand_sanitizer.png' %}" width="100px" height="100px"> 
+                    <img src="{{ item.3 }}" width="100px" height="100px"> 
                   </div>
                   <div class="item_center">
-                    <h3> Producto 1 </h3>
-                    <p> $800.00 </p>
+                    <h3> {{ item.0 }} </h3>
+                    <p> ${{ item.1 }}.00 </p>
                   </div>
                   <div style="grid-column: 7; grid-template-columns: auto auto auto; padding-top: 100px; display: grid; align-content: baseline;">
-                    <i class="fa-solid fa-minus" style="font-size: 2em; padding-right: 10px;"></i>
-                    <h3>  4  </h3>
-                    <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
+                    <a href="{% url 'decrease-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
+                      <i class="fa-solid fa-minus" style="font-size: 2em; padding-right: 10px;"></i>
+                    </a>
+                    <h3> {{ item.2 }} </h3>
+                    <a href="{% url 'increase-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
+                      <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
+                    </a>
                   </div>
                   <div style="grid-column: 8; padding-left: 20px;">
-                    <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>   
+                    <a href="{% url 'delete-event' id=item.4 %}" class="" style="text-decoration: none; color: black;">
+                      <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>
+                    </a>
                   </div>
-                </div>
-                <div class="card" style="padding-left: 20px; padding-top: 20px;">
+                </div> <!-- card end -->
+                {% endfor %}
+            <!--<div class="card" style="padding-left: 20px; padding-top: 20px;">
                   <div class="item_left" style="padding: 30px;">
                     <img src="{% static 'assets/walkman.png' %}" width="100px" height="100px"> 
                   </div>
@@ -54,22 +62,22 @@
                   <div style="grid-column: 8; padding-left: 20px;">
                     <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>   
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="total_container">
                 <h2 style="padding-left: 20px;"> Resumen de compra </h2>
                 <div class="total_container2" style="padding-top: 30px; padding-left: 20px;">
                   <total_text> Productos:</total_text>
-                  <total_text style="text-align: end; padding-right: 20px;"> $1450.00</total_text>
+                  <total_text style="text-align: end; padding-right: 20px;"> ${{prices.0}}.00</total_text>
                   <total_text> Envío:</total_text>
-                  <total_text style="text-align: end; padding-right: 20px;"> $32.50</total_text>
+                  <total_text style="text-align: end; padding-right: 20px;"> ${{prices.1}}.00</total_text>
                   <total_text> Impuestos:</total_text>
-                  <total_text style="text-align: end; padding-right: 20px;"> $26.00</total_text>
+                  <total_text style="text-align: end; padding-right: 20px;"> $0.00</total_text>
                 </div>
                 <hr style="align-self: center; border: 1px">
                 <div class="total_container2" style="padding-left: 20px; ">
                   <h3> Total:</h3>
-                  <h3 style="text-align: end; padding-right: 20px;"> $1508.50</h3>
+                  <h3 style="text-align: end; padding-right: 20px;"> ${{prices.2}}0</h3>
                 </div>
                 <br>
                 <div style="padding-left: 24%;">
