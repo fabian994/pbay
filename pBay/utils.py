@@ -422,6 +422,10 @@ def sells_history(uid):
         sells.append(sell)
     return sells
 
+def cancel_auction(id_prod):
+    reslut = db.collection('products').document(id_prod).update({
+        'AuctionCancelled': True
+    })
 # gets the products of a specific vendor
 # and returns an array filled with all 
 # of the products present in the database.
