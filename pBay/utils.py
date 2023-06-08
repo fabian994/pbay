@@ -309,7 +309,7 @@ def infoventas(user, action):
                                     datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
     return response
 
-
+'''
 def infoProductos(id):
     documento=db.collection('products').document(id).get()
     datos = documento.to_dict()
@@ -341,7 +341,52 @@ def infoProductos(id):
                         datos['Model'], condition, tipo, datos['pubDate'], 
                         url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']])
     return response
+'''
 
+def infoProductos(id):
+    documento = db.collection('products').document(id).get()
+    datos = documento.to_dict()
+    tipo = datos['saleType']
+    if bool(tipo):
+        tipo = "Subasta"
+    else:
+        tipo = "Venta Directa"
+
+    condition = datos['Condition']
+    if bool(tipo):
+        condition = "Nuevo"
+    else:
+        condition = "Usado"
+    
+    response = []
+    ruta_imagen = "products/" + documento.id + "/" + datos['mainImg']
+    docId = documento.id
+    bucket = st.bucket()
+    imagen_ref = bucket.blob(ruta_imagen)
+    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))
+
+    ruta_imagen2 = "products/" + documento.id + "/"
+    url_imagen2 = []
+    for image in datos['images']:
+        imagen_ref2 = bucket.blob(ruta_imagen2 + image)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen2.append(imagen_ref2.generate_signed_url(expiration=int(expiracion.timestamp())))
+
+    if tipo == "Venta Directa":
+        response.append([
+            datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
+            datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'],
+            url_imagen, docId, datos['shippingFee'], url_imagen2
+        ])
+    if tipo == "Subasta":
+        response.append([
+            datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
+            datos['Model'], condition, tipo, datos['pubDate'],
+            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']
+        ])
+
+    return response
 
 def firestore_connection(col):
     try:

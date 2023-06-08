@@ -27,28 +27,17 @@
             <div style="width:97%; margin-left: 5%">
               {% for item in infoDet %}
              <div class="containerIm" style="width:35% ;padding:2%">
-                <div class="column" style="width:20%; margin-top:3%;">
-                  <div class="row">
-                    <img src= {{ item.10 }}  style="margin-bottom:5%;height:80px" onclick="myFunction(this); "">
-                  </div>
-                          
-                  <div class="row">
-                    <img src={{ item.10 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
-                  </div>
-
-                  <div class="row">
-                    <img src={{ item.10 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
-                  </div>
-
-                  <div class="row">
-                    <img src={{ item.10 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
-                  </div>
-
-                </div>    
-                  <div class="column" style="width:80%" >
-                    <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-                    <img id="expandedImg" src={{ item.10 }} style="width:100%;height:400px">
-                  </div>
+              <div class="column" style="width: 20%; margin-top: 3%;">
+                {% for image in item.13 %}
+                <div class="row">
+                  <img src="{{ image }}" style="margin-bottom: 5%; height: 80px" onclick="changeMainImage('{{ image }}')">
+                </div>
+                {% endfor %}
+              </div>
+              <div class="column" style="width: 80%">
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <img id="expandedImg" src="{{ item.13.0 }}" style="width: 100%; height: 400px">
+              </div>
 
               </div> 
               
@@ -110,17 +99,14 @@
 {% endblock %}
 
 
-<script>
-  function myFunction(imgs) {
-    var expandImg = document.getElementById("expandedImg");
-    var imgText = document.getElementById("imgtext");
-    expandImg.src = imgs.src;
-    imgText.innerHTML = imgs.alt;
-    expandImg.parentElement.style.display = "block";
-  }
-  </script>
+
 
 <script>
+
+  function changeMainImage(imageUrl) {
+  var expandedImg = document.getElementById('expandedImg');
+  expandedImg.src = imageUrl;
+  }
   
   function getData(itemValue){
     console.log(itemValue)
