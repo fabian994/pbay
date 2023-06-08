@@ -147,6 +147,9 @@ def productos(request):
         print(context)
         return render(request, "productos.html", context)
 
+def ventas_detalle(request, context):
+    return render(request, "historial_ventas_detalle.html", context)
+
 def delete_producto(request):
     if request.method == 'POST':
         response = []
