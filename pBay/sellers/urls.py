@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
+    path("productos/", views.productos, name="productos"),
     path('mis_ventas/historial_ventas',
          views.historial_ventas, name='historial_ventas'),
     path('mis_ventas/detalles_producto',  # RIch

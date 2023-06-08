@@ -14,7 +14,7 @@ contraVal = RegexValidator(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Z
 
 
 class MiFormulario(forms.Form):
-    campo1 = forms.CharField( max_length = 20, 
+    campo1 = forms.CharField( max_length = 30, 
                             required = True, 
                             label = "Correo",
                             validators=[Correo],

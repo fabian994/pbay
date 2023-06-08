@@ -1,0 +1,118 @@
+{% block content %}
+
+    {% load static %}
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title></title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            
+            
+            <style>
+                /* ------ */
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                /* Container */
+
+                .container {
+                    max-width: 800px;
+                    margin: auto auto;
+                }
+
+                /* Suggestions navbar */
+
+                .search-input-box {
+                    width: 100%;
+                    border-radius: 5px;
+                    position: relative;
+                    color:  #f5f6f4;
+                    box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.12);
+                }
+
+                .search-input-box input{
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    border-radius: 5px;
+                    height: 35px;
+                    padding: 0 60px 0 20px;
+                    font-size: 18px;
+                }
+
+                .icon {
+                    position: absolute;
+                    top: 9px;
+                    right: 14px;
+                    font-size: 18px;
+                    cursor: pointer;
+                    color: #0d141f;
+                }
+
+                /* Cont Suggestion*/
+
+                .container-suggestions {
+                    max-width: 280px;
+                    opacity: 0;
+                    pointer-events: none;
+                    padding: 0;
+                    overflow-y: auto;
+                }
+                
+                .container-suggestions li {
+                    list-style: none;
+                    width: 100%;
+                    padding: 8px 12px;
+                    border-radius: 5px;
+                    display: none;
+                }
+
+                .search-input-box.active .container-suggestions {
+                    opacity: 1;
+                    pointer-events: auto;
+                    padding: 10px 8px;
+                    background-color: rgba(50, 49, 49, 0.25);
+                }
+
+                .search-input-box.active .container-suggestions li{
+                    display: block;
+                }
+
+
+            </style>
+        </head>
+        <body>
+            
+            <div class="container">
+                <div class="search-input-box">
+                    
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
+                    
+                    
+                    <a id="searchLink" href="#" class='py-0 pt-1'>
+                        <i class="fa-solid fa-magnifying-glass icon"></i>
+                    </a>
+                
+                    
+                    <ul class="container-suggestions">
+                        <li>Sugerencia1</li>
+                    </ul>
+
+                </div>
+            </div>
+            <script src="{% static 'scripts/suggestions.js' %}"></script>
+		    <script src="{% static 'scripts/main.js' %}"></script>
+        </body>
+    </html>
+
+{% endblock %}
