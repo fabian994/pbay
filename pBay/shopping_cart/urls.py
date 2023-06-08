@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path('carrito',
-         views.carrito, name='carrito')
+         views.carrito, name='carrito'),
+    path('delete_event/<str:id>',
+          views.delete_event, name='delete-event'),
 ]

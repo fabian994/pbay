@@ -636,19 +636,6 @@ def getCart(user):
         datos = doc.to_dict()
         print(datos)
         print('meow')
-
-    # tipo = datos['saleType']
-        #if bool(tipo):
-        #   tipo = "Subasta"
-        #else:
-        #   tipo = "Venta Directa"
-
-        #condition = datos['Condition']
-        #if bool(tipo):
-        #   condition = "Nuevo"
-        #else:
-        #   condition = "Usado"
-
         
         ruta_imagen = "products/"+doc.id+"/"+datos['mainImg']
         docId = doc.id
@@ -661,3 +648,8 @@ def getCart(user):
         response.append([datos['prodName'], datos['Price'], datos['prodAmount'], url_imagen, docId])
         print(response)
     return response
+
+def delete_item(user, product_id):
+    documentopadre = db.collection('cart').document(user["localId"])
+    subcoleccion = documentopadre.collection('cartProducts').document(product_id).delete()
+

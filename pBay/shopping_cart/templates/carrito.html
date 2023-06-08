@@ -36,7 +36,9 @@
                     <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
                   </div>
                   <div style="grid-column: 8; padding-left: 20px;">
-                    <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>   
+                    <a href="{% url 'delete-event' id=item.4 %}" class="" style="text-decoration: none; color: black;">
+                      <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>
+                    </a>
                   </div>
                 </div> <!-- card end -->
                 {% endfor %}

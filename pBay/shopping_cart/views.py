@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import firestore_connection, storeProductImages, getCart
+from utils import firestore_connection, storeProductImages, getCart, delete_item
 from loginSignup.views import *
 from django.core.files.storage import default_storage
 
@@ -16,3 +16,9 @@ def carrito(request):
 
 
     return render(request, "carrito.html", context)
+
+def delete_event(request, id):
+    user = request.session.get("usuario")
+    delete_item(user, id)
+    
+    return carrito(request)
