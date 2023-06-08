@@ -172,8 +172,8 @@ def add_product(request):
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
 
-            prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
+            prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': bool(data['vendType']),
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
             saleType = data['vendType']
@@ -336,6 +336,7 @@ def add_product_Auction(request, prod_id):
         }
         print(auctionForm.is_valid())
         print(auctionForm.errors)
+        print(promo_form.is_valid())
         #data = reg_form.cleaned_data
         if auctionForm.is_valid() and promo_form.is_valid():
             data = auctionForm.cleaned_data
@@ -382,6 +383,7 @@ def add_product_Auction(request, prod_id):
                 'shippingFee': data['shippingFee'], 
                 'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
             }
+            print('subi')
             ref = firestore_connection("products").document(prod_id)
             ref.update(prod_data)
             return redirect("compras")

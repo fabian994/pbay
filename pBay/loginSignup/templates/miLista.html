@@ -52,7 +52,7 @@
                 <div class="row">
                   <div class="col">
                     <br>
-                    <button class="btn btn-primary details-button" data-item="{{item.3}}">Mas Detalles</button>
+                    <a href="{% url 'details' %}?id={{ item.3 }}" class="btn btn-primary details-button">Mas Detalles</a>
                   </div>                  
                 </div>
                 <div class="row">
@@ -89,35 +89,6 @@
       }
     </style>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var buttons = document.querySelectorAll('.details-button');
-    
-        buttons.forEach(function(button) {
-          button.addEventListener('click', function(event) {
-            event.preventDefault(); // Evita el comportamiento predeterminado del botón
-    
-            var itemValue = this.getAttribute('data-item');
-            console.log(itemValue);
-    
-            $.ajax({
-              url: '/addCarrito/',
-              method: 'POST',
-              data: {
-                item: itemValue,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-              },
-              success: function(response) {
-                // Procesa la respuesta exitosa si es necesario
-              },
-              error: function(xhr, errmsg, err) {
-                // Maneja el error si es necesario
-              }
-            });
-          });
-        });
-      });
-    </script>
     
 
 {% endblock %}

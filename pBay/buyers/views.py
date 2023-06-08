@@ -4,6 +4,7 @@ from utils import infoProductos
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
+from django.http import HttpResponse
 
 import firebase_admin
 from firebase_admin import credentials
@@ -89,7 +90,10 @@ def details(request):
     return render(request, "Product_Details.html", context)
 
 def auction(request):
-    return render(request, "Auction_Details.html")
+    id = request.GET.get('id')
+    response = infoProductos(id)
+    context = {"infoDet":response}
+    return render(request, "Auction_Details.html", context)
 
 def compras(request):
     sesion = request.session['usuario']
@@ -154,7 +158,9 @@ def selctdirection(request):
             return JsonResponse({"response" :True})
         else:
             sesion = request.session['usuario']
-            switchMainDirection(selected_option, sesion)
+            boolean = request.POST.get('type')
+            if boolean == 'true':
+                switchMainDirection(selected_option, sesion)
             return JsonResponse({"response" :False})
         
 def selectlist(request):
@@ -189,18 +195,16 @@ def searchByCategory (request):
     return render(request, 'searchByCategory.html', {'products': products})
 
 def addCarrito(request):
-    sesion = request.session['usuario']
+    sesion = request.session.get('usuario')
     if request.method == 'POST':
         selected_option = request.POST.get('item')
         print(selected_option)
-        if(addCart(selected_option, sesion)):
-            # return JsonResponse({"response" :True})
-       
-            return JsonResponse({"response" :True})
+        
+        if addCart(selected_option, sesion):
+            return JsonResponse({"response": True})
         else:
-            return JsonResponse({"response" :False})
-
-db = firestore.client()
+            return JsonResponse({"response": False})
+    return HttpResponse(status=200)
 
 def search_products(request):
     sesion = request.session['usuario']

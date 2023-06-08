@@ -31,9 +31,13 @@
                     <p> ${{ item.1 }}.00 </p>
                   </div>
                   <div style="grid-column: 7; grid-template-columns: auto auto auto; padding-top: 100px; display: grid; align-content: baseline;">
-                    <i class="fa-solid fa-minus" style="font-size: 2em; padding-right: 10px;"></i>
+                    <a href="{% url 'decrease-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
+                      <i class="fa-solid fa-minus" style="font-size: 2em; padding-right: 10px;"></i>
+                    </a>
                     <h3> {{ item.2 }} </h3>
-                    <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
+                    <a href="{% url 'increase-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
+                      <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
+                    </a>
                   </div>
                   <div style="grid-column: 8; padding-left: 20px;">
                     <a href="{% url 'delete-event' id=item.4 %}" class="" style="text-decoration: none; color: black;">
@@ -64,20 +68,24 @@
                 <h2 style="padding-left: 20px;"> Resumen de compra </h2>
                 <div class="total_container2" style="padding-top: 30px; padding-left: 20px;">
                   <total_text> Productos:</total_text>
-                  <total_text style="text-align: end; padding-right: 20px;"> $1450.00</total_text>
+                  <total_text style="text-align: end; padding-right: 20px;"> ${{prices.0}}.00</total_text>
                   <total_text> Envío:</total_text>
-                  <total_text style="text-align: end; padding-right: 20px;"> $32.50</total_text>
+                  <total_text style="text-align: end; padding-right: 20px;"> ${{prices.1}}.00</total_text>
                   <total_text> Impuestos:</total_text>
-                  <total_text style="text-align: end; padding-right: 20px;"> $26.00</total_text>
+                  <total_text style="text-align: end; padding-right: 20px;"> $0.00</total_text>
                 </div>
                 <hr style="align-self: center; border: 1px">
                 <div class="total_container2" style="padding-left: 20px; ">
                   <h3> Total:</h3>
-                  <h3 style="text-align: end; padding-right: 20px;"> $1508.50</h3>
+                  <h3 style="text-align: end; padding-right: 20px;"> ${{prices.2}}</h3>
                 </div>
                 <br>
                 <div style="padding-left: 24%;">
-                  <button class="button">Realizar Compra</button>
+                  <form action="{% url 'transaction' %}" method="POST">
+                    {% csrf_token %}
+                  <!--<a href="{% url 'transaction' %}">-->
+                    <button class="button" value="Click">Realizar Compra</button>
+                  </form>
                 </div>
                 <br>
               </div>
