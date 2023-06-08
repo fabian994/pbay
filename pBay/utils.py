@@ -655,3 +655,13 @@ def delete_item(user, product_id):
     documentopadre = db.collection('cart').document(user["localId"])
     subcoleccion = documentopadre.collection('cartProducts').document(product_id).delete()
 
+def increase_item(user, product_id, amount):
+    amount += 1
+    documentopadre = db.collection('cart').document(user["localId"])
+    subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
+
+def decrease_item(user, product_id, amount):
+    amount -= 1
+    documentopadre = db.collection('cart').document(user["localId"])
+    subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
+
