@@ -88,7 +88,10 @@ def details(request):
     return render(request, "Product_Details.html", context)
 
 def auction(request):
-    return render(request, "Auction_Details.html")
+    id = request.GET.get('id')
+    response = infoProductos(id)
+    context = {"infoDet":response}
+    return render(request, "Auction_Details.html", context)
 
 def compras(request):
     sesion = request.session['usuario']

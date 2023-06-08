@@ -9,7 +9,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Detalles de la subasta</title>
-      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'styles/styleb.css' %}" />
       {% load bootstrap5 %}
       {% bootstrap_css %}
       {% bootstrap_javascript %}
@@ -28,36 +28,51 @@
         
             <div class="float-end">
               <br>
-              <button class="btn btn-primary flex-shrink-0"" type="button">
-                <i class="me-1"></i>
-                Nueva oferta
-              </button>
+              {% if edit_mode %}
+              <input type="text" class="form-control" value="{{ value }}">
+              {% else %}
+              <button type="button" class="btn btn-primary" id="edit-button">Nueva oferta</button>
+              {% endif %}
             </div>
+            {% for item in infoDet %}
             <div class="row gx-4 gx-lg-5 align-items-left">
               <div class="col-md-4"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/400x500/dee2e6/6c757d.jpg" alt="..." /></div>
                 <div class="col-md-6">
-                  <h3 class="display-6 fw-bolder">Producto Ejemplo 2</h3>
-                  <p class="lead">Esta es la descripción del producto<br> Esta es la descripción del producto <br>Esta es la descripción del producto <br> </p>
+                  <h3 class="display-6 fw-bolder" id="prodName">{{ item.0 }} </h3>
+                  <p class="lead">{{ item.2 }} <br> Marca: {{ item.3 }}  <br> Modelo: {{ item.4 }}<br> </p>
                   <div class="fs-4 mb-4">
                     <span> Oferta: </span>
-                    <span class="lead" style="color: blue;""><strong>$1000.00</strong></span>
+                    <span class="lead" style="color: blue;""><strong>${{ item.11 }}</strong></span>
                   </div>
                   <div d-flex-row>
                     <span class="lead"> Estado: </span>
-                    <span class="lead" ><strong>Nuevo</strong></span>
+                    <span class="lead" ><strong>{{ item.5 }}</strong></span>
                   </div>
                   <div class="fs-5 mb-5">
-                    <span style="color: green;">Aun quedan</span>
+                    <span style="color: green;">Subasta termina en: {{ item.12 }}</span>
                   </div>
                 </div>
             </div>
+            {% endfor %}
           </div>
         </section>
-      
-        <!-- Bootstrap-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- JS-->
-        script src="js/scripts.js"></script>
       </body>
     </html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var editButton = document.getElementById('edit-button');
+    editButton.addEventListener('click', function() {
+      var inputField = document.createElement('input');
+      inputField.setAttribute('type', 'text');
+      inputField.setAttribute('class', 'form-control');
+      inputField.setAttribute('value', '{{ value }}');
+      inputField.setAttribute('name', 'edit-value');
+      
+      var parentDiv = this.parentNode;
+      parentDiv.replaceChild(inputField, this);
+    });
+  });
+</script>
+
 {% endblock %}

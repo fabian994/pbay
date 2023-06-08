@@ -321,8 +321,14 @@ def infoProductos(id):
     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
     url_imagen = imagen_ref.generate_signed_url(expiration=int(
     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-    response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId, datos['shippingFee']])
+    if tipo == "Venta Directa":
+        response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
+                        datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], 
+                        url_imagen, docId, datos['shippingFee']])
+    if tipo == "Subasta":
+        response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
+                        datos['Model'], condition, tipo, datos['pubDate'], 
+                        url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']])
     return response
 
 
