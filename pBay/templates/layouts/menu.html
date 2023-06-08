@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href = "{% static 'styles/normalize.css' %}" rel = "stylesheet" >
     <link href = "{% static 'styles/menu.css' %}" rel = "stylesheet">
     <link href = "{% static 'styles/icons/fonts.css' %}" rel = "stylesheet">
 
@@ -22,23 +25,38 @@
 
 </head>
 <body>
-
     <header class = "menu"> 
-        
         <nav class="navbar navbar-white bg-light pb-0 pt-1 flex-grow-1 justify-content-evenly">
             <ul class="mx-10">
                 <li class="mx-5"><a href = "{% url 'compras' %}" class='pb-0 pt-1'> <div> <img src = "{% static 'assets/pbay_bgblank_small.png' %}"> </div> </a></li>
                 <li class="mx-5">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
-                    <div class="input-group-prepend">
-                      <a id="searchLink" href="#" class='py-0 pt-1'><span class="icon-search"></span></a>
+
+                  {% include "layouts/searchBar.html" %}
+                  <!--
+                  <div class="container">
+                    <div class="search-input-box">
+                      
+                        <input type="text" class="form-control" id="searchInput" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
+                        
+                        
+                        <a id="searchLink" href="#" class='py-0 pt-1'>
+                          <i class="fa-solid fa-magnifying-glass icon"></i>
+                        </a>
+                      
+                      
+                      <ul class="container-suggestions">
+                        <li>Cabeza Jefe Maestro</li>
+                        <li>Cat toy</li>
+                      </ul>
+
                     </div>
-                  </div>
+                  </div> -->
+
                 </li>
                 <li class="mx-5"><a href = "{% url 'home' %}" class='pb-0 pt-1'><span class = "icon-bell-o"></span></a></li>
                 <li class="mx-5"><a href = "{% url 'carrito' %}" class='pb-0 pt-1'><span class = "icon-shopping-cart"></span></a></li>
             </ul>
+             
         </nav>
         <nav class="navbar navbar-white bg-light border-bottom border-dark py-0 flex-grow-1 justify-content-evenly">
             <ul>
@@ -90,7 +108,7 @@
     {% block content %}
     {% endblock %}
 
-
+    
 </body>
 </html>
 

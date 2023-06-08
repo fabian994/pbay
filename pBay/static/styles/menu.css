@@ -54,7 +54,6 @@ header nav ul li{
     transition: background .3s ease;
 }
 
-
 header nav ul li:hover{
     outline: none !important;
     box-shadow: none;
@@ -118,3 +117,5 @@ header nav ul li .slide_icon{
     margin-left: 10px;
     margin-right: 0px;
 }
+
+

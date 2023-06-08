@@ -9,6 +9,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+
 # Create your views here.
 def pedidos(request):
     sesion = request.session['usuario']
@@ -95,6 +96,34 @@ def compras(request):
     if sesion == "NoExist":
         return redirect('home')
     context = {'products': getRecomendations()}
+
+    db = firestore.client()
+    datos_firestore = db.collection('products').get()
+
+    textos_unicos = set()
+
+    for doc in datos_firestore:
+        texto = doc.to_dict().get('category')
+        texto2 = doc.to_dict().get('Brand')
+        texto3 = doc.to_dict().get('prodName')
+        if (texto and texto2 and texto3) :
+            textos_unicos.add(texto)
+            textos_unicos.add(texto2)
+            textos_unicos.add(texto3)
+
+
+    # textos = [doc.to_dict().get('prodName') for doc in datos_firestore]
+    # textos2 = [doc.to_dict().get('Brand') for doc in datos_firestore]
+    # textos3 = [doc.to_dict().get('category') for doc in datos_firestore]
+    # twoTxt = textos + textos2 + textos3
+
+    with open('buyers/static/scripts/suggestions.js', 'w') as archivo_js:
+        archivo_js.write('let suggestions = [\n')
+        for texto in textos_unicos:
+            archivo_js.write(f'  "{texto}",\n')
+        archivo_js.write('];')
+
+
     return render(request, "compras_Principal.html", context)
 
 def busqueda(request):
@@ -182,3 +211,4 @@ def search_products(request):
     context = {'products': search(search_name)}
 
     return render(request, "compras_Busqueda.html", context)
+
