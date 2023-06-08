@@ -8,7 +8,7 @@ from firebase_admin import credentials
 # Importo el Servicio Firebase Realtime Database
 from firebase_admin import firestore
 from firebase_admin import storage as st
-import pyrebase
+import firebase
 import datetime
 import random
 import datetime
@@ -25,10 +25,10 @@ config = {
     "messagingSenderId": "336573451844",
 }
 
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
-database = firebase.database()
-storage = firebase.storage()
+app  = firebase.initialize_app(config)
+auth = app.auth()
+database = app.database()
+storage = app.storage()
 
 cred = credentials.Certificate(
     './pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
@@ -41,6 +41,13 @@ db = firestore.client()
 def LogIn_Firebase(Correo, Contra):
     try:
         user = auth.sign_in_with_email_and_password(Correo, Contra)
+        userData = auth.get_account_info(user['idToken'])
+        
+        if userData['users'][0]['emailVerified'] == False:
+            print('should send email')
+            auth.send_email_verification(user['idToken'])
+            print('email not verified',userData['users'][0]['emailVerified'])
+        print('email verified',userData['users'][0]['emailVerified'])
         docs = db.collection('users').where(
             'oficial_id', '==', user['localId']).get()
         response = ""
