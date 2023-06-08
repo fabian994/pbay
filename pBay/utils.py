@@ -149,10 +149,7 @@ def infoProductoUser(user, action):
                     response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],
                                     datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
                     print(datos['tran_date'])
-    
-    #response = sorted(response, key=lambda x: x[7].to_datetime().strftime('%d/%m/%Y'))
-
-
+    response = sorted(response, key=lambda x: DatetimeWithNanoseconds.rfc3339(x[7]))
     return response
 
 def productFiltering(user, action):
