@@ -56,3 +56,11 @@
 .buttons {
   align-self: center;
 }
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: none;
+}

@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish
+from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations, productFiltering
 from utils import infoProductos
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
+
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 # Create your views here.
 def pedidos(request):
@@ -43,10 +47,45 @@ def pedidos(request):
     return render(request, "pedidos.html", context)
 
 def productos(request):
-    return render(request, "productos.html")
+    session = request.session['usuario']
+    if session == "NoExist":
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            form = Orden(request.POST)
+            form2 = Filter(request.POST)
+            if form2.is_valid():
+                selected_option2 = form2.cleaned_data['Filtering']
+                if selected_option2 == 'nada':
+                    response = productFiltering(session, 0)
+                elif selected_option2 == 'subasta':
+                    response = productFiltering(session, 1) 
+                else:
+                    response = productFiltering(session, 2) 
+            if form.is_valid():
+                # Acceder al valor seleccionado del campo de selección
+                selected_option = form.cleaned_data['Sorting']
+                # Nuevos a viejos
+                if selected_option=='descendente':
+                    response =  response[::-1]
+        else:
+            response = productFiltering(session,0) 
+            form = Orden()
+            form2 = Filter()
+        
+        user_id = session['localId']
+        #response = productList(user_id)
+        context = {"htmlinfo":  response}
+        context['form1'] = form
+        context['form2'] = form2
+        print(context)
+        return render(request, "productos.html", context)
 
 def details(request):
-    return render(request, "Product_Details.html")
+    id = request.GET.get('id')
+    response = infoProductos(id)
+    context = {"infoDet":response}
+    return render(request, "Product_Details.html", context)
 
 def auction(request):
     return render(request, "Auction_Details.html")
@@ -55,7 +94,8 @@ def compras(request):
     sesion = request.session['usuario']
     if sesion == "NoExist":
         return redirect('home')
-    return render(request, "compras_Principal.html")
+    context = {'products': getRecomendations()}
+    return render(request, "compras_Principal.html", context)
 
 def busqueda(request):
     sesion = request.session['usuario']
@@ -64,22 +104,8 @@ def busqueda(request):
     response = []
     sesion = request.session['usuario']
 
-    if request.method == 'POST':
-        response = []
-        form = Filter(request.POST)
-        if form.is_valid():
-            selected_option2 = form.cleaned_data['Filtering']
-            if selected_option2 == 'nada':
-                response = infoProductos(0)
-            elif selected_option2 == 'subasta':
-                response = infoProductos(1)
-            else:
-                response = infoProductos(2)
-    else:
-        response = infoProductos(0)
-        form = Filter()
+    response = infoProductos(0)
     context = {"infoprod":  response}
-    context['form'] = form
     return render(request, "compras_Busqueda.html", context)
 
 def obtener_elementos(request):
@@ -118,7 +144,6 @@ def getWishList(request):
     else:
         elementos = getWish(sesion)  # Reemplaza esto con la lógica para obtener los elementos dinámicamente
         elementos.append("Añadir")
-        print(elementos)
         return JsonResponse(elementos, safe=False)
         
 def searchByCategory (request):
@@ -132,7 +157,6 @@ def searchByCategory (request):
     
     
     products = searchCat(category, subcategory1, subcategory2)
-    print(request)
     return render(request, 'searchByCategory.html', {'products': products})
 
 def addCarrito(request):
@@ -146,3 +170,15 @@ def addCarrito(request):
             return JsonResponse({"response" :True})
         else:
             return JsonResponse({"response" :False})
+
+db = firestore.client()
+
+def search_products(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
+    
+    search_name = request.GET.get('search')
+    context = {'products': search(search_name)}
+
+    return render(request, "compras_Busqueda.html", context)

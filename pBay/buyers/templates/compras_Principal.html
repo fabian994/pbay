@@ -25,7 +25,25 @@
                 <h3>Esto te puede interezar</h3>
             </div>
 
-            
+            <div class="img-container">
+
+                
+                <ul class="header-productos">
+                    {% for item in products %}
+                    <li>    
+                        <a class="hipervinculos" href="{% url 'details' %}?id={{ item.2 }}">
+                            <div class="recorte">
+                                <img src={{item.1}} class="rounded mx-auto d-block" alt="...">
+                            </div>
+                            <div class="txt">
+                                {{item.0}}
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}  
+
+                </ul>
+            </div>
 
         </div>
         

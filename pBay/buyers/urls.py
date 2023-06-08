@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path("pedidos/", views.pedidos, name="pedidos"),
     path("productos/", views.productos, name="productos"),
-    path("details/", views.details, name="details"),
+    path("details", views.details, name="details"),
     path("auction/", views.auction, name="auction"),
     path("compras/", views.compras, name="compras"),
     path("busqueda/", views.busqueda, name="busqueda"),
@@ -15,4 +15,5 @@ urlpatterns = [
     path('searchByCategory', views.searchByCategory, name='searchByCategory'),
     path('addCarrito/', views.addCarrito, name='addCarrito'),
     path('selectlist/', views.addCarrito, name='selectlist'),
+    path('search', views.search_products, name='search_products'),
 ]

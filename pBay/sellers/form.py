@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 letras = RegexValidator(r'^[a-zA-Z " " éáíóúñÑÁÉÍÓÚ]*$', 'Solo se pueden ingresar letras ')
 numeros = RegexValidator(r'^[0-9]*$', 'Solo se pueden ingresar numeros')
 numerosYletras = RegexValidator(r'^[0-9a-zA-Z " "éáíóúñÑÁÉÍÓÚ]*$', 'Solo se pueden ingresar numeros y letras')
+numerosYletrasSimbolos = RegexValidator(r'^[0-9a-zA-Z \séáíóúñÑÁÉÍÓÚ\.\-\#]*$', 'Solo se pueden ingresar numeros y letras')
 
 class Filter(forms.Form):
     Filtering = forms.ChoiceField(
@@ -17,17 +18,6 @@ class Filter(forms.Form):
     )
 
 class productCreate(forms.Form):
-    name = forms.CharField( max_length = 40, 
-                            required = True, 
-                            label = "Nombre(s)",
-                            
-                            error_messages={
-                                "required": "No puede estar vacío",
-                            },
-                            widget = forms.TextInput(attrs = {
-                                "class": "text-input"
-                                }
-                            ))
     
     brand = forms.CharField( max_length = 40,
                              required = True,
@@ -50,7 +40,7 @@ class productCreate(forms.Form):
                              )
     
     title = forms.CharField( max_length = 40,
-                            validators=[numerosYletras],
+                            validators=[numerosYletrasSimbolos],
                              required = True,
                              label = "Título",
                              
@@ -334,7 +324,7 @@ class productAuction(forms.Form):
                                         error_messages={
                                             "required": "No puede estar vacío",
                                         },
-                                        widget = forms.TextInput(attrs = {
+                                        widget = forms.NumberInput(attrs = {
                                             "class": "form-control"
                                             }
                                         ))
@@ -345,7 +335,7 @@ class productAuction(forms.Form):
                                         error_messages={
                                             "required": "No puede estar vacío",
                                         },
-                                        widget = forms.TextInput(attrs = {
+                                        widget = forms.NumberInput(attrs = {
                                             "class": "form-control"
                                             }
                                         ))
@@ -356,7 +346,7 @@ class productAuction(forms.Form):
                                         error_messages={
                                             "required": "No puede estar vacío",
                                         },
-                                        widget = forms.TextInput(attrs = {
+                                        widget = forms.NumberInput(attrs = {
                                             "class": "form-control"
                                             }
                                         ))

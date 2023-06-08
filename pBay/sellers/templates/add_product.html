@@ -123,7 +123,11 @@
 	</head>
 	<body>
 		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
-		<form method="post" id="reg_form" data-subcategories1-url="{% url 'ajax_load_Subcategories1' %}" data-subcategories2-url="{% url 'ajax_load_Subcategories2' %}" enctype="multipart/form-data">
+		<form method="POST" id="reg_form" data-subcategories1-url="{% url 'ajax_load_Subcategories1' %}" data-subcategories2-url="{% url 'ajax_load_Subcategories2' %}" enctype="multipart/form-data">
+			
+			
+				
+					
 			{% csrf_token %}
 			<div class="container">
 				<div>
@@ -161,6 +165,12 @@
 							{{ form.brand }}
 						</div>
 					</div>
+					{% if form.errors.brand %}
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						{{ form.errors.brand }}
+					</div>
+					{% endif %}
+
 					<div class="label">
 						<div class="label-text">
 							<label for="modelo">Modelo (opcional):</label>
@@ -169,6 +179,13 @@
 							{{ form.model }}
 						</div>
 					</div>
+					{% if form.errors.model %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.model }}
+						</div>
+					{% endif %}
+
+
 					<div class="label">
 						<div class="label-text">
 							<label for="condicion">Condición:</label>
@@ -177,18 +194,37 @@
 							{{ form.condition }}
 						</div>
 					</div>
+					{% if form.errors.condition %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.condition }}
+						</div>
+					{% endif %}
+
 					<div class="label">
 						<div class="label-text">
 							<label for="titulo">Título:</label>
 						</div>
+						
 						<div class="label-input">
 							{{ form.title }}
 						</div>
 					</div>
+					{% if form.errors.title %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.title }}
+						</div>
+					{% endif %}
+
 					<p style="text-align: left;">Descripción:</p>
 					<div class="decription-input">
 						{{ form.about }}
 					</div>
+					{% if form.errors.about %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.about }}
+						</div>
+					{% endif %}
+
 				</div>
 				<div>
 					<p style="text-align: left;">Imágen principal</p>
@@ -218,6 +254,11 @@
 							{{ form.vendType }}
 						</div>
 					</div>
+					{% if form.errors.vendType %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.vendType }}
+						</div>
+					{% endif %}
 					
 					<div class="label">
 						<div class="label-text">
@@ -227,6 +268,12 @@
 							{{ form.publishDate }}
 						</div>
 					</div>
+					{% if form.errors.publishDate %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.publishDate }}
+						</div>
+					{% endif %}
+
 
 					<div class="label">
 						<div class="label-text">
@@ -236,6 +283,12 @@
 							{{ form.promote }}
 						</div>
 					</div>
+					{% if form.errors.promote %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.promote }}
+						</div>
+					{% endif %}
+
 					<div class="label" id="costDaysFields" style="display: none;">
 						<div class="label-text">
 							<label for="dias">Días:</label>

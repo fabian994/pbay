@@ -23,19 +23,18 @@
 </head>
 <body>
 
-    <header class = "menu">
+    <header class = "menu"> 
         
         <nav class="navbar navbar-white bg-light pb-0 pt-1 flex-grow-1 justify-content-evenly">
             <ul class="mx-10">
                 <li class="mx-5"><a href = "{% url 'compras' %}" class='pb-0 pt-1'> <div> <img src = "{% static 'assets/pbay_bgblank_small.png' %}"> </div> </a></li>
-                <li class="mx-5"><form class="form-inline" id = 'searchBarForm'>
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
-                      <div class="input-group-prepend">
-                        <a href = "{% url 'home' %} " class='py-0 pt-1'><span class = "icon-search"></span></a>
-                      </div>
+                <li class="mx-5">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar Productos" aria-label="searchBar" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                      <a id="searchLink" href="#" class='py-0 pt-1'><span class="icon-search"></span></a>
                     </div>
-                  </form>
+                  </div>
                 </li>
                 <li class="mx-5"><a href = "{% url 'home' %}" class='pb-0 pt-1'><span class = "icon-bell-o"></span></a></li>
                 <li class="mx-5"><a href = "{% url 'carrito' %}" class='pb-0 pt-1'><span class = "icon-shopping-cart"></span></a></li>
@@ -96,6 +95,13 @@
 </html>
 
 <script>
+  document.getElementById('searchLink').addEventListener('click', function() {
+    var searchValue = document.getElementById('searchInput').value;
+    var url = "{% url 'search_products' %}?search=" + encodeURIComponent(searchValue);
+    window.location.href = url;
+  });
+
+
   function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -120,7 +126,7 @@
       dataType: 'json',
       success: function(data) {
         // 'data' contiene la respuesta del backend de Django
-        // Puedes iterar sobre los elementos recibidos y crear los enlaces del menú desplegable dinámicamente
+        // Puedes iterar sobre los e lementos recibidos y crear los enlaces del menú desplegable dinámicamente
         var dropdownMenu = $('#direcciones');  // Selecciona el menú desplegable
         var item = $('<a>').addClass('dropdown-item text-danger').text(data[0]);
         dropdownMenu.append(item);

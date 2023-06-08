@@ -41,37 +41,50 @@
 		}
 	</style>
 	<body>
-		<h1 style="font-family: Arial; text-align: center;">Venta Directa - Detalles</h1>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
 		<form method="POST" id="reg_form">
 			{% csrf_token %}
 			<div class="container">
 				<div>
 					<div class="label">
 						<div class="label-text">
-							<label for="marca">Inventario:</label>
+							<label for="marca">Duracion:</label>
 						</div>
 						<div class="label-input">
-							{{ form_sale.inventory }}
+							{{ form_auction.duration }}
 						</div>
 					</div>
-					{% if form_sale.errors.inventory %}
+					{% if form_auction.errors.duration %}
 						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							{{ form_sale.errors.inventory }}
+							{{ form_auction.errors.duration }}
 						</div>
 					{% endif %}
 
+                    <div class="label">
+						<div class="label-text">
+							<label for="marca">Oferta Inicial:</label>
+						</div>
+						<div class="label-input">
+							{{ form_auction.initialOffer }}
+						</div>
+					</div>
+					{% if form_auction.errors.initialOffer %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form_auction.errors.initialOffer }}
+						</div>
+					{% endif %}
 
                     <div class="label">
 						<div class="label-text">
-							<label for="marca">Costo:</label>
+							<label for="marca">Oferta Minima:</label>
 						</div>
 						<div class="label-input">
-							{{ form_sale.cost }}
+							{{ form_auction.minimumOffer }}
 						</div>
 					</div>
-					{% if form_sale.errors.cost %}
+					{% if form_auction.errors.minimumOffer %}
 						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							{{ form_sale.errors.cost }}
+							{{ form_auction.errors.minimumOffer }}
 						</div>
 					{% endif %}
 
@@ -80,30 +93,14 @@
 							<label for="marca">Costo de Envio:</label>
 						</div>
 						<div class="label-input">
-							{{ form_sale.shippingFee }}
+							{{ form_auction.shippingFee }}
 						</div>
 					</div>
-					{% if form_sale.errors.shippingFee %}
+					{% if form_auction.errors.shippingFee %}
 						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							{{ form_sale.errors.shippingFee }}
+							{{ form_auction.errors.shippingFee }}
 						</div>
 					{% endif %}
-
-
-                    <div class="label">
-						<div class="label-text">
-							<label for="marca">Fecha de Retiro:</label>
-						</div>
-						<div class="label-input">
-							{{ form_sale.RemovalDate }}
-						</div>
-					</div>
-					{% if form_sale.errors.RemovalDate %}
-						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							{{ form_sale.errors.RemovalDate }}
-						</div>
-					{% endif %}
-
 
 					{% if prod.PromoStatus == 'true' %}
 						<div class="form-elements">
@@ -113,19 +110,16 @@
 							<div id="form-item">
 								{{ form_promo.PromoDuration }}
 							</div>
+							{% if form_promo.errors.PromoDuration %}
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									{{ form_promo.errors.PromoDuration }}
+								</div>
+							{% endif %}
 						</div>
-						{% if form_promo.errors.PromoDuration %}
-							<div class="alert alert-danger alert-dismissible fade show" role="alert">
-								{{ form_promo.errors.PromoDuration }}
-							</div>
-						{% endif %}
 					{% endif %}
 				</div>
 			</div>
-			<!--
-			<button type="submit">Save</button>
-			<a href="{% url 'add_product' %}">Nevermind</a>
-			-->
+
 			<div class="container2">
 				<div class="buttons">
 					<a class="btn cancel-button" href="{% url 'add_product' %}" role="button">Cancelar</a>
