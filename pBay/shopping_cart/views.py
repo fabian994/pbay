@@ -11,9 +11,11 @@ def carrito(request):
     if user == "NoExist" or user == None:
         return redirect('home')
     
-    response = getCart(user)
-    context = {"htmlinfo":  response}
-
+    response, prices = getCart(user)
+    context = {
+                "htmlinfo":  response,
+                "prices": prices
+              }
 
     return render(request, "carrito.html", context)
 

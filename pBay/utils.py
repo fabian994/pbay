@@ -633,11 +633,16 @@ def getCart(user):
     documentos = subcoleccion
     print(documentos)
     response = []
+    subtotal = 0
+    shipping_fee = 0
     for doc in documentos:
         print('ENTRA')
         datos = doc.to_dict()
         print(datos)
         print('meow')
+
+        subtotal += datos['Price'] * datos['prodAmount']
+        shipping_fee += datos['shippingFee']
         
         ruta_imagen = "products/"+doc.id+"/"+datos['mainImg']
         docId = doc.id
@@ -647,9 +652,11 @@ def getCart(user):
         url_imagen = imagen_ref.generate_signed_url(expiration=int(
         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         # Enviar prodDesc
-        response.append([datos['prodName'], datos['Price'], datos['prodAmount'], url_imagen, docId])
+        response.append([datos['prodName'], datos['Price'] * datos['prodAmount'], datos['prodAmount'], url_imagen, docId])
         print(response)
-    return response
+    total = subtotal + shipping_fee
+    prices = [subtotal, shipping_fee, total]
+    return response, prices
 
 def delete_item(user, product_id):
     documentopadre = db.collection('cart').document(user["localId"])
