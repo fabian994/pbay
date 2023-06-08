@@ -55,6 +55,7 @@ def LogIn_Firebase(Correo, Contra):
 def signUp_Firebase(Correo, Contra):
     try:
         user = auth.create_user_with_email_and_password(Correo, Contra)
+        auth.send_email_verification(user['idToken'])
         # return(user["localId"])
         return (user)
     except:
@@ -147,6 +148,7 @@ def productFiltering(user, action):
     for documento in documentos:
         # Accede a los datos de cada documento
         datos = documento.to_dict()
+        
 
         tipo = datos['saleType']
         if bool(tipo):
@@ -168,7 +170,7 @@ def productFiltering(user, action):
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 response.append([documento.id, tipo, datos['prodName'],
-                                datos['categories'],  datos['pubDate'], url_imagen, datos['RemovalDate'], datos['Price'], datos['Stock'], datos['saleType']])
+                                datos['category'],  datos['pubDate'], url_imagen, datos['RemovalDate'], datos['Price'], datos['Stock'], datos['saleType']])
             if action == 1:
                 if tipo == "Subasta":
                     coleccion_ref = db.collection('products')
@@ -183,7 +185,7 @@ def productFiltering(user, action):
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     response.append([documento.id, tipo, datos['prodName'],
-                                datos['categories'],  datos['pubDate'], url_imagen, datos['RemovalDate'], datos['Price'], datos['Stock'], datos['saleType']])
+                                datos['category'],  datos['pubDate'], url_imagen, datos['RemovalDate'], datos['Price'], datos['Stock'], datos['saleType']])
             if action == 2:
                 if tipo == "Venta Directa":
                     coleccion_ref = db.collection('products')
@@ -198,7 +200,7 @@ def productFiltering(user, action):
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     response.append([documento.id, tipo, datos['prodName'],
-                                datos['categories'],  datos['pubDate'], url_imagen, datos['RemovalDate'], datos['Price'], datos['Stock'], datos['saleType']])
+                                datos['category'],  datos['pubDate'], url_imagen, datos['RemovalDate'], datos['Price'], datos['Stock'], datos['saleType']])
     response = sorted(response, key=lambda x: datetime.datetime.strptime(
         x[4], '%d/%m/%Y').date())
     return response
