@@ -8,3 +8,4 @@ django-jquery==3.1.0
 crispy-bootstrap5
 pyrebase4
 Pillow==9.4.0
+firebase-rest-api==1.10.1

@@ -8,6 +8,7 @@ from utils import payment_detail_by_month
 from utils import infoventas
 from utils import firestore_connection, storeProductImages
 from utils import deleteVenta
+from utils import boolValidator
 from datetime import date
 from datetime import datetime, timedelta
 from loginSignup.views import *
@@ -208,11 +209,15 @@ def add_product(request):
 
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
+            
+            data['condition'] = boolValidator(data['condition'])
+            data['promote'] = boolValidator(data['promote'])
+            data['vendType'] = boolValidator(data['vendType'])
 
             prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': bool(data['vendType']),
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
-                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
+                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList, 'listStatus': False}
             saleType = data['vendType']
             
             try:
@@ -234,10 +239,10 @@ def add_product(request):
                 #return render(request, "add_product.html", context)
                 print("Product added to the DataBase")
                 messages.success(request, "Producto añadido correctamente")
-                if saleType == 'false':
+                if saleType == False:
                     print('to redirect')
                     return redirect('add_direct_sale_prod', prod_id = prod_id)
-                elif saleType == 'true':
+                elif saleType == True:
                     print('to redirect')
                     return redirect('add_prod_auctions', prod_id = prod_id)
             except Exception as e:
@@ -294,7 +299,7 @@ def add_productDirSale(request, prod_id):
 
                     prod_data = {
                         'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'],
-                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd
+                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd, 'listStatus': True
                     }
                     ref = firestore_connection("products").document(prod_id)
                     ref.update(prod_data)
@@ -323,7 +328,7 @@ def add_productDirSale(request, prod_id):
 
                 prod_data = {
                     'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'],
-                    'retireDate': data['RemovalDate'],
+                    'retireDate': data['RemovalDate'], 'listStatus': True
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
@@ -393,7 +398,7 @@ def add_product_Auction(request, prod_id):
                 prod_data = {
                     'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                     'shippingFee': data['shippingFee'], 
-                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
@@ -418,7 +423,7 @@ def add_product_Auction(request, prod_id):
             prod_data = {
                 'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                 'shippingFee': data['shippingFee'], 
-                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
             }
             print('subi')
             ref = firestore_connection("products").document(prod_id)
