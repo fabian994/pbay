@@ -85,10 +85,10 @@
                 <br>
 
                 <div class="row">
-                  <button type="button" class="btn  btn-primary flex-shrink-0" data-toggle="modal" data-target="#myModal2">
+                  <button style="width:100%" onclick="getData('{{infoDet.0.11}}')"class="btn btn-primary details-button" type="button" name="item">
                     <i class="bi-cart-fill me-1"></i>
-                        Agregar al carrito
-                    </button>
+                      Agregar al carrito
+                  </button>
                   </button>
                   <div class="modal fade" id="myModal2" role="dialog">
                     <div class="modal-dialog">
@@ -123,4 +123,27 @@
   }
   </script>
 
+<script>
+  
+  function getData(itemValue){
+    console.log(itemValue)
+    $.ajax({
+            type: "POST",
+            url: "/addCarrito/",
+            async: false,
+            data: {
+                "item": itemValue,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+  
+            },
+            success: function (data) {
+                alert("Producto agregado exitosamente al Carrito");
+            },
+            failure: function (data) {
+                alert("Ha ocurrido un error, intentalo en unos minutos");
+            }
+          })
+  
+  }
   </script>
+  
