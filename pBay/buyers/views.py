@@ -4,6 +4,7 @@ from utils import infoProductos
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
+from django.http import HttpResponse
 
 import firebase_admin
 from firebase_admin import credentials
@@ -164,24 +165,7 @@ def searchByCategory (request):
     products = searchCat(category, subcategory1, subcategory2)
     return render(request, 'searchByCategory.html', {'products': products})
 
-'''
 def addCarrito(request):
-    sesion = request.session['usuario']
-    if request.method == 'POST':
-        selected_option = request.POST.get('item')
-        print(selected_option)
-        if(addCart(selected_option, sesion)):
-            # return JsonResponse({"response" :True})
-       
-            return JsonResponse({"response" :True})
-        else:
-            return JsonResponse({"response" :False})
-
-db = firestore.client()
-'''
-
-def addCarrito(request):
-    print("HOLA $%&")
     sesion = request.session.get('usuario')
     if request.method == 'POST':
         selected_option = request.POST.get('item')
