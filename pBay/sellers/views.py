@@ -2,7 +2,7 @@ from utils import PayDetails
 from django.shortcuts import render
 from .form import *
 from .models import *
-from utils import sells_history
+from utils import sells_history, productFiltering
 from utils import cancel_auction
 from utils import payment_detail_by_month
 from utils import infoventas
@@ -112,6 +112,43 @@ def detalles_producto(request):
     context['form'] = form
     return render(request, "Product_Details_Seller.html", context)
 
+def productos(request):
+    session = request.session['usuario']
+    if session == "NoExist":
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            form = Orden(request.POST)
+            form2 = Filter(request.POST)
+            if form2.is_valid():
+                selected_option2 = form2.cleaned_data['Filtering']
+                if selected_option2 == 'nada':
+                    response = productFiltering(session, 0)
+                elif selected_option2 == 'subasta':
+                    response = productFiltering(session, 1) 
+                else:
+                    response = productFiltering(session, 2) 
+            if form.is_valid():
+                # Acceder al valor seleccionado del campo de selección
+                selected_option = form.cleaned_data['Sorting']
+                # Nuevos a viejos
+                if selected_option=='descendente':
+                    response =  response[::-1]
+        else:
+            response = productFiltering(session,0) 
+            form = Orden()
+            form2 = Filter()
+        
+        user_id = session['localId']
+        #response = productList(user_id)
+        context = {"htmlinfo":  response}
+        context['form1'] = form
+        context['form2'] = form2
+        print(context)
+        return render(request, "productos.html", context)
+
+def ventas_detalle(request, context):
+    return render(request, "historial_ventas_detalle.html", context)
 
 def delete_producto(request):
     if request.method == 'POST':

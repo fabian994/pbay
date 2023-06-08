@@ -27,28 +27,17 @@
             <div style="width:97%; margin-left: 5%">
               {% for item in infoDet %}
              <div class="containerIm" style="width:35% ;padding:2%">
-                <div class="column" style="width:20%; margin-top:3%;">
-                  <div class="row">
-                    <img src= {{ item.10 }}  style="margin-bottom:5%;height:80px" onclick="myFunction(this); "">
-                  </div>
-                          
-                  <div class="row">
-                    <img src={{ item.10 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
-                  </div>
-
-                  <div class="row">
-                    <img src={{ item.10 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
-                  </div>
-
-                  <div class="row">
-                    <img src={{ item.10 }} style="margin-bottom:5%;height:80px" onclick="myFunction(this);">
-                  </div>
-
-                </div>    
-                  <div class="column" style="width:80%" >
-                    <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-                    <img id="expandedImg" src={{ item.10 }} style="width:100%;height:400px">
-                  </div>
+              <div class="column" style="width: 20%; margin-top: 3%;">
+                {% for image in item.13 %}
+                <div class="row">
+                  <img src="{{ image }}" style="margin-bottom: 5%; height: 80px" onclick="changeMainImage('{{ image }}')">
+                </div>
+                {% endfor %}
+              </div>
+              <div class="column" style="width: 80%">
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <img id="expandedImg" src="{{ item.13.0 }}" style="width: 100%; height: 400px">
+              </div>
 
               </div> 
               
@@ -72,16 +61,20 @@
               {% endfor %}
 
               <div class="containerIm" style="width:15%; float:left">
-                <div class="row"> 
-                    <button type="button" class="btn  btn-primary " data-toggle="modal" data-target="#myModal">Marcar como favorito</button>
-                    <div class="modal fade" id="myModal" role="dialog">
-                      <div class="modal-dialog">
-                          <div class="alert alert-success alert-dismissible">
-                            <strong>Este producto se ha agregado a favoritos</strong> 
-                          </div>
+                <div class="row">
+                  <button style="width:100%" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Agregar a Favoritos
+                  </button>
+                  <form id="wish-form" method="POST">
+                      {% csrf_token %}
+                      <div class="dropdown-menu" style="width:15%; margin-left:0.5%;">
+                          <button class="dropdown-item" onclick="getDataW('{{infoDet.0.11}}', 'Wish')" type="button" name="wish">WishList</button>
+                          <button class="dropdown-item" onclick="createNewArray('{{infoDet.0.11}}')" type="button" name="new-array">Crear Nuevo</button>
                       </div>
-                    </div>
+                  </form>
                 </div>
+              
+              
                 <br>
 
                 <div class="row">
@@ -89,14 +82,7 @@
                     <i class="bi-cart-fill me-1"></i>
                       Agregar al carrito
                   </button>
-                  </button>
-                  <div class="modal fade" id="myModal2" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="alert alert-success alert-dismissible">
-                            <strong>Este producto se ha agregado al carrito</strong> 
-                          </div>
-                    </div>
-                  </div>
+                  
                 </div>      
               </div>
 
@@ -113,17 +99,14 @@
 {% endblock %}
 
 
-<script>
-  function myFunction(imgs) {
-    var expandImg = document.getElementById("expandedImg");
-    var imgText = document.getElementById("imgtext");
-    expandImg.src = imgs.src;
-    imgText.innerHTML = imgs.alt;
-    expandImg.parentElement.style.display = "block";
-  }
-  </script>
+
 
 <script>
+
+  function changeMainImage(imageUrl) {
+  var expandedImg = document.getElementById('expandedImg');
+  expandedImg.src = imageUrl;
+  }
   
   function getData(itemValue){
     console.log(itemValue)
@@ -145,5 +128,45 @@
           })
   
   }
-  </script>
+
+  function getDataW(itemValue, arrayName) {
+    console.log(itemValue, arrayName);
+    $.ajax({
+        type: "POST",
+        url: "/addWishList/",
+        data: {
+            "wish": itemValue,
+            "arrayName": arrayName,
+            "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function (data) {
+            alert("Producto agregado exitosamente a " + arrayName);
+        },
+        error: function () {
+            alert("Ha ocurrido un error, intentalo en unos minutos");
+        }
+    });
+}
+
+function createNewArray(itemValue) {
+    var newArrayName = prompt("Ingrese el nombre para el nuevo arreglo");
+    if (newArrayName) {
+        $.ajax({
+            type: "POST",
+            url: "/createNewArray/",
+            data: {
+                "wish": itemValue,
+                "arrayName": newArrayName,
+                "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (data) {
+                alert("Nuevo arreglo creado exitosamente: " + newArrayName);
+            },
+            error: function () {
+                alert("Ha ocurrido un error, intentalo en unos minutos");
+            }
+        });
+    }
+}
+</script>
   

@@ -2,54 +2,53 @@
 {% include "layouts/sellers_nav.html"%}
 {% include "layouts/ventas_nav.html"%}
 
-
 {% block content %}
 
-  {% load static %}
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Login</title>
-      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
-      <link rel="stylesheet" href="{% static 'styles/historial_ventas.css' %}" />
-    </head>
-    <body>
-        <main >
-            {% if sell.id == variable %} ## necesito que el boton de historial de ventas "ver detalle" regrese el id de la venta para enseñar el mismo producto pero grandote ## 
-              <section class="historial">
-                  <div class="my_container" > 
-                      <div class="venta_item">
-                          <div class="square">
-                              <img class="venta_item__img" src="{{ sell.prod_img }}" alt="{{ sell.prod_name }}">
-                          </div>
-                          <div>
-                              <p>{{sell.prod_name}}</p>
-                              <p>Tipo: 
-                                  {% if sell.sellType %}
-                                    Subasta
-                                  {% else %}
-                                    Venta
-                                  {% endif %}
-                              </p>
-                          </div>
-                          <div>
-                              <p>N. Orden: {{ sell.id }}</p>
-                              <p>Costo: ${{ sell.price }}</p>
-                              <p>Estatus: {{ sell.deliveryStatus }}</p>
-                          </div>
-                          <div class="buttons">
-                              <div class="button red"> Regresar </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
-        </main>
-        {% endif %}
-      </body>
-    </html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/historial_ventas.css' %}" />
+  </head>
+  <body>
+    <main >
+      {% if sell.id == variable %} 
+        <section class="historial">
+          <div class="my_container" > 
+            <div class="venta_item">
+              <div class="square">
+                <img class="venta_item__img" src="{{ sell.prod_img }}" alt="{{ sell.prod_name }}">
+              </div>
+              <div>
+                <p>{{sell.prod_name}}</p>
+                <p>Tipo: 
+                    {% if sell.sellType %}
+                      Subasta
+                    {% else %}
+                      Venta
+                    {% endif %}
+                </p>
+              </div>
+              <div>
+                <p>N. Orden: {{ sell.id }}</p>
+                <p>Costo: ${{ sell.price }}</p>
+                <p>Estatus: {{ sell.deliveryStatus }}</p>
+              </div>
+              <div class="buttons">
+                <div class="button red"> Regresar </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      {% endif %}
+    </main>
+  </body>
+</html>
 {% endblock %}
 
 
