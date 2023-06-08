@@ -7,4 +7,10 @@ let suggestions = [
   "Aceite de Girasol",
   "Coco Fresco",
   "Cat toy",
+  "Aceite de Girasol",
+  "Street Fighter 6 Ultimate Edition",
+  "Coco Fresco",
+  "ashsh",
+  "Cat toy",
+  "24h Primer",
 ];

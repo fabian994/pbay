@@ -1,0 +1,346 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Agregar producto</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.container {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				gap: 50px;
+			}
+
+			.container div {
+				width: 100%;
+			}
+
+			.tree-view ul ul {
+				display: none;
+			}
+
+			.tree-view ul li {
+				cursor: pointer;
+			}
+
+			.tree-view ul li.clicked ul {
+				display: block;
+			}
+
+			.text-input {
+				margin-bottom: 10px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 5px;
+			}
+
+			.description-input {
+				margin-bottom: 10px;
+				height: 100px;
+				width: 80%;
+				box-sizing: border-box;
+				padding: 5px;
+			}
+
+			.button {
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.checkbox {
+				margin-bottom: 10px;
+			}
+
+			.calendar {
+				margin-bottom: 10px;
+			}
+
+			.label {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 10px;
+			}
+
+			.label-text {
+				flex-basis: 70px;
+				text-align: left;
+			}
+
+			.label-input {
+				flex-basis: 150px;
+				display: flex;
+				align-items: center;
+			}
+
+			.container2 {
+				margin: 0 auto;
+				width: fit-content;
+				text-align: left;
+			}
+
+			.buttons {
+				display: flex;
+				gap: 200px;
+				justify-content: space-between;
+				margin-top: 50px;
+				margin-bottom: 50px;
+			}
+			.cancel-button, .continue-button {
+				flex-basis: 200px;
+				height: 40px;
+				padding: 0px 100px;
+				font-size: 16px;
+				text-transform: uppercase;
+				font-weight: bold;
+				border: none;
+				color: white;
+				cursor: pointer;
+			}
+			.cancel-button {
+				background-color: red;
+			}
+			.continue-button {
+				background-color: blue;
+			}
+			.input-field{
+				width: 250px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 style="font-family: Arial; text-align: center;">Agregar producto</h1>
+		<form method="POST" id="reg_form" data-subcategories1-url="{% url 'ajax_load_Subcategories1' %}" data-subcategories2-url="{% url 'ajax_load_Subcategories2' %}" enctype="multipart/form-data">
+			
+			
+				
+					
+			{% csrf_token %}
+			<div class="container">
+				<div>
+					
+					<div class="label">
+						<div class="label-text">
+							<label for="categoria-selector">Categoría:</label>
+						</div>
+						<div class="label-input">
+							{{ form.category }}
+						</div>
+					</div>
+					<div class="label">
+						<div class="label-text">
+							<label for="subcategoria1-selector">Subategoría:</label>
+						</div>
+						<div class="label-input">
+							{{ form.subCategory1 }}
+						</div>
+					</div>
+					<div class="label">
+						<div class="label-text">
+							<label for="subcategoria2-selector">Subcategoría 2:</label>
+						</div>
+						<div class="label-input">
+							{{ form.subCategory2 }}
+						</div>
+					</div>
+	
+					<div class="label">
+						<div class="label-text">
+							<label for="marca">Marca:</label>
+						</div>
+						<div class="label-input">
+							{{ form.brand }}
+						</div>
+					</div>
+					{% if form.errors.brand %}
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						{{ form.errors.brand }}
+					</div>
+					{% endif %}
+
+					<div class="label">
+						<div class="label-text">
+							<label for="modelo">Modelo (opcional):</label>
+						</div>
+						<div class="label-input">
+							{{ form.model }}
+						</div>
+					</div>
+					{% if form.errors.model %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.model }}
+						</div>
+					{% endif %}
+
+
+					<div class="label">
+						<div class="label-text">
+							<label for="condicion">Condición:</label>
+						</div>
+						<div class="label-input">
+							{{ form.condition }}
+						</div>
+					</div>
+					{% if form.errors.condition %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.condition }}
+						</div>
+					{% endif %}
+
+					<div class="label">
+						<div class="label-text">
+							<label for="titulo">Título:</label>
+						</div>
+						
+						<div class="label-input">
+							{{ form.title }}
+						</div>
+					</div>
+					{% if form.errors.title %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.title }}
+						</div>
+					{% endif %}
+
+					<p style="text-align: left;">Descripción:</p>
+					<div class="decription-input">
+						{{ form.about }}
+					</div>
+					{% if form.errors.about %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.about }}
+						</div>
+					{% endif %}
+
+				</div>
+				<div>
+					<p style="text-align: left;">Imágen principal</p>
+					{{ form.mainImage }}
+					<!--
+					<div id="imagesContainer">
+						<input type="file" name="imagen[]" accept="image/*">
+						<label>Marcar como principal</label>
+						<input type="checkbox" id="marcarPrincipal" class="checkbox" name="principal[]" value="principal">
+					</div>
+					-->
+					<p style="text-align: left;">Imágenes adicionales (opcional)</p>
+					{{ form.image2 }}
+					{{ form.image3 }}
+					{{ form.image4 }}
+					{{ form.image5 }}
+					{{ form.image6 }}
+					{{ form.image7 }}
+					{{ form.image8 }}
+					{{ form.image9 }}
+					{{ form.image10 }}
+                    <!--
+					
+					-->
+					<div class="label">
+						<div class="label-text">
+							<label for="fechaPublicacion">Fecha de publicación:</label>
+						</div>
+						<div class="label-input">
+							{{ form.publishDate }}
+						</div>
+					</div>
+					{% if form.errors.publishDate %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.publishDate }}
+						</div>
+					{% endif %}
+
+
+					<div class="label">
+						<div class="label-text">
+							<p>Destacar:</p>
+						</div>
+						<div class="label-input">
+							{{ form.promote }}
+						</div>
+					</div>
+					{% if form.errors.promote %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{ form.errors.promote }}
+						</div>
+					{% endif %}
+
+					<div class="label" id="costDaysFields" style="display: none;">
+						<div class="label-text">
+							<label for="dias">Días:</label>
+						</div>
+						<div class="label-input">
+							<select id="dias">
+								<option value="5">5</option>
+								<option value="7">7</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+						<p style="text-align: left;">Costo: <span id="costoMostrado">100</span></p>
+					</div>
+				</div>
+			</div>
+
+			
+			<script>
+				$("#id_category").change(function () {
+				var url = $("#reg_form").attr("data-subcategories1-url");  // get the url of the `load_cities` view
+				var idCat = $(this).val();  // get the selected country ID from the HTML input
+				console.log(url)
+				$.ajax({                       // initialize an AJAX request
+					url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+					data: {
+						'cat': idCat       // add the country id to the GET parameters
+					},
+					success: function (data) {   // `data` is the return of the `load_cities` view function
+						$("#id_subCategory1").html(data);  // replace the contents of the city input with the data that came from the server
+					}
+				});
+
+				});
+			</script>
+
+			<script>
+				$("#id_subCategory1").change(function () {
+				var url = $("#reg_form").attr("data-subcategories2-url");  // get the url of the `load_cities` view
+				var idsubCat = $(this).val();  // get the selected country ID from the HTML input
+				console.log(url)
+				$.ajax({                       // initialize an AJAX request
+					url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+					data: {
+						'subcat': idsubCat       // add the country id to the GET parameters
+					},
+					success: function (data) {   // `data` is the return of the `load_cities` view function
+						$("#id_subCategory2").html(data);  // replace the contents of the city input with the data that came from the server
+					}
+				});
+
+				});
+			</script>
+			<!--
+			<button type="submit">Save</button>
+			<a href="{% url 'add_product' %}">Nevermind</a>
+			-->
+			<div class="container2">
+				<div class="buttons">
+					<a class="btn cancel-button" href="{% url 'home' %}" role="button">Cancelar</a>
+					<button class="continue-button" type="submit">Continuar</button>
+				</div>
+			</div>
+		</form>
+	</body>
+	</html>
+{% endblock %}
