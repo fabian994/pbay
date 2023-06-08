@@ -698,16 +698,16 @@ def getCart(user):
     response = []
     subtotal = 0
     shipping_fee = 0
-    ocurrences = []
-    temp = 1
 
     if snapshot.exists:
+        print('*********ENTRA SNAPSHOT')
         data_snapshot = snapshot.to_dict()
         products = data_snapshot.get('items')
         print('PRINT PRODUCTS')
         print(products)
 
         if products:
+            print('*********ENTRA PRODUCTOS')
 
             counts = dict(Counter(products))
             duplicates = {key:value for key, value in counts.items() if value > 0}
@@ -753,10 +753,20 @@ def getCart(user):
             print(response)
             print(prices)
 
-            return response, prices
+            documento = db.collection('users').document(user["localId"]).get()
+            datos = documento.to_dict()
+            my_list = list(datos.values())
+            addresses = list(my_list[0])
+
+            print('INFO DE USUARIO')
+            print(datos)
+            print(addresses)
+
+            return response, prices, addresses
         
         else:
-            return 0, 0
+            print('NO HAY ELEMENTOS')
+            return 0, 0, 0
 
 def addWish(product, user, array_name):
     documento_ref = db.collection('wishList').document(user["localId"]).get()
@@ -806,6 +816,10 @@ def process_transaction(user, prices):
         data_snapshot = snapshot.to_dict()
         products = data_snapshot.get('items')
         print(products)
+
+        addressdoc = db.collection('users').document(user["localId"]).get()
+        data = addressdoc.to_dict()
+        main_address = data['maindirection']
         # transactionID, product(s) name, product(s) price, product(s) quantity, seller id, date, time, total price, total shipping fee, 
             # total_tax, shipping_address, deliveryStatus
 
@@ -829,7 +843,7 @@ def process_transaction(user, prices):
                                     'quantity': str(duplicates[item]),
                                     'saleType': str(datos['saleType']),
                                     'seller_id': str(datos['seller_id']),
-                                    'shippingAddress': 'Mi casa', #editar en un momento
+                                    'shippingAddress': str(data['maindirection']), #editar en un momento
                                     'shippingFee': str(datos['shippingFee'] * duplicates[item]),
                                     'tran_date': str(currenttime),
                                     'deliveryStatus' : 'En espera de envio'
@@ -837,3 +851,7 @@ def process_transaction(user, prices):
                 print('PRINT TRANSACTION!!!!!!!!')
                 print(transaction)
                 db.collection('transactions').add(transaction)
+
+                db.collection('cart').document(user["localId"]).delete() # Limpia el carrito
+
+            
