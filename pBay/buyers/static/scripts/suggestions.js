@@ -1,10 +1,10 @@
 let suggestions = [
-  "ashsh",
   "Cat toy",
-  "Los Juegos del Hambre",
-  "Coco Fresco",
-  "Aceite de Girasol",
-  "Funda Molan Cano",
   "Street Fighter 6 Ultimate Edition",
+  "Funda Molan Cano",
   "24h Primer",
+  "Coco Fresco",
+  "Los Juegos del Hambre",
+  "Aceite de Girasol",
+  "ashsh",
 ];

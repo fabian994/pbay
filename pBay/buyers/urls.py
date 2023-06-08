@@ -13,6 +13,8 @@ urlpatterns = [
     path('selctdirection/', views.selctdirection, name='selctdirection'),
     path('searchByCategory', views.searchByCategory, name='searchByCategory'),
     path('addCarrito/', views.addCarrito, name='addCarrito'),
+    path('addWishList/', views.addWishList, name='addWishList'),
+    path('createNewArray/', views.createNewArray, name='createNewArray'),
     path('selectlist/', views.addCarrito, name='selectlist'),
     path('search', views.search_products, name='search_products'),
 ]

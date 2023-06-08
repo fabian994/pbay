@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations, productFiltering
-from utils import infoProductos
+from utils import infoProductos, addWish
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
@@ -169,6 +169,28 @@ def addCarrito(request):
         print(selected_option)
         
         if addCart(selected_option, sesion):
+            return JsonResponse({"response": True})
+        else:
+            return JsonResponse({"response": False})
+    return HttpResponse(status=200)
+
+def addWishList(request):
+    sesion = request.session.get('usuario')
+    if request.method == 'POST':
+        selected_option = request.POST.get('wish')
+        array_name = request.POST.get('arrayName')
+        if addWish(selected_option, sesion, array_name):
+            return JsonResponse({"response": True})
+        else:
+            return JsonResponse({"response": False})
+    return HttpResponse(status=200)
+
+def createNewArray(request):
+    sesion = request.session.get('usuario')
+    if request.method == 'POST':
+        selected_option = request.POST.get('wish')
+        array_name = request.POST.get('arrayName')
+        if addWish(selected_option, sesion, array_name):
             return JsonResponse({"response": True})
         else:
             return JsonResponse({"response": False})
