@@ -837,3 +837,10 @@ def process_transaction(user, prices):
                 print('PRINT TRANSACTION!!!!!!!!')
                 print(transaction)
                 db.collection('transactions').add(transaction)
+
+def boolValidator(val):
+    if val == 'false':
+        val = False
+    else:
+        val = True
+    return val
