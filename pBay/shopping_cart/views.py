@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils import firestore_connection, storeProductImages, getCart, delete_item, increase_item, decrease_item
+from utils import firestore_connection, storeProductImages, getCart, delete_item, increase_item, decrease_item, process_transaction
 from loginSignup.views import *
 from django.core.files.storage import default_storage
 
@@ -38,4 +38,16 @@ def decrease_event(request, id, amount):
         delete_event(request, id)
     else: decrease_item(user, id, amount)
     
+    return carrito(request)
+
+def transaction(request):
+    print('********************ENTRA VIEW.PY***************************')
+    print(request)
+    user = request.session.get("usuario")
+    cart_data, prices = getCart(user)
+
+    if request.method=='POST':
+        print('method post')
+        process_transaction(user, prices)
+
     return carrito(request)

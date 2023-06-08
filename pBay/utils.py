@@ -11,6 +11,7 @@ from firebase_admin import storage as st
 import pyrebase
 import datetime
 import random
+import datetime
 
 config = {
     "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
@@ -674,3 +675,33 @@ def decrease_item(user, product_id, amount):
     documentopadre = db.collection('cart').document(user["localId"])
     subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
 
+def process_transaction(user, prices):
+    print('********************ENTRA UTILS.PY***************************')
+    documentopadre = db.collection('cart').document(user["localId"])
+    subcoleccion = documentopadre.collection('cartProducts').get()
+    documentos = subcoleccion
+    # transactionID, product(s) name, product(s) price, product(s) quantity, seller id, date, time, total price, total shipping fee, 
+        # total_tax, shipping_address, deliveryStatus
+    temp = 1
+    transaction = {}
+    transaction = {'userId' : user["localId"]}
+
+    for doc in documentos:
+        product = 'product' + str(temp)
+        datos = doc.to_dict()
+        datos.pop("mainImg")
+        transaction.update({product: datos})
+        temp += 1
+
+    final_prices = {
+        "subtotal" : prices[0],
+        "tax_total" : 0,
+        "shippingFeeTotal" : prices[1],
+        "total" : prices[2]
+    }
+    
+    transaction.update(final_prices)
+    currenttime = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+    transaction.update({ 'datetime' : currenttime, 'deliveryStatus' : 'Awaiting Shipment'})
+    print(transaction)
+    db.collection('transactions').add(transaction)
