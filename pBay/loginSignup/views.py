@@ -100,7 +100,6 @@ def signUp(request):
                     storeOfficialID(uid, officialID.name)#Calls function in utils.py
                     #print('stored to firebase')
                     default_storage.delete(officialID.name)#Deletes file from local storage
-                    
 
                     context= {'usuario': result, 'id': result['localId']}
                     return redirect('compras')
