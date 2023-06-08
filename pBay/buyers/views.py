@@ -125,7 +125,9 @@ def selctdirection(request):
             return JsonResponse({"response" :True})
         else:
             sesion = request.session['usuario']
-            switchMainDirection(selected_option, sesion)
+            boolean = request.POST.get('type')
+            if boolean == 'true':
+                switchMainDirection(selected_option, sesion)
             return JsonResponse({"response" :False})
         
 def selectlist(request):

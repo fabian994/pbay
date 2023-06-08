@@ -180,7 +180,8 @@
   
       // Objeto con los datos a enviar al backend
       var postData = {
-        selectedOption: selectedItem
+        selectedOption: selectedItem,
+        type: true
       };
       var csrfToken = getCookie('csrftoken');
   
@@ -220,7 +221,8 @@
   
       // Objeto con los datos a enviar al backend
       var postData = {
-        selectedOption: selectedItem
+        selectedOption: selectedItem,
+        type: false
       };
       var csrfToken = getCookie('csrftoken');
   
