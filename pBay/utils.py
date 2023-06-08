@@ -13,6 +13,7 @@ import datetime
 import random
 import datetime
 from django.http import HttpResponse
+from collections import Counter
 
 config = {
     "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
@@ -638,77 +639,138 @@ def getRecomendations():
     return(response)
 
 def getCart(user):
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').get()
-    documentos = subcoleccion
-    print(documentos)
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    print(snapshot)
     response = []
     subtotal = 0
     shipping_fee = 0
-    for doc in documentos:
-        print('ENTRA')
-        datos = doc.to_dict()
-        print(datos)
-        print('meow')
+    ocurrences = []
+    temp = 1
 
-        subtotal += datos['Price'] * datos['prodAmount']
-        shipping_fee += datos['shippingFee']
+    if snapshot.exists:
+        data_snapshot = snapshot.to_dict()
+        products = data_snapshot.get('items')
+        print('PRINT PRODUCTS')
+        print(products)
+
+        if products:
+
+            counts = dict(Counter(products))
+            duplicates = {key:value for key, value in counts.items() if value > 0}
+
+            print(duplicates)
+
+            for item in duplicates:
+
+                # Count how many times theres the same item in the shopping cart
+                #if i =
+                documento = db.collection('products').document(item).get()
+                datos = documento.to_dict()
+                #print(datos)
+
+                print('ENTRA')
+                
+                ruta_imagen = "products/"+item+"/"+datos['mainImg']
+                docId = item
+                bucket = st.bucket()
+                imagen_ref = bucket.blob(ruta_imagen)
+                expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                url_imagen = imagen_ref.generate_signed_url(expiration=int(
+                expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                # Enviar prodDesc
+                response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], url_imagen, docId, datos['shippingFee']])
+                print(response)
+            
+            
+            for item in response:
+                print('Entra items loop')
+                print(item[1])
+                # item[1] es precio
+                # item[2] es cantidad
+                # item[5] es costo de envio
+                subtotal += item[1]
+                shipping_fee += item[5]
+
+            total = subtotal + shipping_fee
+            print(total)
+            prices = [subtotal, shipping_fee, total]
+
+            print('entra final')
+            print(response)
+            print(prices)
+
+            return response, prices
         
-        ruta_imagen = "products/"+doc.id+"/"+datos['mainImg']
-        docId = doc.id
-        bucket = st.bucket()
-        imagen_ref = bucket.blob(ruta_imagen)
-        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-        url_imagen = imagen_ref.generate_signed_url(expiration=int(
-        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-        # Enviar prodDesc
-        response.append([datos['prodName'], datos['Price'] * datos['prodAmount'], datos['prodAmount'], url_imagen, docId])
-        print(response)
-    total = subtotal + shipping_fee
-    prices = [subtotal, shipping_fee, total]
-    return response, prices
+        else:
+            return 0, 0
 
 def delete_item(user, product_id):
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').document(product_id).delete()
-
+    print('ENTRA DELETE ITEM')
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
+    print(items)
+   # items.remove(product_id)
+    items = [i for i in items if i != product_id]
+    db.collection('cart').document(user["localId"]).update({"items": list(items)})
+    print(items)
+    
 def increase_item(user, product_id, amount):
-    amount += 1
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
+    items.append(product_id)
+    db.collection('cart').document(user["localId"]).update({"items": list(items)})
 
 def decrease_item(user, product_id, amount):
-    amount -= 1
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
+    items.remove(product_id)
+    db.collection('cart').document(user["localId"]).update({"items": list(items)})
+
 
 def process_transaction(user, prices):
-    print('********************ENTRA UTILS.PY***************************')
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').get()
-    documentos = subcoleccion
-    # transactionID, product(s) name, product(s) price, product(s) quantity, seller id, date, time, total price, total shipping fee, 
-        # total_tax, shipping_address, deliveryStatus
-    temp = 1
-    transaction = {}
-    transaction = {'userId' : user["localId"]}
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
 
-    for doc in documentos:
-        product = 'product' + str(temp)
-        datos = doc.to_dict()
-        datos.pop("mainImg")
-        transaction.update({product: datos})
-        temp += 1
+    if snapshot.exists:
+        data_snapshot = snapshot.to_dict()
+        products = data_snapshot.get('items')
+        print(products)
+        # transactionID, product(s) name, product(s) price, product(s) quantity, seller id, date, time, total price, total shipping fee, 
+            # total_tax, shipping_address, deliveryStatus
 
-    final_prices = {
-        "subtotal" : prices[0],
-        "tax_total" : 0,
-        "shippingFeeTotal" : prices[1],
-        "total" : prices[2]
-    }
-    
-    transaction.update(final_prices)
-    currenttime = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-    transaction.update({ 'datetime' : currenttime, 'deliveryStatus' : 'Awaiting Shipment'})
-    print(transaction)
-    db.collection('transactions').add(transaction)
+        if products:
+            
+            counts = dict(Counter(products))
+            duplicates = {key:value for key, value in counts.items() if value > 0}
+
+            print('Entra loop de transaccion')
+            for item in duplicates:
+                print('item:', item)
+                transaction = {}
+                transaction = {'buyerId' : user["localId"]}
+                documento = db.collection('products').document(item).get()
+                #product = 'id_product' + str(temp)
+                product = 'id_prod'
+                datos = documento.to_dict()
+                currenttime = datetime.datetime.now().strftime("%d/%m/%Y")
+                transaction.update({product: item,
+                                    'price': str(datos['Price']),
+                                    'quantity': str(duplicates[item]),
+                                    'saleType': str(datos['saleType']),
+                                    'seller_id': str(datos['seller_id']),
+                                    'shippingAddress': 'Mi casa', #editar en un momento
+                                    'shippingFee': str(datos['shippingFee'] * duplicates[item]),
+                                    'tran_date': str(currenttime),
+                                    'deliveryStatus' : 'En espera de envio'
+                                    })
+                print('PRINT TRANSACTION!!!!!!!!')
+                print(transaction)
+                db.collection('transactions').add(transaction)

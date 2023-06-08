@@ -5,6 +5,12 @@ from django.core.files.storage import default_storage
 
 # Create your views here.
 
+def empty_cart(request):
+    sesion = request.session['usuario']
+    if sesion == "NoExist":
+        return redirect('home')
+    else: return render(request, "empty_cart.html")
+
 def carrito(request):
     user = request.session.get("usuario")
 
@@ -12,12 +18,19 @@ def carrito(request):
         return redirect('home')
     
     response, prices = getCart(user)
-    context = {
-                "htmlinfo":  response,
-                "prices": prices
-              }
 
-    return render(request, "carrito.html", context)
+    if response == 0:
+        
+        return empty_cart(request)
+
+    else:
+
+        context = {
+                    "htmlinfo":  response,
+                    "prices": prices
+                  }
+
+        return render(request, "carrito.html", context)
 
 def delete_event(request, id):
     user = request.session.get("usuario")
