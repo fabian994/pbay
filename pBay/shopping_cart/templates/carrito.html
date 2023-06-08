@@ -77,11 +77,15 @@
                 <hr style="align-self: center; border: 1px">
                 <div class="total_container2" style="padding-left: 20px; ">
                   <h3> Total:</h3>
-                  <h3 style="text-align: end; padding-right: 20px;"> ${{prices.2}}0</h3>
+                  <h3 style="text-align: end; padding-right: 20px;"> ${{prices.2}}</h3>
                 </div>
                 <br>
                 <div style="padding-left: 24%;">
-                  <button class="button">Realizar Compra</button>
+                  <form action="{% url 'transaction' %}" method="POST">
+                    {% csrf_token %}
+                  <!--<a href="{% url 'transaction' %}">-->
+                    <button class="button" value="Click">Realizar Compra</button>
+                  </form>
                 </div>
                 <br>
               </div>
