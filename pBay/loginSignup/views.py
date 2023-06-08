@@ -89,6 +89,10 @@ def signUp(request):
                     ref = firestore_connection('users')
                     ref.document(uid).set(uData)
 
+                    createCart = firestore_connection('cart')
+                    emptyCart = {'items':[]}
+                    createCart.document(uid).set(emptyCart)
+
                     #Uploads file to fireabse
                     #print('attemp to upload img')
                     #print(request.FILES)
