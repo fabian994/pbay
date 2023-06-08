@@ -87,21 +87,22 @@ def infoUser(user):
 
 def infoProductoUser(user, action):
     nombre_coleccion = "transactions"
-    documentos = db.collection(nombre_coleccion).where('buyer_id', '==', user["localId"]).get()
+    documentos = db.collection(nombre_coleccion).where('buyerId', '==', user["localId"]).get()
     print( user["localId"])
     # Itera sobre los documentos
     response = []
     for documento in documentos:
         # Accede a los datos de cada documento
         datos = documento.to_dict()
-        print(datos)
 
         tipo = datos['saleType']
-        if bool(tipo):
+        
+        if tipo=='True':
             tipo = "Subasta"
         else:
             tipo = "Venta Directa"
-        if datos['buyer_id'] == user["localId"]:
+        
+        if datos['buyerId'] == user["localId"]:
             if action == 0:
                 # Hacer algo con los datos
                 coleccion_ref = db.collection('products')
@@ -150,7 +151,8 @@ def infoProductoUser(user, action):
                     response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],
                                     datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
                     print(datos['tran_date'])
-    response = sorted(response, key=lambda x: DatetimeWithNanoseconds.rfc3339(x[7]))
+    response = sorted(response, key=lambda x: datetime.datetime.strptime(x[7], '%d/%m/%Y'))
+
     return response
 
 def productFiltering(user, action):
