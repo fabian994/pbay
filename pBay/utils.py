@@ -173,7 +173,7 @@ def productFiltering(user, action):
                 url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 response.append([documento.id, tipo, datos['prodName'],
-                                datos['category'],  datos['pubDate'], url_imagen, datos['retireDate'], datos['Price'], datos['Stock'], datos['saleType']])
+                                datos['category'],  datos['pubDate'], url_imagen, datos['Price'], datos['Stock'], datos['saleType']])
             if action == 1:
                 if tipo == "Subasta":
                     coleccion_ref = db.collection('products')
