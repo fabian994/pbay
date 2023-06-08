@@ -54,36 +54,47 @@
                   </div>
                   <p class="lead">{{ item.1 }}</p>
                   <div class="fs-5 mb-5">
-                    <span style="color:green">En stock: {{ item.8 }}</span>
+                    {% if item.8 == 0 %}
+                      <span style="color: red">En stock: {{ item.8 }}</span>
+                    {% else %}
+                      <span style="color: green">En stock: {{ item.8 }}</span>
+                    {% endif %}
                   </div>
+                  
                 </div>
               </div>
               {% endfor %}
 
               <div class="containerIm" style="width:15%; float:left">
                 <div class="row">
-                  <button style="width:100%" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Agregar a Favoritos
+                  <button style="width: 100%" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Agregar a Favoritos
                   </button>
                   <form id="wish-form" method="POST">
-                      {% csrf_token %}
-                      <div class="dropdown-menu" style="width:15%; margin-left:0.5%;">
-                          <button class="dropdown-item" onclick="getDataW('{{infoDet.0.11}}', 'Wish')" type="button" name="wish">WishList</button>
-                          <button class="dropdown-item" onclick="createNewArray('{{infoDet.0.11}}')" type="button" name="new-array">Crear Nuevo</button>
-                      </div>
+                    {% csrf_token %}
+                    <div class="dropdown-menu" style="width: 15%; margin-left: 0.5%;" id="dropdown-menu">
+                      <button class="dropdown-item" onclick="getDataW('{{ infoDet.0.11 }}', 'Wish')" type="button" name="wish">WishList</button>
+                      <button class="dropdown-item" onclick="createNewArray('{{ infoDet.0.11 }}')" type="button" name="new-array">Crear Nuevo</button>
+                    </div>
                   </form>
                 </div>
-              
               
                 <br>
 
                 <div class="row">
-                  <button style="width:100%" onclick="getData('{{infoDet.0.11}}')"class="btn btn-primary details-button" type="button" name="item">
-                    <i class="bi-cart-fill me-1"></i>
+                  {% if infoDet.0.8 > 0 %}
+                    <button style="width: 100%" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
+                      <i class="bi-cart-fill me-1"></i>
                       Agregar al carrito
-                  </button>
-                  
-                </div>      
+                    </button>
+                  {% else %}
+                    <button style="width: 100%; display: none;" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
+                      <i class="bi-cart-fill me-1"></i>
+                      Agregar al carrito
+                    </button>
+                  {% endif %}
+                </div>
+                     
               </div>
 
             </div>
@@ -97,8 +108,6 @@
       </body>
     </html>
 {% endblock %}
-
-
 
 
 <script>
@@ -148,25 +157,33 @@
     });
 }
 
+
 function createNewArray(itemValue) {
-    var newArrayName = prompt("Ingrese el nombre para el nuevo arreglo");
-    if (newArrayName) {
-        $.ajax({
-            type: "POST",
-            url: "/createNewArray/",
-            data: {
-                "wish": itemValue,
-                "arrayName": newArrayName,
-                "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-                alert("Nuevo arreglo creado exitosamente: " + newArrayName);
-            },
-            error: function () {
-                alert("Ha ocurrido un error, intentalo en unos minutos");
-            }
-        });
-    }
+  var newArrayName = prompt("Ingrese el nombre para el nuevo arreglo");
+  if (newArrayName) {
+    $.ajax({
+      type: "POST",
+      url: "/createNewArray/",
+      data: {
+        "wish": itemValue,
+        "arrayName": newArrayName,
+        "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function(data) {
+        alert("Nuevo arreglo creado exitosamente: " + newArrayName);
+
+        // Update the dropdown menu with the new list
+        var dropdownMenu = document.getElementById("dropdown-menu");
+        var newButton = document.createElement("button");
+        newButton.className = "dropdown-item";
+        newButton.innerHTML = newArrayName;
+        dropdownMenu.insertBefore(newButton, dropdownMenu.firstChild);
+      },
+      error: function() {
+        alert("Ha ocurrido un error, intentalo en unos minutos");
+      }
+    });
+  }
 }
+
 </script>
-  
