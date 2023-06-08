@@ -9,17 +9,17 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Login</title>
+      <title>Mis productos</title>
       <link rel="stylesheet" href="{% static 'styles/products.css' %}" />
     </head>
     <body>
        <div class="toggle-view-bar">
-            <div onclick="" class="view-bar">
-                <h2>Mis Productos</h2>
-            </div>
-            <div onclick="" class="view-bar">
+            <a class="view-bar" href="{% url 'productos' %}">
+                 <h2>Mis Productos</h2>
+            </a>
+            <a class="view-bar" href="{% url 'historial_ventas' %}">
                 <h2>Mis Ventas</h2>
-            </div>
+           </a>
        </div>
         <div class="container">
             <div class="filter-bar">
@@ -33,7 +33,6 @@
                 <a href="{% url 'add_product' %}"><button type="button" style="padding:5px;" > Agregar un producto</button></a>
             </div>
             {% for item in htmlinfo %}
-                {% if  %}
                 <div class="mosaic-parent">
                     <div class="mosaic-child">
                         <img class="product-image" src="{{item.5}}" >
@@ -57,7 +56,6 @@
                         <a href="{% url 'detalles_producto' %}"><button class="product-button" type="button"> Ver detalles</button></a>
                     </section>
                 </div>
-                {% endif  %}
             {% endfor %}
        </div>
 

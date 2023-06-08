@@ -4,11 +4,17 @@
     align-items: center;
 }
 .view-bar{
+    text-decoration: none;
+    color:black;
     text-align: center;
     width: 50%;
     border-style: solid;
     border-width: 2px;
     padding: 5px;
+}
+.view-bar:hover{
+    text-decoration: none;
+    color:black;
 }
 .product-image{
     /*background-color: red;*/
@@ -16,17 +22,18 @@
     height: 100%;
 }
 .container{
-    /*background-color: yellow;*/
+    background-color: yellow;
     margin-top: 25px;
     display: grid;
     justify-items: center;
+    width: 100%;
 }
 .mosaic-parent{
     /*background-color: bisque;*/
     display: flex;
     flex-direction: column;
     align-items: end;
-    width: 80%;
+    width: 100%;
     padding: 10px;
     margin: 10px;
     border-style: solid;
