@@ -699,6 +699,15 @@ def getCart(user):
     prices = [subtotal, shipping_fee, total]
     return response, prices
 
+def addWish(product, user, array_name):
+    documento_ref = db.collection('wishList').document(user["localId"]).get()
+    data = documento_ref.to_dict()
+    addC = data.get(array_name, [])  
+    addC.append(product)
+    data[array_name] = addC
+    db.collection('wishList').document(user["localId"]).set(data)
+    return True
+
 def delete_item(user, product_id):
     documentopadre = db.collection('cart').document(user["localId"])
     subcoleccion = documentopadre.collection('cartProducts').document(product_id).delete()
