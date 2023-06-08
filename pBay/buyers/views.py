@@ -5,7 +5,7 @@ from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
 from django.http import HttpResponse
-
+import random
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -67,17 +67,20 @@ def compras(request):
     context = {'products': getRecomendations()}
 
     db = firestore.client()
-    datos_firestore = db.collection('products').get()
+    datos_firestore = db.collection('products').where('PromoStatus', '==', True).get()
+    datos_firestore = db.collection('products').where('PromoStatus', '==', 'true').get()
+    try:
+        doc_list = [doc for doc in datos_firestore]
+        random_docs = random.sample(doc_list, 10)
+    except: 
+        random_docs = datos_firestore
 
     textos_unicos = set()
 
-    for doc in datos_firestore:
-        texto = doc.to_dict().get('category')
-        texto2 = doc.to_dict().get('Brand')
+    for doc in random_docs:
+        print("Agrege texto")
         texto3 = doc.to_dict().get('prodName')
-        if (texto and texto2 and texto3) :
-            textos_unicos.add(texto)
-            textos_unicos.add(texto2)
+        if (texto3) :
             textos_unicos.add(texto3)
 
 

@@ -80,6 +80,7 @@ def infoUser(user):
 def infoProductoUser(user, action):
     nombre_coleccion = "transactions"
     documentos = db.collection(nombre_coleccion).where('buyer_id', '==', user["localId"]).get()
+    print( user["localId"])
     # Itera sobre los documentos
     response = []
     for documento in documentos:
@@ -96,11 +97,11 @@ def infoProductoUser(user, action):
             if action == 0:
                 # Hacer algo con los datos
                 coleccion_ref = db.collection('products')
-                document_id = documento.id
-                documento = coleccion_ref.document(document_id).get()
-                datosimg = documento.to_dict()
+                document_id = datos['id_prod']
+                documento2 = coleccion_ref.document(document_id).get()
+                datosimg = documento2.to_dict()
                 ruta_imagen = "products/" + \
-                    documento.id+"/"+datosimg['mainImg']
+                    documento2.id+"/"+datosimg['mainImg']
                 bucket = st.bucket()
                 imagen_ref = bucket.blob(ruta_imagen)
                 expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
@@ -108,29 +109,15 @@ def infoProductoUser(user, action):
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],
                                 datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
+                print(datos['tran_date'])
             if action == 1:
                 if tipo == "Subasta":
                     coleccion_ref = db.collection('products')
-                    document_id = documento.id
-                    documento = coleccion_ref.document(document_id).get()
-                    datosimg = documento.to_dict()
+                    document_id = datos['id_prod']
+                    documento2 = coleccion_ref.document(document_id).get()
+                    datosimg = documento2.to_dict()
                     ruta_imagen = "products/" + \
-                        documento.id+"/"+datosimg['mainImg']
-                    bucket = st.bucket()
-                    imagen_ref = bucket.blob(ruta_imagen)
-                    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-                    url_imagen = imagen_ref.generate_signed_url(expiration=int(
-                        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],
-                                    datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
-            if action == 2:
-                if tipo == "Venta Directa":
-                    coleccion_ref = db.collection('products')
-                    document_id = documento.id
-                    documento = coleccion_ref.document(document_id).get()
-                    datosimg = documento.to_dict()
-                    ruta_imagen = "products/" + \
-                        documento.id +"/"+datosimg['mainImg']
+                        documento2.id+"/"+datosimg['mainImg']
                     bucket = st.bucket()
                     imagen_ref = bucket.blob(ruta_imagen)
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
@@ -139,7 +126,24 @@ def infoProductoUser(user, action):
                     response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],
                                     datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
                     print(datos['tran_date'])
-    response = sorted(response, key=lambda x: x[7].to_datetime().strftime('%d/%m/%Y'))
+            if action == 2:
+                if tipo == "Venta Directa":
+                    coleccion_ref = db.collection('products')
+                    document_id = datos['id_prod']
+                    documento2 = coleccion_ref.document(document_id).get()
+                    datosimg = documento2.to_dict()
+                    ruta_imagen = "products/" + \
+                        documento2.id +"/"+datosimg['mainImg']
+                    bucket = st.bucket()
+                    imagen_ref = bucket.blob(ruta_imagen)
+                    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                    url_imagen = imagen_ref.generate_signed_url(expiration=int(
+                        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                    response.append([documento.id, tipo,  datos['price'], datos['shippingFee'],
+                                    datos['deliveryStatus'],  datos['shippingAddress'], url_imagen, datos['tran_date']])
+                    print(datos['tran_date'])
+    
+    #response = sorted(response, key=lambda x: x[7].to_datetime().strftime('%d/%m/%Y'))
 
 
     return response
@@ -407,7 +411,7 @@ def sells_history(uid):
         sell['prod_name'] = prod['prodName']
         sell['prod_img'] = refUrl
         sell['tipo'] = prod['saleType']
-        sell['cancelled'] = prod['AuctionCancelled']
+        sell['cancelled'] = prod.get('AuctionCancelled')
         sells.append(sell)
     return sells
 
@@ -622,8 +626,11 @@ def addCart(product, user):
 def getRecomendations():
     docs = db.collection('products').where('PromoStatus', '==', "true").get()
     docs = docs + db.collection('products').where('PromoStatus', '==', True).get()
-    doc_list = [doc for doc in docs]
-    random_docs = random.sample(doc_list, 7)
+    try:
+        doc_list = [doc for doc in docs]
+        random_docs = random.sample(doc_list, 10)
+    except: 
+        random_docs = docs
     response =[]
     for doc in random_docs:
         data = doc.to_dict()
@@ -633,7 +640,7 @@ def getRecomendations():
         expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
         url_imagen = imagen_ref.generate_signed_url(expiration=int(
             expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-        response.append([data['prodName'], url_imagen, doc.id])
+        response.append([data['prodName'], url_imagen, doc.id, str(data['saleType'])])
     return(response)
 
 def getCart(user):
