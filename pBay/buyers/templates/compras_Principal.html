@@ -19,17 +19,14 @@
             <img src='\static\assets\compras.png' class="img-fluid Top" alt="...">
         </div>
         
+        
         <div class="productos">
-
             <div class="banner">
                 <h3>Esto te puede interesar</h3>
             </div>
-
             <div class="img-container">
-
-                
                 <ul class="header-productos">
-                    {% for item in products %}
+                    {% for item in products|slice:":30" %}
                     <li>
                         {% if item.3 == "True" %}
                         <a class="hipervinculos" href="{% url 'auction' %}?id={{ item.2 }}">
@@ -46,11 +43,9 @@
                         </a>
                     </li>
                     {% endfor %}  
-
                 </ul>
             </div>
-
-        </div>
+        </div>        
         
     </body>
 
