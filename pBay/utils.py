@@ -164,6 +164,8 @@ def productFiltering(user, action):
     for documento in documentos:
         # Accede a los datos de cada documento
         datos = documento.to_dict()
+        if datos.get('Delete') != None:
+            continue
         tipo = datos['saleType']
         if bool(tipo):
             tipo = "Subasta"
@@ -206,8 +208,6 @@ def productFiltering(user, action):
                     document_id = documento.id
                     documento = coleccion_ref.document(document_id).get()
                     datosimg = documento.to_dict()
-                    if data.get('Delete') != None:
-                        continue
                     ruta_imagen = "products/" + \
                     documento.id + "/" + datosimg['mainImg']
                     bucket = st.bucket()
@@ -223,9 +223,6 @@ def productFiltering(user, action):
                     document_id = documento.id
                     documento = coleccion_ref.document(document_id).get()
                     datosimg = documento.to_dict()
-                    if data.get('Delete') != None:
-                        continue
-                    
                     ruta_imagen = "products/" + \
                     documento.id + "/" + datosimg['mainImg']
                     bucket = st.bucket()
@@ -269,8 +266,10 @@ def productList(user):
     return response
 
 def deleteVenta(idDoc):
-    db.collection('products').document(idDoc).delete()
-
+    reslut = db.collection('products').document(idDoc).update({
+        'AuctionCancelled': True,
+        'promoStatus': False
+    })
 
 def infoventas(user, action):
     nombre_coleccion = "products"
@@ -479,7 +478,8 @@ def searchCat(category,subcategory,subcategory2):
     response = []
     for doc in docs:
         data = doc.to_dict()
-        print(data)
+        if data.get('Delete') != None:
+            continue
         ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
@@ -501,10 +501,13 @@ def searchList(document, user):
     array = []
     for i in data[document]:
         array.append(i)
+    array = list(set(array)) 
     response = []
     for i in array:
         docitem = db.collection('products').document(i).get()
         dataitem = docitem.to_dict()
+        if dataitem.get('Delete') != None:
+            continue
         ruta_imagen = "products/"+docitem.id+"/"+dataitem['mainImg']
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
@@ -534,6 +537,8 @@ def search(keyword):
     for i in array:
         doc = db.collection('products').document(i).get()
         data = doc.to_dict()
+        if data.get('Delete') != None:
+            continue
         ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
@@ -683,6 +688,8 @@ def getRecomendations():
     response =[]
     for doc in random_docs:
         data = doc.to_dict()
+        if data.get('Delete') != None:   
+            continue
         ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imagen_ref = bucket.blob(ruta_imagen)
