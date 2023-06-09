@@ -206,6 +206,8 @@ def productFiltering(user, action):
                     document_id = documento.id
                     documento = coleccion_ref.document(document_id).get()
                     datosimg = documento.to_dict()
+                    if data.get('Delete') != None:
+                        continue
                     ruta_imagen = "products/" + \
                     documento.id + "/" + datosimg['mainImg']
                     bucket = st.bucket()
@@ -221,6 +223,9 @@ def productFiltering(user, action):
                     document_id = documento.id
                     documento = coleccion_ref.document(document_id).get()
                     datosimg = documento.to_dict()
+                    if data.get('Delete') != None:
+                        continue
+                    
                     ruta_imagen = "products/" + \
                     documento.id + "/" + datosimg['mainImg']
                     bucket = st.bucket()

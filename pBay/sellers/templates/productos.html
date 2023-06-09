@@ -35,20 +35,20 @@
             {% for item in htmlinfo %}
                 <div class="mosaic-parent">
                     <div class="mosaic-child">
-                        <img class="product-image" src="{{item.5}}" >
+                        <img class="product-image" src="{{item.10}}" >
                         <section class="info">
-                            <h4>Producto: {{item.2}}</h4>
-                            <h5>Categoria: {{item.3}}</h5>
-                            <h6>Disponibilidad: {{item.4}} - {{item.6}} </h6>
+                            <h4>Producto: {{item.1}}</h4>
+                            <h5>Categoria: {{item.2}}</h5>
+                            <h6>Disponibilidad: {{item.0}} - {{item.13}} </h6>
                         </section>
                         <section class="details">
-                            {% if item.9 %}
-                            <h5>Tipo: Subasta</h5>
-                            {% else %}
+                            {% if item.7 == 'Venta Directa' %}
                             <h5>Tipo: Venta</h5>
+                            {% else %}
+                            <h5>Tipo: Subasta</h5>
                             {% endif %}
-                            <h5>Precio: {{item.7}}</h5>
-                            <h5>Inventario: {{item.8}}</h5>
+                            <h5>Precio: ${{item.8}}</h5>
+                            <h5>Inventario: {{item.9}}</h5>
                         </section>
                     </div>
                     <section class="button-section">
