@@ -503,16 +503,34 @@ def modify_product(request,prod_id):
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
             
-            data['condition'] = boolValidator(data['condition'])
-            data['promote'] = boolValidator(data['promote'])
+            if data['condition'] == 'false': data['condition'] = False
+            else: data['condition'] = True
 
-            prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
+            if data['promote'] == 'false': data['promote'] = False
+            else: data['promote'] = True
+
+
+            prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
             
+            
             ref = firestore_connection("products").document(prod_id)
             ref.update(prodData)
+
+            
+            print('obj id: ', prod_id)
+            # print('img: ',prodImgs)
+            for img in prodImgs:
+                #print('img: ',prodImgs[img])
+                #print('name img: ',prodImgs[img].name)
+                file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
+                #print('saved img')
+                #print(officialID.name)
+                storeProductImages(prod_id, prodImgs[img].name)#Calls function in utils.py
+                #print('stored to firebase')
+                default_storage.delete(prodImgs[img].name)#Deletes file from local storage
             
             saleType = product['saleType']
             
