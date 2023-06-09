@@ -508,7 +508,6 @@ def modify_product(request,prod_id):
             else: data['condition'] = True
             if data['promote'] == 'false': data['promote'] = False
             else: data['promote'] = True
-
             if data['vendType'] == 'false': data['vendType'] = False
             else: data['vendType'] = True
 
@@ -520,6 +519,19 @@ def modify_product(request,prod_id):
             print(saleType)
             ref = firestore_connection("products").document(prod_id)
             ref.update(prodData)
+
+            
+            print('obj id: ', prod_id)
+            # print('img: ',prodImgs)
+            for img in prodImgs:
+                #print('img: ',prodImgs[img])
+                #print('name img: ',prodImgs[img].name)
+                file_save = default_storage.save(prodImgs[img].name, prodImgs[img])#Saves file to local storage with default_storage
+                #print('saved img')
+                #print(officialID.name)
+                storeProductImages(prod_id, prodImgs[img].name)#Calls function in utils.py
+                #print('stored to firebase')
+                default_storage.delete(prodImgs[img].name)#Deletes file from local storage
             
             saleType = product['saleType']
             
