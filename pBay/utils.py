@@ -96,7 +96,7 @@ def infoUser(user):
 
 def infoProductoUser(user, action):
     nombre_coleccion = "transactions"
-    documentos = db.collection(nombre_coleccion).where('buyer_id', '==', user["localId"]).get()
+    documentos = db.collection(nombre_coleccion).where('buyerId', '==', user["localId"]).get()
     print( user["localId"])
     # Itera sobre los documentos
     response = []
@@ -106,11 +106,12 @@ def infoProductoUser(user, action):
         print(datos)
 
         tipo = datos['saleType']
-        if bool(tipo):
+        print(tipo)
+        if tipo=="True":
             tipo = "Subasta"
         else:
             tipo = "Venta Directa"
-        if datos['buyer_id'] == user["localId"]:
+        if datos['buyerId'] == user["localId"]:
             if action == 0:
                 # Hacer algo con los datos
                 coleccion_ref = db.collection('products')
