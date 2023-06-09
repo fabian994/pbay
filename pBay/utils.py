@@ -631,7 +631,7 @@ def getRecomendations():
     response =[]
     for doc in random_docs:
         data = doc.to_dict()
-        if data.get('Delete') != None:
+        if data.get('Delete') != None or data.get('listStatus') == False:
             continue
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
