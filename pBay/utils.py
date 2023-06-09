@@ -584,7 +584,9 @@ def PayDetails(uid):
     colecciones = db.collection('transactions').where(
         'seller_id', '==', uid).get()
     for coleccion in colecciones:
-        # Obtener el año de la colección
+        # Obtener el año de la coleccións = getCart(user)
+
+ 
         anio = coleccion.id
         datos[anio] = {
             'total_pagos': 0,
@@ -668,33 +670,33 @@ def getRecomendations():
             expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         response.append([data['prodName'], url_imagen, doc.id, str(data['saleType'])])
     
-    docs = db.collection('transactions').get() 
-    products_array = []
-    for doc in docs:
-        data = doc.to_dict()
-        products_array.append(data['id_prod']) 
-    frequencies = Counter(products_array)
-    sorted_items = sorted(frequencies.items(), key=lambda x: x[1], reverse=True)
-    result = [item for item, _ in sorted_items]
-    try:
-        result = result[0:10]
-    except:
-        pass
-    print(result)
-    for i in result:
-        doc = db.collection('products').document(i).get()
-        data = doc.to_dict()
-        if data.get('Delete') != None:   
-            continue
-        ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
-        bucket = st.bucket()
-        imagen_ref = bucket.blob(ruta_imagen)
-        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-        url_imagen = imagen_ref.generate_signed_url(expiration=int(
-            expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-        response.append([data['prodName'], url_imagen, doc.id, str(data['saleType'])])
+    # docs = db.collection('transactions').get() 
+    # products_array = []
+    # for doc in docs:
+    #     data = doc.to_dict()
+    #     products_array.append(data['id_prod']) 
+    # frequencies = Counter(products_array)
+    # sorted_items = sorted(frequencies.items(), key=lambda x: x[1], reverse=True)
+    # result = [item for item, _ in sorted_items]
+    # try:
+    #     result = result[0:10]
+    # except:
+    #     pass
+    # print(result)
+    # for i in result:
+    #     doc = db.collection('products').document(i).get()
+    #     data = doc.to_dict()
+    #     if data.get('Delete') != None:   
+    #         continue
+    #     ruta_imagen = "products/"+doc.id+"/"+data['mainImg']
+    #     bucket = st.bucket()
+    #     imagen_ref = bucket.blob(ruta_imagen)
+    #     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    #     url_imagen = imagen_ref.generate_signed_url(expiration=int(
+    #         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+    #     response.append([data['prodName'], url_imagen, doc.id, str(data['saleType'])])
     
-    print(result)
+    print(response)
         
     
     
