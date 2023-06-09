@@ -359,7 +359,7 @@ def infoProductos(id):
         response.append([
             datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
             datos['Model'], condition, tipo, datos['pubDate'],
-            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']
+            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd'], url_imagen2
         ])
 
     return response
@@ -752,7 +752,6 @@ def getCart(user):
                 expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 # Enviar prodDesc
                 response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], url_imagen, docId, datos['shippingFee']])
-                response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], url_imagen, docId, datos['shippingFee'], datos['prodDesc'], datos['Stock'], datos['saleType']])
                 print(response)
             
             
