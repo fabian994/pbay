@@ -9,6 +9,8 @@ import random
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import pytz
+from datetime import datetime, timedelta
 
 
 # Create your views here.
@@ -71,17 +73,25 @@ def auction(request):
             data = bid_Form.cleaned_data
             print(data)
             if data['newBid'] > response[0][11]:
-                auctData = {'bid': data['newBid'], 'cBidder_id': user['localId']}
+                dateToday = datetime.now() + timedelta(days=0)
+                dateToday = dateToday.replace(tzinfo=pytz.UTC)
+                print('today ', dateToday)
+                print('aucten, ', response[0][12])
+                if dateToday < response[0][12]:
+                    auctData = {'bid': data['newBid'], 'cBidder_id': user['localId']}
 
-                ref = firestore_connection("liveAuctions").document(id)
-                ref.update(auctData)
+                    ref = firestore_connection("liveAuctions").document(id)
+                    ref.update(auctData)
+                else:
+                    messages.error(request, "Oferta fuera de tiempo")
 
     print('response----')
     print(response[0])
     print(response[0][11])
+    print('dateend ',response[0][12])
     ref = firestore_connection("liveAuctions").document(id).get()
     cbid = ref.to_dict().get('bid')
-    print(cbid)
+    #print(cbid)
     context = {"infoDet":response, 'bidForm': bid_Form, 'cBid':cbid}
     return render(request, "Auction_Details.html", context)
 

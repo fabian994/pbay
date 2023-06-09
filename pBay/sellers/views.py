@@ -268,6 +268,9 @@ def add_product(request):
 
 def add_productDirSale(request, prod_id):
     print(prod_id)
+    prod = firestore_connection("products").document(prod_id).get()
+    product = prod.to_dict()
+    print(product)
     print('out post')
     if request.method == "POST":
         prod = firestore_connection("products").document(prod_id).get()
@@ -307,7 +310,7 @@ def add_productDirSale(request, prod_id):
                     }
                     ref = firestore_connection("products").document(prod_id)
                     ref.update(prod_data)
-                    return redirect("compras")
+                    return redirect("promo_payment")
             else:
                 dir_saleForm = productDirectSale()
                 promo_form = productPromote()
@@ -350,6 +353,15 @@ def add_productDirSale(request, prod_id):
             
         else:
             return render(request, "add_product_directSale.html", context)
+    dir_saleForm = productDirectSale()
+    promo_form = productPromote()
+    context = {
+        "title": "Registro producto",
+        "form_sale": dir_saleForm,
+        "form_promo": promo_form,
+        "prod": product,
+    }
+    return render(request, "add_product_directSale.html", context)
 
 
     prod = firestore_connection("products").document(prod_id).get()
@@ -415,7 +427,7 @@ def add_product_Auction(request, prod_id):
                             'cBidder_id':'', 'auctionDateEnd': data['duration']}
                 refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
                 #liveAuct = firestore_connection
-                return redirect("compras")
+                return redirect("promo_payment")
             else:
                 auctionForm = productAuction()
                 promo_form = productPromote()
@@ -460,7 +472,22 @@ def add_product_Auction(request, prod_id):
     }
     return render(request, "add_product_Auction.html", context)
 
-
+def promo_payment(request):
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
+    if request.method == "POST":
+        promoForm = promoPayment(request.POST)
+        if promoForm.is_valid():
+            return redirect("compras")
+        else:
+            return render(request, "promo_payment.html",context)
+    form = promoPayment()
+    context = {
+        "title": "Pago de promocion",
+        "form":  form,
+    }
+    return render(request, "promo_payment.html",context)
 
 
 def modify_product(request,prod_id):

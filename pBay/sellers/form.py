@@ -596,3 +596,15 @@ class productPromote(forms.Form):
                                                     "class": "form-control",
                                                 },
                                         ))
+
+class promoPayment(forms.Form):
+    pay = forms.IntegerField(    max_value=999999,
+                                        required = True, 
+                                        label = "Pago de promoción",
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))

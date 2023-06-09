@@ -47,7 +47,10 @@ def delete_event(request, id):
     if user == "NoExist" or user == None:
         return redirect('home')
     
-    delete_item(user, id)
+    delEvent = delete_item(user, id)
+    print(delEvent)
+    if delEvent == 0:
+        messages.error(request, "Debes de esperar a que el vendedor acepta tu solicitud de cancelacion.")
     
     return carrito(request)
 
