@@ -443,13 +443,17 @@ def add_product_Auction(request, prod_id):
     return render(request, "add_product_Auction.html", context)
 
 def modify_product(request,prod_id):
+    print("Enter modify product : ",prod_id)
+    #prod_id="Fd0Tjz7UX2Sq58HT3pwS"
     prod = firestore_connection("products").document(prod_id).get()
+    print(prod)
+    print(request)
     product = prod.to_dict()
     user = request.session.get("usuario")
     if user == "NoExist" or user == None:
         return redirect('home')
     if request.method == "POST":
-        reg_form = productCreate(request.POST, request.FILES)
+        reg_form = productModify(request.POST, request.FILES)
         context = {
             "title": "Registro producto",
             "form": reg_form
@@ -475,30 +479,34 @@ def modify_product(request,prod_id):
 
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
-            if data['vendType'] == "true":
-                data['vendType'] = True
-            elif data['vendType'] == "false":
-                data['vendType'] = False
 
             prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': bool(data['vendType']),
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
-            saleType = data['vendType']
             
             ref = firestore_connection("products").document(prod_id)
             ref.update(prodData)
+            
+            saleType = product['saleType']
+            
+            if saleType == False:
+                print('to redirect')
+                return redirect('add_direct_sale_prod', prod_id = prod_id)
+            elif saleType == True:
+                print('to redirect')
+                return redirect('add_prod_auctions', prod_id = prod_id)
         else:
             print(reg_form.errors)
-            return render(request, "add_product.html", context)
+            return render(request, "modify_product.html", context)
     
     print('mo post')
-    reg_form = productCreate()
+    reg_form = productModify()
     context = {
         "title": "Registro producto",
         "form": reg_form
     }
-    return render(request, "add_product.html", context)
+    return render(request, "modify_product.html", context)
     
 
 def load_subcategories1(request):

@@ -53,6 +53,7 @@
                     <input class="button red" type="submit" value="Elimiar"/>
                 </form>
                 <div class="button blue"> Modificar</div>
+                <button onclick="delete_sheet('{{ item.11 }}')" class="btn btn-danger delete_button">Modificar</button>
             </div>            
 
           </div>
@@ -78,6 +79,13 @@
 
           console.log("Entra: " + id);
       }
+    </script>
+
+    <script>
+      function delete_sheet(prod_id){
+        confirm("¿Estás seguro de que deseas eliminar esta boleta electoral?")
+        document.location.href = "{% url 'modify_product' prod_id='tmp' %}".replace('tmp', prod_id)
+    }
     </script>
     
 {% endblock %}
