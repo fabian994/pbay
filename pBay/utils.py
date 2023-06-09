@@ -644,7 +644,7 @@ def getRecomendations():
     docs = docs + db.collection('products').where('PromoStatus', '==', True).get()
     try:
         doc_list = [doc for doc in docs]
-        random_docs = random.sample(doc_list, 30)
+        random_docs = random.sample(doc_list, 20)
     except: 
         random_docs = docs
     response =[]
