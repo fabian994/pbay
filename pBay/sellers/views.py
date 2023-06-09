@@ -268,6 +268,9 @@ def add_product(request):
 
 def add_productDirSale(request, prod_id):
     print(prod_id)
+    prod = firestore_connection("products").document(prod_id).get()
+    product = prod.to_dict()
+    print(product)
     print('out post')
     if request.method == "POST":
         prod = firestore_connection("products").document(prod_id).get()
@@ -350,6 +353,15 @@ def add_productDirSale(request, prod_id):
             
         else:
             return render(request, "add_product_directSale.html", context)
+    dir_saleForm = productDirectSale()
+    promo_form = productPromote()
+    context = {
+        "title": "Registro producto",
+        "form_sale": dir_saleForm,
+        "form_promo": promo_form,
+        "prod": product,
+    }
+    return render(request, "add_product_directSale.html", context)
 
 
     prod = firestore_connection("products").document(prod_id).get()

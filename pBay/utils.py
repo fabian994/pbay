@@ -11,9 +11,9 @@ from firebase_admin import storage as st
 #Import general librarys 
 from collections import Counter
 import firebase
-import datetime
 import random
-import datetime
+import pytz
+from datetime import datetime, timedelta
 
 # Import library to comunicate whith frontend
 from django.http import HttpResponse
@@ -198,11 +198,12 @@ def productFiltering(user, action):
         # We search and take the product image and append the data to the response    
         imagePath = "products/"+document.id+"/"+data['mainImg']
         docId = document.id
+        print(docId)
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
-        expiration.timestamp()))      
+        expiration.timestamp()))      #
         # If no there a filter we append every document to the response    
         if action == 0:
             # We evaluate in what way we return the results according its saleType
@@ -266,7 +267,7 @@ def infoventas(user, id):
     docId = document.id
     bucket = st.bucket()
     imageRef = bucket.blob(imagePath)
-    expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    expiration = datetime.now() + timedelta(minutes=5)
     urlImage = imageRef.generate_signed_url(expiration=int(
     expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
     
@@ -677,13 +678,33 @@ def getCart(user):
     response = []
     subtotal = 0
     shipping_fee = 0
+    auctBidder = db.collection('liveAuctions').where('cBidder_id', '==', user["localId"]).get()
+    auctWins = []
+    print('PRINT BIDS')
+        
+    for bid in auctBidder:
+        bidWin = bid.to_dict()
+        print(bidWin)
+        dateToday = datetime.now() + timedelta(days=0)
+        dateToday = dateToday.replace(tzinfo=pytz.UTC)
+        auctDateEnd = bidWin['auctionDateEnd']
+        if dateToday > auctDateEnd:
+            auctWins.append(bid.id)
+            db.collection('products').document(bid.id).update({'listStatus': True})
 
+    print(auctWins)
     if snapshot.exists:
         print('*********ENTRA SNAPSHOT')
         data_snapshot = snapshot.to_dict()
         products = data_snapshot.get('items')
+        #products.update(auctWins)
         print('PRINT PRODUCTS')
+        print(type(products))
+        products = products + auctWins
         print(products)
+        
+        
+        
 
         if products:
             print('*********ENTRA PRODUCTOS')
@@ -699,7 +720,7 @@ def getCart(user):
                 #if i =
                 documento = db.collection('products').document(item).get()
                 datos = documento.to_dict()
-                #print(datos)
+                print(datos)
 
                 print('ENTRA')
                 
@@ -707,11 +728,16 @@ def getCart(user):
                 docId = item
                 bucket = st.bucket()
                 imageRef = bucket.blob(imagePath)
-                expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                expiration = datetime.now() + timedelta(minutes=5)
                 urlImage = imageRef.generate_signed_url(expiration=int(
                 expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 # Enviar prodDesc
-                response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], urlImage, docId, datos['shippingFee']])
+                if datos['saleType'] == False:
+                    response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], urlImage, docId, datos['shippingFee'], datos['saleType']])
+                else:
+                    auct = db.collection('liveAuctions').document(item).get()
+                    auct = auct.to_dict()
+                    response.append([datos['prodName'], auct['bid'] * duplicates[item], duplicates[item], urlImage, docId, datos['shippingFee'], datos['saleType']])
                 print(response)
             
             
