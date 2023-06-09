@@ -44,7 +44,16 @@
                             <td class="col-4">Fecha de nacimiento:</td>
                             <td class="col-8">{{info.3}}</td>
                           </tr>
+                          <tr>
+                            <td>
+                              <a href="{% url 'compras' %}" role="button">Volver a compras</a>
+                            </td>
+                            <td>
+                              <a href="{% url 'updateInfo' %}" role="button">Actualizar mi información</a>
+                            </td>
+                          </tr>
                         </tbody>
+                        
                       </table>
                 </div>
             </div>
