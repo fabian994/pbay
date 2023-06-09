@@ -883,7 +883,7 @@ def process_transaction(user, prices):
 
                 currenttime = datetime.datetime.now().strftime("%d/%m/%Y")
                 transaction.update({product: item,                           # Generar transaccion
-                                    'price': str(datos['Price']),
+                                    'price': str(datos['Price']* duplicates[item]),
                                     'quantity': str(duplicates[item]),
                                     'saleType': str(datos['saleType']),
                                     'seller_id': str(datos['seller_id']),
