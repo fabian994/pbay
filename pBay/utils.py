@@ -795,6 +795,10 @@ def getCart(user):
         else:
             print('NO HAY ELEMENTOS')
             return 0, 0, 0
+        
+    else:
+        print('NO HAY ELEMENTOS')
+        return 0, 0, 0
 
 def addWish(product, user, array_name):
     documento_ref = db.collection('wishList').document(user["localId"]).get()
