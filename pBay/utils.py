@@ -426,7 +426,7 @@ def payment_detail_by_month(uid, month, year):
 
         payment['id'] = doc.id
         payment['product'] = prod['prodName']
-        payment['comission'] = payment['shippingFee']
+        payment['comission'] = float(payment['price'])*.02
 
         result.append(payment)
 
@@ -605,36 +605,37 @@ def addLista(user, direction):
 
 
 def PayDetails(uid):
-    datos = {}
     # Obtener todas las colecciones de la base de datos
+    days = {1:"Enero", 2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"agosto",9:"Septiembre",10:"Octubre",11:"Noviembre",12:"Diciembre",}
     colecciones = db.collection('transactions').where(
         'seller_id', '==', uid).get()
+    dictionary={}
+    years = []
     for coleccion in colecciones:
-        # Obtener el año de la coleccións = getCart(user)
-
- 
-        anio = coleccion.id
-        datos[anio] = {
-            'total_pagos': 0,
-            'estatus': {}
-        }
-
-        # Obtener documentos de la colección
-        documentos = coleccion.get()
-        for documento in documentos:
-            # Obtener el estado y el pago del documento
-            estado = documento.get('deliveryStatus')
-            pago = documento.get('price')
-
-            # Actualizar el estado y el total de pagos
-            if estado not in datos[anio]['estatus']:
-                datos[anio]['estatus'][estado] = 1
-            else:
-                datos[anio]['estatus'][estado] += 1
-
-            datos[anio]['total_pagos'] += pago
-
-    return datos
+        data = coleccion.to_dict()
+        date = data['tran_date']
+        fecha = datetime.datetime.strptime(date, '%d/%m/%Y')
+        years.append(fecha.year)
+        if dictionary.get(fecha.year)==None:
+            dictionary[fecha.year]={1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
+            dictionary[fecha.year][fecha.month]= float(data['price'])*.98
+        else:
+            dictionary[fecha.year][fecha.month]= dictionary[fecha.year][fecha.month]+ float(data['price'])*.98
+    setyears =  list(set(years))
+    years = sorted(setyears, reverse=True)
+    array=[]
+    for i in years:
+        for j in range(12, 0, -1):
+            if dictionary[i][j] != 0 :
+                subarray=[i,days[j],dictionary[i][j]]
+                if j < 10:
+                    subarray.append("0"+str(j))
+                else:
+                    subarray.append(str(j))
+                array.append(subarray)
+    print(datetime.datetime.now().month)
+    actual_month =datetime.datetime.now().month
+    return array , days[actual_month]
 
 def addCart(product, user):
     try:

@@ -74,8 +74,7 @@ def historial_pagos_detalle(request, month, year):
         if payment.get("status") == "Pendiente":
             status = "Pendiente"
             break
-
-    context = {"payments": payments, "total": total,
+    context = {"payments": payments, "total": total*.98,
                "date": f"{months.get(month)} {year}",
                "status": status}
 
@@ -164,8 +163,9 @@ def delete_producto(request):
 
 def historial_pagos(request):
     user = request.session.get("usuario")
-    context = {"sells": PayDetails(user.get("localId"))}
-    return render(request, "Payment_Details_Seller.html")
+    info , month = PayDetails(user.get("localId"))
+    context = {'info': info, 'month': month}
+    return render(request, "Payment_Details_Seller.html", context)
 
 
 def add_product(request):
