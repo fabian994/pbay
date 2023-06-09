@@ -309,7 +309,7 @@ def infoProductos(id):
     docId = document.id
     bucket = st.bucket()
     imageRef = bucket.blob(imagePath)
-    expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    expiration = datetime.now() + timedelta(minutes=5)
     urlImage = imageRef.generate_signed_url(expiration=int(expiration.timestamp()))
     
     # We search and take the product images and append into the array  to the response
@@ -317,7 +317,7 @@ def infoProductos(id):
     urlImage2 = []
     for image in data['images']:
         imageRef2 = bucket.blob(imagePath2 + image)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage2.append(imageRef2.generate_signed_url(expiration=int(expiration.timestamp())))
         
     # We evaluate in what way we return the results according its saleType
@@ -638,7 +638,7 @@ def getRecomendations():
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
             expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         response.append([data['prodName'], urlImage, doc.id, str(data['saleType'])])
@@ -664,7 +664,7 @@ def getRecomendations():
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
             expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         response.append([data['prodName'], urlImage, doc.id, str(data['saleType'])])
@@ -690,7 +690,7 @@ def getCart(user):
         auctDateEnd = bidWin['auctionDateEnd']
         if dateToday > auctDateEnd:
             auctWins.append(bid.id)
-            db.collection('products').document(bid.id).update({'listStatus': True})
+            db.collection('products').document(bid.id).update({'listStatus': False})
 
     print(auctWins)
     if snapshot.exists:
@@ -703,9 +703,6 @@ def getCart(user):
         products = products + auctWins
         print(products)
         
-        
-        
-
         if products:
             print('*********ENTRA PRODUCTOS')
 
@@ -788,16 +785,23 @@ def getArrayNames(user):
     return list(data.keys()) if data else []
 
 def delete_item(user, product_id):
-    print('ENTRA DELETE ITEM')
-    snapshot = db.collection('cart').document(user["localId"]).get()
-    data_snapshot = snapshot.to_dict()
-    my_list = list(data_snapshot.values())
-    items = list(my_list[0])
-    print(items)
-   # items.remove(product_id)
-    items = [i for i in items if i != product_id]
-    db.collection('cart').document(user["localId"]).update({"items": list(items)})
-    print(items)
+    try:
+        auct = db.collection('liveAuctions').document(product_id).get()
+        return 0
+    except:
+        print('ENTRA DELETE ITEM')
+        snapshot = db.collection('cart').document(user["localId"]).get()
+        data_snapshot = snapshot.to_dict()
+        my_list = list(data_snapshot.values())
+        items = list(my_list[0])
+        print(items)
+    # items.remove(product_id)
+        items = [i for i in items if i != product_id]
+        db.collection('cart').document(user["localId"]).update({"items": list(items)})
+        print(items)
+        return 1
+        
+    
 
 def increase_item(user, product_id, amount):
     snapshot = db.collection('cart').document(user["localId"]).get()
