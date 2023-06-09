@@ -32,6 +32,7 @@
                   <div class="item_center">
                     <h3> {{ item.0 }} </h3>
                     <p> ${{ item.1 }}.00 </p>
+                    <p style="color: gray; font-weight: 400; font-size: 0.75em;">{{ item.6 | truncatechars:"100" }}</p>
                   </div>
                   <div style="grid-column: 7; grid-template-columns: auto auto auto; padding-top: 100px; display: grid; align-content: baseline;">
                     <a href="{% url 'decrease-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
@@ -43,7 +44,7 @@
                     </a>
                   </div>
                   <div style="grid-column: 8; padding-left: 20px;">
-                    <a href="{% url 'delete-event' id=item.4 %}" class="" style="text-decoration: none; color: black;">
+                    <a href="{% url 'delete-event' id=item.4 %}" class="delete-icon" style="text-decoration: none; color: black; position: absolute; top: 12px; right: 10px;">
                       <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>
                     </a>
                   </div>
