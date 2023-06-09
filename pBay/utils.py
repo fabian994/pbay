@@ -750,35 +750,56 @@ def decrease_item(user, product_id, amount):
     subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
 
 def process_transaction(user, prices):
-    print('********************ENTRA UTILS.PY***************************')
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').get()
-    documentos = subcoleccion
-    # transactionID, product(s) name, product(s) price, product(s) quantity, seller id, date, time, total price, total shipping fee, 
-        # total_tax, shipping_address, deliveryStatus
-    temp = 1
-    transaction = {}
-    transaction = {'userId' : user["localId"]}
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
 
-    for doc in documentos:
-        product = 'product' + str(temp)
-        datos = doc.to_dict()
-        datos.pop("mainImg")
-        transaction.update({product: datos})
-        temp += 1
+    if snapshot.exists:
+        data_snapshot = snapshot.to_dict()
+        products = data_snapshot.get('items')
+        print(products)
 
-    final_prices = {
-        "subtotal" : prices[0],
-        "tax_total" : 0,
-        "shippingFeeTotal" : prices[1],
-        "total" : prices[2]
-    }
-    
-    transaction.update(final_prices)
-    currenttime = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-    transaction.update({ 'datetime' : currenttime, 'deliveryStatus' : 'Awaiting Shipment'})
-    print(transaction)
-    db.collection('transactions').add(transaction)
+        addressdoc = db.collection('users').document(user["localId"]).get()
+        data = addressdoc.to_dict()
+        main_address = data['maindirection']
+
+        if products: # Valida que existan productos en carrito
+            
+            counts = dict(Counter(products))
+            duplicates = {key:value for key, value in counts.items() if value > 0} # Identificar elementos duplicados
+
+            print('Entra loop de transaccion')
+            for item in duplicates: # Iterar cada producto junto con la cantidad adquirida de cada uno -> prodid : 4, prodid : 1
+                print('item:', item)
+
+                productdoc = db.collection('products').document(item).get()
+                productdata = productdoc.to_dict()
+
+                new_stock = int(productdata['Stock']) - int(duplicates[item])
+
+                transaction = {}
+                transaction = {'buyerId' : user["localId"]}
+                documento = db.collection('products').document(item).get()
+                product = 'id_prod'
+                datos = documento.to_dict()
+
+                currenttime = datetime.datetime.now().strftime("%d/%m/%Y")
+                transaction.update({product: item,                           # Generar transaccion
+                                    'price': str(datos['Price']),
+                                    'quantity': str(duplicates[item]),
+                                    'saleType': str(datos['saleType']),
+                                    'seller_id': str(datos['seller_id']),
+                                    'shippingAddress': str(data['maindirection']), 
+                                    'shippingFee': str(datos['shippingFee'] * duplicates[item]),
+                                    'tran_date': str(currenttime),
+                                    'deliveryStatus' : 'En espera de envio'
+                                    })
+                print(transaction)
+                db.collection('transactions').add(transaction) # Agregar transaccion en base de datos
+                db.collection('products').document(item).update({'Stock': int(new_stock)}) # Actualizar mercancia
+                db.collection('cart').document(user["localId"]).delete() # Limpiar el carrito
+
 
 def getimage(p_id,imagename):
     imageroute = 'products/'+ p_id +'/'+imagename
