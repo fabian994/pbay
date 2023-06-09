@@ -828,6 +828,11 @@ def addWish(product, user, array_name):
     db.collection('wishList').document(user["localId"]).set(data)
     return True
 
+def getArrayNames(user):
+    documento_ref = db.collection('wishList').document(user["localId"]).get()
+    data = documento_ref.to_dict()
+    return list(data.keys()) if data else []
+
 def delete_item(user, product_id):
     print('ENTRA DELETE ITEM')
     snapshot = db.collection('cart').document(user["localId"]).get()

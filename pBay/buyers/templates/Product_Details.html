@@ -24,7 +24,7 @@
               <!-- Product section-->
             
             
-            <div style="width:97%; margin-left: 5%">
+            <div style="width:97%; margin-left: 3%">
               {% for item in infoDet %}
              <div class="containerIm" style="width:35% ;padding:2%">
               <div class="column" style="width: 20%; margin-top: 3%;">
@@ -65,7 +65,8 @@
               </div>
               {% endfor %}
 
-              <div class="containerIm" style="width:15%; float:left">
+              <div class="containerIm" style="width:15%; float:left; margin-left:3%">
+                
                 <div class="row">
                   <button style="width: 100%" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Agregar a Favoritos
@@ -78,6 +79,8 @@
                     </div>
                   </form>
                 </div>
+                
+                
               
                 <br>
 
@@ -170,9 +173,9 @@ function createNewArray(itemValue) {
         "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
       },
       success: function(data) {
-        alert("Nuevo arreglo creado exitosamente: " + newArrayName);
+        alert("Nueva Lista creada, producto agregado exitosamente a: " + newArrayName);
 
-        // Update the dropdown menu with the new list
+        // Actualiza el menu desplegable con las nuevas opciones
         var dropdownMenu = document.getElementById("dropdown-menu");
         var newButton = document.createElement("button");
         newButton.className = "dropdown-item";
@@ -185,5 +188,39 @@ function createNewArray(itemValue) {
     });
   }
 }
+
+function populateArrayNames() {
+  const dropdownMenu = document.getElementById('dropdown-menu');
+
+  // Eliminar las opciones existentes
+  dropdownMenu.innerHTML = '';
+
+  // Traer los nombres del arreglo
+  $.ajax({
+    type: 'GET',
+    url: '/fetch_array_names/',
+    success: function(data) {
+      data.arrayNames.forEach(function(arrayName) {
+        const button = document.createElement('button');
+        button.className = 'dropdown-item';
+        button.textContent = arrayName;
+        button.setAttribute('onclick', `getDataW('{{ infoDet.0.11 }}', '${arrayName}')`);
+        dropdownMenu.appendChild(button);
+      });
+
+      // Add the option to create a new list
+      const newButton = document.createElement('button');
+      newButton.className = 'dropdown-item';
+      newButton.textContent = 'Crear Nuevo';
+      newButton.setAttribute('onclick', `createNewArray('{{ infoDet.0.11 }}')`);
+      dropdownMenu.appendChild(newButton);
+    },
+    error: function() {
+      console.error('Error fetching array names');
+    }
+  });
+}
+
+populateArrayNames();
 
 </script>
