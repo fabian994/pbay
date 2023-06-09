@@ -37,7 +37,6 @@ def carrito(request):
         context = {
                     "htmlinfo":  response,
                     "prices": prices,
-                    "addresses": addresses
                   }
 
         return render(request, "carrito.html", context)
