@@ -359,7 +359,7 @@ def infoProductos(id):
         response.append([
             datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
             datos['Model'], condition, tipo, datos['pubDate'],
-            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']
+            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd'], url_imagen2
         ])
 
     return response
