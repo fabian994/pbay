@@ -82,7 +82,7 @@ def transaction(request):
     if user == "NoExist" or user == None:
         return redirect('home')
     
-    response, cart_data, prices = getCart(user)
+    cart_data, prices = getCart(user)
 
     if request.method=='POST':
         print('method post')

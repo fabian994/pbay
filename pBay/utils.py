@@ -741,7 +741,6 @@ def getCart(user):
                 expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                 # Enviar prodDesc
                 response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], url_imagen, docId, datos['shippingFee']])
-                response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], url_imagen, docId, datos['shippingFee'], datos['prodDesc'], datos['Stock'], datos['saleType']])
                 print(response)
             
             
