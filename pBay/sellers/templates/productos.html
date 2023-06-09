@@ -1,5 +1,5 @@
 {% include "layouts/header.html"%}
-
+{% include "layouts/sellers_nav.html"%}
 {% block content %}
 
 {% load static %}
@@ -13,14 +13,6 @@
       <link rel="stylesheet" href="{% static 'styles/products.css' %}" />
     </head>
     <body>
-       <div class="toggle-view-bar">
-            <a class="view-bar" href="{% url 'productos' %}">
-                 <h2>Mis Productos</h2>
-            </a>
-            <a class="view-bar" href="{% url 'historial_ventas' %}">
-                <h2>Mis Ventas</h2>
-           </a>
-       </div>
         <div class="container">
             <div class="filter-bar">
                 <form id="orden-form" method="POST">

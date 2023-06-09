@@ -17,17 +17,16 @@
   </head>
   <body>
     <main >
-      {% if sell.id == variable %} 
         <section class="historial">
           <div class="my_container" > 
             <div class="venta_item">
               <div class="square">
-                <img class="venta_item__img" src="{{ sell.prod_img }}" alt="{{ sell.prod_name }}">
+                <img class="venta_item__img" src="{{ image }}" alt="{{ productname }}">
               </div>
               <div>
-                <p>{{sell.prod_name}}</p>
+                <p>{{ productname }}</p>
                 <p>Tipo: 
-                    {% if sell.sellType %}
+                    {% if sell.sellType == True %}
                       Subasta
                     {% else %}
                       Venta
@@ -35,17 +34,26 @@
                 </p>
               </div>
               <div>
-                <p>N. Orden: {{ sell.id }}</p>
+                <p>N. Orden: {{ saleId }}</p>
                 <p>Costo: ${{ sell.price }}</p>
+                <p>Costo: 
+                  {% if sell.sellType == True %}
+                  ${{ sell.price }}
+                  {% else %}
+                  ${{ sell.price }}
+                  {% endif %}
+              </p>
+                <p>Costo Envio: {{ sell.shippingFee }}</p>
+                <p>Cantidad: {{ sell.quantity }}</p>
                 <p>Estatus: {{ sell.deliveryStatus }}</p>
+                <p>Direccion de envio: {{ sell.shippingAdress }}</p>
               </div>
               <div class="buttons">
-                <div class="button red"> Regresar </div>
+                <a href="/mis_ventas/historial_ventas"  class="button red"> Regresar </a>
               </div>
             </div>
           </div>
         </section>
-      {% endif %}
     </main>
   </body>
 </html>

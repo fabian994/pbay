@@ -9,6 +9,10 @@
     max-width: 100%; 
 }
 
+.productos {
+    padding: auto ;
+}
+
 .productos .banner {
     padding-left: 150px;
     margin-bottom: 20px;
@@ -21,7 +25,6 @@
     align-items: flex-start;
     height: 50vh;
     margin-left: 60px;
-    
 }
 
 .img-container li {
@@ -48,10 +51,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.txt {
-    display: block;
 }
 
 @media screen and (max-width: 800px) and (min-width: 799px) {

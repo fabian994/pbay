@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations, productFiltering
-from utils import infoProductos, addWish
+from utils import infoProductos, addWish, getArrayNames 
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
@@ -184,6 +184,11 @@ def addWishList(request):
         else:
             return JsonResponse({"response": False})
     return HttpResponse(status=200)
+
+def fetch_array_names(request):
+    user = request.session.get('usuario')
+    array_names = getArrayNames(user)
+    return JsonResponse({'arrayNames': array_names})
 
 def createNewArray(request):
     sesion = request.session.get('usuario')
