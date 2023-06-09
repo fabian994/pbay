@@ -114,6 +114,47 @@ def signUp(request):
         print('not valid')
     print('fail')
     return render(request, "signup.html", context)
+  
+def updateInfo(request):
+    print('enter signup')
+    form = updateInfoForm()
+    context = {"form": form, "title": "signup"}
+    print(request)
+    if request.method == 'POST':
+        print('enter req')
+        form = updateInfoForm(request.POST, request.FILES)
+        context = {"form": form, "title": "signup"}
+        if form.is_valid():
+            print("Form valid")
+            data = form.cleaned_data
+            sesion = request.session['usuario']
+            uid = sesion['localId']
+            # Obtén el UID del usuario activo desde la sesión
+            print("UID es : ", uid)
+            user = firestore_connection("users").document(uid).get()
+            try:
+                # Actualiza los campos específicos del documento existente
+                newData = {
+                    'name': data['name'],
+                    'lastNames': data['lastNames'],
+                    'city': data['city'],
+                    'state': data['state'],
+                    'country': data['country'],
+                    'phoneNumber': data['phoneNumber'],
+                    'postalCode': data['postalCode']
+                }
+                ref = firestore_connection('users').document(uid)
+                ref.update(newData)
+                
+                return redirect ('miCuenta')
+
+            except Exception as e:
+                print('error: ', e)
+                print('failed create')
+        print('not valid')
+    print('fail')
+    return render(request, "updateInfoUser.html", context)
+
     
 def addDirection(request):
     form = directionForm()

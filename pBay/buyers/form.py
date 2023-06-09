@@ -18,3 +18,16 @@ class Filter(forms.Form):
             ('directa', 'Ventas directas'),
         ]
     )
+
+
+class bidForm(forms.Form):# Form for auction Bidding
+    newBid = forms.IntegerField(
+                                required = True, 
+                                label = "Nueva Oferta",
+                                error_messages={
+                                    "required": "No puede estar vacío",
+                                },
+                                widget = forms.TextInput(attrs = {
+                                    "class": "form-control"
+                                    }
+                                ))

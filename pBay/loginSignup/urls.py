@@ -10,5 +10,6 @@ urlpatterns = [
     path("addDirection/", views.addDirection, name ='addDirection'),
     path("addList/", views.addList, name ='addList'),
     path("miLista", views.MiLista, name ='miLista'),
+    path("miCuenta/actualizarDatos", views.updateInfo, name="updateInfo"),
     path("logo/", views.logo, name ='logo'),
 ]
