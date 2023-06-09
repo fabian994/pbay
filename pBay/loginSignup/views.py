@@ -69,7 +69,12 @@ def signUp(request):
             print("Form valid")
             data = form.cleaned_data
             mail= data["mail"]
+            mail2= data["c_mail"]
             passw= data["password"]
+            passw2= data["c_password"]
+            if mail != mail2 and passw != passw2:
+              context = {"form": form, "title": "signup"}
+              return render(request, "signup.html", context)
             result =signUp_Firebase(mail, passw)
             if result == False:
                 print("False")
@@ -106,7 +111,7 @@ def signUp(request):
                     default_storage.delete(officialID.name)#Deletes file from local storage
 
                     context= {'usuario': result, 'id': result['localId']}
-                    return redirect('compras')
+                    return redirect('home')
                     #return render(request, "signup.html", context) Qwerty*1234
                 except Exception as e:
                     print('error: ',e)
