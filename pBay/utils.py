@@ -656,7 +656,7 @@ def getRecomendations():
     docs = docs + db.collection('products').where('PromoStatus', '==', True).get()
     try:
         doc_list = [doc for doc in docs]
-        random_docs = random.sample(doc_list, 20)
+        random_docs = random.sample(doc_list, 30)
     except: 
         random_docs = docs
     response =[]
@@ -695,9 +695,6 @@ def getRecomendations():
     #     url_imagen = imagen_ref.generate_signed_url(expiration=int(
     #         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
     #     response.append([data['prodName'], url_imagen, doc.id, str(data['saleType'])])
-    
-    print(response)
-        
     
     
     return(response)

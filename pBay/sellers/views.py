@@ -225,13 +225,21 @@ def add_product(request):
 
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
+            if data['condition'] == 'false': data['condition'] = False
+            else: data['condition'] = True
 
-            prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': bool(data['vendType']),
+            if data['promote'] == 'false': data['promote'] = False
+            else: data['promote'] = True
+
+            if data['vendType'] == 'false': data['vendType'] = False
+            else: data['vendType'] = True
+
+            prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
             saleType = data['vendType']
-            
+            print(saleType)
             try:
                 ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
 
@@ -454,6 +462,9 @@ def add_product_Auction(request, prod_id):
     }
     return render(request, "add_product_Auction.html", context)
 
+
+
+
 def modify_product(request,prod_id):
     print("Enter modify product : ",prod_id)
     #prod_id="Fd0Tjz7UX2Sq58HT3pwS"
@@ -488,15 +499,25 @@ def modify_product(request,prod_id):
                 if img == prodImgs['mainImage']:
                     pass
                 imgList.append(prodImgs[img].name)
-
+                
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
+            
+            if data['condition'] == 'false': data['condition'] = False
+            else: data['condition'] = True
 
-            prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
+            if data['promote'] == 'false': data['promote'] = False
+            else: data['promote'] = True
+
+            if data['vendType'] == 'false': data['vendType'] = False
+            else: data['vendType'] = True
+
+            prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
-            
+            saleType = data['vendType']
+            print(saleType)
             ref = firestore_connection("products").document(prod_id)
             ref.update(prodData)
             

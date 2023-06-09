@@ -26,6 +26,7 @@
             </div>
             {% for item in htmlinfo %}
                 {% if item.3 == 'Venta Directa' %}
+                    
                     <div class="mosaic-parent">
                         <div class="mosaic-child">
                             <img class="product-image" src="{{item.1}}">
@@ -41,10 +42,11 @@
                                 <h5>Inventario: {{item.8}}</h5>
                             </section>
                         </div>
-                        <section class="button-section">
-                            <button class="product-button delete" type="button"> Eliminar</button>
-                            <a href="{% url 'detalles_producto' %}"><button class="product-button" type="button"> Ver detalles</button></a>
-                        </section>
+                        <form method="POST" action="delete_producto">
+                            {% csrf_token %}
+                            <input id="idDoc" name="idDoc" type="text" value="{{item.11}}" style="display: none"/>
+                            <input class="button red" type="submit" value="Elimiar"/>
+                        </form>
                     </div>
                     {% else %}
                         <div class="mosaic-parent">

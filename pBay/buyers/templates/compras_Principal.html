@@ -26,7 +26,7 @@
             </div>
             <div class="img-container">
                 <ul class="header-productos">
-                    {% for item in products|slice:":30" %}
+                    {% for item in products%}
                     <li>
                         {% if item.3 == "True" %}
                         <a class="hipervinculos" href="{% url 'auction' %}?id={{ item.2 }}">
