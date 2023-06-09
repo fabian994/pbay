@@ -497,6 +497,8 @@ def modify_product(request,prod_id):
     print(prod)
     print(request)
     product = prod.to_dict()
+    productSaleType = prod.to_dict().get('saleType')
+    print(product)
     user = request.session.get("usuario")
     if user == "NoExist" or user == None:
         return redirect('home')
@@ -532,15 +534,14 @@ def modify_product(request,prod_id):
             else: data['condition'] = True
             if data['promote'] == 'false': data['promote'] = False
             else: data['promote'] = True
-            if data['vendType'] == 'false': data['vendType'] = False
-            else: data['vendType'] = True
+            
 
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
-            saleType = data['vendType']
-            print(saleType)
+            #saleType = data['vendType']
+            #print(saleType)
             ref = firestore_connection("products").document(prod_id)
             ref.update(prodData)
 
@@ -559,10 +560,10 @@ def modify_product(request,prod_id):
             
             saleType = product['saleType']
             
-            if saleType == False:
+            if productSaleType == False:
                 print('to redirect')
                 return redirect('add_direct_sale_prod', prod_id = prod_id)
-            elif saleType == True:
+            elif productSaleType == True:
                 print('to redirect')
                 return redirect('add_prod_auctions', prod_id = prod_id)
         else:
