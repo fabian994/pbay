@@ -88,28 +88,10 @@ def detalles_producto(request):
         return redirect('home')
     response = []
     sesion = request.session['usuario']
-
-    if request.method == 'POST':
-        response = []
-        form = Filter(request.POST)
-        if form.is_valid():
-            selected_option2 = form.cleaned_data['Filtering']
-            if selected_option2 == 'nada':
-                response = infoventas(sesion, 0)
-            elif selected_option2 == 'subasta':
-                response = infoventas(sesion, 1)
-            else:
-                response = infoventas(sesion, 2)
-    else:
-        response = infoventas(sesion, 0)
-        form = Filter()
-    # deleteFunction = Delete(request.POST)
-    # idToDelete = deleteFunction.cleaned_data['idDoc']
-    # responseDelete = deleteFunction.cleaned_data['idDoc']
-    # context['delete'] = deleteFunction
-    print("Metodo ", request)
+    id = request.GET.get('id')
+    print(id)
+    response = infoventas(sesion, id)
     context = {"htmlinfo":  response}
-    context['form'] = form
     return render(request, "Product_Details_Seller.html", context)
 
 def productos(request):
@@ -172,10 +154,12 @@ def delete_producto(request):
         response = []
         print("Entra v2")
         idDoc = request.POST['idDoc']
-        print("IdDoc: ", idDoc)
+        print("----------------------------------------------------------------------")
+        print("IdDoc:",idDoc)
+        print(len(idDoc))
         deleteVenta(idDoc)
         request.method = 'GET'
-        return detalles_producto(request)
+        return productos(request)
 
 
 def historial_pagos(request):

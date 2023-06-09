@@ -28,12 +28,38 @@
         <div class= "cointainerProduct">
           <div class = "column1">
             <figure class ="ContainerImage">
+              
               <img class = "imgproduct"
-              src="{{item.10}}" 
+              {% if item.6 == 'Subasta' %}
+                src="{{item.12}}" 
+              {% else %}
+                src="{{item.10}}"
+              {% endif %}
               alt="Logo"/>
+              
           </figure>
           </div>
           <div class = "column2">
+            {% if item.6 == 'Subasta' %}
+            <h2> Product: {{item.0}} </h2>
+            <h3> Category: {{item.1}} </h3>
+            <h5> Description: {{item.2}} </h5>
+            <h5> Brand: {{item.3}} </h5>
+            <h5> Model: {{item.4}} </h5>
+            <h5> Condition: {{item.5}} </h5>
+            <h5> Type: {{item.6}} </h5>
+            <h5> Oferta Inicial: {{item.8}} </h5>
+            <h5> Oferta Minima: {{item.7}} </h5>
+            <div class="buttons">
+              <form method="POST" action="delete_producto">
+                  {% csrf_token %}
+                  <input id="idDoc" name="idDoc" type="text" value="{{item.13}}" style="display: none"/>
+                  <input class="button red" type="submit" value="Eliminar"/>
+              </form>
+              <button onclick="delete_sheet('{{ item.11 }}')" class="btn btn-danger delete_button blue">Modificar</button>
+          </div
+
+            {% else %}
             <h2> Product: {{item.0}} </h2>
             <h3> Category: {{item.1}} </h3>
             <h5> Description: {{item.2}} </h5>
@@ -44,17 +70,16 @@
             <h5> Price: {{item.7}} </h5>
             <h5> Stock: {{item.8}} </h5>
             <h5> Publication Date: {{item.9}} </h5>
-
-
             <div class="buttons">
-                <form method="POST" action="delete_producto">
-                    {% csrf_token %}
-                    <input id="idDoc" name="idDoc" type="text" value="{{item.11}}" style="display: none"/>
-                    <input class="button red" type="submit" value="Elimiar"/>
-                </form>
-                <div class="button blue"> Modificar</div>
-                <button onclick="delete_sheet('{{ item.11 }}')" class="btn btn-danger delete_button">Modificar</button>
-            </div>            
+              <form method="POST" action="delete_producto">
+                  {% csrf_token %}
+                  <input id="idDoc" name="idDoc" type="text" value="{{item.11}}" style="display: none"/>
+                  <input class="button red" type="submit" value="Eliminar"/>
+              </form>
+              <button onclick="delete_sheet('{{ item.11 }}')" class="btn btn-danger delete_button blue">Modificar</button>
+          </div> 
+            {% endif %}
+                       
 
           </div>
         </div>
@@ -83,7 +108,6 @@
 
     <script>
       function delete_sheet(prod_id){
-        confirm("¿Estás seguro de que deseas eliminar esta boleta electoral?")
         document.location.href = "{% url 'modify_product' prod_id='tmp' %}".replace('tmp', prod_id)
     }
     </script>
