@@ -16,14 +16,21 @@ import datetime
 from django.http import HttpResponse
 from google.api_core.datetime_helpers import DatetimeWithNanoseconds 
 from google.api_core.datetime_helpers import to_rfc3339
-
+    # "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
+    # "authDomain": "pbay-733d6.firebaseapp.com",
+    # "databaseURL": "https://pbay-733d6-default-rtdb.firebaseio.com",
+    # "projectId": "pbay-733d6",
+    # "storageBucket": "pbay-733d6.appspot.com",
+    # "messagingSenderId": "336573451844",
 config = {
-    "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
-    "authDomain": "pbay-733d6.firebaseapp.com",
-    "databaseURL": "https://pbay-733d6-default-rtdb.firebaseio.com",
-    "projectId": "pbay-733d6",
-    "storageBucket": "pbay-733d6.appspot.com",
-    "messagingSenderId": "336573451844",
+    'apiKey': "AIzaSyAPSKodevh0CayLgqpEUy7wr6aX75BpDtU",
+    'authDomain': "pbaypobreza.firebaseapp.com",
+    "databaseURL": "https://pbaypobreza-default-rtdb.firebaseio.com/",
+    'projectId': "pbaypobreza",
+    'storageBucket': "pbaypobreza.appspot.com",
+    'messagingSenderId': "508813203469",
+    'appId': "1:508813203469:web:0d5249365ea8a8fd441d44",
+    'measurementId': "G-PG3RNDVQZV"
 }
 
 app  = firebase.initialize_app(config)
@@ -32,9 +39,11 @@ database = app.database()
 storage = app.storage()
 
 cred = credentials.Certificate(
-    './pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
+     './pbaypobreza-firebase-adminsdk-h1iis-fa6c4dc7fd.json')
+    #'./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'pbay-733d6.appspot.com'
+    'storageBucket': 'pbaypobreza.appspot.com'
+    #'storageBucket': 'pbay-733d6.appspot.com'
 })
 db = firestore.client()
 
@@ -350,7 +359,8 @@ def firestore_connection(col):
 
     except ValueError as e:
         cred = credentials.Certificate(
-            './pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
+            './pbaypobreza-firebase-adminsdk-h1iis-fa6c4dc7fd.json')
+            #'./pbay-733d6-firebase-adminsdk-r84zp-e324c11afb.json')
         # firebase_admin.initialize_app(cred, { 'databaseURL':'https://pbay-733d6-default-rtdb.firebaseio.com/'})
         firebase_admin.initialize_app(cred)
 
