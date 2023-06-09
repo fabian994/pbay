@@ -33,20 +33,18 @@
                 <a href="{% url 'add_product' %}"><button type="button" style="padding:5px;" > Agregar un producto</button></a>
             </div>
             {% for item in htmlinfo %}
+            {% if item.3 == 'Venta Directa' %}
                 <div class="mosaic-parent">
                     <div class="mosaic-child">
-                        <img class="product-image" src="{{item.5}}" >
+                        <img class="product-image" src="{{item.1}}" >
                         <section class="info">
-                            <h4>Producto: {{item.2}}</h4>
-                            <h5>Categoria: {{item.3}}</h5>
-                            <h6>Disponibilidad: {{item.4}} - {{item.6}} </h6>
+                            <h4>Producto: {{item.4}}</h4>
+                            <h5>Categoria: {{item.5}}</h5>
+                            <h6>Disponibilidad: {{item.0}} - {{item.6}} </h6>
                         </section>
                         <section class="details">
-                            {% if item.9 %}
-                            <h5>Tipo: Subasta</h5>
-                            {% else %}
                             <h5>Tipo: Venta</h5>
-                            {% endif %}
+                            
                             <h5>Precio: {{item.7}}</h5>
                             <h5>Inventario: {{item.8}}</h5>
                         </section>
@@ -56,6 +54,28 @@
                         <a href="{% url 'detalles_producto' %}"><button class="product-button" type="button"> Ver detalles</button></a>
                     </section>
                 </div>
+            {% else %}
+            <div class="mosaic-parent">
+                <div class="mosaic-child">
+                    <img class="product-image" src="{{item.1}}" >
+                    <section class="info">
+                        <h4>Producto: {{item.3}}</h4>
+                        <h5>Categoria: {{item.4}}</h5>
+                        <h6>Disponibilidad: {{item.0}} - {{item.12}} </h6>
+                    </section>
+                    <section class="details">
+                        <h5>Tipo: Subasta</h5>
+                        
+                        <h5>Oferta Inicial: {{item.10}}</h5>
+                        <h5>Oferta Minima: {{item.11}}</h5>
+                    </section>
+                </div>
+                <section class="button-section">
+                    <button class="product-button delete" type="button"> Eliminar</button>
+                    <a href="{% url 'detalles_producto' %}"><button class="product-button" type="button"> Ver detalles</button></a>
+                </section>
+            </div>
+            {% endif %}
             {% endfor %}
        </div>
 

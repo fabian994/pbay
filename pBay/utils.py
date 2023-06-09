@@ -187,8 +187,8 @@ def productFiltering(user, action):
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                     expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     print(datos)
-                    response.append([datos['pubDate'],datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],   
-                                    datos['Model'], condition, tipo, datos['initialOffer'], datos['minimumOffer'], datos['auctionDateEnd'],datos['shippingFee'], url_imagen, docId])
+                    response.append([datos['pubDate'], url_imagen, docId, datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],   
+                                    datos['Model'], condition, tipo, datos['initialOffer'], datos['minimumOffer'], datos['auctionDateEnd'],datos['shippingFee']])
                 else: 
                     ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
                     docId = documento.id
@@ -198,8 +198,8 @@ def productFiltering(user, action):
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
                     # print(datos)
-                    response.append([datos['pubDate'], datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],   
-                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], url_imagen, docId])
+                    response.append([datos['pubDate'],url_imagen, docId, tipo, datos['prodName'],
+                                datos['category'], datos['retireDate'], datos['Price'], datos['Stock'], datos['saleType']])
             if action == 1:
                 if tipo == "Subasta":
                     coleccion_ref = db.collection('products')
@@ -213,8 +213,8 @@ def productFiltering(user, action):
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],   
-                                    datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
+                    response.append([datos['pubDate'],url_imagen, docId, datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],   
+                                    datos['Model'], condition, tipo, datos['initialOffer'], datos['minimumOffer'], datos['auctionDateEnd'],datos['shippingFee']])
             if action == 2:
                 if tipo == "Venta Directa":
                     coleccion_ref = db.collection('products')
@@ -228,9 +228,9 @@ def productFiltering(user, action):
                     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
                     url_imagen = imagen_ref.generate_signed_url(expiration=int(
                         expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-                    response.append([documento.id, tipo, datos['prodName'],
-                                datos['category'],  datos['pubDate'], url_imagen, datos['retireDate'], datos['Price'], datos['Stock'], datos['saleType']])
-    #response = sorted(response, key=lambda x: print(x[0]))
+                    response.append([datos['pubDate'],url_imagen, docId, tipo, datos['prodName'],
+                                datos['category'], datos['retireDate'], datos['Price'], datos['Stock'], datos['saleType']])
+    #response = sorted(response, key=lambda x: print(x))
     response = sorted(response, key=lambda x: DatetimeWithNanoseconds.rfc3339(x[0]))
 
     return response
