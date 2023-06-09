@@ -503,8 +503,11 @@ def modify_product(request,prod_id):
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
             
-            data['condition'] = boolValidator(data['condition'])
-            data['promote'] = boolValidator(data['promote'])
+            if data['condition'] == 'false': data['condition'] = False
+            else: data['condition'] = True
+
+            if data['promote'] == 'false': data['promote'] = False
+            else: data['promote'] = True
 
             prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
