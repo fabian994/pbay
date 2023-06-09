@@ -338,39 +338,6 @@ def infoventas(user, action):
                                     datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
     return response
 
-'''
-def infoProductos(id):
-    documento=db.collection('products').document(id).get()
-    datos = documento.to_dict()
-    tipo = datos['saleType']
-    if bool(tipo):
-        tipo = "Subasta"
-    else:
-        tipo = "Venta Directa"
-
-    condition = datos['Condition']
-    if bool(tipo):
-        condition = "Nuevo"
-    else:
-        condition = "Usado"
-    response = []
-    ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
-    docId = documento.id
-    bucket = st.bucket()
-    imagen_ref = bucket.blob(ruta_imagen)
-    expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-    url_imagen = imagen_ref.generate_signed_url(expiration=int(
-    expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-    if tipo == "Venta Directa":
-        response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                        datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], 
-                        url_imagen, docId, datos['shippingFee']])
-    if tipo == "Subasta":
-        response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                        datos['Model'], condition, tipo, datos['pubDate'], 
-                        url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']])
-    return response
-'''
 
 def infoProductos(id):
     documento = db.collection('products').document(id).get()
@@ -412,7 +379,7 @@ def infoProductos(id):
         response.append([
             datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
             datos['Model'], condition, tipo, datos['pubDate'],
-            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']
+            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd'], url_imagen2
         ])
 
     return response
