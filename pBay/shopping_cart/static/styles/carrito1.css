@@ -119,3 +119,8 @@ html{overflow-y: scroll; }
   color: pink;
 }
 
+.delete-icon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}

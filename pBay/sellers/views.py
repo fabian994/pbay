@@ -393,7 +393,7 @@ def add_product_Auction(request, prod_id):
             print(promoEnd)
 
 
-            if promoEnd > data['duration']:
+            if promoEnd < data['duration']:
                 
                 prod_data = {
                     'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],

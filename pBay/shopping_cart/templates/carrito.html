@@ -14,6 +14,9 @@
       <!-- No esta leyendo "carrito.css" a pesar de que antes si lo leia bien y no se le habia movido nada.
       Pasar todo el codigo igual a otro archivo con nombre "carrito1.css" fue la solucion temporal-->
       <link rel="stylesheet" href="{% static 'styles/carrito1.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      
+
     </head>
     <body>
       
@@ -29,40 +32,26 @@
                   <div class="item_center">
                     <h3> {{ item.0 }} </h3>
                     <p> ${{ item.1 }}.00 </p>
+                    <p style="color: gray; font-weight: 400; font-size: 0.75em;">{{ item.6 | truncatechars:"100" }}</p>
                   </div>
                   <div style="grid-column: 7; grid-template-columns: auto auto auto; padding-top: 100px; display: grid; align-content: baseline;">
                     <a href="{% url 'decrease-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
                       <i class="fa-solid fa-minus" style="font-size: 2em; padding-right: 10px;"></i>
                     </a>
                     <h3> {{ item.2 }} </h3>
+                    {% if item.2 != item.7 %}
                     <a href="{% url 'increase-event' id=item.4 amount=item.2 %}" class="" style="text-decoration: none; color: black;">
                       <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
                     </a>
+                    {% endif %}
                   </div>
                   <div style="grid-column: 8; padding-left: 20px;">
-                    <a href="{% url 'delete-event' id=item.4 %}" class="" style="text-decoration: none; color: black;">
+                    <a href="{% url 'delete-event' id=item.4 %}" class="delete-icon" style="text-decoration: none; color: black; position: absolute; top: 12px; right: 10px;">
                       <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>
                     </a>
                   </div>
                 </div> <!-- card end -->
                 {% endfor %}
-            <!--<div class="card" style="padding-left: 20px; padding-top: 20px;">
-                  <div class="item_left" style="padding: 30px;">
-                    <img src="{% static 'assets/walkman.png' %}" width="100px" height="100px"> 
-                  </div>
-                  <div class="item_center">
-                    <h3> Producto 2 </h3>
-                    <p> $650.00 </p>
-                  </div>
-                  <div style="grid-column: 7; grid-template-columns: auto auto auto; padding-top: 100px; display: grid; align-content: baseline;">
-                    <i class="fa-solid fa-minus" style="font-size: 2em; padding-right: 10px;"></i>
-                    <h3>  1  </h3>
-                    <i class="fa-solid fa-plus" style="font-size: 2em; padding-left: 10px;"></i>
-                  </div>
-                  <div style="grid-column: 8; padding-left: 20px;">
-                    <i class="fa-solid fa-xmark" style="font-size: 2em;"></i>   
-                  </div>
-                </div> -->
               </div>
               <div class="total_container">
                 <h2 style="padding-left: 20px;"> Resumen de compra </h2>
@@ -77,7 +66,7 @@
                 <hr style="align-self: center; border: 1px">
                 <div class="total_container2" style="padding-left: 20px; ">
                   <h3> Total:</h3>
-                  <h3 style="text-align: end; padding-right: 20px;"> ${{prices.2}}</h3>
+                  <h3 style="text-align: end; padding-right: 20px;"> ${{prices.2}}.00</h3>
                 </div>
                 <br>
                 <div style="padding-left: 24%;">
@@ -94,27 +83,91 @@
               <hr style="width:60%;text-align:left;margin-left:0">
               <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
                 <h4> Dirección de Entrega</h4>
-                <p style="color: lightseagreen; grid-column: 3;"> Editar</p>
               </div>
               <div class="container3">
-                <p> Mariano Arista 801</p>
-                <p> Residencial Los Castaños </p>
-                <p> C.P. 52172 Metepec, México </p>
-              </div>
-            </div>
-            <div class="container2" style="padding-top: 0;">
-              <hr style="width:60%;text-align:left;margin-left:0">
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
-                <h4> Método de Pago </h4>
-                <p style="color: lightseagreen; grid-column: 3;"> Editar</p>
-              </div>
-              <div class="container3">
-                <p> <b>Visa</b> terminando en 8151</p>
-                <p> Domicilio: La misma que la de envío </p>
-                <p> Agrega un código de promoción o tarjeta de regalo </p>
+                  <div class="dropdown show">
+                    <a class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Enviar a:
+                    </a>
+                    <form id="myForm">
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"  id = "direcciones_carrito">
+                        {% csrf_token %}
+                      </div>
+                    </form>
+                  </div>
+                </form>
               </div>
             </div>
         </main>
     </body>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
   </html>
+
+<script>
+  $(document).ready(function() {
+    // Hacer la solicitud AJAX al backend de Django
+    $.ajax({
+      url: '/obtener_elementos/',  // Reemplaza '/ruta/al/backend/' por la URL correcta de tu vista de Django
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        // 'data' contiene la respuesta del backend de Django
+        // Puedes iterar sobre los e lementos recibidos y crear los enlaces del menú desplegable dinámicamente
+        var dropdownMenu = $('#direcciones_carrito');  // Selecciona el menú desplegable
+        var item = $('<a>').addClass('dropdown-item text-danger').text(data[0]);
+        dropdownMenu.append(item);
+        // Itera sobre los elementos recibidos y crea los enlaces del menú desplegable
+        for (var i = 1; i < data.length; i++) {
+          var item = $('<a>').addClass('dropdown-item').text(data[i]);
+          dropdownMenu.append(item);
+        }
+      },
+      error: function(xhr, status, error) {
+        // Maneja el error de la solicitud AJAX, si es necesario
+        console.error(error);
+      }
+    });
+  });
+
+  $(document).ready(function() {
+    // ...
+    var dropdownMenu = $('#direcciones_carrito');
+    // Evento que se dispara al seleccionar un elemento del menú desplegable
+    dropdownMenu.on('click', '.dropdown-item', function(event) {
+      console.log("Entro al click")
+      event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+  
+      var selectedItem = $(this).text(); // Obtiene el texto del elemento seleccionado
+  
+      // Objeto con los datos a enviar al backend
+      var postData = {
+        selectedOption: selectedItem,
+        type: true
+      };
+      var csrfToken = getCookie('csrftoken');
+  
+      // Hacer la solicitud AJAX al backend de Django con el método POST
+      $.ajax({
+        url: '/selctdirection/',
+        type: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken // Agregar el token CSRF en la cabecera de la solicitud
+        },
+        dataType: 'json',
+        data: postData, // Datos a enviar en el cuerpo de la solicitud
+        success: function(response) {
+          if (response.response){
+            window.location.href = '/addDirection/';
+          }else{
+            location.reload();
+          }
+        },
+        error: function(xhr, status, error) {
+          // Maneja el error de la solicitud AJAX, si es necesario
+          console.error(error);
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}
