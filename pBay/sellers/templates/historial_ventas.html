@@ -11,7 +11,7 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Login</title>
+      <title>Historial Ventas</title>
       <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
       <link rel="stylesheet" href="{% static 'styles/historial_ventas.css' %}" />
     </head>
@@ -43,9 +43,7 @@
                               <p>Estatus: {{ sell.deliveryStatus }}</p>
                           </div>
                           <div class="buttons">
-                              <a class="link" href="{% url 'historial_ventas' %}/{{sell.id}}">
-                                  <div class="button blue">Ver detalles</div>
-                              </a>
+                            <button onclick="details_sale('{{ sell.id }}')" class="btn btn-danger delete_button">Ver detalles</button>
                               {% if sell.tipo and not sell.cancelled %}
                               <form action="{% url 'cancelar_subasta' %}" method="POST">
                                   {% csrf_token %}
@@ -63,4 +61,9 @@
         </main>
       </body>
     </html>
+    <script>
+      function details_sale(id_sale){
+        document.location.href = "{% url 'historial_ventas_detalle' id_sale='tmp' %}".replace('tmp', id_sale)
+    }
+    </script>
 {% endblock %}
