@@ -366,6 +366,10 @@ def add_productDirSale(request, prod_id):
     return render(request, "add_product_directSale.html", context)
 
 def add_product_Auction(request, prod_id):
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
+    
     prod = firestore_connection("products").document(prod_id).get()
     product = prod.to_dict()
     print(product)
@@ -406,6 +410,9 @@ def add_product_Auction(request, prod_id):
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
+
+                auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 'cBidder_id':''}
+                refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
                 #liveAuct = firestore_connection
                 return redirect("compras")
             else:
@@ -433,6 +440,10 @@ def add_product_Auction(request, prod_id):
             print('subi')
             ref = firestore_connection("products").document(prod_id)
             ref.update(prod_data)
+            
+            auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 'cBidder_id':''}
+            refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
+
             return redirect("compras")
         else:
             return render(request, "add_product_Auction.html", context)

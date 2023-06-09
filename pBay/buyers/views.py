@@ -55,9 +55,34 @@ def details(request):
     return render(request, "Product_Details.html", context)
 
 def auction(request):
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
+    
     id = request.GET.get('id')
     response = infoProductos(id)
-    context = {"infoDet":response}
+    bid_Form = bidForm()
+    
+    print('ouut post')
+    if request.method=='POST':
+        print('in post')
+        bid_Form = bidForm(request.POST)
+        if bid_Form.is_valid():
+            data = bid_Form.cleaned_data
+            print(data)
+            if data['newBid'] > response[0][11]:
+                auctData = {'bid': data['newBid'], 'cBidder_id': user['localId']}
+
+                ref = firestore_connection("liveAuctions").document(id)
+                ref.update(auctData)
+
+    print('response----')
+    print(response[0])
+    print(response[0][11])
+    ref = firestore_connection("liveAuctions").document(id).get()
+    cbid = ref.to_dict().get('bid')
+    print(cbid)
+    context = {"infoDet":response, 'bidForm': bid_Form, 'cBid':cbid}
     return render(request, "Auction_Details.html", context)
 
 def compras(request):
