@@ -184,7 +184,7 @@ def productFiltering(user, action):
             tipo = "Venta Directa"
 
         condition = datos['Condition']
-        if bool(tipo):
+        if tipo=="True":
             condition = "Nuevo"
         else:
             condition = "Usado"
@@ -277,8 +277,10 @@ def productList(user):
     return response
 
 def deleteVenta(idDoc):
-    db.collection('products').document(idDoc).delete()
-
+    result = db.collection('products').document(idDoc).update({
+        'AuctionCancelled': True,
+        'promoStatus': False
+    })
 
 def infoventas(user, action):
     nombre_coleccion = "products"
