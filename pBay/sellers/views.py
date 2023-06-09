@@ -225,12 +225,22 @@ def add_product(request):
 
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
+            
+            if data['condition'] == 'false': data['condition'] = False
+            else: data['condition'] = True
 
-            prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': bool(data['vendType']),
+            if data['promote'] == 'false': data['promote'] = False
+            else: data['promote'] = True
+
+            if data['vendType'] == 'false': data['vendType'] = False
+            else: data['vendType'] = True
+
+            prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
             saleType = data['vendType']
+            print(saleType)
             
             try:
                 ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
@@ -251,10 +261,10 @@ def add_product(request):
                 #return render(request, "add_product.html", context)
                 print("Product added to the DataBase")
                 messages.success(request, "Producto añadido correctamente")
-                if saleType == 'false':
+                if saleType == False:
                     print('to redirect')
                     return redirect('add_direct_sale_prod', prod_id = prod_id)
-                elif saleType == 'true':
+                elif saleType == True:
                     print('to redirect')
                     return redirect('add_prod_auctions', prod_id = prod_id)
             except Exception as e:
@@ -414,6 +424,7 @@ def add_product_Auction(request, prod_id):
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
+                #liveAuct = firestore_connection
                 return redirect("compras")
             else:
                 auctionForm = productAuction()
