@@ -68,6 +68,7 @@ def compras(request):
 
     db = firestore.client()
     datos_firestore = db.collection('products').where('PromoStatus', '==', True).get()
+    
     try:
         doc_list = [doc for doc in datos_firestore]
         random_docs = random.sample(doc_list, 10)
@@ -77,10 +78,17 @@ def compras(request):
     textos_unicos = set()
 
     for doc in random_docs:
-        print("Agrege texto")
-        texto3 = doc.to_dict().get('prodName')
-        if (texto3) :
-            textos_unicos.add(texto3)
+        print('-doc-')
+        print('list status: ', doc.to_dict().get('listStatus'))
+        print('delete status: ',doc.to_dict().get('delete'))
+        if (doc.to_dict().get('delete') != True) and (doc.to_dict().get('listStatus') != False):
+            print("Agrege texto")
+            texto3 = doc.to_dict().get('prodName')
+            print(texto3)
+            if (texto3) :
+                    textos_unicos.add(texto3)
+        continue
+
 
 
     # textos = [doc.to_dict().get('prodName') for doc in datos_firestore]

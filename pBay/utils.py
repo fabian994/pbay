@@ -288,14 +288,14 @@ def infoProductos(id):
     
     #We evaluate the saletype
     typeSale = data['saleType']
-    if typeSale == "True":
+    if typeSale == True:
         typeSale = "Subasta"
     else:
         typeSale = "Venta Directa"
 
     #We evaluate the condition
     condition = data['Condition']
-    if condition == "True":
+    if condition == True:
         condition = "Nuevo"
     else:
         condition = "Usado"

@@ -220,7 +220,8 @@ def add_product(request):
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
-                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
+                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList, 
+                        'listStatus': False, 'delete': False}
             saleType = data['vendType']
             print(saleType)
             try:
@@ -302,7 +303,7 @@ def add_productDirSale(request, prod_id):
 
                     prod_data = {
                         'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'],
-                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd
+                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd, 'listStatus': True
                     }
                     ref = firestore_connection("products").document(prod_id)
                     ref.update(prod_data)
@@ -331,7 +332,7 @@ def add_productDirSale(request, prod_id):
 
                 prod_data = {
                     'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'],
-                    'retireDate': data['RemovalDate'],
+                    'retireDate': data['RemovalDate'], 'listStatus': True
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
@@ -401,7 +402,7 @@ def add_product_Auction(request, prod_id):
                 prod_data = {
                     'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                     'shippingFee': data['shippingFee'], 
-                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
@@ -427,7 +428,7 @@ def add_product_Auction(request, prod_id):
             prod_data = {
                 'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                 'shippingFee': data['shippingFee'], 
-                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
             }
             print('subi')
             ref = firestore_connection("products").document(prod_id)
