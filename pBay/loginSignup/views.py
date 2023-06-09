@@ -85,7 +85,7 @@ def signUp(request):
                     uData = {'name': data['name'], 'lastNames':data['lastNames'],  'birthDate': date_time,
                             'curp': data['curp'], 'oficial_id': uid, 'directions': [data['direction1']],
                             'country': data['country'], 'city': data['city'], 'state': data['state'],
-                            'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail'], 'status': False, 'maindirection': data['direction1']}
+                            'postalCode': data['postalCode'], 'phoneNumber': data['phoneNumber'], 'mail': data['mail'], 'status': True, 'maindirection': data['direction1']}
                     ref = firestore_connection('users')
                     ref.document(uid).set(uData)
 
