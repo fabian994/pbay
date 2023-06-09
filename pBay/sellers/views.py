@@ -102,7 +102,7 @@ def productos(request):
             form = Orden(request.POST)
             form2 = Filter(request.POST)
             if form2.is_valid():
-                selected_option2 = form2.cleaned_data['Filtering']
+                selected_option2 = form2.cleaned_data['Filtering']           
                 if selected_option2 == 'nada':
                     response = productFiltering(session, 0)
                 elif selected_option2 == 'subasta':
@@ -121,7 +121,6 @@ def productos(request):
             form2 = Filter()
         
         user_id = session['localId']
-        #response = productList(user_id)
         context = {"htmlinfo":  response}
         context['form1'] = form
         context['form2'] = form2
