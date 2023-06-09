@@ -476,9 +476,12 @@ def modify_product(request,prod_id):
                 if img == prodImgs['mainImage']:
                     pass
                 imgList.append(prodImgs[img].name)
-
+                
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
+            
+            data['condition'] = boolValidator(data['condition'])
+            data['promote'] = boolValidator(data['promote'])
 
             prodData = {'Brand': data['brand'], 'Condition': bool(data['condition']), 'Model': data['model'], 'PromoStatus': bool(data['promote']),
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
