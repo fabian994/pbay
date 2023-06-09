@@ -152,3 +152,4 @@ cython_debug/
 pBay/db.sqlite3
 *.sqlite3
 pBay/db.sqlite3
+pBay/db.sqlite3
