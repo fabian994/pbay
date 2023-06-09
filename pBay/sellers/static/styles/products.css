@@ -22,7 +22,7 @@
     height: 100%;
 }
 .container{
-    background-color: yellow;
+    background-color: rgba(79, 79, 79, 0.182);
     margin-top: 25px;
     display: grid;
     justify-items: center;
@@ -65,11 +65,22 @@
 .product-button{
     width: 100px;
     padding: 5px;
+    background-color: blue;
+    color: white;
 }
+
+.delete{
+    width: 100px;
+    padding: 5px;
+    background-color: red;
+    color: white;
+}
+
 .filter-bar{
     display:flex;
     flex-direction:row;
     justify-content:space-between;
     margin-bottom:50px;
     width:80%;
+    background-color: rgba(135, 135, 135, 0.208);
 }
