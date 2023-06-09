@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 urlpatterns = [
     path('carrito',
          views.carrito, name='carrito'),
@@ -13,4 +14,8 @@ urlpatterns = [
           views.decrease_event, name='decrease-event'),
     path('process_transaction/',
           views.transaction, name='transaction'),
+    path('obtener_elementos/',
+          views.obtener_elementos, name='obtener_elementos'),
+    path('selctdirection/',
+          views.selctdirection, name='selctdirection'),
 ]
