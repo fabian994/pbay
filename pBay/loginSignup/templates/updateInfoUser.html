@@ -1,0 +1,92 @@
+{% include "layouts/header.html"%}
+
+{% block content %}
+
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>signup</title>
+      <link rel="stylesheet" href="{% static 'styles/signup.css' %}" />
+      
+    </head>
+    <style>
+        .container2 {
+			margin: 0 auto;
+			width: fit-content;
+			text-align: left;
+		}
+		.buttons {
+			display: flex;
+			gap: 10px;
+			justify-content: space-between;
+			margin-top: 25px;
+			margin-bottom: 50px;
+		}
+		.cancel-button, .continue-button {
+			flex-basis: 200px;
+			height: 40px;
+			padding: 0px 100px;
+			font-size: 16px;
+			text-transform: uppercase;
+			font-weight: bold;
+			border: none;
+			color: white;
+			cursor: pointer;
+		}
+		.cancel-button {
+			background-color: red;
+		}
+		.continue-button {
+			background-color: blue;
+		}
+    </style>
+    <body>
+        <main >
+            <figure class ="ContainerImage">
+                <img 
+                src="{% static 'assets/pbay_bgblank.png' %}" 
+                alt="Logo"/>
+            </figure>
+            <h1 class = "text-center Title">Actualizar datos de cuenta</h1>
+            
+            <br>
+            <form class="register-form" method="POST" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                <div class ="Container">
+                    <label for="campo1" class="form-label">Nombre</label>
+                    {{ form.name }}
+                    <br>
+                    <label for="campo2" class="form-label">Apellido(s)</label>
+                    {{ form.lastNames }}
+                    <br>
+                    <label for="campo2" class="form-label">País</label>
+                    {{ form.country }}
+                    <br>
+                    <label for="campo2" class="form-label">Ciudad</label>
+                    {{ form.city }}
+                    <br>
+                    <label for="campo2" class="form-label">Estado</label>
+                    {{ form.state }}
+                    <br>
+                    <label for="campo2" class="form-label">Codigo Postal</label>
+                    {{ form.postalCode }}
+                    <br>
+                    <label for="campo2" class="form-label">Número Telefónico</label>
+                    {{ form.phoneNumber }}
+                    <br>
+                </div>
+                <div class="container2">
+                    <div class="buttons">
+                        <a class="btn cancel-button" href="{% url 'miCuenta' %}" role="button">Cancelar</a>
+                        <button class="continue-button" type="submit">Actualizar</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+      </body>
+    </html>
+{% endblock %}

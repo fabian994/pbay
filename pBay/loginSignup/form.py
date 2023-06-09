@@ -242,7 +242,92 @@ class signUpForm(forms.Form):
                                             "class": "form-control"
                                         }))
 
+class updateInfoForm(forms.Form):
+    name = forms.CharField( max_length = 40, 
+                            required = True, 
+                            label = "Nombre(s)",
+                            validators=[letras],
+                            error_messages={
+                                "required": "No puede estar vacío",
+                            },
+                            widget = forms.TextInput(attrs = {
+                                "class": "form-control"
+                                }
+                            ))
 
+    lastNames = forms.CharField( max_length = 80, 
+                                required = True, 
+                                label = "Apellido Paterno",
+                                validators=[letras],
+                                error_messages={
+                                    "required": "No puede estar vacío",
+                                },
+                                widget = forms.TextInput(attrs = {
+                                    "class": "form-control"
+                                    }
+                                ))
+                                    
+    country = forms.CharField( max_length = 40, 
+                            required = True, 
+                            label = "Pais",
+                            validators=[letras],
+                            error_messages={
+                                "required": "No puede estar vacío",
+                            },
+                            widget = forms.TextInput(attrs = {
+                                "class": "form-control"
+                                }
+                            ))
+
+    city = forms.CharField( max_length = 40, 
+                            required = True, 
+                            label = "Ciudad",
+                            validators=[letras],
+                            error_messages={
+                                "required": "No puede estar vacío",
+                            },
+                            widget = forms.TextInput(attrs = {
+                                "class": "form-control"
+                                }
+                            ))
+    
+    state = forms.CharField( max_length = 40, 
+                            required = True, 
+                            label = "Estado",
+                            validators=[letras],
+                            error_messages={
+                                "required": "No puede estar vacío",
+                            },
+                            widget = forms.TextInput(attrs = {
+                                "class": "form-control"
+                                }
+                            ))
+    
+    postalCode = forms.IntegerField(    max_value=99999,
+                                        required = True, 
+                                        label = "Codigo Postal",
+                                        validators=[numeros],
+                                        error_messages={
+                                            "required": "No puede estar vacío",
+                                        },
+                                        widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                            }
+                                        ))
+    
+    phoneNumber = forms.CharField(  max_length = 10,
+                                    min_length = 10, 
+                                    required = False, 
+                                    label = "Numero Telefonico",
+                                    validators=[numeros],
+                                    error_messages={
+                                        "required": "No puede estar vacío",
+                                        "min_length": "El numero telefonico debe ser de 10 caracteres..."
+                                    },
+                                    widget = forms.TextInput(attrs = {
+                                            "class": "form-control"
+                                        }
+                                    ))
     
 
     # VALIDATIONS
