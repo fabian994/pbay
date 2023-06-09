@@ -248,14 +248,15 @@ def infoventas(user, id):
     
     #We evaluate the saletype
     typeSale = data['saleType']
-    if typeSale == "True":
+    print(typeSale)
+    if typeSale == True:
         typeSale = "Subasta"
     else:
         typeSale = "Venta Directa"
         
     #We evaluate the condition
     condition = data['Condition']
-    if condition == "True":
+    if condition == True:
         condition = "Nuevo"
     else:
         condition = "Usado"
@@ -347,7 +348,7 @@ def storeProductImages(uid, name):
                              '/' + name).put("media/" + name)
     return storedID
 
-
+# Returns a list of all the sells made by the user
 def payment_detail_by_month(uid, month, year):
 
     docs = db.collection('transactions').where('seller_id', '==', uid).get()
@@ -374,7 +375,7 @@ def payment_detail_by_month(uid, month, year):
 
     return result
 
-# Returns a list of all the sells made by the user
+
 
 
 def sells_history(uid):
@@ -631,7 +632,7 @@ def getRecomendations():
     response =[]
     for doc in random_docs:
         data = doc.to_dict()
-        if data.get('Delete') != None or data.get('listStatus') == False:
+        if data.get('Delete') != None:
             continue
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
