@@ -28,11 +28,13 @@
         
             <div class="float-end">
               <br>
-              {% if edit_mode %}
-              <input type="text" class="form-control" value="{{ value }}">
-              {% else %}
-              <button type="button" class="btn btn-primary" id="edit-button">Nueva oferta</button>
-              {% endif %}
+              <form method="POST">
+                {% csrf_token %}
+                {{ bidForm }}
+                <br>
+                <button type="submit" class="btn btn-primary" id="edit-button">Nueva oferta</button>
+              </form>
+              
             </div>
             {% for item in infoDet %}
             <div class="row gx-4 gx-lg-5 align-items-left">
@@ -56,7 +58,7 @@
                   <p class="lead">{{ item.2 }} <br> Marca: {{ item.3 }}  <br> Modelo: {{ item.4 }}<br> </p>
                   <div class="fs-4 mb-4">
                     <span> Oferta: </span>
-                    <span class="lead" style="color: blue;""><strong>${{ item.11 }}</strong></span>
+                    <span class="lead" style="color: blue;"><strong>${{ cBid }}</strong></span>
                   </div>
                   <div d-flex-row>
                     <span class="lead"> Estado: </span>
@@ -78,20 +80,6 @@
   var expandedImg = document.getElementById('expandedImg');
   expandedImg.src = imageUrl;
   }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    var editButton = document.getElementById('edit-button');
-    editButton.addEventListener('click', function() {
-      var inputField = document.createElement('input');
-      inputField.setAttribute('type', 'text');
-      inputField.setAttribute('class', 'form-control');
-      inputField.setAttribute('value', '{{ value }}');
-      inputField.setAttribute('name', 'edit-value');
-      
-      var parentDiv = this.parentNode;
-      parentDiv.replaceChild(inputField, this);
-    });
-  });
 </script>
 
 {% endblock %}

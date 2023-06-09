@@ -26,6 +26,7 @@
             </div>
             {% for item in htmlinfo %}
                 {% if item.3 == 'Venta Directa' %}
+                    
                     <div class="mosaic-parent">
                         <div class="mosaic-child">
                             <img class="product-image" src="{{item.1}}">
@@ -42,8 +43,7 @@
                             </section>
                         </div>
                         <section class="button-section">
-                            <button class="product-button delete" type="button"> Eliminar</button>
-                            <a href="{% url 'detalles_producto' %}"><button class="product-button" type="button"> Ver detalles</button></a>
+                            <a href="{% url 'detalles_producto' %}?id={{item.2}}"><button class="product-button" type="button"> Ver detalles</button></a>
                         </section>
                     </div>
                     {% else %}
@@ -63,8 +63,7 @@
                                 </section>
                             </div>
                             <section class="button-section">
-                                <button class="product-button delete" type="button"> Eliminar</button>
-                                <a href="{% url 'detalles_producto' %}"><button class="product-button" type="button"> Ver detalles</button></a>
+                                <a href="{% url 'detalles_producto' %}?id={{item.2}}"><button class="product-button" type="button"> Ver detalles</button></a>
                             </section>
                         </div>
                     {% endif %}

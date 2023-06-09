@@ -55,9 +55,34 @@ def details(request):
     return render(request, "Product_Details.html", context)
 
 def auction(request):
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
+    
     id = request.GET.get('id')
     response = infoProductos(id)
-    context = {"infoDet":response}
+    bid_Form = bidForm()
+    
+    print('ouut post')
+    if request.method=='POST':
+        print('in post')
+        bid_Form = bidForm(request.POST)
+        if bid_Form.is_valid():
+            data = bid_Form.cleaned_data
+            print(data)
+            if data['newBid'] > response[0][11]:
+                auctData = {'bid': data['newBid'], 'cBidder_id': user['localId']}
+
+                ref = firestore_connection("liveAuctions").document(id)
+                ref.update(auctData)
+
+    print('response----')
+    print(response[0])
+    print(response[0][11])
+    ref = firestore_connection("liveAuctions").document(id).get()
+    cbid = ref.to_dict().get('bid')
+    print(cbid)
+    context = {"infoDet":response, 'bidForm': bid_Form, 'cBid':cbid}
     return render(request, "Auction_Details.html", context)
 
 def compras(request):
@@ -68,7 +93,7 @@ def compras(request):
 
     db = firestore.client()
     datos_firestore = db.collection('products').where('PromoStatus', '==', True).get()
-    datos_firestore = db.collection('products').where('PromoStatus', '==', 'true').get()
+    
     try:
         doc_list = [doc for doc in datos_firestore]
         random_docs = random.sample(doc_list, 10)
@@ -78,10 +103,17 @@ def compras(request):
     textos_unicos = set()
 
     for doc in random_docs:
-        print("Agrege texto")
-        texto3 = doc.to_dict().get('prodName')
-        if (texto3) :
-            textos_unicos.add(texto3)
+        print('-doc-')
+        print('list status: ', doc.to_dict().get('listStatus'))
+        print('delete status: ',doc.to_dict().get('delete'))
+        if (doc.to_dict().get('delete') != True) and (doc.to_dict().get('listStatus') != False):
+            print("Agrege texto")
+            texto3 = doc.to_dict().get('prodName')
+            print(texto3)
+            if (texto3) :
+                    textos_unicos.add(texto3)
+        continue
+
 
 
     # textos = [doc.to_dict().get('prodName') for doc in datos_firestore]

@@ -74,8 +74,7 @@ def historial_pagos_detalle(request, month, year):
         if payment.get("status") == "Pendiente":
             status = "Pendiente"
             break
-
-    context = {"payments": payments, "total": total,
+    context = {"payments": payments, "total": total*.98,
                "date": f"{months.get(month)} {year}",
                "status": status}
 
@@ -88,28 +87,10 @@ def detalles_producto(request):
         return redirect('home')
     response = []
     sesion = request.session['usuario']
-
-    if request.method == 'POST':
-        response = []
-        form = Filter(request.POST)
-        if form.is_valid():
-            selected_option2 = form.cleaned_data['Filtering']
-            if selected_option2 == 'nada':
-                response = infoventas(sesion, 0)
-            elif selected_option2 == 'subasta':
-                response = infoventas(sesion, 1)
-            else:
-                response = infoventas(sesion, 2)
-    else:
-        response = infoventas(sesion, 0)
-        form = Filter()
-    # deleteFunction = Delete(request.POST)
-    # idToDelete = deleteFunction.cleaned_data['idDoc']
-    # responseDelete = deleteFunction.cleaned_data['idDoc']
-    # context['delete'] = deleteFunction
-    print("Metodo ", request)
+    id = request.GET.get('id')
+    print(id)
+    response = infoventas(sesion, id)
     context = {"htmlinfo":  response}
-    context['form'] = form
     return render(request, "Product_Details_Seller.html", context)
 
 def productos(request):
@@ -121,7 +102,7 @@ def productos(request):
             form = Orden(request.POST)
             form2 = Filter(request.POST)
             if form2.is_valid():
-                selected_option2 = form2.cleaned_data['Filtering']
+                selected_option2 = form2.cleaned_data['Filtering']           
                 if selected_option2 == 'nada':
                     response = productFiltering(session, 0)
                 elif selected_option2 == 'subasta':
@@ -140,7 +121,6 @@ def productos(request):
             form2 = Filter()
         
         user_id = session['localId']
-        #response = productList(user_id)
         context = {"htmlinfo":  response}
         context['form1'] = form
         context['form2'] = form2
@@ -172,16 +152,19 @@ def delete_producto(request):
         response = []
         print("Entra v2")
         idDoc = request.POST['idDoc']
-        print("IdDoc: ", idDoc)
+        print("----------------------------------------------------------------------")
+        print("IdDoc:",idDoc)
+        print(len(idDoc))
         deleteVenta(idDoc)
         request.method = 'GET'
-        return detalles_producto(request)
+        return productos(request)
 
 
 def historial_pagos(request):
     user = request.session.get("usuario")
-    context = {"sells": PayDetails(user.get("localId"))}
-    return render(request, "Payment_Details_Seller.html")
+    info , month = PayDetails(user.get("localId"))
+    context = {'info': info, 'month': month}
+    return render(request, "Payment_Details_Seller.html", context)
 
 
 def add_product(request):
@@ -225,7 +208,6 @@ def add_product(request):
 
             data['publishDate'] = datetime.combine(
                 data['publishDate'], datetime.min.time())
-            
             if data['condition'] == 'false': data['condition'] = False
             else: data['condition'] = True
 
@@ -238,10 +220,10 @@ def add_product(request):
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
                         'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
-                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
+                        'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList, 
+                        'listStatus': False, 'delete': False}
             saleType = data['vendType']
             print(saleType)
-            
             try:
                 ref = firestore_connection('products').add(prodData) # Add product data to product collection, creates autoid
 
@@ -321,7 +303,7 @@ def add_productDirSale(request, prod_id):
 
                     prod_data = {
                         'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'],
-                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd
+                        'retireDate': data['RemovalDate'], 'promoDateEnd': promoEnd, 'listStatus': True
                     }
                     ref = firestore_connection("products").document(prod_id)
                     ref.update(prod_data)
@@ -350,7 +332,7 @@ def add_productDirSale(request, prod_id):
 
                 prod_data = {
                     'Stock': data['inventory'], 'Price': data['cost'], 'shippingFee': data['shippingFee'],
-                    'retireDate': data['RemovalDate'],
+                    'retireDate': data['RemovalDate'], 'listStatus': True
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
@@ -384,6 +366,10 @@ def add_productDirSale(request, prod_id):
     return render(request, "add_product_directSale.html", context)
 
 def add_product_Auction(request, prod_id):
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
+    
     prod = firestore_connection("products").document(prod_id).get()
     product = prod.to_dict()
     print(product)
@@ -415,15 +401,18 @@ def add_product_Auction(request, prod_id):
             print(promoEnd)
 
 
-            if promoEnd > data['duration']:
+            if promoEnd < data['duration']:
                 
                 prod_data = {
                     'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                     'shippingFee': data['shippingFee'], 
-                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
+
+                auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 'cBidder_id':''}
+                refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
                 #liveAuct = firestore_connection
                 return redirect("compras")
             else:
@@ -446,11 +435,15 @@ def add_product_Auction(request, prod_id):
             prod_data = {
                 'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                 'shippingFee': data['shippingFee'], 
-                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd
+                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
             }
             print('subi')
             ref = firestore_connection("products").document(prod_id)
             ref.update(prod_data)
+            
+            auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 'cBidder_id':''}
+            refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
+
             return redirect("compras")
         else:
             return render(request, "add_product_Auction.html", context)
@@ -464,6 +457,9 @@ def add_product_Auction(request, prod_id):
         "prod": product,
     }
     return render(request, "add_product_Auction.html", context)
+
+
+
 
 def modify_product(request,prod_id):
     print("Enter modify product : ",prod_id)
@@ -505,17 +501,17 @@ def modify_product(request,prod_id):
             
             if data['condition'] == 'false': data['condition'] = False
             else: data['condition'] = True
-
             if data['promote'] == 'false': data['promote'] = False
             else: data['promote'] = True
-
+            if data['vendType'] == 'false': data['vendType'] = False
+            else: data['vendType'] = True
 
             prodData = {'Brand': data['brand'], 'Condition': data['condition'], 'Model': data['model'], 'PromoStatus': data['promote'],
-                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'],
+                        'prodName': data['title'], 'prodDesc': data['about'], 'pubDate': data['publishDate'], 'saleType': data['vendType'],
                         'category':cat, 'subCategory1':subcat1, 'seller_id': user['localId'], 
                         'SubCategory2':subcat2, 'mainImg': prodImgs['mainImage'].name, 'images':imgList}
-            
-            
+            saleType = data['vendType']
+            print(saleType)
             ref = firestore_connection("products").document(prod_id)
             ref.update(prodData)
 

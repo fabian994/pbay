@@ -15,7 +15,7 @@
       <main >
         <h1 class = "text-center Title">Paymentts Details - pbay </h1>
 
-        <div class="paddingizq dropdown show" >
+        {% comment %} <div class="paddingizq dropdown show" >
           <h4 class="nav-link dropdown-toggle text-secondary py-0 " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Filtrar por:
           </h4>
@@ -27,7 +27,7 @@
             <a class="dropdown-item" href="#">dir3</a>
             -->
         </div>
-        </div>
+        </div> {% endcomment %}
 
         <!--
         <div class= "paddingizq dropdown show" >
@@ -43,17 +43,23 @@
           </div>
         </div>
         -->
-        <h2 class= "paddingizq">  2023</h2>
+        {% for item in info %}
         <div class= " cointainerProduct">
           <div class = "column2">
-            <h3> Mes:     </h3>
-            <h3> Total:   </h3>  
-            <h3> Estatus: </h3>
+            <h3> Año:     {{item.0}}</h3>
+            <h3> Mes:     {{item.1}}</h3>
+            <h3> Total:   {{item.2}}</h3>
+            {% if item.1 == month %}   
+            <h3> Estatus: Pendiente</h3>
+            {% else %}
+            <h3> Estatus: Pagado</h3>
+            {% endif %}
             <div class="buttons">
-              <div class="button blue">Ver detalles </div>
+              <a href='/mis_ventas/historial_pagos/{{item.3}}/{{item.0}}' class="btn btn-primary details-button">Ver Detalles</a>
             </div> 
           </div>
         </div>
+        {% endfor %}
 
 
       </main>
