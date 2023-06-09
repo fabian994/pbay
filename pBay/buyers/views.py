@@ -93,12 +93,7 @@ def compras(request):
 
     db = firestore.client()
     datos_firestore = db.collection('products').where('PromoStatus', '==', True).get()
-    
-    try:
-        doc_list = [doc for doc in datos_firestore]
-        random_docs = random.sample(doc_list, 10)
-    except: 
-        random_docs = datos_firestore
+    random_docs = datos_firestore
 
     textos_unicos = set()
 

@@ -1,4 +1,4 @@
-{% include "layouts/header.html"%}
+
 
 {% block content %}
 
@@ -47,12 +47,12 @@
             justify-content: center;
             background: #edf1f75e;
             }
-            .wrapper{
+            .wrapper3{
             display: flex;
             max-width: 1200px;
             position: relative;
             }
-            .wrapper i{
+            .wrapper3 i{
             top: 50%;
             height: 44px;
             width: 44px;
@@ -67,52 +67,52 @@
             transform: translateY(-50%);
             transition: transform 0.1s linear;
             }
-            .wrapper i:active{
+            .wrapper3 i:active{
             transform: translateY(-50%) scale(0.9);
             }
-            .wrapper i:hover{
+            .wrapper3 i:hover{
             background: #f2f2f2;
             }
-            .wrapper i:first-child{
+            .wrapper3 i:first-child{
             left: -22px;
             display: none;
             }
-            .wrapper i:last-child{
+            .wrapper3 i:last-child{
             right: -22px;
             }
-            .wrapper .carousel{
+            .wrapper3 .carousel3{
             font-size: 0px;
             cursor: pointer;
             overflow: hidden;
             white-space: nowrap;
             scroll-behavior: smooth;
             }
-            .carousel.dragging{
+            .carousel3.dragging{
             cursor: grab;
             scroll-behavior: auto;
             }
-            .carousel.dragging img{
+            .carousel3.dragging img{
             pointer-events: none;
             }
-            .carousel img{
+            .carousel3 img{
             height: 340px;
             object-fit: cover;
             user-select: none;
             margin-left: 14px;
             width: calc(100% / 5);
             }
-            .carousel img:first-child{
+            .carousel3 img:first-child{
             margin-left: 0px;
             }
 
             @media screen and (max-width: 900px) {
-            .carousel img{
+            .carousel3 img{
                 width: calc(100% / 2);
             }
             }
 
             @media screen and (max-width: 550px) {
-            .carousel img{
+            .carousel3 img{
                 width: 100%;
             }
             }
@@ -120,20 +120,17 @@
     </head>
 
     <body>
-
-        <div class="contenedor">
-            <img src='\static\assets\compras.png' class="img-fluid Top" alt="...">
+        <div class="banner">
+            <h3>Esto te puede interesar x3</h3>
         </div>
         
-        <div class="banner">
-            <h3>Esto te puede interesar</h3>
-        </div>
+
         <section class="cuerpo">
             
-            <div class="wrapper">
+            <div class="wrapper3">
                 <i id="left" class="fa-solid fa-angle-left"></i>
-                <div class="carousel">
-                    {% for item in products|slice:":30" %}
+                <div class="carousel3">
+                    {% for item in products|slice:"20:30" %}
                     {% if item.3 == "True" %}
                     <a class="hipervinculos" href="{% url 'auction' %}?id={{ item.2 }}">
                     {% else %}
@@ -146,13 +143,8 @@
                 <i id="right" class="fa-solid fa-angle-right"></i>
             </div>
         </section>
-        {% comment %} <section class="cuerpo">
-            {% include "prod2.html"%}
-        </section>
 
-        <section class="cuerpo">
-            {% include "prod3.html" %}
-        </section> {% endcomment %}
+        
         <script src={% static "scripts/comprasSlider.js"%} defer></script>
     </body>
 

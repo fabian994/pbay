@@ -179,7 +179,9 @@ def productFiltering(user, action):
          # We get the document's data
         data = document.to_dict()
         # Evalute if the product was deleted
-        if data.get('Delete') != None:
+        if data.get('Delete'):
+            continue
+        if not data.get('listStatus'):
             continue
         # Evalute the type sale 
         typeSale = data['saleType']
@@ -411,7 +413,9 @@ def searchCat(category,subcategory,subcategory2):
     response = []
     for doc in docs:
         data = doc.to_dict()
-        if data.get('Delete') != None:
+        if data.get('Delete'):
+            continue
+        if not data.get('listStatus'):
             continue
         print(data)
         imagePath = "products/"+doc.id+"/"+data['mainImg']
@@ -439,7 +443,9 @@ def searchList(document, user):
     for i in array:
         docitem = db.collection('products').document(i).get()
         dataitem = docitem.to_dict()
-        if dataitem.get('Delete') != None:
+        if dataitem.get('Delete'):
+            continue
+        if not dataitem.get('listStatus'):
             continue
         imagePath = "products/"+docitem.id+"/"+dataitem['mainImg']
         bucket = st.bucket()
@@ -470,7 +476,9 @@ def search(keyword):
     for i in array:
         doc = db.collection('products').document(i).get()
         data = doc.to_dict()
-        if data.get('Delete') != None:
+        if data.get('Delete'):
+            continue
+        if not data.get('listStatus'):
             continue
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
@@ -632,7 +640,7 @@ def getRecomendations():
     response =[]
     for doc in random_docs:
         data = doc.to_dict()
-        if data.get('Delete') != None:
+        if data.get('Delete') or data.get('listStatus') == False:
             continue
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
@@ -658,8 +666,9 @@ def getRecomendations():
     for i in result:
         doc = db.collection('products').document(i).get()
         data = doc.to_dict()
-        if data.get('Delete') != None:   
+        if data.get('Delete') or data.get('listStatus') == False:
             continue
+        
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
