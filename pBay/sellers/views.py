@@ -307,7 +307,7 @@ def add_productDirSale(request, prod_id):
                     }
                     ref = firestore_connection("products").document(prod_id)
                     ref.update(prod_data)
-                    return redirect("compras")
+                    return redirect("promo_payment")
             else:
                 dir_saleForm = productDirectSale()
                 promo_form = productPromote()
@@ -414,7 +414,7 @@ def add_product_Auction(request, prod_id):
                 auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 'cBidder_id':''}
                 refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
                 #liveAuct = firestore_connection
-                return redirect("compras")
+                return redirect("promo_payment")
             else:
                 auctionForm = productAuction()
                 promo_form = productPromote()
@@ -458,7 +458,22 @@ def add_product_Auction(request, prod_id):
     }
     return render(request, "add_product_Auction.html", context)
 
-
+def promo_payment(request):
+    user = request.session.get("usuario")
+    if user == "NoExist" or user == None:
+        return redirect('home')
+    if request.method == "POST":
+        promoForm = promoPayment(request.POST)
+        if promoForm.is_valid():
+            return redirect("compras")
+        else:
+            return render(request, "promo_payment.html",context)
+    form = promoPayment()
+    context = {
+        "title": "Pago de promocion",
+        "form":  form,
+    }
+    return render(request, "promo_payment.html",context)
 
 
 def modify_product(request,prod_id):
