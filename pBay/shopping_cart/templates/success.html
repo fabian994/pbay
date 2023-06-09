@@ -1,0 +1,32 @@
+{% include "layouts/header.html"%}
+{% block content %}
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Carrito de Compra</title>
+      <script src="https://kit.fontawesome.com/5aac42e89b.js" crossorigin="anonymous"></script>
+      
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+      <!-- No esta leyendo "carrito.css" a pesar de que antes si lo leia bien y no se le habia movido nada.
+      Pasar todo el codigo igual a otro archivo con nombre "carrito1.css" fue la solucion temporal-->
+      <link rel="stylesheet" href="{% static 'styles/carrito1.css' %}" />
+    </head>
+    <body>
+      
+        <main>
+            <br>
+            <br>
+            <br>
+            {% load static %}
+            <div class="title"> ¡Compra realizada! </div>
+            <div class="title">
+                <img src="{% static 'assets/success.png' %}" width="420" height="360" alt="Carrito vacio"/>
+            </div>
+        </main>
+    </body>
+  </html>
+{% endblock %}
