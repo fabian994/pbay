@@ -259,10 +259,10 @@ def add_product(request):
                 #return render(request, "add_product.html", context)
                 print("Product added to the DataBase")
                 messages.success(request, "Producto añadido correctamente")
-                if saleType == 'false':
+                if saleType == False:
                     print('to redirect')
                     return redirect('add_direct_sale_prod', prod_id = prod_id)
-                elif saleType == 'true':
+                elif saleType == True:
                     print('to redirect')
                     return redirect('add_prod_auctions', prod_id = prod_id)
             except Exception as e:
@@ -422,6 +422,7 @@ def add_product_Auction(request, prod_id):
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
+                #liveAuct = firestore_connection
                 return redirect("compras")
             else:
                 auctionForm = productAuction()
@@ -505,7 +506,6 @@ def modify_product(request,prod_id):
             
             if data['condition'] == 'false': data['condition'] = False
             else: data['condition'] = True
-
             if data['promote'] == 'false': data['promote'] = False
             else: data['promote'] = True
 

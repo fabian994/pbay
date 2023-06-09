@@ -319,9 +319,8 @@ def infoventas(user, action):
                                     datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], url_imagen, docId])
     return response
 
-
 def infoProductos(id):
-    documento=db.collection('products').document(id).get()
+    documento = db.collection('products').document(id).get()
     datos = documento.to_dict()
     tipo = datos['saleType']
     if bool(tipo):
@@ -334,24 +333,36 @@ def infoProductos(id):
         condition = "Nuevo"
     else:
         condition = "Usado"
+    
     response = []
-    ruta_imagen = "products/"+documento.id+"/"+datos['mainImg']
+    ruta_imagen = "products/" + documento.id + "/" + datos['mainImg']
     docId = documento.id
     bucket = st.bucket()
     imagen_ref = bucket.blob(ruta_imagen)
     expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-    url_imagen = imagen_ref.generate_signed_url(expiration=int(
-    expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-    if tipo == "Venta Directa":
-        response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                        datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'], 
-                        url_imagen, docId, datos['shippingFee']])
-    if tipo == "Subasta":
-        response.append([datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
-                        datos['Model'], condition, tipo, datos['pubDate'], 
-                        url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd']])
-    return response
+    url_imagen = imagen_ref.generate_signed_url(expiration=int(expiracion.timestamp()))
 
+    ruta_imagen2 = "products/" + documento.id + "/"
+    url_imagen2 = []
+    for image in datos['images']:
+        imagen_ref2 = bucket.blob(ruta_imagen2 + image)
+        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        url_imagen2.append(imagen_ref2.generate_signed_url(expiration=int(expiracion.timestamp())))
+
+    if tipo == "Venta Directa":
+        response.append([
+            datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
+            datos['Model'], condition, tipo, datos['Price'], datos['Stock'], datos['pubDate'],
+            url_imagen, docId, datos['shippingFee'], url_imagen2
+        ])
+    if tipo == "Subasta":
+        response.append([
+            datos['prodName'], datos['category'], datos['prodDesc'], datos['Brand'],
+            datos['Model'], condition, tipo, datos['pubDate'],
+            url_imagen, docId, datos['shippingFee'], datos['initialOffer'], datos['auctionDateEnd'], url_imagen2
+        ])
+
+    return response
 
 def firestore_connection(col):
     try:
@@ -700,35 +711,80 @@ def getRecomendations():
     return(response)
 
 def getCart(user):
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').get()
-    documentos = subcoleccion
-    print(documentos)
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    print(snapshot)
     response = []
     subtotal = 0
     shipping_fee = 0
-    for doc in documentos:
-        print('ENTRA')
-        datos = doc.to_dict()
-        print(datos)
-        print('meow')
 
-        subtotal += datos['Price'] * datos['prodAmount']
-        shipping_fee += datos['shippingFee']
+    if snapshot.exists:
+        print('*********ENTRA SNAPSHOT')
+        data_snapshot = snapshot.to_dict()
+        products = data_snapshot.get('items')
+        print('PRINT PRODUCTS')
+        print(products)
+
+        if products:
+            print('*********ENTRA PRODUCTOS')
+
+            counts = dict(Counter(products))
+            duplicates = {key:value for key, value in counts.items() if value > 0}
+
+            print(duplicates)
+
+            for item in duplicates:
+
+                # Count how many times theres the same item in the shopping cart
+                #if i =
+                documento = db.collection('products').document(item).get()
+                datos = documento.to_dict()
+                #print(datos)
+
+                print('ENTRA')
+                
+                ruta_imagen = "products/"+item+"/"+datos['mainImg']
+                docId = item
+                bucket = st.bucket()
+                imagen_ref = bucket.blob(ruta_imagen)
+                expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
+                url_imagen = imagen_ref.generate_signed_url(expiration=int(
+                expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
+                # Enviar prodDesc
+                response.append([datos['prodName'], datos['Price'] * duplicates[item], duplicates[item], url_imagen, docId, datos['shippingFee']])
+                print(response)
+            
+            
+            for item in response:
+                print('Entra items loop')
+                print(item[1])
+                # item[1] es precio
+                # item[2] es cantidad
+                # item[5] es costo de envio
+                subtotal += item[1]
+                shipping_fee += item[5]
+
+            total = subtotal + shipping_fee
+            print(total)
+            prices = [subtotal, shipping_fee, total]
+
+            print('entra final')
+            print(response)
+            print(prices)
+
+            documento = db.collection('users').document(user["localId"]).get()
+            datos = documento.to_dict()
+            my_list = list(datos.values())
+
+            return response, prices
         
-        ruta_imagen = "products/"+doc.id+"/"+datos['mainImg']
-        docId = doc.id
-        bucket = st.bucket()
-        imagen_ref = bucket.blob(ruta_imagen)
-        expiracion = datetime.datetime.now() + datetime.timedelta(minutes=5)
-        url_imagen = imagen_ref.generate_signed_url(expiration=int(
-        expiracion.timestamp()))  # Caducidad de 5 minutos (300 segundos)
-        # Enviar prodDesc
-        response.append([datos['prodName'], datos['Price'] * datos['prodAmount'], datos['prodAmount'], url_imagen, docId])
-        print(response)
-    total = subtotal + shipping_fee
-    prices = [subtotal, shipping_fee, total]
-    return response, prices
+        else:
+            print('NO HAY ELEMENTOS')
+            return 0, 0
+        
+    else:
+        print('NO HAY ELEMENTOS')
+        return 0, 0
+
 
 def addWish(product, user, array_name):
     documento_ref = db.collection('wishList').document(user["localId"]).get()
@@ -745,18 +801,32 @@ def getArrayNames(user):
     return list(data.keys()) if data else []
 
 def delete_item(user, product_id):
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').document(product_id).delete()
+    print('ENTRA DELETE ITEM')
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
+    print(items)
+   # items.remove(product_id)
+    items = [i for i in items if i != product_id]
+    db.collection('cart').document(user["localId"]).update({"items": list(items)})
+    print(items)
 
 def increase_item(user, product_id, amount):
-    amount += 1
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
+    items.append(product_id)
+    db.collection('cart').document(user["localId"]).update({"items": list(items)})
 
 def decrease_item(user, product_id, amount):
-    amount -= 1
-    documentopadre = db.collection('cart').document(user["localId"])
-    subcoleccion = documentopadre.collection('cartProducts').document(product_id).update({"prodAmount": amount})
+    snapshot = db.collection('cart').document(user["localId"]).get()
+    data_snapshot = snapshot.to_dict()
+    my_list = list(data_snapshot.values())
+    items = list(my_list[0])
+    items.remove(product_id)
+    db.collection('cart').document(user["localId"]).update({"items": list(items)})
 
 def process_transaction(user, prices):
     snapshot = db.collection('cart').document(user["localId"]).get()
@@ -785,7 +855,7 @@ def process_transaction(user, prices):
                 productdoc = db.collection('products').document(item).get()
                 productdata = productdoc.to_dict()
 
-                new_stock = int(productdata['Stock']) - int(duplicates[item])
+                new_stock = int(productdata['Stock']) - int(duplicates[item]) # Calcula el nuevo inventario
 
                 transaction = {}
                 transaction = {'buyerId' : user["localId"]}
@@ -806,7 +876,7 @@ def process_transaction(user, prices):
                                     })
                 print(transaction)
                 db.collection('transactions').add(transaction) # Agregar transaccion en base de datos
-                db.collection('products').document(item).update({'Stock': int(new_stock)}) # Actualizar mercancia
+                db.collection('products').document(item).update({'Stock': int(new_stock)}) # Actualizar inventario
                 db.collection('cart').document(user["localId"]).delete() # Limpiar el carrito
 
 
