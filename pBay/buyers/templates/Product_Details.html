@@ -1,4 +1,6 @@
+<!-- GEtting the header for the page-->
 {% include "layouts/header.html"%}
+<!-- COntent of the page-->
 {% block content %}
 
   {% load static %}
@@ -12,215 +14,210 @@
 
       <link rel="stylesheet" href="{% static 'styles/styleb.css' %}" />
 
+      <!-- Getting bootstrap-->
       {% load bootstrap5 %}
       {% bootstrap_css %}
       {% bootstrap_javascript %}
     </head>
-      <body>
-                <!-- Navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                  <div class="container px-4 px-lg-5"></div>
-              </nav>
-              <!-- Product section-->
-            
-            
-            <div style="width:97%; margin-left: 3%">
-              {% for item in infoDet %}
-             <div class="containerIm" style="width:35% ;padding:2%">
-              <div class="column" style="width: 20%; margin-top: 3%;">
-                {% for image in item.13 %}
+
+    <body>
+      <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5"></div>
+      </nav>
+      <!-- Product section-->
+      <div style="width:97%; margin-left: 3%">
+        <!-- Image carrousel-->
+        {% for item in infoDet %}
+          <div class="containerIm" style="width:35% ;padding:2%">
+            <div class="column" style="width: 20%; margin-top: 3%;">
+              {% for image in item.13 %}
                 <div class="row">
                   <img src="{{ image }}" style="margin-bottom: 5%; height: 80px" onclick="changeMainImage('{{ image }}')">
                 </div>
-                {% endfor %}
-              </div>
-              <div class="column" style="width: 80%">
-                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-                <img id="expandedImg" src="{{ item.13.0 }}" style="width: 100%; height: 400px">
-              </div>
-
-              </div> 
-              
-              <div class="containerIm" style="width:40%;margin-left:2%; float:left">
-                <div class="column">
-                  <h3 class="display-6 fw-bolder" id="prodName">{{ item.0 }} </h3>
-                  <p class="lead">{{ item.2 }} <br> Marca: {{ item.3 }}  <br> Modelo: {{ item.4 }}  <br> </p>
-                  <div class="fs-4 mb-4">
-                    <span> Precio: ${{ item.7 }}  + ${{ item.12 }}  de envío</span>
-                  </div>
-                  <div d-flex-row>
-                    <span class="lead"> Estado:  </span>
-                    <span class="lead"><strong>{{ item.5 }}</strong></span>
-                  </div>
-                  <p class="lead">{{ item.1 }}</p>
-                  <div class="fs-5 mb-5">
-                    {% if item.8 == 0 %}
-                      <span style="color: red">En stock: {{ item.8 }}</span>
-                    {% else %}
-                      <span style="color: green">En stock: {{ item.8 }}</span>
-                    {% endif %}
-                  </div>
-                  
-                </div>
-              </div>
-              {% endfor %}
-
-              <div class="containerIm" style="width:15%; float:left; margin-left:3%">
-                
-                <div class="row">
-                  <button style="width: 100%" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Agregar a Favoritos
-                  </button>
-                  <form id="wish-form" method="POST">
-                    {% csrf_token %}
-                    <div class="dropdown-menu" style="width: 15%; margin-left: 0.5%;" id="dropdown-menu">
-                      <button class="dropdown-item" onclick="getDataW('{{ infoDet.0.11 }}', 'Wish')" type="button" name="wish">WishList</button>
-                      <button class="dropdown-item" onclick="createNewArray('{{ infoDet.0.11 }}')" type="button" name="new-array">Crear Nuevo</button>
-                    </div>
-                  </form>
-                </div>
-                
-                
-              
-                <br>
-
-                <div class="row">
-                  {% if infoDet.0.8 > 0 %}
-                    <button style="width: 100%" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
-                      <i class="bi-cart-fill me-1"></i>
-                      Agregar al carrito
-                    </button>
-                  {% else %}
-                    <button style="width: 100%; display: none;" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
-                      <i class="bi-cart-fill me-1"></i>
-                      Agregar al carrito
-                    </button>
-                  {% endif %}
-                </div>
-                     
-              </div>
-
+             {% endfor %}
             </div>
-            
-  
-      
-              <!-- Bootstrap core JS-->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-              <!-- Core theme JS-->
-            <script src="js/scripts.js"></script>
-      </body>
-    </html>
+            <div class="column" style="width: 80%">
+              <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+              <img id="expandedImg" src="{{ item.13.0 }}" style="width: 100%; height: 400px">
+            </div>
+          </div> 
+          <!-- Product description-->
+          <div class="containerIm" style="width:40%;margin-left:2%; float:left">
+            <div class="column">
+              <h3 class="display-6 fw-bolder" id="prodName">{{ item.0 }} </h3>
+              <p class="lead">{{ item.2 }} <br> Marca: {{ item.3 }}  <br> Modelo: {{ item.4 }}  <br> </p>
+              <div class="fs-4 mb-4">
+                <span> Precio: ${{ item.7 }}  + ${{ item.12 }}  de envío</span>
+              </div>
+              <div d-flex-row>
+                <span class="lead"> Estado:  </span>
+                <span class="lead"><strong>{{ item.5 }}</strong></span>
+              </div>
+              <p class="lead">{{ item.1 }}</p>
+              <div class="fs-5 mb-5">
+                {% if item.8 == 0 %}
+                  <!-- If the product is not in stock it'll display the text in red-->
+                  <span style="color: red">En stock: {{ item.8 }}</span>
+                {% else %}
+                  <!-- If the product is in stock it'll display the text in green-->
+                  <span style="color: green">En stock: {{ item.8 }}</span>
+                {% endif %}
+              </div>       
+            </div>
+          </div>
+        {% endfor %}
+        
+        <div class="containerIm" style="width:15%; float:left; margin-left:3%">      
+          <div class="row">
+            <!-- Create a favorites botton-->
+            <button style="width: 100%" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Agregar a Favoritos
+            </button>
+            <form id="wish-form" method="POST">
+              {% csrf_token %}
+              <div class="dropdown-menu" style="width: 15%; margin-left: 0.5%;" id="dropdown-menu">
+                <!-- Create a button to add the product infromation to WishList-->
+                <button class="dropdown-item" onclick="getDataW('{{ infoDet.0.11 }}', 'Wish')" type="button" name="wish">WishList</button>
+                <!-- Create a button to make a new WishList-->
+                <button class="dropdown-item" onclick="createNewArray('{{ infoDet.0.11 }}')" type="button" name="new-array">Crear Nuevo</button>
+              </div>
+            </form>
+          </div>
+          
+          <br>
+
+          <div class="row">
+            {% if infoDet.0.8 > 0 %}
+              <!-- Button that adds the product info to cart if it's in stock-->
+              <button style="width: 100%" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
+                <i class="bi-cart-fill me-1"></i>
+                Agregar al carrito
+              </button>
+            {% else %}
+              <!-- if the product is not in stock the button disappears-->
+              <button style="width: 100%; display: none;" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
+                <i class="bi-cart-fill me-1"></i>
+                Agregar al carrito
+              </button>
+            {% endif %}
+          </div>       
+        </div>
+      </div>
+    </body>
+  </html>
 {% endblock %}
 
-
 <script>
-
+  // This function makes the main image in the image carrousel change
   function changeMainImage(imageUrl) {
-  var expandedImg = document.getElementById('expandedImg');
-  expandedImg.src = imageUrl;
+    var expandedImg = document.getElementById('expandedImg');
+    expandedImg.src = imageUrl;
   }
   
+  // This function gets the product information to add it to cart in Firebase
   function getData(itemValue){
     console.log(itemValue)
     $.ajax({
-            type: "POST",
-            url: "/addCarrito/",
-            async: false,
-            data: {
-                "item": itemValue,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-  
-            },
-            success: function (data) {
-                alert("Producto agregado exitosamente al Carrito");
-            },
-            failure: function (data) {
-                alert("Ha ocurrido un error, intentalo en unos minutos");
-            }
-          })
-  
+      type: "POST",
+      url: "/addCarrito/",
+      async: false,
+      data: {
+        "item": itemValue,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function (data) {
+        alert("Producto agregado exitosamente al carrito");
+      },
+      failure: function (data) {
+        // If any problem appears we get an alert
+        alert("Ha ocurrido un error, intentalo en unos minutos");
+      }
+    })
   }
 
+  // This function gets the product information to wishList in Firebase
   function getDataW(itemValue, arrayName) {
     console.log(itemValue, arrayName);
     $.ajax({
-        type: "POST",
-        url: "/addWishList/",
-        data: {
-            "wish": itemValue,
-            "arrayName": arrayName,
-            "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
-        },
-        success: function (data) {
-            alert("Producto agregado exitosamente a " + arrayName);
-        },
-        error: function () {
-            alert("Ha ocurrido un error, intentalo en unos minutos");
-        }
-    });
-}
-
-
-function createNewArray(itemValue) {
-  var newArrayName = prompt("Ingrese el nombre para el nuevo arreglo");
-  if (newArrayName) {
-    $.ajax({
       type: "POST",
-      url: "/createNewArray/",
+      url: "/addWishList/",
       data: {
         "wish": itemValue,
-        "arrayName": newArrayName,
+        "arrayName": arrayName,
         "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
       },
-      success: function(data) {
-        alert("Nueva Lista creada, producto agregado exitosamente a: " + newArrayName);
-
-        // Actualiza el menu desplegable con las nuevas opciones
-        var dropdownMenu = document.getElementById("dropdown-menu");
-        var newButton = document.createElement("button");
-        newButton.className = "dropdown-item";
-        newButton.innerHTML = newArrayName;
-        dropdownMenu.insertBefore(newButton, dropdownMenu.firstChild);
+      success: function (data) {
+        alert("Producto agregado exitosamente a " + arrayName);
       },
-      error: function() {
+      error: function () {
+        // If any error appears we get an alert
         alert("Ha ocurrido un error, intentalo en unos minutos");
       }
     });
   }
-}
 
-function populateArrayNames() {
-  const dropdownMenu = document.getElementById('dropdown-menu');
-
-  // Eliminar las opciones existentes
-  dropdownMenu.innerHTML = '';
-
-  // Traer los nombres del arreglo
-  $.ajax({
-    type: 'GET',
-    url: '/fetch_array_names/',
-    success: function(data) {
-      data.arrayNames.forEach(function(arrayName) {
-        const button = document.createElement('button');
-        button.className = 'dropdown-item';
-        button.textContent = arrayName;
-        button.setAttribute('onclick', `getDataW('{{ infoDet.0.11 }}', '${arrayName}')`);
-        dropdownMenu.appendChild(button);
+  // This allows the user to create a new wishlist
+  function createNewArray(itemValue) {
+    var newArrayName = prompt("Ingrese el nombre para el nuevo arreglo");
+    if (newArrayName) {
+      $.ajax({
+        type: "POST",
+        url: "/createNewArray/",
+        data: {
+          "wish": itemValue,
+          "arrayName": newArrayName,
+          "csrfmiddlewaretoken": $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(data) {
+          alert("Nueva Lista creada, producto agregado exitosamente a: " + newArrayName);
+          // It updates the wish list dropdown menu
+          var dropdownMenu = document.getElementById("dropdown-menu");
+          var newButton = document.createElement("button");
+          newButton.className = "dropdown-item";
+          newButton.innerHTML = newArrayName;
+          dropdownMenu.insertBefore(newButton, dropdownMenu.firstChild);
+        },
+        error: function() {
+          // If any error appears we get an alert
+          alert("Ha ocurrido un error, intentalo en unos minutos");
+        }
       });
-
-      // Add the option to create a new list
-      const newButton = document.createElement('button');
-      newButton.className = 'dropdown-item';
-      newButton.textContent = 'Crear Nuevo';
-      newButton.setAttribute('onclick', `createNewArray('{{ infoDet.0.11 }}')`);
-      dropdownMenu.appendChild(newButton);
-    },
-    error: function() {
-      console.error('Error fetching array names');
     }
-  });
-}
+  }
 
-populateArrayNames();
+  // This allows the user to create a new wishlist
+  function populateArrayNames() {
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    // Deletes the existing options
+    dropdownMenu.innerHTML = '';
+    // Get the names form the array
+    $.ajax({
+      type: 'GET',
+      url: '/fetch_array_names/',
+      success: function(data) {
+        data.arrayNames.forEach(function(arrayName) {
+          const button = document.createElement('button');
+          button.className = 'dropdown-item';
+          button.textContent = arrayName;
+          button.setAttribute('onclick', `getDataW('{{ infoDet.0.11 }}', '${arrayName}')`);
+          dropdownMenu.appendChild(button);
+        });
+        // Add the option to create a new list
+        const newButton = document.createElement('button');
+        newButton.className = 'dropdown-item';
+        newButton.textContent = 'Crear Nuevo';
+        newButton.setAttribute('onclick', `createNewArray('{{ infoDet.0.11 }}')`);
+        dropdownMenu.appendChild(newButton);
+      },
+      error: function() {
+        // If any error appears we get a message
+        console.error('Error recuperado el nombre de los arreglos');
+      }
+    });
+  }
 
+  //Call the populateArrayNames function
+  populateArrayNames();
+  
 </script>
