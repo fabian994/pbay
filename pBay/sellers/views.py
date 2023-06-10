@@ -466,11 +466,15 @@ def promo_payment(request):
     if user == "NoExist" or user == None:
         return redirect('home')
     if request.method == "POST":
-        promoForm = promoPayment(request.POST)
-        if promoForm.is_valid():
+        form = promoPayment(request.POST)
+        context = {
+            "title": "Pago de promocion",
+            "form":  form,
+        }
+        if form.is_valid():
             return redirect("compras")
         else:
-            return render(request, "promo_payment.html",context)
+            return redirect("compras")
     form = promoPayment()
     context = {
         "title": "Pago de promocion",
