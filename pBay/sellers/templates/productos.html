@@ -25,7 +25,7 @@
                 <a href="{% url 'add_product' %}"><button type="button" style="padding:5px;" > Agregar un producto</button></a>
             </div>
             {% for item in htmlinfo %}
-                {% if item.3 == 'Venta Directa' %}
+                {% if item.3 == "Venta Directa" %}
                     
                     <div class="mosaic-parent">
                         <div class="mosaic-child">
@@ -46,7 +46,7 @@
                             <a href="{% url 'detalles_producto' %}?id={{item.2}}"><button class="product-button" type="button"> Ver detalles</button></a>
                         </section>
                     </div>
-                    {% else %}
+                {% else %}
                         <div class="mosaic-parent">
                             <div class="mosaic-child">
                                 <img class="product-image" src="{{item.1}}" >
@@ -66,7 +66,7 @@
                                 <a href="{% url 'detalles_producto' %}?id={{item.2}}"><button class="product-button" type="button"> Ver detalles</button></a>
                             </section>
                         </div>
-                    {% endif %}
+                {% endif %}
             {% endfor %}
        </div>
 

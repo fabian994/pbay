@@ -806,25 +806,27 @@ def delete_item(user, product_id):
     try:
         print(product_id)
         print('Entra a subasta')
+        
         auct = db.collection('liveAuctions').document(product_id).get()
         auctData = auct.to_dict()
-        print('get auct doc')
-        print(auctData)
+        if auctData.exists:
+            print('get auct doc')
+            print(auctData)
 
-        prod = db.collection('products').document(product_id).get()
-        prodName = prod.to_dict().get('prodName')
-        selleruid = prod.to_dict().get('seller_id')
-        print('into getting mail')
-        sellerMail = firestore_connection("users").document(selleruid).get()
-        sellMail = sellerMail.to_dict().get('userMail')
-        print(sellMail)
+            prod = db.collection('products').document(product_id).get()
+            prodName = prod.to_dict().get('prodName')
+            selleruid = prod.to_dict().get('seller_id')
+            print('into getting mail')
+            sellerMail = firestore_connection("users").document(selleruid).get()
+            sellMail = sellerMail.to_dict().get('userMail')
+            print(sellMail)
 
-        sendemail('Peticion de Cancelacion de Subasta', 
-                  'Un usuario solicita cancelar una subasta del articulo: ' + prodName,
-                    [sellMail])
+            sendemail('Peticion de Cancelacion de Subasta', 
+                    'Un usuario solicita cancelar una subasta del articulo: ' + prodName,
+                        [sellMail])
                   
         
-        return 0
+            return 0
     except:
         print('ENTRA DELETE ITEM')
         snapshot = db.collection('cart').document(user["localId"]).get()
@@ -862,9 +864,26 @@ def process_transaction(user, prices):
     my_list = list(data_snapshot.values())
     items = list(my_list[0])
 
+    auctBidder = db.collection('liveAuctions').where('cBidder_id', '==', user["localId"]).get()
+    auctWins = []
+    print('PRINT BIDS')
+        
+    for bid in auctBidder:
+        bidWin = bid.to_dict()
+        print(bidWin)
+        dateToday = datetime.now() + timedelta(days=0)
+        dateToday = dateToday.replace(tzinfo=pytz.UTC)
+        auctDateEnd = bidWin['auctionDateEnd']
+        if dateToday > auctDateEnd:
+            auctWins.append(bid.id)
+            db.collection('products').document(bid.id).update({'listStatus': False})
+
+    print(auctWins)
+
     if snapshot.exists:
         data_snapshot = snapshot.to_dict()
         products = data_snapshot.get('items')
+        products = products + auctWins
         print(products)
 
         addressdoc = db.collection('users').document(user["localId"]).get()
@@ -883,29 +902,57 @@ def process_transaction(user, prices):
                 productdoc = db.collection('products').document(item).get()
                 productdata = productdoc.to_dict()
 
-                new_stock = int(productdata['Stock']) - int(duplicates[item]) # Calcula el nuevo inventario
+                print(productdata)
+                if productdata['saleType'] == False: 
+                    new_stock = int(productdata['Stock']) - int(duplicates[item]) # Calcula el nuevo inventario
 
-                transaction = {}
-                transaction = {'buyerId' : user["localId"]}
-                documento = db.collection('products').document(item).get()
-                product = 'id_prod'
-                datos = documento.to_dict()
+                    transaction = {}
+                    transaction = {'buyerId' : user["localId"]}
+                    documento = db.collection('products').document(item).get()
+                    product = 'id_prod'
+                    datos = documento.to_dict()
 
-                currenttime = datetime.now().strftime("%d/%m/%Y")
-                transaction.update({product: item,                           # Generar transaccion
-                                    'price': str(datos['Price']* duplicates[item]),
-                                    'quantity': str(duplicates[item]),
-                                    'saleType': str(datos['saleType']),
-                                    'seller_id': str(datos['seller_id']),
-                                    'shippingAddress': str(data['maindirection']), 
-                                    'shippingFee': str(datos['shippingFee'] * duplicates[item]),
-                                    'tran_date': str(currenttime),
-                                    'deliveryStatus' : 'En espera de envio'
-                                    })
-                print(transaction)
-                db.collection('transactions').add(transaction) # Agregar transaccion en base de datos
-                db.collection('products').document(item).update({'Stock': int(new_stock)}) # Actualizar inventario
-                db.collection('cart').document(user["localId"]).delete() # Limpiar el carrito
+                    currenttime = datetime.now().strftime("%d/%m/%Y")
+                    transaction.update({product: item,                           # Generar transaccion
+                                        'price': str(datos['Price']* duplicates[item]),
+                                        'quantity': str(duplicates[item]),
+                                        'saleType': str(datos['saleType']),
+                                        'seller_id': str(datos['seller_id']),
+                                        'shippingAddress': str(data['maindirection']), 
+                                        'shippingFee': str(datos['shippingFee'] * duplicates[item]),
+                                        'tran_date': str(currenttime),
+                                        'deliveryStatus' : 'En espera de envio'
+                                        })
+                    print(transaction)
+                    db.collection('transactions').add(transaction) # Agregar transaccion en base de datos
+                    db.collection('products').document(item).update({'Stock': int(new_stock)}) # Actualizar inventario
+                    db.collection('cart').document(user["localId"]).update({'items': []}) # Limpiar el carrito
+                else:
+                    transaction = {}
+                    transaction = {'buyerId' : user["localId"]}
+                    documento = db.collection('products').document(item).get()
+                    winnerBid = db.collection('liveAuctions').document(item).get()
+                    bid = winnerBid.to_dict()
+                    product = 'id_prod'
+                    datos = documento.to_dict()
+
+                    currenttime = datetime.now().strftime("%d/%m/%Y")
+                    transaction.update({product: item,                           # Generar transaccion
+                                        'price': str(bid['bid']),
+                                        'quantity': str(1),
+                                        'saleType': str(datos['saleType']),
+                                        'seller_id': str(datos['seller_id']),
+                                        'shippingAddress': str(data['maindirection']), 
+                                        'shippingFee': str(datos['shippingFee'] * duplicates[item]),
+                                        'tran_date': str(currenttime),
+                                        'deliveryStatus' : 'En espera de envio'
+                                        })
+                    print(transaction)
+                    db.collection('transactions').add(transaction) # Agregar transaccion en base de datos
+                    db.collection('products').document(item).update({'delete': True}) # Actualizar inventario
+                    db.collection('cart').document(user["localId"]).update({'items': []}) # Limpiar el carrito
+                    db.collection('liveAuctions').document(item).delete() # Delete record from liveAuctions
+
 
 
 def getimage(p_id,imagename):
