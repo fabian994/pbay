@@ -146,7 +146,7 @@ def infoProductoUser(user, action):
             document2.id+"/"+dataImg['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
             expiration.timestamp()))  
                 
@@ -166,7 +166,7 @@ def infoProductoUser(user, action):
                 response.append([document.id, typeSale,  data['price'], data['shippingFee'],
                                 data['deliveryStatus'],  data['shippingAddress'], urlImage, data['tran_date']])
     #We sort by the date
-    response = sorted(response, key=lambda x: datetime.datetime.strptime(x[7], '%d/%m/%Y').date())
+    response = sorted(response, key=lambda x: datetime.strptime(x[7], '%d/%m/%Y').date())
     return response
 
 
@@ -422,7 +422,7 @@ def searchCat(category,subcategory,subcategory2):
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
             expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         if data['saleType']:
@@ -451,7 +451,7 @@ def searchList(document, user):
         imagePath = "products/"+docitem.id+"/"+dataitem['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
             expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         if dataitem['saleType']:
@@ -484,7 +484,7 @@ def search(keyword):
         imagePath = "products/"+doc.id+"/"+data['mainImg']
         bucket = st.bucket()
         imageRef = bucket.blob(imagePath)
-        expiration = datetime.datetime.now() + datetime.timedelta(minutes=5)
+        expiration = datetime.now() + timedelta(minutes=5)
         urlImage = imageRef.generate_signed_url(expiration=int(
             expiration.timestamp()))  # Caducidad de 5 minutos (300 segundos)
         if bool(data['saleType']):
@@ -566,7 +566,7 @@ def PayDetails(uid):
     for coleccion in colecciones:
         data = coleccion.to_dict()
         date = data['tran_date']
-        fecha = datetime.datetime.strptime(date, '%d/%m/%Y')
+        fecha = datetime.strptime(date, '%d/%m/%Y')
         years.append(fecha.year)
         if dictionary.get(fecha.year)==None:
             dictionary[fecha.year]={1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
@@ -585,8 +585,8 @@ def PayDetails(uid):
                 else:
                     subarray.append(str(j))
                 array.append(subarray)
-    print(datetime.datetime.now().month)
-    actual_month =datetime.datetime.now().month
+    print(datetime.now().month)
+    actual_month =datetime.now().month
     return array , days[actual_month]
 
 def addCart(product, user):
@@ -863,7 +863,7 @@ def process_transaction(user, prices):
                 product = 'id_prod'
                 datos = documento.to_dict()
 
-                currenttime = datetime.datetime.now().strftime("%d/%m/%Y")
+                currenttime = datetime.now().strftime("%d/%m/%Y")
                 transaction.update({product: item,                           # Generar transaccion
                                     'price': str(datos['Price']* duplicates[item]),
                                     'quantity': str(duplicates[item]),
@@ -884,7 +884,7 @@ def getimage(p_id,imagename):
     imageroute = 'products/'+ p_id +'/'+imagename
     bucket = st.bucket()
     imgref = bucket.blob(imageroute)
-    expiration = datetime.datetime.now()+datetime.timedelta(minutes = 5)
+    expiration = datetime.now()+ timedelta(minutes = 5)
     image_url = imgref.generate_signed_url(expiration =int(expiration.timestamp()))
     return image_url  
 
