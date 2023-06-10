@@ -1,10 +1,11 @@
-pBay - Plataforma de compra y venta de artículos
-Descripción
+# pBay - Plataforma de compra y venta de artículos
+## Descripción
 
 pBay es una plataforma en línea que permite a los usuarios comprar y vender una amplia variedad de artículos. Ya sea que estés buscando productos nuevos o usados, pBay te brinda una solución conveniente y segura para realizar transacciones comerciales.
 
 La plataforma está diseñada para satisfacer las necesidades de diversos usuarios, incluyendo pequeños fabricantes, artesanos, intermediarios y grandes corporaciones. pBay facilita el proceso de compra y venta al proporcionar una interfaz fácil de usar y una amplia gama de características.
-Características principales
+
+## Características principales
 
     Registro de usuarios: Los usuarios pueden registrarse en pBay proporcionando la información requerida, como nombres y apellidos, fecha de nacimiento, CURP (solo para residentes legales en México), identificación oficial con fotografía, direcciones de entrega, correo electrónico válido, número de teléfono y contraseña segura.
 
@@ -16,7 +17,7 @@ Características principales
 
     Ventas y subastas: Los vendedores pueden utilizar la sección "Ventas" en su perfil para agregar nuevos productos a pBay. Pueden proporcionar detalles completos del producto, como categoría, marca, modelo, condición, título y descripción, así como subir hasta 10 imágenes. También tienen la opción de destacar el producto mediante un pago adicional. Para los productos en modo de subasta, los vendedores pueden establecer la duración de la subasta, la oferta inicial y la oferta mínima aceptada.
 
-Integrantes del equipo
+## Integrantes del equipo
 
     Ana Laura Rodríguez Juradao A01366974
     Carlos Eduardo Jiménez Santiago A01769960
@@ -32,7 +33,7 @@ Integrantes del equipo
     Sergio Gutiérrez González A01769367
 
 
-Requerimientos del proyecto
+## Requerimientos del proyecto
 
 El proyecto de pBay se desarrollará utilizando las siguientes tecnologías:
 
@@ -57,8 +58,8 @@ El proyecto de pBay se desarrollará utilizando las siguientes tecnologías:
         firebase-rest-api = "*"
 
 
-El sistema también debe ser compatible con los siguientes navegadores web:
+## El sistema también debe ser compatible con los siguientes navegadores web:
     Google Chrome
     Mozilla Firefox
 
-Se recomienda utilizar la última versión estable de las tecnologías mencionadas para garantizar un rendimiento óptimo y la disponibilidad de todas las características proporcionadas por
+### Se recomienda utilizar la última versión estable de las tecnologías mencionadas para garantizar un rendimiento óptimo y la disponibilidad de todas las características proporcionadas
