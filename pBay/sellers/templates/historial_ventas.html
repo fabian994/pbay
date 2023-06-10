@@ -44,15 +44,7 @@
                           </div>
                           <div class="buttons">
                             <button onclick="details_sale('{{ sell.id }}')" class="btn btn-danger delete_button">Ver detalles</button>
-                              {% if sell.tipo and not sell.cancelled %}
-                              <form action="{% url 'cancelar_subasta' %}" method="POST">
-                                  {% csrf_token %}
-                                  <button type="submit" name="product" value="{{sell.id_prod}}" class="button red">Cancelar</button>
-                              </form>
-                              {% endif %}
-                              {% if sell.tipo and sell.cancelled %}
-                                  <div class="button red">Cancelado</div>
-                              {% endif %}
+                              
                           </div>
                       </div>
                     {% endfor %}

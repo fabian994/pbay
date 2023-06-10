@@ -65,6 +65,21 @@
                             <section class="button-section">
                                 <a href="{% url 'detalles_producto' %}?id={{item.2}}"><button class="product-button" type="button"> Ver detalles</button></a>
                             </section>
+                            
+                            {% if item.4 and item.14 == False %}
+                                    <div class="buttons">
+                                    <form action="{% url 'cancelar_subasta' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" name="product" value="{{item.2}}" class="button red">Cancelar</button>
+                                    </form>
+                            {% endif %}
+                                {% if item.4 and item.14 %}
+                                    <div class="buttons">
+                                        <div class="button red">Cancelado</div>
+                                    </div>
+                                {% endif %}
+                            
+                              
                         </div>
                 {% endif %}
             {% endfor %}

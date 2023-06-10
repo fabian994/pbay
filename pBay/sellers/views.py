@@ -404,7 +404,8 @@ def add_product_Auction(request, prod_id):
                 prod_data = {
                     'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                     'shippingFee': data['shippingFee'], 
-                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
+                    'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True,
+                    'AuctionCancelled': False
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
@@ -435,7 +436,8 @@ def add_product_Auction(request, prod_id):
             prod_data = {
                 'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                 'shippingFee': data['shippingFee'], 
-                'minimumOffer': data['minimumOffer'], 'listStatus': True
+                'minimumOffer': data['minimumOffer'], 'listStatus': True,
+                'AuctionCancelled': False
             }
             print('subi')
             ref = firestore_connection("products").document(prod_id)

@@ -216,7 +216,7 @@ def productFiltering(user, action):
             # We evaluate in what way we return the results according its saleType
             if data['saleType']==True:
                 response.append([data['pubDate'], urlImage, docId, data['prodName'], data['category'], data['prodDesc'], data['Brand'],   
-                                data['Model'], condition, typeSale, data['initialOffer'], data['minimumOffer'], data['auctionDateEnd'],data['shippingFee']])
+                                data['Model'], condition, typeSale, data['initialOffer'], data['minimumOffer'], data['auctionDateEnd'],data['shippingFee'], data['AuctionCancelled']])
             else: 
                 response.append([data['pubDate'],urlImage, docId, typeSale, data['prodName'],
                             data['category'], data['retireDate'], data['Price'], data['Stock'], data['saleType']])
@@ -411,6 +411,7 @@ def cancel_auction(id_prod):
     reslut = db.collection('products').document(id_prod).update({
         'AuctionCancelled': True
     })
+    cancelAuction = db.collection('liveAuctions').document(id_prod).delete()
 
 
 def searchCat(category,subcategory,subcategory2):
@@ -708,7 +709,7 @@ def getCart(user):
         auctDateEnd = bidWin['auctionDateEnd']
         if dateToday > auctDateEnd:
             auctWins.append(bid.id)
-            db.collection('products').document(bid.id).update({'listStatus': False})
+            #db.collection('products').document(bid.id).update({'listStatus': False})
 
     print(auctWins)
     if snapshot.exists:

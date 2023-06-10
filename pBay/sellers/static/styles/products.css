@@ -84,3 +84,16 @@
     width:80%;
     background-color: rgba(135, 135, 135, 0.208);
 }
+
+.button {
+    margin: 1rem 0;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.buttons {
+    align-self: center;
+}
