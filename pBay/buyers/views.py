@@ -72,7 +72,9 @@ def auction(request):
         if bid_Form.is_valid():
             data = bid_Form.cleaned_data
             print(data)
-            if data['newBid'] > response[0][11]:
+            cBidRef = firestore_connection("liveAuctions").document(id).get()
+            cbid = cBidRef.to_dict().get('bid')
+            if data['newBid'] > cbid:
                 dateToday = datetime.now() + timedelta(days=0)
                 dateToday = dateToday.replace(tzinfo=pytz.UTC)
                 print('today ', dateToday)
@@ -82,8 +84,11 @@ def auction(request):
 
                     ref = firestore_connection("liveAuctions").document(id)
                     ref.update(auctData)
+                    messages.success(request, "Oferta Aceptada")
                 else:
                     messages.error(request, "Oferta fuera de tiempo")
+            else:
+                messages.error(request, "Oferta Rechazada")
 
     print('response----')
     print(response[0])

@@ -435,7 +435,7 @@ def add_product_Auction(request, prod_id):
             prod_data = {
                 'auctionDateEnd': data['duration'], 'initialOffer': data['initialOffer'],
                 'shippingFee': data['shippingFee'], 
-                'minimumOffer': data['minimumOffer'], 'promoDateEnd': promoEnd, 'listStatus': True
+                'minimumOffer': data['minimumOffer'], 'listStatus': True
             }
             print('subi')
             ref = firestore_connection("products").document(prod_id)
@@ -443,7 +443,7 @@ def add_product_Auction(request, prod_id):
             
             auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 
                             'cBidder_id':'', 'auctionDateEnd': data['duration']}
-            refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
+            addAuctData(prod_id,auctData)
 
             return redirect("compras")
         else:

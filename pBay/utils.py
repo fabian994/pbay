@@ -820,8 +820,10 @@ def delete_item(user, product_id):
         sellMail = sellerMail.to_dict().get('userMail')
         print(sellMail)
 
-        sendemail('Interes de Usuario', 'un usuario muestra interes en el articulo ' + prodName
-                  , [sellMail])
+        sendemail('Peticion de Cancelacion de Subasta', 
+                  'Un usuario solicita cancelar una subasta del articulo: ' + prodName,
+                    [sellMail])
+                  
         
         return 0
     except:
