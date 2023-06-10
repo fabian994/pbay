@@ -10,7 +10,7 @@ inputSearch.onkeyup = e => {
 	let userData = e.target.value;
 	let emptyArray = [];
 
-	if (userData) {
+	if (userData.length >= 3) {
 		emptyArray = suggestions.filter(data => {
 			return data
 				.toLocaleLowerCase()
@@ -36,8 +36,7 @@ inputSearch.onkeyup = e => {
 function select(element) {
 	let selectUserData = element.textContent;
 	inputSearch.value = selectUserData;
-
-	searchLink.href = `https://www.google.com/search?q=${inputSearch.value}`;
+	
 	searchContainer.classList.remove('active');
 }
 
