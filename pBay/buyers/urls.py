@@ -18,4 +18,5 @@ urlpatterns = [
     path('createNewArray/', views.createNewArray, name='createNewArray'),
     path('selectlist/', views.addCarrito, name='selectlist'),
     path('search', views.search_products, name='search_products'),
+    path('notifySeller/', views.notifySeller, name='notifySeller'),
 ]

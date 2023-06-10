@@ -7,7 +7,7 @@ from utils import cancel_auction
 from utils import payment_detail_by_month
 from utils import infoventas
 from utils import firestore_connection, storeProductImages
-from utils import deleteVenta
+from utils import deleteVenta, sendemail
 from datetime import date
 from datetime import datetime, timedelta
 from loginSignup.views import *
@@ -273,8 +273,6 @@ def add_productDirSale(request, prod_id):
     print(product)
     print('out post')
     if request.method == "POST":
-        prod = firestore_connection("products").document(prod_id).get()
-        product = prod.to_dict()
         print('enter post')
         dir_saleForm = productDirectSale(request.POST)
         promo_form = productPromote(request.POST)
@@ -339,6 +337,7 @@ def add_productDirSale(request, prod_id):
                 }
                 ref = firestore_connection("products").document(prod_id)
                 ref.update(prod_data)
+                
                 return redirect("compras")
             else:
                 dir_saleForm = productDirectSale()
@@ -349,24 +348,11 @@ def add_productDirSale(request, prod_id):
                     "form_promo": promo_form,
                     "prod": product,
                 }
+                
                 return render(request, "add_product_directSale.html", context)
             
         else:
             return render(request, "add_product_directSale.html", context)
-    dir_saleForm = productDirectSale()
-    promo_form = productPromote()
-    context = {
-        "title": "Registro producto",
-        "form_sale": dir_saleForm,
-        "form_promo": promo_form,
-        "prod": product,
-    }
-    return render(request, "add_product_directSale.html", context)
-
-
-    prod = firestore_connection("products").document(prod_id).get()
-    product = prod.to_dict()
-    print(product)
     dir_saleForm = productDirectSale()
     promo_form = productPromote()
     context = {

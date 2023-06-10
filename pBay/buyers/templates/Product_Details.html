@@ -96,9 +96,9 @@
               </button>
             {% else %}
               <!-- if the product is not in stock the button disappears-->
-              <button style="width: 100%; display: none;" onclick="getData('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
+              <button style="width: 100%" onclick="getDataMail('{{ infoDet.0.11 }}')" class="btn btn-primary details-button" type="button" name="item">
                 <i class="bi-cart-fill me-1"></i>
-                Agregar al carrito
+                Notificar al vendedor de mi interes
               </button>
             {% endif %}
           </div>       
@@ -128,6 +128,27 @@
       },
       success: function (data) {
         alert("Producto agregado exitosamente al carrito");
+      },
+      failure: function (data) {
+        // If any problem appears we get an alert
+        alert("Ha ocurrido un error, intentalo en unos minutos");
+      }
+    })
+  }
+
+  // This function gets the product information to add it to cart in Firebase
+  function getDataMail(itemValue){
+    console.log(itemValue)
+    $.ajax({
+      type: "POST",
+      url: "/notifySeller/",
+      async: false,
+      data: {
+        "item": itemValue,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function (data) {
+        alert("Notificacion Enviada");
       },
       failure: function (data) {
         // If any problem appears we get an alert
