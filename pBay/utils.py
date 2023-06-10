@@ -185,14 +185,14 @@ def productFiltering(user, action):
             continue
         # Evalute the type sale 
         typeSale = data['saleType']
-        if typeSale == "True":
+        if typeSale:
             typeSale = "Subasta"
         else:
             typeSale = "Venta Directa"
 
         # Evalute the condition 
         condition = data['Condition']
-        if condition=="True":
+        if condition:
             condition = "Nuevo"
         else:
             condition = "Usado"
@@ -219,16 +219,15 @@ def productFiltering(user, action):
         if action == 1:
             if typeSale == "Subasta":
                 response.append([data['pubDate'], urlImage, docId, data['prodName'], data['category'], data['prodDesc'], data['Brand'],   
-                data['Model'], condition, typeSale, data['initialOffer'], data['minimumOffer'], data['auctionDateEnd'],data['shippingFee']])
-         # If the filter  is "Venta Directa" we append every document that are "Venta Directa" to the response
+                    data['Model'], condition, typeSale, data['initialOffer'], data['minimumOffer'], data['auctionDateEnd'],data['shippingFee']])
         if action == 2:
             if typeSale == "Venta Directa":
                 # We search and take the product image and append the data to the response
                 response.append([data['pubDate'],urlImage, docId, typeSale, data['prodName'],
-                data['category'], data['retireDate'], data['Price'], data['Stock'], data['saleType']])
+                    data['category'], data['retireDate'], data['Price'], data['Stock'], data['saleType']])
      #We sort by the date
     response = sorted(response, key=lambda x: DatetimeWithNanoseconds.rfc3339(x[0]))
-
+    print(response)
     return response
 
 
