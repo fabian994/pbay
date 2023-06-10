@@ -317,7 +317,7 @@ class updateInfoForm(forms.Form):
     
     phoneNumber = forms.CharField(  max_length = 10,
                                     min_length = 10, 
-                                    required = False, 
+                                    required = True, 
                                     label = "Numero Telefonico",
                                     validators=[numeros],
                                     error_messages={

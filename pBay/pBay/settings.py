@@ -135,3 +135,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST          = "smtp.gmail.com" 
+EMAIL_PORT          = "587"
+EMAIL_HOST_USER     = "pbayteam@gmail.com"
+EMAIL_HOST_PASSWORD = "fsjpntndlnsucszl" # https://support.google.com/mail/answer/7126229?hl=en
+EMAIL_USE_TLS       = True # Yes for Gmail
+RECIPIENT_ADDRESS = "pbayteam@gmail.com"

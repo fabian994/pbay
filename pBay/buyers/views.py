@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from utils import infoProductoUser, getdirection, switchMainDirection, searchCat, addCart, getWish, search, getRecomendations, productFiltering
-from utils import infoProductos, addWish, getArrayNames 
+from utils import infoProductos, addWish, getArrayNames, sendemail
 from .form import *
 from loginSignup.views import *
 from django.http import JsonResponse
@@ -11,7 +11,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import pytz
 from datetime import datetime, timedelta
-
+#sendemail('Mailtest', 'si te llego?', ['a01769961@tec.mx'])
 
 # Create your views here.
 def pedidos(request):
@@ -72,7 +72,9 @@ def auction(request):
         if bid_Form.is_valid():
             data = bid_Form.cleaned_data
             print(data)
-            if data['newBid'] > response[0][11]:
+            cBidRef = firestore_connection("liveAuctions").document(id).get()
+            cbid = cBidRef.to_dict().get('bid')
+            if data['newBid'] > cbid:
                 dateToday = datetime.now() + timedelta(days=0)
                 dateToday = dateToday.replace(tzinfo=pytz.UTC)
                 print('today ', dateToday)
@@ -82,8 +84,11 @@ def auction(request):
 
                     ref = firestore_connection("liveAuctions").document(id)
                     ref.update(auctData)
+                    messages.success(request, "Oferta Aceptada")
                 else:
                     messages.error(request, "Oferta fuera de tiempo")
+            else:
+                messages.error(request, "Oferta Rechazada")
 
     print('response----')
     print(response[0])
@@ -209,6 +214,24 @@ def addCarrito(request):
             return JsonResponse({"response": True})
         else:
             return JsonResponse({"response": False})
+    return HttpResponse(status=200)
+
+def notifySeller(request):
+    sesion = request.session.get('usuario')
+    if request.method == 'POST':
+        selected_option = request.POST.get('item')
+        print(selected_option)
+        prod = firestore_connection("products").document(selected_option).get()
+        prodName = prod.to_dict().get('prodName')
+        selleruid = prod.to_dict().get('seller_id')
+        print('into getting mail')
+        sellerMail = firestore_connection("users").document(selleruid).get()
+        sellMail = sellerMail.to_dict().get('userMail')
+        print(sellMail)
+
+        sendemail('Interes de Usuario', 'un usuario muestra interes en el articulo ' + prodName
+                  , [sellMail])
+        
     return HttpResponse(status=200)
 
 def addWishList(request):

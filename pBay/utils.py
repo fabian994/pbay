@@ -7,6 +7,7 @@ from firebase_admin import credentials
 # Import the service Firebase Realtime Database
 from firebase_admin import firestore
 from firebase_admin import storage as st
+from firebase_admin import auth as fb_auth
 
 #Import general librarys 
 from collections import Counter
@@ -21,6 +22,10 @@ from django.http import HttpResponse
 # Import librarys to manipulate times
 from google.api_core.datetime_helpers import DatetimeWithNanoseconds 
 from google.api_core.datetime_helpers import to_rfc3339
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template import loader
 
 # This configuration was used by the previous firebase project
     # "apiKey": "AIzaSyDMoLUyDxcIkcJZPeC_RoZelQ8AhxOSAvQ",
@@ -798,10 +803,27 @@ def getArrayNames(user):
     return list(data.keys()) if data else []
 
 def delete_item(user, product_id):
-    try:    
+    try:
+        print(product_id)
+        print('Entra a subasta')
         auct = db.collection('liveAuctions').document(product_id).get()
-        auct = auct.to_doc()
-        print(auct)
+        auctData = auct.to_dict()
+        print('get auct doc')
+        print(auctData)
+
+        prod = db.collection('products').document(product_id).get()
+        prodName = prod.to_dict().get('prodName')
+        selleruid = prod.to_dict().get('seller_id')
+        print('into getting mail')
+        sellerMail = firestore_connection("users").document(selleruid).get()
+        sellMail = sellerMail.to_dict().get('userMail')
+        print(sellMail)
+
+        sendemail('Peticion de Cancelacion de Subasta', 
+                  'Un usuario solicita cancelar una subasta del articulo: ' + prodName,
+                    [sellMail])
+                  
+        
         return 0
     except:
         print('ENTRA DELETE ITEM')
@@ -895,4 +917,9 @@ def getimage(p_id,imagename):
     return image_url  
 
 
-    
+def sendemail(subject, message, receivers):
+   print('into mail')
+   
+   # recipient_list = [email_tuple[1] for email_tuple in receivers]
+   send_mail(subject, message, settings.EMAIL_HOST_USER, receivers, fail_silently=True, html_message=message)
+
