@@ -2,7 +2,7 @@ from utils import PayDetails
 from django.shortcuts import render
 from .form import *
 from .models import *
-from utils import sells_history, productFiltering
+from utils import sells_history, productFiltering, addAuctData
 from utils import cancel_auction
 from utils import payment_detail_by_month
 from utils import infoventas
@@ -425,7 +425,8 @@ def add_product_Auction(request, prod_id):
 
                 auctData = {'seller_id': user['localId'], 'bid': data['initialOffer'], 
                             'cBidder_id':'', 'auctionDateEnd': data['duration']}
-                refAuct = firestore_connection("liveAuctions").add(prod_id).set(auctData)
+                addAuctData(prod_id,auctData)
+                #firestore_connection("liveAuctions").add(prod_id).set(auctData)
                 #liveAuct = firestore_connection
                 return redirect("promo_payment")
             else:

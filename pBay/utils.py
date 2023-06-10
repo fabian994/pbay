@@ -555,6 +555,11 @@ def addLista(user, direction):
         })
 # Obtener datos desde Firebase
 
+def addAuctData(prod_id,auctData):
+    documento_ref = db.collection('liveAuctions').document(prod_id)
+    documento_ref.set(
+        auctData
+    )
 
 def PayDetails(uid):
     # Obtener todas las colecciones de la base de datos
@@ -794,8 +799,10 @@ def getArrayNames(user):
     return list(data.keys()) if data else []
 
 def delete_item(user, product_id):
-    try:
+    try:    
         auct = db.collection('liveAuctions').document(product_id).get()
+        auct = auct.to_doc()
+        print(auct)
         return 0
     except:
         print('ENTRA DELETE ITEM')
